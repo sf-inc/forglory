@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "forglory",
+  "version": "${version}",
+  "name": "Forglory",
+  "description": "A mod adding passive skills",
+  "authors": [
+    "GalatynF"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/forglory/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.github.galatynf.forglory.client.ForgloryClient"
+    ],
+    "main": [
+      "com.github.galatynf.forglory.Forglory"
+    ]
+  },
+  "mixins": [
+    "forglory.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.10.0+build.208",
+    "fabric": "*",
+    "minecraft": "1.16.1"
+  }
+}
