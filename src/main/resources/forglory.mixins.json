@@ -4,6 +4,7 @@
   "package": "com.github.galatynf.forglory.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+  "AdrenalinMixin"
   ],
   "client": [
   ],
