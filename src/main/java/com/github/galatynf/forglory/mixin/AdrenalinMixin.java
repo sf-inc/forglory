@@ -2,9 +2,13 @@ package com.github.galatynf.forglory.mixin;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import org.lwjgl.system.CallbackI;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -22,6 +26,9 @@ public abstract class AdrenalinMixin extends LivingEntity {
     @Unique
     protected double adrenalin = 0;
 
+    @Unique
+    protected boolean overcharged = false;
+
     protected AdrenalinMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -36,30 +43,58 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
-    private void addAdrenalin(CallbackInfo ci) {
-        System.out.println(adrenalin);
-        if(this.isSprinting()) {
-            incrementAdrenalin(2);
-        }
-        if(onGround && jumping) {
-            incrementAdrenalin(100);
+    @Inject(at = @At("HEAD"), method = "tick")
+    private void debugDeleteAfter(CallbackInfo ci) {
+        if(isSneaking()) {
+            adrenalin = 2000;
         }
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
+    @Inject(at=@At("HEAD"), method = "tick")
+    private void addAdrenalin(CallbackInfo ci) {
+        System.out.println(adrenalin);
+        if (this.isSprinting()) {
+            incrementAdrenalin(1.1);
+        }
+    }
+
+
+    @Inject(at = @At("HEAD"), method = "jump")
+    private void incrementWhenJumping(CallbackInfo ci) {
+        incrementAdrenalin(10);
+    }
+
+    @Inject(at=@At("HEAD"), method = "tick")
     private void subtractAdrenalin(CallbackInfo ci) {
         incrementAdrenalin(-1);
-        if(isSneaking()) {
+        if (isSneaking()) {
             incrementAdrenalin(-50);
         }
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
-    private void becomeFaster(CallbackInfo ci) {
+    @Inject(at=@At("HEAD"), method = "tick")
+    private void specialAdrenalinEffects(CallbackInfo ci) {
         if(adrenalin >= 500) {
-            float speed = this.getMovementSpeed();
-            this.setMovementSpeed((float) (speed*1.5));
+            if (!overcharged) {
+                StatusEffect statusEffect = StatusEffects.SPEED;
+                this.addStatusEffect(new StatusEffectInstance(statusEffect, 1, 0));
+                overcharged = true;
+            }
+        }
+        else
+        {
+            overcharged = false;
+        }
+    }
+
+    @Inject(at=@At("INVOKE"), method = "onDeath", cancellable = true)
+    private void becomeInvulnerable(CallbackInfo ci) {
+        if(adrenalin >= 500) {
+            System.out.println("NOT DEAD YET !");
+            setHealth(1);
+            StatusEffect statusEffect = StatusEffects.RESISTANCE;
+            this.applyStatusEffect(new StatusEffectInstance(statusEffect, 10, 6));
+            ci.cancel();
         }
     }
 }

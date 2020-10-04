@@ -1,0 +1,28 @@
+4 tiers of feats :
+
+TIER 1
+- Rush : gain speed 1 effect
+- In the name of God : every attack has smite 1
+- Qilin ruse : create a fire trail behind the player
+
+TIER 2
+- Centurion's march : hunger doesn't decrease
+- Shinobi's leap : gain jump boost 2 effect
+- We didn't start the fire : gain fire resistance effect
+
+TIER 3
+- Bloodthirst : gain strength 1 effect
+- Demon's embrace : every fist attack deals 7 damage, heals for 6 hitpoints and has a
+cooldown of 10 seconds
+- INCREDIBILIS : every fist attack has knockback and stuns, 4 seconds cooldown
+- Ad profundis : blocking with a shield less than 0.5 seconds before a hit negates
+the hit and returns it to the attacker/attacks the attacker instead with the weapon
+in main hand
+
+TIER 4
+- Last stand : Upon receiving a fatal blow, the player doesn't die and instead gets invulnerability
+along with speed 2 for 10 seconds along with a health decreased to half a heart
+- Senbonzakura : instantly kills a target with 30 hitpoints or less
+- Scorched Deluge : sets every enemy in a 10 blocks radius on fire and creates a burning
+zone on the ground
+- INFIRMUS : Damage dealt to slowed enemies multiplied by 1.5
