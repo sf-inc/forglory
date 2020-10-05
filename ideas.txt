@@ -7,8 +7,9 @@ TIER 1
 
 TIER 2
 - Centurion's march : hunger doesn't decrease
-- Shinobi's leap : gain jump boost 2 effect
+- SHINOBI SET : gain jump boost 2 effect
 - We didn't start the fire : gain fire resistance effect
+- BEASTMASTER SET : summon a dog until the level is lost
 
 TIER 3
 - Bloodthirst : gain strength 1 effect
@@ -18,6 +19,8 @@ cooldown of 10 seconds
 - Ad profundis : blocking with a shield less than 0.5 seconds before a hit negates
 the hit and returns it to the attacker/attacks the attacker instead with the weapon
 in main hand
+- BEASTMASTER SET : Companions dealing damage heal you
+- SHINOBI SET : Wallrun
 
 TIER 4
 - Last stand : Upon receiving a fatal blow, the player doesn't die and instead gets invulnerability
@@ -26,3 +29,5 @@ along with speed 2 for 10 seconds along with a health decreased to half a heart
 - Scorched Deluge : sets every enemy in a 10 blocks radius on fire and creates a burning
 zone on the ground
 - INFIRMUS : Damage dealt to slowed enemies multiplied by 1.5
+- BEASTMASTER SET : enemies defeated transform into bees
+- SHINOBI SET : Become invisible while airborne
