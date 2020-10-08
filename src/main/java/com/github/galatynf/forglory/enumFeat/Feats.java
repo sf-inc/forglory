@@ -2,8 +2,6 @@ package com.github.galatynf.forglory.enumFeat;
 
 // Class only meant to regroup enums. Should not be modified in any means
 public enum Feats {
-    NONE(Tier.TIER0),
-
     DOG_SUMMON(Tier.TIER1),
     FIRE_TRAP(Tier.TIER1),
     HEALING_FIST(Tier.TIER1),
