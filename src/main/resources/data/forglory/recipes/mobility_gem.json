@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "QPQ",
+    " Q "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:sugar"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "forglory:mobility_gem",
+    "count": 1
+  }
+}

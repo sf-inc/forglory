@@ -3,6 +3,7 @@ package com.github.galatynf.forglory;
 import com.github.galatynf.forglory.items.tier0.DamageGem;
 import com.github.galatynf.forglory.items.tier0.HealGem;
 import com.github.galatynf.forglory.items.tier0.MiscGem;
+import com.github.galatynf.forglory.items.tier0.MobilityGem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
@@ -21,11 +22,13 @@ public class Forglory implements ModInitializer {
     public static final DamageGem damageGem = new DamageGem(new Item.Settings().group(forGlory));
     public static final HealGem healGem = new HealGem(new Item.Settings().group(forGlory));
     public static final MiscGem miscGem = new MiscGem(new Item.Settings().group(forGlory));
+    public static final MobilityGem mobilityGem = new MobilityGem(new Item.Settings().group(forGlory));
 
     @Override
     public void onInitialize() {
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), healGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "misc_gem"), miscGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "mobility_gem"), mobilityGem);
     }
 }
