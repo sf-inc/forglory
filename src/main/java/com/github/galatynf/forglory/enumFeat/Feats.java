@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory;
+package com.github.galatynf.forglory.enumFeat;
 
 // Class only meant to regroup enums. Should not be modified in any means
 public final class Feats {
