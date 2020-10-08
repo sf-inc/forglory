@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "forglory:item/damage_gem"
+    "layer0": "forglory:item/speed_gem"
   }
 }
