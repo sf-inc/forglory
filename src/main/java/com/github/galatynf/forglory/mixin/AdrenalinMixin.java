@@ -42,13 +42,6 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
-    private void debugDeleteAfter(CallbackInfo ci) {
-        if(isSneaking()) {
-            adrenalin = 2000;
-        }
-    }
-
     @Inject(at=@At("HEAD"), method = "tick")
     private void addAdrenalin(CallbackInfo ci) {
         System.out.println(adrenalin);
@@ -56,7 +49,6 @@ public abstract class AdrenalinMixin extends LivingEntity {
             incrementAdrenalin(1.1);
         }
     }
-
 
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
@@ -68,32 +60,6 @@ public abstract class AdrenalinMixin extends LivingEntity {
         incrementAdrenalin(-1);
         if (isSneaking()) {
             incrementAdrenalin(-50);
-        }
-    }
-
-    @Inject(at=@At("HEAD"), method = "tick")
-    private void specialAdrenalinEffects(CallbackInfo ci) {
-        if(adrenalin >= 500) {
-            if (!overcharged) {
-                StatusEffect statusEffect = StatusEffects.SPEED;
-                this.addStatusEffect(new StatusEffectInstance(statusEffect, 1, 0));
-                overcharged = true;
-            }
-        }
-        else
-        {
-            overcharged = false;
-        }
-    }
-
-    @Inject(at=@At("INVOKE"), method = "onDeath", cancellable = true)
-    private void becomeInvulnerable(CallbackInfo ci) {
-        if(adrenalin >= 500) {
-            System.out.println("NOT DEAD YET !");
-            setHealth(1);
-            StatusEffect statusEffect = StatusEffects.RESISTANCE;
-            this.applyStatusEffect(new StatusEffectInstance(statusEffect, 10, 6));
-            ci.cancel();
         }
     }
 }
