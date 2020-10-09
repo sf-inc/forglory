@@ -38,7 +38,7 @@ public class Forglory implements ModInitializer {
     @Override
     public void onInitialize() {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), new BlockItem(essenceInfuser, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+        Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
