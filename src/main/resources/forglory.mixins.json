@@ -7,6 +7,7 @@
     "AdrenalinMixin",
     "FeatsMixin",
     "mobility.SpeedMixin",
+    "heal.FireResistanceMixin"
     "damage.StrengthMixin"
   ],
   "client": [

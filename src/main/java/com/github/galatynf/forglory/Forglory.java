@@ -6,6 +6,7 @@ import com.github.galatynf.forglory.items.tier0.HealGem;
 import com.github.galatynf.forglory.items.tier0.MiscGem;
 import com.github.galatynf.forglory.items.tier0.MobilityGem;
 import com.github.galatynf.forglory.items.tier1.SpeedGem;
+import com.github.galatynf.forglory.items.tier2.FireResistanceGem;
 import com.github.galatynf.forglory.items.tier2.StrengthGem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -32,7 +33,8 @@ public class Forglory implements ModInitializer {
     public static final MobilityGem mobilityGem = new MobilityGem(new Item.Settings().group(forGlory));
 
     public static final SpeedGem speedGem = new SpeedGem(new Item.Settings().group(forGlory));
-    
+
+    public static final FireResistanceGem fireResistanceGem = new FireResistanceGem(new Item.Settings().group(forGlory));
     public static final StrengthGem strengthGem = new StrengthGem(new Item.Settings().group(forGlory));
 
     @Override
@@ -47,6 +49,7 @@ public class Forglory implements ModInitializer {
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "speed_gem"), speedGem);
 
+        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_resistance_gem"), fireResistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);
     }
 }

@@ -1,9 +1,9 @@
 {
-  "block.forglory.essence_infuser": "Essence Infuser",
-  "item.forglory.damage_gem": "Damage Gem",
-  "item.forglory.heal_gem": "Heal Gem",
-  "item.forglory.misc_gem": "Misc Gem",
-  "item.forglory.mobility_gem": "Mobility Gem",
-  "item.forglory.speed_gem": "Speed Gem",
+  "item.forglory.damage.damage_gem": "Damage Gem",
+  "item.forglory.heal.heal_gem": "Heal Gem",
+  "item.forglory.misc.misc_gem": "Misc Gem",
+  "item.forglory.mobility.mobility_gem": "Mobility Gem",
+  "item.forglory.mobility.speed_gem": "Speed Gem",
+  "item.forglory.heal.fire_resistance_gem": "Fire Resistance Gem",
   "item.forglory.strength_gem": "Strength Gem"
 }
