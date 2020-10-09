@@ -1,8 +1,10 @@
 package com.github.galatynf.forglory.mixin;
 
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
+import jdk.vm.ci.code.site.Call;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinMixin {
@@ -51,6 +54,18 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
         incrementAdrenalin(10);
+    }
+
+    @Inject(at = @At("HEAD"), method = "damage")
+    private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if(source.getAttacker() instanceof LivingEntity) {
+            incrementAdrenalin(amount * 10);
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "handleFallDamage")
+    private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
+        incrementAdrenalin(fallDistance * 5);
     }
 
     @Inject(at=@At("HEAD"), method = "tick")

@@ -6,7 +6,8 @@
   "mixins": [
     "AdrenalinMixin",
     "FeatsMixin",
-    "mobility.SpeedMixin"
+    "mobility.SpeedMixin",
+    "damage.StrengthMixin"
   ],
   "client": [
   ],
