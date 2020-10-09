@@ -1,10 +1,8 @@
 package com.github.galatynf.forglory.mixin;
 
+import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -16,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public abstract class AdrenalinMixin extends LivingEntity {
+public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinMixin {
 
     @Shadow protected abstract SoundEvent getHighSpeedSplashSound();
 
@@ -61,5 +59,10 @@ public abstract class AdrenalinMixin extends LivingEntity {
         if (isSneaking()) {
             incrementAdrenalin(-50);
         }
+    }
+
+    @Override
+    public double getAdrenalin() {
+        return adrenalin;
     }
 }
