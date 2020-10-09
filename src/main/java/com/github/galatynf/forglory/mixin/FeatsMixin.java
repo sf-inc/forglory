@@ -14,6 +14,11 @@ public class FeatsMixin implements IFeatsMixin {
     private HashMap<Tier, Feats> feats = new HashMap<>();
 
     @Override
+    public Feats getFeat(final Tier tier) {
+        return feats.get(tier);
+    }
+
+    @Override
     public void addOrUpdateFeat(final Feats feat) {
         feats.put(feat.tier, feat);
     }
