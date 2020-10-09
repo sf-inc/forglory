@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "forglory:block/essence_infuser_side",
+    "north": "forglory:block/essence_infuser_side",
+    "south": "forglory:block/essence_infuser_side",
+    "east": "forglory:block/essence_infuser_side",
+    "west": "forglory:block/essence_infuser_side",
+    "up": "forglory:block/essence_infuser_top",
+    "down": "forglory:block/essence_infuser_bottom"
+  }
+}
