@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
+import com.github.galatynf.forglory.items.DebugItem;
 import com.github.galatynf.forglory.items.tier0.DamageGem;
 import com.github.galatynf.forglory.items.tier0.HealGem;
 import com.github.galatynf.forglory.items.tier0.MiscGem;
@@ -37,6 +38,8 @@ public class Forglory implements ModInitializer {
     public static final FireResistanceGem fireResistanceGem = new FireResistanceGem(new Item.Settings().group(forGlory));
     public static final StrengthGem strengthGem = new StrengthGem(new Item.Settings().group(forGlory));
 
+    public static final DebugItem debugItem = new DebugItem(new Item.Settings().group(forGlory));
+
     @Override
     public void onInitialize() {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
@@ -51,5 +54,7 @@ public class Forglory implements ModInitializer {
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "fire_resistance_gem"), fireResistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);
+
+        Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
     }
 }
