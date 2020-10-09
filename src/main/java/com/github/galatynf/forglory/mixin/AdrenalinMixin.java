@@ -33,16 +33,6 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
         super(entityType, world);
     }
 
-    private void incrementAdrenalin(double amount) {
-        adrenalin += amount;
-        if(adrenalin >= 10000) {
-            adrenalin = 10000;
-        }
-        if(adrenalin <= 0) {
-            adrenalin = 0;
-        }
-    }
-
     @Inject(at=@At("HEAD"), method = "tick")
     private void addAdrenalin(CallbackInfo ci) {
         System.out.println(adrenalin);
@@ -79,5 +69,16 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Override
     public double getAdrenalin() {
         return adrenalin;
+    }
+
+    @Override
+    public void incrementAdrenalin(final double amount) {
+        adrenalin += amount;
+        if(adrenalin >= 10000) {
+            adrenalin = 10000;
+        }
+        if(adrenalin <= 0) {
+            adrenalin = 0;
+        }
     }
 }
