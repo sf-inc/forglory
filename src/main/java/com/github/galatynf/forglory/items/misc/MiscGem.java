@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.items.tier0;
+package com.github.galatynf.forglory.items.misc;
 
 import com.github.galatynf.forglory.items.Gem;
 

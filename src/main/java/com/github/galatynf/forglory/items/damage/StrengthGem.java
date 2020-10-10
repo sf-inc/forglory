@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.items.tier2;
+package com.github.galatynf.forglory.items.damage;
 
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.items.PoweredGem;
