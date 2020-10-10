@@ -11,7 +11,7 @@ import java.util.HashMap;
 @Mixin(PlayerEntity.class)
 public class FeatsMixin implements IFeatsMixin {
     @Unique
-    private HashMap<Tier, Feats> feats = new HashMap<>();
+    private final HashMap<Tier, Feats> feats = new HashMap<>();
 
     @Override
     public Feats getFeat(final Tier tier) {

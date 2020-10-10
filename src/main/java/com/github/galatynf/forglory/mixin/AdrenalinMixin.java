@@ -1,7 +1,6 @@
 package com.github.galatynf.forglory.mixin;
 
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import jdk.vm.ci.code.site.Call;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
