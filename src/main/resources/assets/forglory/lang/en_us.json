@@ -1,10 +1,32 @@
 {
   "item.forglory.damage_gem": "Damage Gem",
-  "item.forglory.heal_gem": "Heal Gem",
-  "item.forglory.misc_gem": "Misc Gem",
-  "item.forglory.mobility_gem": "Mobility Gem",
-  "item.forglory.speed_gem": "Speed Gem",
-  "item.forglory.fire_resistance_gem": "Fire Resistance Gem",
+  "item.forglory.fire_trail_gem": "Fire Trail Gem",
+  "item.forglory.smite_gem": "Smite Gem",
   "item.forglory.strength_gem": "Strength Gem",
+  "item.forglory.damage_slowed_gem": "Damage Slowed Gem",
+  "item.forglory.fire_zone_gem": "Fire Zone Gem",
+  "item.forglory.fireworker_gem": "Fireworker Gem",
+  "item.forglory.instant_kill_gem": "Instant Kill Gem",
+
+  "item.forglory.heal_gem": "Heal Gem",
+  "item.forglory.healing_fist_gem": "Healing Fist Gem",
+  "item.forglory.fire_resistance_gem": "Fire Resistance Gem",
+  "item.forglory.companion_heal_gem": "Companion Heal Gem",
+  "item.forglory.shield_gem": "Shield Gem",
+  "item.forglory.last_stand_gem": "Last Stand Gem",
+
+  "item.forglory.misc_gem": "Misc Gem",
+  "item.forglory.dog_gem": "Dog Gem",
+  "item.forglory.knockback_fist_gem": "Knockback Fist Gem",
+  "item.forglory.mountain_gem": "Mountain Gem",
+  "item.forglory.bees_gem": "Bees Gem",
+  "item.forglory.invisible_gem": "Invisible Gem",
+
+  "item.forglory.mobility_gem": "Mobility Gem",
+  "item.forglory.no_hunger_gem": "No Hunger Gem",
+  "item.forglory.speed_gem": "Speed Gem",
+  "item.forglory.dash_gem": "Dash Gem",
+  "item.forglory.jump_boost_gem": "Jump Boost Gem",
+
   "item.forglory.debug_item": "Debug Item"
 }
