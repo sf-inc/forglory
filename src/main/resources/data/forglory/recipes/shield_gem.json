@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forglory:fire_resistance_gem"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:shield"
+    }
+  ],
+  "result": {
+    "item": "forglory:shield_gem",
+    "count": 1
+  }
+}

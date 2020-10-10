@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forglory:damage_slowed_gem"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    {
+      "item": "minecraft:firework"
+    }
+  ],
+  "result": {
+    "item": "forglory:fireworker_gem",
+    "count": 1
+  }
+}
