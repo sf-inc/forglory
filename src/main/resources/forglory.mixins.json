@@ -6,10 +6,11 @@
   "mixins": [
     "AdrenalinMixin",
     "FeatsMixin",
-    "mobility.SpeedMixin",
     "mobility.NoHungerMixin",
+    "mobility.SpeedMixin",
     "heal.FireResistanceMixin",
-    "damage.StrengthMixin"
+    "damage.StrengthMixin",
+    "mobility.JumpBoostMixin"
   ],
   "client": [
   ],
