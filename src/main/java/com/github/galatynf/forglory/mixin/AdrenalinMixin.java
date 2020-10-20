@@ -25,9 +25,6 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Unique
     protected double adrenalin = 0;
 
-    @Unique
-    protected boolean overcharged = false;
-
     protected AdrenalinMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
