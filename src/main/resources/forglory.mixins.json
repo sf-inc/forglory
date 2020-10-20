@@ -6,12 +6,13 @@
   "mixins": [
     "AdrenalinMixin",
     "FeatsMixin",
-    "mobility.NoHungerMixin",
-    "mobility.SpeedMixin",
-    "mobility.JumpBoostMixin",
-    "heal.FireResistanceMixin",
+    "damage.DamageToSlowedMixin",
+    "damage.SmiteMixin",
     "damage.StrengthMixin",
-    "damage.SmiteMixin"
+    "heal.FireResistanceMixin",
+    "mobility.JumpBoostMixin",
+    "mobility.NoHungerMixin",
+    "mobility.SpeedMixin"
   ],
   "client": [
   ],
