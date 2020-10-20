@@ -19,9 +19,9 @@ public class DebugItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient) {
             if (user.isSneaking())
-                ((IAdrenalinMixin)user).incrementAdrenalin(-Tier.TIER1.threshold);
+                ((IAdrenalinMixin)user).addAdrenalin(-Tier.TIER1.threshold);
             else
-                ((IAdrenalinMixin)user).incrementAdrenalin(Tier.TIER1.threshold);
+                ((IAdrenalinMixin)user).addAdrenalin(Tier.TIER1.threshold);
         }
         return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
     }

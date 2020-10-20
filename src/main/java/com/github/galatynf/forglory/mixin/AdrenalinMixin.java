@@ -30,36 +30,34 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
-    private void addAdrenalin(CallbackInfo ci) {
+    private void incrementWhenSprinting(CallbackInfo ci) {
         System.out.println(adrenalin);
-        if (this.isSprinting()) {
-            incrementAdrenalin(1.1);
-        }
+        if (this.isSprinting())
+            addAdrenalin(1.1);
     }
 
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
-        incrementAdrenalin(10);
+        addAdrenalin(10);
     }
 
     @Inject(at = @At("HEAD"), method = "damage")
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(source.getAttacker() instanceof LivingEntity) {
-            incrementAdrenalin(amount * 10);
-        }
+        if(source.getAttacker() instanceof LivingEntity)
+            addAdrenalin(amount * 10);
     }
 
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
-        incrementAdrenalin(fallDistance * 5);
+        addAdrenalin(fallDistance * 5);
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
-    private void subtractAdrenalin(CallbackInfo ci) {
-        incrementAdrenalin(-1);
-        if (isSneaking()) {
-            incrementAdrenalin(-50);
-        }
+    private void loseAdrenalin(CallbackInfo ci) {
+        if (isSneaking())
+            addAdrenalin(-50);
+        else
+            addAdrenalin(-1);
     }
 
     @Override
@@ -68,12 +66,12 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     }
 
     @Override
-    public void incrementAdrenalin(final double amount) {
+    public void addAdrenalin(final double amount) {
         adrenalin += amount;
-        if(adrenalin >= 10000) {
+        if(adrenalin > 10000) {
             adrenalin = 10000;
         }
-        if(adrenalin <= 0) {
+        if(adrenalin < 0) {
             adrenalin = 0;
         }
     }
