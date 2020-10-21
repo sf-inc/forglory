@@ -11,6 +11,7 @@
     "damage.SmiteMixin",
     "damage.StrengthMixin",
     "heal.FireResistanceMixin",
+    "misc.InvisibleMixin",
     "mobility.JumpBoostMixin",
     "mobility.NoHungerMixin",
     "mobility.SpeedMixin"
