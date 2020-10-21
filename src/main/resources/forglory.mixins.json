@@ -7,6 +7,7 @@
     "AdrenalinMixin",
     "FeatsMixin",
     "damage.DamageToSlowedMixin",
+    "damage.FireTrailMixin",
     "damage.FireworkerMixin",
     "damage.SmiteMixin",
     "damage.StrengthMixin",
