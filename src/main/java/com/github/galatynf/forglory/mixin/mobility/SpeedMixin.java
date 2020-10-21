@@ -27,7 +27,7 @@ public abstract class SpeedMixin extends LivingEntity {
         if (feat == null) return;
         if (feat.equals(Feats.SPEED)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER1.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 10, 0));
             }
         }
     }
