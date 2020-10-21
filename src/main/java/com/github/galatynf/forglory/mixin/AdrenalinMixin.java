@@ -31,7 +31,6 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
-        System.out.println(adrenalin);
         if (this.isSprinting())
             addAdrenalin(1.1);
     }
