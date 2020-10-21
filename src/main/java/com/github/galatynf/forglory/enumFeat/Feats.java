@@ -22,7 +22,7 @@ public enum Feats {
 
     BEES(Tier.TIER4, 0),
     INVISIBLE(Tier.TIER4, 0),
-    FIREWORKER(Tier.TIER4, 0), // Add cooldown
+    FIREWORKER(Tier.TIER4, 400), // Add cooldown
     INSTANT_KILL(Tier.TIER4, 0), // Add cooldown
     LAST_STAND(Tier.TIER4, 0);
 
