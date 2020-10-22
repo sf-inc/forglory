@@ -32,6 +32,7 @@ public class FeatsMixin implements IFeatsMixin {
     @Override
     public void addOrUpdateFeat(final Feats feat) {
         feats.put(feat.tier, feat);
+        cooldowns.put(feat.tier, 0);
     }
 
     @Override
