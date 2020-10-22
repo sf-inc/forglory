@@ -10,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
@@ -42,7 +41,7 @@ public abstract class DamageToSlowedMixin extends Entity {
             if (feat.equals(Feats.DAMAGE_SLOWED)) {
                 if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > Tier.TIER3.threshold)
                     if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                        return (float) (amount * (1 + Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier()/2));
+                        return (amount * (1 + Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier()/2F));
                     }
             }
         }
