@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
+import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.items.DebugItem;
 import com.github.galatynf.forglory.items.damage.*;
 import com.github.galatynf.forglory.items.heal.HealGem;
@@ -12,8 +13,7 @@ import com.github.galatynf.forglory.items.mobility.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -57,6 +57,9 @@ public class Forglory implements ModInitializer {
     public static final DashGem dashGem = new DashGem(new Item.Settings().group(forGlory));
     public static final JumpBoostGem jumpBoostGem = new JumpBoostGem(new Item.Settings().group(forGlory));
 
+    public static final QuickFireBlock quickFireBlock = new QuickFireBlock(FabricBlockSettings
+            .of(Material.FIRE, MaterialColor.PURPLE).breakInstantly().noCollision().lightLevel(15).sounds(BlockSoundGroup.WOOL));
+
     public static final DebugItem debugItem = new DebugItem(new Item.Settings().group(forGlory));
 
     @Override
@@ -92,6 +95,8 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "speed_gem"), speedGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "dash_gem"), dashGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "jump_boost_gem"), jumpBoostGem);
+
+        Registry.register(Registry.BLOCK, new Identifier("forglory", "quick_fire"), quickFireBlock);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
     }

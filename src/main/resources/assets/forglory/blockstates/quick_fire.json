@@ -1,0 +1,90 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "forglory:block/quick_fire_floor0"
+        },
+        {
+          "model": "forglory:block/quick_fire_floor1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "forglory:block/quick_fire_side0"
+        },
+        {
+          "model": "forglory:block/quick_fire_side1"
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt0"
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "forglory:block/quick_fire_side0",
+          "y": 90
+        },
+        {
+          "model": "forglory:block/quick_fire_side1",
+          "y": 90
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt0",
+          "y": 90
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt1",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "forglory:block/quick_fire_side0",
+          "y": 180
+        },
+        {
+          "model": "forglory:block/quick_fire_side1",
+          "y": 180
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt0",
+          "y": 180
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt1",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "forglory:block/quick_fire_side0",
+          "y": 270
+        },
+        {
+          "model": "forglory:block/quick_fire_side1",
+          "y": 270
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt0",
+          "y": 270
+        },
+        {
+          "model": "forglory:block/quick_fire_side_alt1",
+          "y": 270
+        }
+      ]
+    }
+  ]
+}
