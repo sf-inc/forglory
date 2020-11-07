@@ -10,7 +10,7 @@ public enum Feats {
 
     DASH(Tier.TIER2, 0), // Add cooldown
     FIRE_RESISTANCE(Tier.TIER2, 0),
-    KNOCKBACK_FIST(Tier.TIER2, 0), // Add cooldown
+    KNOCKBACK_FIST(Tier.TIER2, 100), // Add cooldown
     MOUNTAIN(Tier.TIER2, 0), // Add cooldown
     STRENGTH(Tier.TIER2, 0),
 

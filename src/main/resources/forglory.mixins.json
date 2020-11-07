@@ -13,6 +13,8 @@
     "damage.StrengthMixin",
     "heal.FireResistanceMixin",
     "misc.InvisibleMixin",
+    "misc.KnockbackFistMixin",
+    "misc.SummonDogMixin",
     "mobility.JumpBoostMixin",
     "mobility.NoHungerMixin",
     "mobility.SpeedMixin"
