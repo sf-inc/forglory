@@ -8,4 +8,5 @@ public interface IFeatsMixin {
     Integer getCooldown(Tier tier);
     void addOrUpdateFeat(Feats feat);
     void resetCooldown(Tier tier);
+    void setUniqueCooldown(Tier tier);
 }

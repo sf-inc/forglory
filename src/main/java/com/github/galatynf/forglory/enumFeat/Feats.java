@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.enumFeat;
 
 public enum Feats {
-    DOG(Tier.TIER1, 0),
+    DOG(Tier.TIER1, -1),
     FIRE_TRAIL(Tier.TIER1, 0),
     HEALING_FIST(Tier.TIER1, 0), // Add cooldown
     NO_HUNGER(Tier.TIER1, 0),

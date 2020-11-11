@@ -41,6 +41,11 @@ public class FeatsMixin implements IFeatsMixin {
         cooldowns.put(tier, feat.cooldown);
     }
 
+    @Override
+    public void setUniqueCooldown(final Tier tier) {
+        cooldowns.put(tier, 0);
+    }
+
     @Inject(at = @At("HEAD"), method = "tick")
     private void updateCooldown(CallbackInfo ci) {
         for (Tier tier : Tier.values()) {
