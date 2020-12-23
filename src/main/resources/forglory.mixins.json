@@ -12,6 +12,8 @@
     "damage.SmiteMixin",
     "damage.StrengthMixin",
     "heal.FireResistanceMixin",
+    "heal.LastStandMixin",
+    "heal.LastStandRenderMixin",
     "misc.InvisibleMixin",
     "misc.KnockbackFistMixin",
     "misc.SummonDogMixin",
@@ -20,6 +22,8 @@
     "mobility.SpeedMixin"
   ],
   "client": [
+    "heal.LastStandMixin",
+    "heal.LastStandRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
