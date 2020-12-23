@@ -66,7 +66,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void manageBerserkState(CallbackInfo ci) {
-        System.out.println("LS :" + isInBerserkState);
+        //System.out.println("LS :" + isInBerserkState);
         if(this.getType().equals(EntityType.PLAYER)) {
             if (((IAdrenalinMixin) this).getAdrenalin() < Tier.TIER4.threshold) {
                 isInBerserkState = false;
