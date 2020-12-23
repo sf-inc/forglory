@@ -6,34 +6,75 @@ import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FireworkRocketEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(CrossbowItem.class)
 public class FireworkerMixin {
 
-    @ModifyVariable(method = "shoot", at = @At(value = "NEW", target = "net/minecraft/util/math/Quaternion"))
-    private static ProjectileEntity setFireworkProjectile(ProjectileEntity projectileEntity2, World world, LivingEntity shooter, Hand hand,
-                                                          ItemStack crossbow, ItemStack projectile, float soundPitch,
-                                                          boolean creative, float speed, float divergence, float simulated) {
-        if (!(shooter instanceof PlayerEntity)) return projectileEntity2;
+    @Inject(method = "loadProjectiles", at = @At("HEAD"))
+    private static void setFireworkProjectile(LivingEntity shooter, ItemStack projectile, CallbackInfoReturnable<Boolean> cir) {
+        if (!(shooter instanceof PlayerEntity)) return;
         Feats feat = ((IFeatsMixin)shooter).getFeat(Tier.TIER4);
-        if (feat == null) return projectileEntity2;
+        if (feat == null) return;
         if (feat.equals(Feats.FIREWORKER)) {
             if (((IAdrenalinMixin)shooter).getAdrenalin() > Tier.TIER4.threshold &&
                     ((IFeatsMixin)shooter).getCooldown(Tier.TIER4) == 0) {
                 ((IFeatsMixin)shooter).resetCooldown(Tier.TIER4);
-                projectileEntity2 = new FireworkRocketEntity(world, projectile, shooter, shooter.getX(),
-                        shooter.getEyeY() - 0.15000000596046448D, shooter.getZ(), true);
+                CompoundTag compoundTag = new CompoundTag();
+                CompoundTag firework = new CompoundTag();
+                ListTag explosionsList = new ListTag();
+                CompoundTag explosions = new CompoundTag();
+
+                firework.putInt("Flight", 3);
+
+                List<Integer> colors = new ArrayList<>();
+                colors.add(DyeColor.RED.getFireworkColor());
+                colors.add(DyeColor.WHITE.getFireworkColor());
+                explosions.putIntArray("Colors", colors);
+                explosions.putInt("Type", FireworkItem.Type.SMALL_BALL.getId());
+
+                explosionsList.add(explosions);
+                firework.put("Explosions", explosionsList);
+
+                compoundTag.put("Fireworks", firework);
+                ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
+                stack.setTag(compoundTag);
+
+                ItemStack stackOld = shooter.getOffHandStack();
+                stackOld.getOrCreateSubTag("Offhand");
+                shooter.setStackInHand(Hand.OFF_HAND, stack);
+                ((PlayerEntity) shooter).giveItemStack(stackOld);
             }
         }
+    }
 
-        return projectileEntity2;
+    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/CrossbowItem;setCharged(Lnet/minecraft/item/ItemStack;Z)V"))
+    private void giveOffhandBack(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
+        Feats feat = ((IFeatsMixin)user).getFeat(Tier.TIER4);
+        if (feat == null) return;
+        if (feat.equals(Feats.FIREWORKER)) {
+            for (int i=0; i < user.inventory.main.size(); i++) {
+                ItemStack itemstack = user.inventory.main.get(i);
+                if (itemstack.getSubTag("Offhand") != null) {
+                    itemstack.removeSubTag("Offhand");
+                    user.setStackInHand(Hand.OFF_HAND, itemstack);
+                    user.inventory.main.set(i, ItemStack.EMPTY);
+                    return;
+                }
+            }
+        }
     }
 }
