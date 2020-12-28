@@ -37,11 +37,11 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     @Shadow public abstract boolean clearStatusEffects();
 
     @Unique
-    private boolean isInBerserkState = false;
+    private boolean forglory_isInBerserkState = false;
 
     @Override
     public boolean isBerserk() {
-        return isInBerserkState;
+        return forglory_isInBerserkState;
     }
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isDead()Z"), cancellable = true)
@@ -52,8 +52,8 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 if (feat == null) return;
                 if (feat.equals(Feats.LAST_STAND)) {
                     if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER4.threshold) {
-                        if(!isInBerserkState) {
-                            isInBerserkState = true;
+                        if(!forglory_isInBerserkState) {
+                            forglory_isInBerserkState = true;
                             this.setHealth(0.5F);
                             this.clearStatusEffects();
                             cir.setReturnValue(false);
@@ -69,14 +69,14 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
         //System.out.println("LS :" + isInBerserkState);
         if(this.getType().equals(EntityType.PLAYER)) {
             if (((IAdrenalinMixin) this).getAdrenalin() < Tier.TIER4.threshold) {
-                isInBerserkState = false;
+                forglory_isInBerserkState = false;
             }
-            if (isInBerserkState) {
+            if (forglory_isInBerserkState) {
                 // Invulnerable, strength 1, speed 2, , resistance 4, life steal, fire resistance ?
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 0));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 3));
-                this.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 20, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 1));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 3));
+                this.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 30, 0));
             }
         }
     }

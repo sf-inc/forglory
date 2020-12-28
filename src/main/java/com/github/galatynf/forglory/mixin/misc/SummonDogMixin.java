@@ -29,7 +29,7 @@ public abstract class SummonDogMixin extends LivingEntity {
     }
 
     @Unique
-    Integer theDog;
+    Integer forglory_theDog;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
@@ -50,10 +50,10 @@ public abstract class SummonDogMixin extends LivingEntity {
                     dog.initialize(world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.COMMAND, null, null);
                     dog.refreshPositionAndAngles(this.getBlockPos(), 0.0F, 0.0F);
                     world.spawnEntity(dog);
-                    this.theDog = dog.getEntityId();
+                    this.forglory_theDog = dog.getEntityId();
                     ((IFeatsMixin) this).setUniqueCooldown(Tier.TIER1);
                 }
-                WolfEntity dog = (WolfEntity) world.getEntityById(this.theDog);
+                WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
                 if (dog == null) {
                     System.err.println("Couldn't get dog from dog Mixin");
                     return;
@@ -62,7 +62,7 @@ public abstract class SummonDogMixin extends LivingEntity {
             }
             else {
                 if (((IFeatsMixin) this).getCooldown(Tier.TIER1) == 0) {
-                    WolfEntity dog = (WolfEntity) world.getEntityById(this.theDog);
+                    WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
                     if (dog == null) {
                         System.err.println("Couldn't remove dog from dog Mixin");
                         return;
@@ -73,7 +73,7 @@ public abstract class SummonDogMixin extends LivingEntity {
                     dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 200, 0));
                     dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 4));
                     ((IFeatsMixin) this).resetCooldown(Tier.TIER1);
-                    this.theDog = null;
+                    this.forglory_theDog = null;
                 }
             }
         }

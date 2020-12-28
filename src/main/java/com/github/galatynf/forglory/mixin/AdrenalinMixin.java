@@ -23,7 +23,7 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Shadow public abstract float getMovementSpeed();
 
     @Unique
-    protected double adrenalin = 0;
+    protected double forglory_adrenalin = 0;
 
     protected AdrenalinMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -61,17 +61,17 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
 
     @Override
     public double getAdrenalin() {
-        return adrenalin;
+        return forglory_adrenalin;
     }
 
     @Override
     public void addAdrenalin(final double amount) {
-        adrenalin += amount;
-        if(adrenalin > 10000) {
-            adrenalin = 10000;
+        forglory_adrenalin += amount;
+        if(forglory_adrenalin > 10000) {
+            forglory_adrenalin = 10000;
         }
-        if(adrenalin < 0) {
-            adrenalin = 0;
+        if(forglory_adrenalin < 0) {
+            forglory_adrenalin = 0;
         }
     }
 }
