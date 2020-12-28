@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +17,7 @@ public class LastStandLifeStealMixin {
     private void giveHealth(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         Entity attacker = source.getAttacker();
         if(attacker instanceof PlayerEntity
-                && ((ILastStandMixin)attacker).isBerserk()) {
+                && ((PlayerEntity) attacker).hasStatusEffect(Forglory.lifeStealStatusEffect)) {
             ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() + (amount > 3 ? 3 : amount));
         }
     }

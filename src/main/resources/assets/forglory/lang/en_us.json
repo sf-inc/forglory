@@ -31,5 +31,7 @@
   "item.forglory.dash_gem": "Dash Gem",
   "item.forglory.jump_boost_gem": "Jump Boost Gem",
 
-  "item.forglory.debug_item": "Debug Item"
+  "item.forglory.debug_item": "Debug Item",
+
+  "effect.forglory.life_steal_status_effect": "Life Steal"
 }

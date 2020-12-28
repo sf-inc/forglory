@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
@@ -75,7 +76,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 0));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 3));
-                // TODO Life Steal status effect
+                this.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 20, 0));
             }
         }
     }

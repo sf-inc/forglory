@@ -10,6 +10,7 @@ import com.github.galatynf.forglory.items.mobility.MobilityGem;
 import com.github.galatynf.forglory.items.heal.*;
 import com.github.galatynf.forglory.items.misc.*;
 import com.github.galatynf.forglory.items.mobility.*;
+import com.github.galatynf.forglory.statusEffects.LifeStealStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -62,6 +63,8 @@ public class Forglory implements ModInitializer {
 
     public static final DebugItem debugItem = new DebugItem(new Item.Settings().group(forGlory));
 
+    public static final LifeStealStatusEffect lifeStealStatusEffect = new LifeStealStatusEffect();
+
     @Override
     public void onInitialize() {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
@@ -99,5 +102,7 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "quick_fire"), quickFireBlock);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
+
+        Registry.register(Registry.STATUS_EFFECT, new Identifier("forglory", "life_steal_status_effect"), lifeStealStatusEffect);
     }
 }
