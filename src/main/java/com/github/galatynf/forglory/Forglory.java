@@ -2,6 +2,9 @@ package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.items.DebugItem;
 import com.github.galatynf.forglory.items.damage.*;
 import com.github.galatynf.forglory.items.heal.HealGem;
@@ -13,8 +16,10 @@ import com.github.galatynf.forglory.items.mobility.*;
 import com.github.galatynf.forglory.statusEffects.LifeStealStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -65,6 +70,8 @@ public class Forglory implements ModInitializer {
 
     public static final LifeStealStatusEffect lifeStealStatusEffect = new LifeStealStatusEffect();
 
+    public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
+
     @Override
     public void onInitialize() {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
@@ -104,5 +111,20 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
 
         Registry.register(Registry.STATUS_EFFECT, new Identifier("forglory", "life_steal_status_effect"), lifeStealStatusEffect);
+
+        ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID, (packetContext, attachedData) -> {
+            int verifier = attachedData.readInt();
+            if (verifier == 42) {
+                packetContext.getTaskQueue().execute(() -> {
+                    PlayerEntity playerEntity = packetContext.getPlayer();
+                    Feats feat = ((IFeatsMixin) playerEntity).getFeat(Tier.TIER2);
+                    if (feat == null) return;
+                    if (feat.equals(Feats.MOUNTAIN)) {
+                        NoMixinFeats.mountainFeat(playerEntity);
+                    }
+                    ((IFeatsMixin)playerEntity).resetCooldown(Tier.TIER2);
+                });
+            }
+        });
     }
 }
