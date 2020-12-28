@@ -24,8 +24,9 @@ public abstract class PoweredGem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         BlockPos pos = user.getBlockPos().add(new Vec3i(0, -1, 0));
 
-        if(((IAdrenalinMixin)user).getAdrenalin() == 0
-            && world.getBlockState(pos).isOf(Forglory.essenceInfuser)) {
+        if(!world.isClient()
+                &&((IAdrenalinMixin)user).getAdrenalin() == 0
+                && world.getBlockState(pos).isOf(Forglory.essenceInfuser)) {
             ((IFeatsMixin) user).addOrUpdateFeat(feat);
             ((IFeatsMixin) user).resetCooldown(feat.tier);
             return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
