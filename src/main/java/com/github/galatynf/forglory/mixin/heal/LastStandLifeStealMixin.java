@@ -17,7 +17,7 @@ public class LastStandLifeStealMixin {
         Entity attacker = source.getAttacker();
         if(attacker instanceof PlayerEntity
                 && ((ILastStandMixin)attacker).isBerserk()) {
-            ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() + (amount/2 > 4 ? 4:amount/2));
+            ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() + (amount > 3 ? 3 : amount));
         }
     }
 }
