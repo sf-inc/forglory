@@ -27,7 +27,7 @@ public abstract class FireResistanceMixin extends LivingEntity {
         if (feat == null) return;
         if (feat.equals(Feats.FIRE_RESISTANCE)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER2.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
             }
         }
     }

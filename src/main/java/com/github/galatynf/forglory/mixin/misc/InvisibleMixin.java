@@ -28,7 +28,7 @@ public abstract class InvisibleMixin extends LivingEntity {
         if (feat.equals(Feats.INVISIBLE)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER4.threshold &&
                     !this.onGround) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 20, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
             }
         }
     }

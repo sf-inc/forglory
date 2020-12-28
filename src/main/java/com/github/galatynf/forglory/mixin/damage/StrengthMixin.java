@@ -27,7 +27,7 @@ public abstract class StrengthMixin extends LivingEntity {
         if (feat == null) return;
         if (feat.equals(Feats.STRENGTH)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER2.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
             }
         }
     }

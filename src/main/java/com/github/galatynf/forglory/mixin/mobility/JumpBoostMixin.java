@@ -27,7 +27,7 @@ public abstract class JumpBoostMixin extends LivingEntity {
         if (feat == null) return;
         if (feat.equals(Feats.JUMP_BOOST)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 30, 4));
             }
         }
     }
