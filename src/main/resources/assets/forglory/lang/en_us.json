@@ -33,5 +33,8 @@
 
   "item.forglory.debug_item": "Debug Item",
 
-  "effect.forglory.life_steal_status_effect": "Life Steal"
+  "effect.forglory.life_steal_status_effect": "Life Steal",
+
+  "category.forglory.keys": "For Glory",
+  "key.forglory.activateFeatKey": "Activate feat"
 }
