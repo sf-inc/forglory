@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin;
 
+import com.github.galatynf.forglory.config.constants.AdrenalinConfig;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -32,31 +33,31 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Inject(at=@At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
         if (this.isSprinting())
-            addAdrenalin(1.1);
+            addAdrenalin(AdrenalinConfig.SPRINT_GAIN);
     }
 
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
-        addAdrenalin(10);
+        addAdrenalin(AdrenalinConfig.JUMP_GAIN);
     }
 
     @Inject(at = @At("HEAD"), method = "damage")
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source.getAttacker() instanceof LivingEntity)
-            addAdrenalin(amount * 10);
+            addAdrenalin(amount * AdrenalinConfig.DAMAGE_MULTIPLIER);
     }
 
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
-        addAdrenalin(fallDistance * 5);
+        addAdrenalin(fallDistance * AdrenalinConfig.FALL_MULTIPLIER);
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void loseAdrenalin(CallbackInfo ci) {
         if (isSneaking())
-            addAdrenalin(-50);
+            addAdrenalin(AdrenalinConfig.QUICK_LOSS);
         else
-            addAdrenalin(-1);
+            addAdrenalin(AdrenalinConfig.NATURAL_LOSS);
     }
 
     @Override
@@ -67,11 +68,11 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Override
     public void addAdrenalin(final float amount) {
         forglory_adrenalin += amount;
-        if(forglory_adrenalin > 10000) {
-            forglory_adrenalin = 10000;
+        if(forglory_adrenalin > AdrenalinConfig.MAX_AMOUNT) {
+            forglory_adrenalin = AdrenalinConfig.MAX_AMOUNT;
         }
-        if(forglory_adrenalin < 0) {
-            forglory_adrenalin = 0;
+        if(forglory_adrenalin < AdrenalinConfig.MIN_AMOUNT) {
+            forglory_adrenalin = AdrenalinConfig.MIN_AMOUNT;
         }
     }
 }
