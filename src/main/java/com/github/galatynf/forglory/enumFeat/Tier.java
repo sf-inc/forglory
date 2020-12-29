@@ -6,8 +6,8 @@ public enum Tier {
     TIER3(6000),
     TIER4(8000);
 
-    public double threshold;
-    Tier(double threshold) {
+    public float threshold;
+    Tier(float threshold) {
         this.threshold = threshold;
     }
 }

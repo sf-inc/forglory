@@ -29,8 +29,8 @@ public enum Feats {
     LAST_STAND(Tier.TIER4, CooldownsConfig.NO_COOLDOWN);
 
     public Tier tier;
-    public Integer cooldown;
-    Feats(final Tier tier, final Integer cooldown) {
+    public int cooldown;
+    Feats(final Tier tier, final int cooldown) {
         this.tier = tier;
         this.cooldown = cooldown;
     }
