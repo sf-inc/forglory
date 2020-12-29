@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Forglory;
-import com.github.galatynf.forglory.imixin.ILastStandMixin;
+import com.github.galatynf.forglory.config.constants.FeatsConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,7 +18,8 @@ public class LastStandLifeStealMixin {
         Entity attacker = source.getAttacker();
         if(attacker instanceof PlayerEntity
                 && ((PlayerEntity) attacker).hasStatusEffect(Forglory.lifeStealStatusEffect)) {
-            ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() + (amount > 3 ? 3 : amount));
+            ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() +
+                    (amount > FeatsConfig.LIFE_STEAL_MAX_AMOUNT ? FeatsConfig.LIFE_STEAL_MAX_AMOUNT : amount));
         }
     }
 }

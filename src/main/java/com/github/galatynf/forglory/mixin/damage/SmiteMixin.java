@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin.damage;
 
+import com.github.galatynf.forglory.config.constants.FeatsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
@@ -25,8 +26,6 @@ public abstract class SmiteMixin extends Entity{
 
     @Shadow public abstract boolean isUndead();
 
-    @Shadow private DamageSource lastDamageSource;
-
     @ModifyArg(method = "damage", at=@At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float injectedAmount(DamageSource source, float amount) {
@@ -37,7 +36,7 @@ public abstract class SmiteMixin extends Entity{
                 if (feat.equals(Feats.SMITE)) {
                     if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > Tier.TIER1.threshold)
                         if (this.isUndead()) {
-                            return (float) (amount * 1.5);
+                            return (amount * FeatsConfig.SMITE_MULTIPLIER);
                         }
                 }
         }
