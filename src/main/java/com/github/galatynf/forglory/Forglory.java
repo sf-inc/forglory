@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.items.DebugItem;
 import com.github.galatynf.forglory.items.damage.*;
@@ -121,10 +122,13 @@ public class Forglory implements ModInitializer {
                     PlayerEntity playerEntity = packetContext.getPlayer();
                     Feats feat = ((IFeatsMixin) playerEntity).getFeat(Tier.TIER2);
                     if (feat == null) return;
-                    if (feat.equals(Feats.MOUNTAIN)) {
-                        NoMixinFeats.mountainFeat(playerEntity);
+                    if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
+                            ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
+                        if (feat.equals(Feats.MOUNTAIN)) {
+                            NoMixinFeats.mountainFeat(playerEntity);
+                        }
+                        ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);
                     }
-                    ((IFeatsMixin)playerEntity).resetCooldown(Tier.TIER2);
                 });
             }
         });
