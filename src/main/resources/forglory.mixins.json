@@ -12,6 +12,7 @@
     "damage.SmiteMixin",
     "damage.StrengthMixin",
     "heal.FireResistanceMixin",
+    "heal.HealTrailMixin",
     "heal.LastStandLifeStealMixin",
     "heal.LastStandMixin",
     "heal.LastStandRenderMixin",

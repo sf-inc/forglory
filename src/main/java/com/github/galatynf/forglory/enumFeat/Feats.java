@@ -26,7 +26,8 @@ public enum Feats {
     INVISIBLE(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),
     FIREWORKER(Tier.TIER4, CooldownsConfig.FIREWORKER_COOLDOWN),
     INSTANT_KILL(Tier.TIER4, CooldownsConfig.INSTANT_KILL_COOLDOWN),
-    LAST_STAND(Tier.TIER4, CooldownsConfig.NO_COOLDOWN);
+    LAST_STAND(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),
+    HEAL_TRAIL(Tier.TIER4, CooldownsConfig.NO_COOLDOWN);
 
     public Tier tier;
     public int cooldown;
