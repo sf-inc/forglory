@@ -10,10 +10,16 @@ public class NoMixinFeats {
 
     public static void mountainFeat(final PlayerEntity playerEntity) {
         BlockPos blockPos = playerEntity.getBlockPos();
+        BlockPos blockPos2 = blockPos;
         for (int i = 0; i < FeatsConfig.MOUNTAIN_HEIGHT; i++) {
-            BlockPos blockPos2 = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
-            playerEntity.world.setBlockState(blockPos2, Blocks.DIRT.getDefaultState());
+            blockPos2 = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
+            BlockPos blockPos3 = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
+            if (playerEntity.world.getBlockState(blockPos3).isAir()) {
+                playerEntity.world.setBlockState(blockPos2, Blocks.DIRT.getDefaultState());
+            } else {
+                break;
+            }
         }
-        playerEntity.teleport(blockPos.getX(), blockPos.getY() + (FeatsConfig.MOUNTAIN_HEIGHT+1), blockPos.getZ(), true);
+        playerEntity.teleport(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ(), true);
     }
 }
