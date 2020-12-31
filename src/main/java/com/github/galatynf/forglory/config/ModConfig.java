@@ -7,7 +7,7 @@ import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = "forglory")
 public class ModConfig implements ConfigData {
-    public float smite_multiplier = 1.5F;
+    public float smite_multiplier = 1.5F; //TODO prevent players to put insane values here
 
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 4;
@@ -15,22 +15,44 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int life_steal_max_amount = 3;
 
-    @ConfigEntry.Category(value = "Heal trail")
-    public float heal_trail_radius = 2.0F;
+    @ConfigEntry.Gui.CollapsibleObject
+    public HealTrailConfig healTrailConfig = new HealTrailConfig();
 
-    @ConfigEntry.Category(value = "Heal trail")
-    @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
-    public int heal_trail_frequency = 20;
+    public static class HealTrailConfig {
+        public float heal_trail_radius = 2.0F;
 
-    @ConfigEntry.Category(value = "Heal trail")
-    @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
-    @ConfigEntry.Gui.Tooltip(count = 2)
-    public int heal_trail_wait_time = 10;
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
+        public int heal_trail_frequency = 20;
+
+        @ConfigEntry.BoundedDiscrete(max = 20)
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public int heal_trail_wait_time = 10;
+    }
+
+    @ConfigEntry.Category(value = "Cooldowns")
+    public Cooldowns cooldowns = new Cooldowns();
+
+    public static class Cooldowns {
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
+        public int healing_fist_cooldown = 100;
+
+        @ConfigEntry.BoundedDiscrete(min = 5, max = 200)
+        public int dash_cooldown = 60; // TODO Add cooldown
+
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
+        public int knockback_fist_cooldown = 150;
+
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
+        public int mountain_cooldown = 300;
+
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
+        public int fireworker_cooldown = 200;
+
+        @ConfigEntry.BoundedDiscrete(min = 100, max = 1000)
+        public int instant_kill_cooldown = 200;
+    }
 
     /*
-    @ConfigEntry.Gui.CollapsibleObject
-    InnerStuff stuff = new InnerStuff();
-
     @ConfigEntry.Gui.Excluded
     InnerStuff invisibleStuff = new InnerStuff();
 

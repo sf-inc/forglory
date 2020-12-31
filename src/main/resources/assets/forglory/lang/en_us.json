@@ -41,13 +41,13 @@
 
   "text.autoconfig.forglory.title": "For Glory Configuration",
   "text.autoconfig.forglory.category.default": "General",
-  "text.autoconfig.forglory.category.Heal trail": "Heal trail",
   "text.autoconfig.forglory.option.smite_multiplier": "Smite damage multiplier",
   "text.autoconfig.forglory.option.mountain_height": "Mountain height",
   "text.autoconfig.forglory.option.life_steal_max_amount": "Max amount of life stealing",
-  "text.autoconfig.forglory.option.heal_trail_radius": "Trail radius",
-  "text.autoconfig.forglory.option.heal_trail_frequency": "Frequency of lingering effects",
-  "text.autoconfig.forglory.option.heal_trail_wait_time": "Wait time before getting regen effect",
-  "text.autoconfig.forglory.option.heal_trail_wait_time.@Tooltip[0]": "Low values will prevent the bearer of",
-  "text.autoconfig.forglory.option.heal_trail_wait_time.@Tooltip[1]": "the aura to get the effect when moving"
+  "text.autoconfig.forglory.option.healTrailConfig": "Heal trail",
+  "text.autoconfig.forglory.option.healTrailConfig.heal_trail_radius": "Trail radius",
+  "text.autoconfig.forglory.option.healTrailConfig.heal_trail_frequency": "Frequency of lingering effects",
+  "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time": "Wait time before getting regen effect",
+  "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time.@Tooltip[0]": "Low values will prevent the bearer of",
+  "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time.@Tooltip[1]": "the aura to get the effect when moving"
 }

@@ -36,12 +36,12 @@ public abstract class HealTrailMixin extends LivingEntity {
         if (feat.equals(Feats.HEAL_TRAIL)) {
             if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER4.threshold) {
                 ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-                if (forglory_lastSpawned >= config.heal_trail_frequency && this.isOnGround()) {
+                if (forglory_lastSpawned >= config.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
                     AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
                     areaEffectCloudEntity.setOwner(this);
-                    areaEffectCloudEntity.setRadius(config.heal_trail_radius);
+                    areaEffectCloudEntity.setRadius(config.healTrailConfig.heal_trail_radius);
                     areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-                    areaEffectCloudEntity.setWaitTime(config.heal_trail_wait_time);
+                    areaEffectCloudEntity.setWaitTime(config.healTrailConfig.heal_trail_wait_time);
                     areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
                     areaEffectCloudEntity.setDuration(10);
                     areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);
