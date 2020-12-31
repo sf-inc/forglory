@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory;
 
-import com.github.galatynf.forglory.config.constants.FeatsConfig;
+import com.github.galatynf.forglory.config.ModConfig;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +12,9 @@ public class NoMixinFeats {
     public static void mountainFeat(final PlayerEntity playerEntity) {
         BlockPos blockPos = playerEntity.getBlockPos();
         BlockPos blockPos2 = blockPos;
-        for (int i = 0; i < FeatsConfig.MOUNTAIN_HEIGHT; i++) {
+        ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+        int height = config.mountain_height;
+        for (int i = 0; i < height; i++) {
             blockPos2 = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
             BlockPos blockPos3 = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
             if (playerEntity.world.getBlockState(blockPos3).isAir()) {

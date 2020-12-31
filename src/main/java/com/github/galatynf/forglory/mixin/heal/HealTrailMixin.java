@@ -1,10 +1,11 @@
 package com.github.galatynf.forglory.mixin.heal;
 
-import com.github.galatynf.forglory.config.constants.FeatsConfig;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -34,12 +35,13 @@ public abstract class HealTrailMixin extends LivingEntity {
         if (feat == null) return;
         if (feat.equals(Feats.HEAL_TRAIL)) {
             if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER4.threshold) {
-                if (forglory_lastSpawned >= FeatsConfig.HEAL_TRAIL_FREQUENCY && this.isOnGround()) {
+                ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+                if (forglory_lastSpawned >= config.heal_trail_frequency && this.isOnGround()) {
                     AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
                     areaEffectCloudEntity.setOwner(this);
-                    areaEffectCloudEntity.setRadius(FeatsConfig.HEAL_TRAIL_RADIUS);
+                    areaEffectCloudEntity.setRadius(config.heal_trail_radius);
                     areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-                    areaEffectCloudEntity.setWaitTime(FeatsConfig.HEAL_TRAIL_WAIT_TIME);
+                    areaEffectCloudEntity.setWaitTime(config.heal_trail_wait_time);
                     areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
                     areaEffectCloudEntity.setDuration(10);
                     areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);
