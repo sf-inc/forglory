@@ -17,6 +17,9 @@
     ],
     "main": [
       "com.github.galatynf.forglory.Forglory"
+    ],
+    "modmenu": [
+      "com.github.galatynf.forglory.config.ModMenuIntegration"
     ]
   },
   "mixins": [

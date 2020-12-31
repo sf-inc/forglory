@@ -2,6 +2,7 @@ package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
@@ -15,6 +16,8 @@ import com.github.galatynf.forglory.items.heal.*;
 import com.github.galatynf.forglory.items.misc.*;
 import com.github.galatynf.forglory.items.mobility.*;
 import com.github.galatynf.forglory.statusEffects.LifeStealStatusEffect;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
@@ -76,6 +79,8 @@ public class Forglory implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
 
