@@ -7,8 +7,7 @@ import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = "forglory")
 public class ModConfig implements ConfigData {
-    @ConfigEntry.BoundedDiscrete(max = (long)1.5)
-    public long smite_multiplier = (long) 1.5;
+    public float smite_multiplier = 1.5F;
 
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 4;
@@ -25,6 +24,7 @@ public class ModConfig implements ConfigData {
 
     @ConfigEntry.Category(value = "Heal trail")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+    @ConfigEntry.Gui.Tooltip(count = 2)
     public int heal_trail_wait_time = 10;
 
     /*
