@@ -12,6 +12,10 @@ group = project.maven_group
 
 repositories {
     jcenter()
+    maven {
+        name = "CottonMC"
+        url = "https://server.bbkr.space/artifactory/libs-release"
+    }
 }
 
 dependencies {
@@ -35,6 +39,8 @@ dependencies {
     }
 
     modImplementation "io.github.prospector:modmenu:1.14.5+build.30"
+
+    modImplementation include("io.github.cottonmc:LibGui:2.3.0+1.16.1")
 }
 
 processResources {

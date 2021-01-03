@@ -1,6 +1,8 @@
 package com.github.galatynf.forglory.client;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.gui.AdrenalinBar;
+import io.github.cottonmc.cotton.gui.client.CottonHud;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -21,6 +23,9 @@ public class ForgloryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(Forglory.quickFireBlock, RenderLayer.getCutout());
+
+        AdrenalinBar adrenalinBar = new AdrenalinBar();
+        CottonHud.INSTANCE.add(adrenalinBar, 10, -20, 75, 10);
 
         activateFeatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.forglory.activateFeatKey",
