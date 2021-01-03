@@ -18,11 +18,9 @@ public class DebugItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient) {
-            float adrenalin = ((IAdrenalinMixin)user).getAdrenalin();
-            float toAdd = amountToAdd(adrenalin, user.isSneaking());
-            ((IAdrenalinMixin)user).addAdrenalin(toAdd);
-        }
+        float adrenalin = ((IAdrenalinMixin)user).getAdrenalin();
+        float toAdd = amountToAdd(adrenalin, user.isSneaking());
+        ((IAdrenalinMixin)user).addAdrenalin(toAdd);
         return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
     }
 
