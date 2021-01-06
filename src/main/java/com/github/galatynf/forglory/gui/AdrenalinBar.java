@@ -22,9 +22,16 @@ public class AdrenalinBar extends WWidget {
         float adrenalin = ((IAdrenalinMixin)MinecraftClient.getInstance().player).getAdrenalin();
 
         int a = 255;
-        int r = (int) ((adrenalin / AdrenalinConfig.MAX_AMOUNT) * 255);
-        int b = 255 - (int) ((adrenalin / AdrenalinConfig.MAX_AMOUNT) * 255);
-        int color = a << 24 | r << 16 | b;
+        int r, g;
+        if (adrenalin < AdrenalinConfig.TIER4_THRESHOLD) {
+            r = (int) ((adrenalin / AdrenalinConfig.TIER4_THRESHOLD) * 255);
+            g = 255 - (int) ((adrenalin / AdrenalinConfig.TIER4_THRESHOLD) * 255);
+        } else {
+            r = 255;
+            g = 0;
+        }
+
+        int color = a << 24 | r << 16 | g << 8;
 
         float adrenalinPercentage = ((IAdrenalinMixin)MinecraftClient.getInstance().player).getAdrenalin() / AdrenalinConfig.MAX_AMOUNT;
         int widthAdrenalin = (int) (width * adrenalinPercentage);
