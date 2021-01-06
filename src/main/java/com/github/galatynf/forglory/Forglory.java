@@ -76,6 +76,7 @@ public class Forglory implements ModInitializer {
     public static final LifeStealStatusEffect lifeStealStatusEffect = new LifeStealStatusEffect();
 
     public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
+    public static final Identifier BERSERK_PACKET_ID = new Identifier("forglory", "is_berserk");
 
     @Override
     public void onInitialize() {

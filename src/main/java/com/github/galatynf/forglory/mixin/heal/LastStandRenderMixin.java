@@ -27,15 +27,13 @@ public abstract class LastStandRenderMixin {
     @Shadow
     private int scaledHeight;
 
-    @Shadow protected abstract PlayerEntity getCameraPlayer();
-
     @Inject(method = "render", at=@At("HEAD"))
     private void render(CallbackInfo info) {
         this.scaledWidth = this.client.getWindow().getScaledWidth();
         this.scaledHeight = this.client.getWindow().getScaledHeight();
-        //System.out.println("RENDER : " + ((ILastStandMixin)this.getCameraPlayer()).isBerserk());
 
-        if (((ILastStandMixin)this.getCameraPlayer()).isBerserk()){
+        assert client.player != null;
+        if (((ILastStandMixin)client.player).isBerserk()){
             this.renderBerserkOverlay();
         }
     }
