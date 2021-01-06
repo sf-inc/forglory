@@ -27,7 +27,7 @@ public class ForgloryClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(Forglory.quickFireBlock, RenderLayer.getCutout());
 
         AdrenalinBar adrenalinBar = new AdrenalinBar();
-        CottonHud.INSTANCE.add(adrenalinBar, 10, -20, 75, 10);
+        CottonHud.INSTANCE.add(adrenalinBar, 135, -37, 9, 34);
 
         activateFeatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.forglory.activateFeatKey",

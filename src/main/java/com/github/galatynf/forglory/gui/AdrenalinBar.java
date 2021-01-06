@@ -10,14 +10,13 @@ import net.minecraft.client.util.math.MatrixStack;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
+import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AdrenalinBar extends WWidget {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        ScreenDrawing.coloredRect(x, y, width, height, 0xFF_FFFFFF);
-
         assert MinecraftClient.getInstance().player != null;
         float adrenalin = ((IAdrenalinMixin)MinecraftClient.getInstance().player).getAdrenalin();
 
@@ -33,18 +32,16 @@ public class AdrenalinBar extends WWidget {
 
         int color = a << 24 | r << 16 | g << 8;
 
-        float adrenalinPercentage = ((IAdrenalinMixin)MinecraftClient.getInstance().player).getAdrenalin() / AdrenalinConfig.MAX_AMOUNT;
-        int widthAdrenalin = (int) (width * adrenalinPercentage);
+        if (adrenalin > AdrenalinConfig.TIER4_THRESHOLD) {
+            adrenalin = AdrenalinConfig.TIER4_THRESHOLD;
+        }
+        float adrenalinPercentage = adrenalin / AdrenalinConfig.TIER4_THRESHOLD;
+        int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
+        Identifier bar = new Identifier("forglory", "textures/overlay/adrenalin_bar.png");
 
-        ScreenDrawing.coloredRect(x, y, widthAdrenalin, height, color);
-
-        int th1 = (int) ((AdrenalinConfig.TIER1_THRESHOLD / (float) AdrenalinConfig.MAX_AMOUNT) * width);
-        int th2 = (int) ((AdrenalinConfig.TIER2_THRESHOLD / (float) AdrenalinConfig.MAX_AMOUNT) * width);
-        int th3 = (int) ((AdrenalinConfig.TIER3_THRESHOLD / (float) AdrenalinConfig.MAX_AMOUNT) * width);
-        int th4 = (int) ((AdrenalinConfig.TIER4_THRESHOLD / (float) AdrenalinConfig.MAX_AMOUNT) * width);
-        ScreenDrawing.coloredRect(x + th1, y, 1, height, 0xFF_000000);
-        ScreenDrawing.coloredRect(x + th2, y, 1, height, 0xFF_000000);
-        ScreenDrawing.coloredRect(x + th3, y, 1, height, 0xFF_000000);
-        ScreenDrawing.coloredRect(x + th4, y, 1, height, 0xFF_000000);
+        if (heightAdrenalin > 0) {
+            ScreenDrawing.coloredRect(x + 1, y - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
+        }
+        ScreenDrawing.texturedRect(x, y, width, height, bar, -1);
     }
 }
