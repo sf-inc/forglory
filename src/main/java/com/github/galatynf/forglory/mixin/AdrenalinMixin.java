@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Mixin(PlayerEntity.class)
 public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinMixin {
@@ -55,6 +59,18 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
         addAdrenalin(fallDistance * AdrenalinConfig.FALL_MULTIPLIER);
+    }
+
+    @Inject(at = @At("HEAD"), method = "eatFood")
+    private void incrementWhenEating(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        if (forglory_adrenalin < AdrenalinConfig.TIER1_THRESHOLD
+                && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.GOLDEN_APPLE)) {
+            forglory_adrenalin = AdrenalinConfig.TIER1_THRESHOLD;
+        }
+        else if (forglory_adrenalin < AdrenalinConfig.TIER3_THRESHOLD
+                && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.ENCHANTED_GOLDEN_APPLE)) {
+            forglory_adrenalin = AdrenalinConfig.TIER3_THRESHOLD;
+        }
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
