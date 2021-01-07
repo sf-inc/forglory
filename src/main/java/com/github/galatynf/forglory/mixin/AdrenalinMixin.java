@@ -32,19 +32,24 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
-        if (this.isSprinting())
+        if (forglory_adrenalin < AdrenalinConfig.TIER2_THRESHOLD
+                && this.isSprinting()) {
             addAdrenalin(AdrenalinConfig.SPRINT_GAIN);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
-        addAdrenalin(AdrenalinConfig.JUMP_GAIN);
+        if (forglory_adrenalin < AdrenalinConfig.TIER2_THRESHOLD) {
+            addAdrenalin(AdrenalinConfig.JUMP_GAIN);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "damage")
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(source.getAttacker() instanceof LivingEntity)
+        if (source.getAttacker() instanceof LivingEntity) {
             addAdrenalin(amount * AdrenalinConfig.DAMAGE_MULTIPLIER);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
@@ -54,10 +59,11 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void loseAdrenalin(CallbackInfo ci) {
-        if (isSneaking())
+        if (isSneaking()) {
             addAdrenalin(AdrenalinConfig.QUICK_LOSS);
-        else
+        } else {
             addAdrenalin(AdrenalinConfig.NATURAL_LOSS);
+        }
     }
 
     @Override
