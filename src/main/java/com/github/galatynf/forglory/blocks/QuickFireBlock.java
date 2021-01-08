@@ -10,20 +10,23 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
+import java.util.Collections;
 import java.util.Random;
 
 
 public class QuickFireBlock extends AbstractFireBlock {
     private static final IntProperty AGE = Properties.AGE_25;
+    public static final BooleanProperty SHORT = BooleanProperty.of("short");
 
     public QuickFireBlock(Settings settings) {
         super(settings, 1.5F);
+        setDefaultState(getStateManager().getDefaultState().with(SHORT, false));
     }
 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
@@ -33,20 +36,21 @@ public class QuickFireBlock extends AbstractFireBlock {
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         world.getBlockTickScheduler().schedule(pos, this, 1);
-        if (world.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
-            if (!state.canPlaceAt(world, pos)) {
-                world.removeBlock(pos, false);
-            }
+        if (!state.canPlaceAt(world, pos)) {
+            world.removeBlock(pos, false);
+        }
 
-            int age = state.get(AGE);
-
-            if (age < 25) {
-                state = state.with(AGE, age+1);
-                world.setBlockState(pos, state, 4);
-            }
-            else {
-                world.removeBlock(pos, false);
-            }
+        int age = state.get(AGE);
+        int ageMax = Collections.max(AGE.getValues());
+        if (state.get(SHORT)) {
+            ageMax = 5;
+        }
+        if (age < ageMax) {
+            state = state.with(AGE, age+1);
+            world.setBlockState(pos, state, 4);
+        }
+        else {
+            world.removeBlock(pos, false);
         }
     }
 
@@ -66,6 +70,7 @@ public class QuickFireBlock extends AbstractFireBlock {
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(AGE);
+        builder.add(SHORT);
     }
 
     @Override

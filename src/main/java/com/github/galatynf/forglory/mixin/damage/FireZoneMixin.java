@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
@@ -43,7 +44,8 @@ public abstract class FireZoneMixin extends Entity {
 
                     BlockPos playerPos = this.getBlockPos();
                     BlockPos blockPos = playerPos.add(distance * xOffset, 0, distance * zOffset);
-                    this.world.setBlockState(blockPos, Forglory.quickFireBlock.getDefaultState());
+                    this.world.setBlockState(blockPos,
+                            Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                 }
             }
         }
