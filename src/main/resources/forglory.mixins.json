@@ -1,33 +1,34 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.github.galatynf.forglory.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "AdrenalinMixin",
-    "FeatsMixin",
-    "damage.DamageToSlowedMixin",
-    "damage.FireTrailMixin",
-    "damage.FireworkerMixin",
-    "damage.SmiteMixin",
-    "damage.StrengthMixin",
-    "heal.FireResistanceMixin",
-    "heal.HealTrailMixin",
-    "heal.LastStandLifeStealMixin",
-    "heal.LastStandMixin",
-    "heal.LastStandRenderMixin",
-    "misc.InvisibleMixin",
-    "misc.KnockbackFistMixin",
-    "misc.SummonDogMixin",
-    "mobility.JumpBoostMixin",
-    "mobility.NoHungerMixin",
-    "mobility.SpeedMixin"
-  ],
-  "client": [
-    "heal.LastStandMixin",
-    "heal.LastStandRenderMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.github.galatynf.forglory.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "AdrenalinMixin",
+        "FeatsMixin",
+        "damage.DamageToSlowedMixin",
+        "damage.FireTrailMixin",
+        "damage.FireworkerMixin",
+        "damage.FireZoneMixin",
+        "damage.SmiteMixin",
+        "damage.StrengthMixin",
+        "heal.FireResistanceMixin",
+        "heal.HealTrailMixin",
+        "heal.LastStandLifeStealMixin",
+        "heal.LastStandMixin",
+        "heal.LastStandRenderMixin",
+        "misc.InvisibleMixin",
+        "misc.KnockbackFistMixin",
+        "misc.SummonDogMixin",
+        "mobility.JumpBoostMixin",
+        "mobility.NoHungerMixin",
+        "mobility.SpeedMixin"
+    ],
+    "client": [
+        "heal.LastStandMixin",
+        "heal.LastStandRenderMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
   }
 }
