@@ -2,10 +2,12 @@ package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,16 +36,17 @@ public abstract class FireZoneMixin extends Entity {
         if (feat == null) return;
         if (feat.equals(Feats.FIRE_ZONE)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
-                forglory_playerTick = (forglory_playerTick +1) % 750;
-                int tickRate = 25;
-                if ((forglory_playerTick % (750/ tickRate)) == 0) {
-                    forglory_fireTick = (forglory_fireTick +1) % tickRate;
-                    int distance = 5;
-                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / tickRate));
-                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / tickRate));
+                ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+                forglory_playerTick = (forglory_playerTick +1) % config.FireZoneConfig.circle_rate;
+                if ((forglory_playerTick % (config.FireZoneConfig.circle_rate / config.FireZoneConfig.fire_rate)) == 0) {
+                    forglory_fireTick = (forglory_fireTick +1) % config.FireZoneConfig.fire_rate;
+                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
+                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
 
                     BlockPos playerPos = this.getBlockPos();
-                    BlockPos blockPos = playerPos.add(distance * xOffset, 0, distance * zOffset);
+                    BlockPos blockPos = playerPos.add(config.FireZoneConfig.radius * xOffset,
+                            0,
+                            config.FireZoneConfig.radius * zOffset);
                     this.world.setBlockState(blockPos,
                             Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                 }

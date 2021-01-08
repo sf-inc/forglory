@@ -29,6 +29,20 @@ public class ModConfig implements ConfigData {
         public int heal_trail_wait_time = 10;
     }
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public FireZoneConfig FireZoneConfig = new FireZoneConfig();
+
+    public static class FireZoneConfig {
+        @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
+        public int radius = 5;
+
+        @ConfigEntry.BoundedDiscrete(min = 500, max = 1500)
+        public int circle_rate = 750;
+
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
+        public int fire_rate = 25;
+    }
+
     @ConfigEntry.Category(value = "Cooldowns")
     public Cooldowns cooldowns = new Cooldowns();
 
