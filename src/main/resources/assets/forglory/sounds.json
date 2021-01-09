@@ -1,0 +1,23 @@
+{
+  "tier_1_whoosh": {
+    "sounds": [
+      "forglory:tier_1_whoosh"
+    ]
+  },
+  "tier_2_bass": {
+    "sounds": [
+      "forglory:tier_2_bass"
+    ]
+  },
+  "tier_3_strong_bass": {
+    "sounds": [
+      "forglory:tier_3_strong_bass"
+    ]
+  },
+  "tier_4_overcharged": {
+    "sounds": [
+      "forglory:tier_4_overcharged"
+    ]
+  }
+}
+

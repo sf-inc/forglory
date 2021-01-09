@@ -26,6 +26,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -75,6 +76,18 @@ public class Forglory implements ModInitializer {
 
     public static final LifeStealStatusEffect lifeStealStatusEffect = new LifeStealStatusEffect();
 
+    public static final Identifier TIER_1_EFFECT_ID = new Identifier("forglory:tier_1_whoosh");
+    public static SoundEvent tier_1_whoosh_event = new SoundEvent(TIER_1_EFFECT_ID);
+
+    public static final Identifier TIER_2_EFFECT_ID = new Identifier("forglory:tier_2_bass");
+    public static SoundEvent tier_2_bass_event = new SoundEvent(TIER_2_EFFECT_ID);
+
+    public static final Identifier TIER_3_EFFECT_ID = new Identifier("forglory:tier_3_strong_bass");
+    public static SoundEvent tier_3_strong_bass_event = new SoundEvent(TIER_3_EFFECT_ID);
+
+    public static final Identifier TIER_4_EFFECT_ID = new Identifier("forglory:tier_4_overcharged");
+    public static SoundEvent tier_4_overcharged_event = new SoundEvent(TIER_4_EFFECT_ID);
+
     public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
     public static final Identifier BERSERK_PACKET_ID = new Identifier("forglory", "is_berserk");
 
@@ -120,6 +133,11 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
 
         Registry.register(Registry.STATUS_EFFECT, new Identifier("forglory", "life_steal_status_effect"), lifeStealStatusEffect);
+
+        Registry.register(Registry.SOUND_EVENT, Forglory.TIER_1_EFFECT_ID, tier_1_whoosh_event);
+        Registry.register(Registry.SOUND_EVENT, Forglory.TIER_2_EFFECT_ID, tier_2_bass_event);
+        Registry.register(Registry.SOUND_EVENT, Forglory.TIER_3_EFFECT_ID, tier_3_strong_bass_event);
+        Registry.register(Registry.SOUND_EVENT, Forglory.TIER_4_EFFECT_ID, tier_4_overcharged_event);
 
         ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID, (packetContext, attachedData) -> {
             int verifier = attachedData.readInt();

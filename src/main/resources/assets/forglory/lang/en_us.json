@@ -36,6 +36,11 @@
 
   "effect.forglory.life_steal_status_effect": "Life Steal",
 
+  "subtitles.forglory.tier_1_whoosh": "Tier 1 whoosh",
+  "subtitles.forglory.tier_2_bass": "Tier 2 bass",
+  "subtitles.forglory.tier_3_strong_bass": "Bass Drop",
+  "subtitles.forglory.tier_4_overcharged": "OVERCHARGED",
+
   "category.forglory.keys": "For Glory",
   "key.forglory.activateFeatKey": "Activate feat",
 
