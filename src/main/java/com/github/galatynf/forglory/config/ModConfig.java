@@ -3,7 +3,6 @@ package com.github.galatynf.forglory.config;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = "forglory")
 public class ModConfig implements ConfigData {
@@ -43,7 +42,16 @@ public class ModConfig implements ConfigData {
         public int fire_rate = 25;
     }
 
-    @ConfigEntry.Category(value = "Cooldowns")
+    @ConfigEntry.Category("GUI and sounds")
+    @ConfigEntry.Gui.CollapsibleObject
+    public Sounds sounds = new Sounds();
+
+    public static class Sounds {
+        public boolean enableTierJingles = true;
+    }
+
+    @ConfigEntry.Category("Cooldowns")
+    @ConfigEntry.Gui.CollapsibleObject
     public Cooldowns cooldowns = new Cooldowns();
 
     public static class Cooldowns {
