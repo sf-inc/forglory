@@ -28,8 +28,22 @@ public abstract class FireTrailMixin extends Entity {
         if (feat.equals(Feats.FIRE_TRAIL)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER1.threshold) {
                 BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
-                this.world.setBlockState(blockPos, Forglory.quickFireBlock.getDefaultState());
+                spawnFire(blockPos);
             }
+        }
+    }
+
+    private void spawnFire(BlockPos blockPos) {
+        BlockPos belowBlockPos = blockPos.down();
+
+        if (this.world.getBlockState(blockPos).isAir()
+                && !this.world.getBlockState(belowBlockPos).isAir()
+                && !this.world.getBlockState(belowBlockPos).getBlock().equals(Forglory.quickFireBlock)) {
+            this.world.setBlockState(blockPos, Forglory.quickFireBlock.getDefaultState());
+        } else if (this.world.getBlockState(blockPos.down()).isAir()
+                && !this.world.getBlockState(belowBlockPos.down()).isAir()
+                && !this.world.getBlockState(belowBlockPos.down()).getBlock().equals(Forglory.quickFireBlock)) {
+            this.world.setBlockState(blockPos.down(), Forglory.quickFireBlock.getDefaultState());
         }
     }
 }
