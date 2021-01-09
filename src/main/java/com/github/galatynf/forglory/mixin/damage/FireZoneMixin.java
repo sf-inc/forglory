@@ -37,15 +37,15 @@ public abstract class FireZoneMixin extends Entity {
         if (feat.equals(Feats.FIRE_ZONE)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
                 ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-                forglory_playerTick = (forglory_playerTick +1) % config.FireZoneConfig.circle_rate;
-                if ((forglory_playerTick % (config.FireZoneConfig.circle_rate / config.FireZoneConfig.fire_rate)) == 0) {
-                    forglory_fireTick = (forglory_fireTick +1) % config.FireZoneConfig.fire_rate;
-                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
-                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
+                forglory_playerTick = (forglory_playerTick +1) % config.fireZoneConfig.circle_rate;
+                if ((forglory_playerTick % (config.fireZoneConfig.circle_rate / config.fireZoneConfig.fire_rate)) == 0) {
+                    forglory_fireTick = (forglory_fireTick +1) % config.fireZoneConfig.fire_rate;
+                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / config.fireZoneConfig.fire_rate));
+                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / config.fireZoneConfig.fire_rate));
 
-                    BlockPos blockPos = this.getBlockPos().add(config.FireZoneConfig.radius * xOffset,
+                    BlockPos blockPos = this.getBlockPos().add(config.fireZoneConfig.radius * xOffset,
                             0,
-                            config.FireZoneConfig.radius * zOffset);
+                            config.fireZoneConfig.radius * zOffset);
 
                     spawnFire(blockPos);
                 }

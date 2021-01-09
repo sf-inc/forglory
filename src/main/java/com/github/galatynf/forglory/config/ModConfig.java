@@ -30,7 +30,7 @@ public class ModConfig implements ConfigData {
     }
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FireZoneConfig FireZoneConfig = new FireZoneConfig();
+    public FireZoneConfig fireZoneConfig = new FireZoneConfig();
 
     public static class FireZoneConfig {
         @ConfigEntry.BoundedDiscrete(min = 3, max = 10)

@@ -50,6 +50,7 @@
   "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time": "Wait time before getting regen effect",
   "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time.@Tooltip[0]": "Low values will prevent the bearer of",
   "text.autoconfig.forglory.option.healTrailConfig.heal_trail_wait_time.@Tooltip[1]": "The aura to get the effect when moving",
+  "text.autoconfig.forglory.option.fireZoneConfig": "Fire zone",
   "text.autoconfig.forglory.option.fireZoneConfig.radius": "Fire radius",
   "text.autoconfig.forglory.option.fireZoneConfig.circle_rate": "Time to circle",
   "text.autoconfig.forglory.option.fireZoneConfig.fire_rate": "Rate of fire"
