@@ -46,7 +46,7 @@ public abstract class HealTrailMixin extends LivingEntity {
                     areaEffectCloudEntity.setDuration(10);
                     areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);
 
-                    areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, 0));
+                    areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0));
 
                     this.world.spawnEntity(areaEffectCloudEntity);
                     forglory_lastSpawned = 0;
