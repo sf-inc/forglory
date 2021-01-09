@@ -43,12 +43,38 @@ public abstract class FireZoneMixin extends Entity {
                     double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
                     double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / config.FireZoneConfig.fire_rate));
 
-                    BlockPos playerPos = this.getBlockPos();
-                    BlockPos blockPos = playerPos.add(config.FireZoneConfig.radius * xOffset,
+                    BlockPos blockPos = this.getBlockPos().add(config.FireZoneConfig.radius * xOffset,
                             0,
                             config.FireZoneConfig.radius * zOffset);
-                    this.world.setBlockState(blockPos,
+
+                    spawnFire(blockPos);
+                }
+            }
+        }
+    }
+
+    private void spawnFire(BlockPos blockPos) {
+        BlockPos belowBlockPos = blockPos.down();
+
+        if (this.world.getBlockState(blockPos).isAir()
+                && !this.world.getBlockState(belowBlockPos).isAir()
+                && !this.world.getBlockState(belowBlockPos).getBlock().equals(Forglory.quickFireBlock)) {
+            this.world.setBlockState(blockPos,
+                    Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+        } else {
+            for (int i = 1; i < 3; i++) {
+                if (this.world.getBlockState(blockPos.down(i)).isAir()
+                        && !this.world.getBlockState(belowBlockPos.down(i)).isAir()
+                        && !this.world.getBlockState(belowBlockPos.down(i)).getBlock().equals(Forglory.quickFireBlock)) {
+                    this.world.setBlockState(blockPos.down(i),
                             Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                    break;
+                } else if (this.world.getBlockState(blockPos.up(i)).isAir()
+                        && !this.world.getBlockState(belowBlockPos.up(i)).isAir()
+                        && !this.world.getBlockState(belowBlockPos.up(i)).getBlock().equals(Forglory.quickFireBlock)) {
+                    this.world.setBlockState(blockPos.up(i),
+                            Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                    break;
                 }
             }
         }
