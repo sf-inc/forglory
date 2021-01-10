@@ -1,10 +1,12 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.imixin.IShieldMixin;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +23,13 @@ public abstract class ShieldPlayerMixin implements IShieldMixin {
 
     @Override
     public void resetBlockedTicks() {
-        forglory_lastBlocked = 15;
+        ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+        forglory_lastBlocked = config.superShieldConfig.ticks_before_attack;
+    }
+
+    @Override
+    public int getBlockedTicks() {
+        return forglory_lastBlocked;
     }
 
     int forglory_lastBlocked = 0;
@@ -34,13 +42,11 @@ public abstract class ShieldPlayerMixin implements IShieldMixin {
     }
 
     @Inject(at=@At("HEAD"), method = "takeShieldHit")
-    public void counterAttack(LivingEntity attacker, CallbackInfo ci) {
-        System.out.println(forglory_lastBlocked);
+    public void counterattack(LivingEntity attacker, CallbackInfo ci) {
         Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER3);
         if (feat == null) return;
         if (feat.equals(Feats.SHIELD)) {
             if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER3.threshold) {
-                System.out.println(forglory_lastBlocked);
                 if(forglory_lastBlocked != 0) {
                     this.attack(attacker);
                 }

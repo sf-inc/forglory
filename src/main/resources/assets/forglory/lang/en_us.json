@@ -59,6 +59,11 @@
   "text.autoconfig.forglory.option.fireZoneConfig.radius": "Fire radius",
   "text.autoconfig.forglory.option.fireZoneConfig.circle_rate": "Time to circle",
   "text.autoconfig.forglory.option.fireZoneConfig.fire_rate": "Rate of fire",
+  "text.autoconfig.forglory.option.superShieldConfig": "Super shield",
+  "text.autoconfig.forglory.option.superShieldConfig.ticks_before_attack": "Ticks before attack",
+  "text.autoconfig.forglory.option.superShieldConfig.ticks_before_attack.@Tooltip[0]": "I.E. The time that passes between the player blocking",
+  "text.autoconfig.forglory.option.superShieldConfig.ticks_before_attack.@Tooltip[1]": "and the feat not triggering if an attack is blocked",
+  "text.autoconfig.forglory.option.superShieldConfig.damage_added_on_counterattack": "Damage added on counterattack",
   "text.autoconfig.forglory.category.GUI and sounds": "GUI and Sounds",
   "text.autoconfig.forglory.option.sounds": "Sounds",
   "text.autoconfig.forglory.option.sounds.enableTierJingles": "Enable Sounds when passing a higher tier"

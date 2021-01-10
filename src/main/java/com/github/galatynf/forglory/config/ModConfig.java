@@ -42,6 +42,18 @@ public class ModConfig implements ConfigData {
         public int fire_rate = 25;
     }
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public SuperShieldConfig superShieldConfig = new SuperShieldConfig();
+
+    public static class SuperShieldConfig {
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 60)
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public int ticks_before_attack = 15;
+
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 10)
+        public int damage_added_on_counterattack = 6;
+    }
+
     @ConfigEntry.Category("GUI and sounds")
     @ConfigEntry.Gui.CollapsibleObject
     public Sounds sounds = new Sounds();
