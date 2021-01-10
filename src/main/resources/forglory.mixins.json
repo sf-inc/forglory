@@ -17,6 +17,8 @@
         "heal.LastStandLifeStealMixin",
         "heal.LastStandMixin",
         "heal.LastStandRenderMixin",
+        "heal.ShieldItemMixin",
+        "heal.ShieldPlayerMixin",
         "misc.BeesEntityMixin",
         "misc.BeesHostileMixin",
         "misc.InvisibleMixin",
