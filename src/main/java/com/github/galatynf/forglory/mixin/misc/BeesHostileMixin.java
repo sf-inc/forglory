@@ -28,20 +28,26 @@ public abstract class BeesHostileMixin extends Entity {
     @Inject(at = @At("HEAD"), method = "onDeath")
     private void transformIntoBee(DamageSource source, CallbackInfo ci) {
         if (source.getAttacker() == null) return;
-        if (!(source.getAttacker() instanceof PlayerEntity)) return;
-
-        Feats feat = ((IFeatsMixin)source.getAttacker()).getFeat(Tier.TIER4);
-        if (feat == null) return;
-        if (feat.equals(Feats.BEES)) {
-            if (((IAdrenalinMixin) source.getAttacker()).getAdrenalin() > Tier.TIER4.threshold) {
-                if (this.world.getEntityById(this.getEntityId()) instanceof HostileEntity) {
-                    for (int i = 0; i < 3; i++) {
-                        BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND,false, false);
-                        if (beeEntity != null) {
-                            ((IPlayerIDMixin)beeEntity).setPlayerID(source.getAttacker().getUuid());
+        if (source.getAttacker() instanceof PlayerEntity) {
+            Feats feat = ((IFeatsMixin) source.getAttacker()).getFeat(Tier.TIER4);
+            if (feat == null) return;
+            if (feat.equals(Feats.BEES)) {
+                if (((IAdrenalinMixin) source.getAttacker()).getAdrenalin() > Tier.TIER4.threshold) {
+                    if (this.world.getEntityById(this.getEntityId()) instanceof HostileEntity) {
+                        for (int i = 0; i < 3; i++) {
+                            BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+                            if (beeEntity != null) {
+                                ((IPlayerIDMixin) beeEntity).setPlayerID(source.getAttacker().getUuid());
+                            }
                         }
                     }
                 }
+            }
+        } else if (source.getAttacker() instanceof BeeEntity
+                && ((IPlayerIDMixin) source.getAttacker()).getPlayerID() != null) {
+            BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+            if (beeEntity != null) {
+                ((IPlayerIDMixin) beeEntity).setPlayerID(((IPlayerIDMixin) source.getAttacker()).getPlayerID());
             }
         }
     }
