@@ -2,10 +2,11 @@
   "schemaVersion": 1,
   "id": "forglory",
   "version": "${version}",
-  "name": "Forglory",
+  "name": "For Glory !",
   "description": "A mod adding passive and active skills which definitely don't come from F.H., with a system based on adrenalin which is totally not mana",
   "authors": [
-    "GalatynF"
+    "GalatynF",
+    "Pardys"
   ],
   "contact": {},
   "license": "MIT",
