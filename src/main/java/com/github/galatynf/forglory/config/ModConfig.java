@@ -43,6 +43,17 @@ public class ModConfig implements ConfigData {
     }
 
     @ConfigEntry.Gui.CollapsibleObject
+    public InstantKillConfig instantKillConfig = new InstantKillConfig();
+
+    public static class InstantKillConfig {
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
+        public int health_percentage = 20;
+
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
+        public int max_damage = 30;
+    }
+
+    @ConfigEntry.Gui.CollapsibleObject
     public SuperShieldConfig superShieldConfig = new SuperShieldConfig();
 
     public static class SuperShieldConfig {
