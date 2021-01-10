@@ -38,26 +38,26 @@ public abstract class BeesEntityMixin extends LivingEntity implements IPlayerIDM
     @Shadow public abstract void setAngerTime(int ticks);
 
     @Unique
-    private UUID forglory_playerID;
+    private Integer forglory_playerID;
 
     protected BeesEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
-    public UUID getPlayerID() {
+    public Integer getPlayerID() {
         return forglory_playerID;
     }
 
     @Override
-    public void setPlayerID(UUID playerID) {
+    public void setPlayerID(Integer playerID) {
         forglory_playerID = playerID;
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void findTarget(CallbackInfo ci) {
         if (forglory_playerID != null) {
-            if (((IAdrenalinMixin) Objects.requireNonNull(this.world.getPlayerByUuid(forglory_playerID))).getAdrenalin() < Tier.TIER4.threshold) {
+            if (((IAdrenalinMixin) Objects.requireNonNull(this.world.getEntityById(forglory_playerID))).getAdrenalin() < Tier.TIER4.threshold) {
                 this.damage(DamageSource.OUT_OF_WORLD, 666);
             }
             else if (getAngryAt() == null) {

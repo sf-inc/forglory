@@ -37,7 +37,7 @@ public abstract class BeesHostileMixin extends Entity {
                         for (int i = 0; i < 3; i++) {
                             BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
                             if (beeEntity != null) {
-                                ((IPlayerIDMixin) beeEntity).setPlayerID(source.getAttacker().getUuid());
+                                ((IPlayerIDMixin) beeEntity).setPlayerID(source.getAttacker().getEntityId());
                             }
                         }
                     }
