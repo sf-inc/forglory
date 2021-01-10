@@ -45,6 +45,11 @@ public abstract class BeesEntityMixin extends LivingEntity implements IPlayerIDM
     }
 
     @Override
+    public UUID getPlayerID() {
+        return forglory_playerID;
+    }
+
+    @Override
     public void setPlayerID(UUID playerID) {
         forglory_playerID = playerID;
     }
