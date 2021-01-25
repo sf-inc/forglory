@@ -39,7 +39,6 @@ public class ForgloryClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (activateFeatKey.wasPressed()) {
                 PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-                passedData.writeInt(42);
                 ClientSidePacketRegistry.INSTANCE.sendToServer(Forglory.ACTIVATE_FEAT_PACKET_ID, passedData);
             }
         });

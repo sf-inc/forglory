@@ -139,22 +139,18 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.SOUND_EVENT, Forglory.TIER_3_EFFECT_ID, tier_3_strong_bass_event);
         Registry.register(Registry.SOUND_EVENT, Forglory.TIER_4_EFFECT_ID, tier_4_overcharged_event);
 
-        ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID, (packetContext, attachedData) -> {
-            int verifier = attachedData.readInt();
-            if (verifier == 42) {
-                packetContext.getTaskQueue().execute(() -> {
-                    PlayerEntity playerEntity = packetContext.getPlayer();
-                    Feats feat = ((IFeatsMixin) playerEntity).getFeat(Tier.TIER2);
-                    if (feat == null) return;
-                    if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
-                            ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
-                        if (feat.equals(Feats.MOUNTAIN)) {
-                            NoMixinFeats.mountainFeat(playerEntity);
-                        }
-                        ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);
-                    }
-                });
+        ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID,
+                (packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
+            PlayerEntity playerEntity = packetContext.getPlayer();
+            Feats feat = ((IFeatsMixin) playerEntity).getFeat(Tier.TIER2);
+            if (feat == null) return;
+            if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
+                    ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
+                if (feat.equals(Feats.MOUNTAIN)) {
+                    NoMixinFeats.mountainFeat(playerEntity);
+                }
+                ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);
             }
-        });
+        }));
     }
 }
