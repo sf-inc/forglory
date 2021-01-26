@@ -146,7 +146,9 @@ public class Forglory implements ModInitializer {
             if (feat == null) return;
             if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
                     ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
-                if (feat.equals(Feats.MOUNTAIN)) {
+                if (feat.equals(Feats.DASH)) {
+                    NoMixinFeats.dashFeat(playerEntity);
+                } else if (feat.equals(Feats.MOUNTAIN)) {
                     NoMixinFeats.mountainFeat(playerEntity);
                 }
                 ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);

@@ -8,6 +8,9 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 public class ModConfig implements ConfigData {
     public float smite_multiplier = 1.5F; //TODO prevent players to put insane values here
 
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
+    public int dash_intensity = 3;
+
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 4;
 
