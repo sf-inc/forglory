@@ -21,8 +21,8 @@ public abstract class StrengthMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
-    void addSpeedEffect(CallbackInfo ci) {
+    @Inject(at=@At("HEAD"), method = "tick")
+    private void addStrengthEffect(CallbackInfo ci) {
         Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER2);
         if (feat == null) return;
         if (feat.equals(Feats.STRENGTH)) {

@@ -21,8 +21,8 @@ public abstract class SpeedMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
-    void addSpeedEffect(CallbackInfo ci) {
+    @Inject(at=@At("HEAD"), method = "tick")
+    private void addSpeedEffect(CallbackInfo ci) {
         Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
         if (feat == null) return;
         if (feat.equals(Feats.SPEED)) {

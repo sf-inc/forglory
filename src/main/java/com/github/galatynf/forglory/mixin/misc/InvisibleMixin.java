@@ -21,8 +21,8 @@ public abstract class InvisibleMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
-    void addSpeedEffect(CallbackInfo ci) {
+    @Inject(at=@At("HEAD"), method = "tick")
+    private void addInvisibleEffect(CallbackInfo ci) {
         Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER4);
         if (feat == null) return;
         if (feat.equals(Feats.INVISIBLE)) {
