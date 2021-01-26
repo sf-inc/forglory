@@ -47,6 +47,19 @@
 
   "text.autoconfig.forglory.title": "For Glory Configuration",
 
+  "text.autoconfig.forglory.category.adrenalin": "Adrenalin Configs",
+  "text.autoconfig.forglory.option.adrenalinConfig.tier1_threshold": "Tier 1 threshold",
+  "text.autoconfig.forglory.option.adrenalinConfig.tier2_threshold": "Tier 2 threshold",
+  "text.autoconfig.forglory.option.adrenalinConfig.tier3_threshold": "Tier 3 threshold",
+  "text.autoconfig.forglory.option.adrenalinConfig.tier4_threshold": "Tier 4 threshold",
+  "text.autoconfig.forglory.option.adrenalinConfig.max_amount": "Max amount",
+  "text.autoconfig.forglory.option.adrenalinConfig.natural_loss": "Natural loss",
+  "text.autoconfig.forglory.option.adrenalinConfig.quick_loss": "Quck loss (sneaking)",
+  "text.autoconfig.forglory.option.adrenalinConfig.sprint_gain": "Sprinting gain",
+  "text.autoconfig.forglory.option.adrenalinConfig.jump_gain": "Jumping gain",
+  "text.autoconfig.forglory.option.adrenalinConfig.fall_multiplier": "Fall multiplier",
+  "text.autoconfig.forglory.option.adrenalinConfig.damage_multiplier": "Damage multiplier",
+
   "text.autoconfig.forglory.category.feats": "Feats Configs",
   "text.autoconfig.forglory.option.featConfig.smite_multiplier": "Smite damage multiplier",
   "text.autoconfig.forglory.option.featConfig.dash_intensity": "Dash intensity",

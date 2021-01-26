@@ -1,6 +1,6 @@
 package com.github.galatynf.forglory.gui;
 
-import com.github.galatynf.forglory.config.constants.AdrenalinConfig;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,9 +22,9 @@ public class AdrenalinBar extends WWidget {
 
         int a = 255;
         int r, g;
-        if (adrenalin < AdrenalinConfig.TIER4_THRESHOLD) {
-            r = (int) ((adrenalin / AdrenalinConfig.TIER4_THRESHOLD) * 255);
-            g = 255 - (int) ((adrenalin / AdrenalinConfig.TIER4_THRESHOLD) * 255);
+        if (adrenalin < ModConfig.get().adrenalinConfig.tier4_threshold) {
+            r = (int) ((adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold) * 255);
+            g = 255 - (int) ((adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold) * 255);
         } else {
             r = 255;
             g = 0;
@@ -32,10 +32,10 @@ public class AdrenalinBar extends WWidget {
 
         int color = a << 24 | r << 16 | g << 8;
 
-        if (adrenalin > AdrenalinConfig.TIER4_THRESHOLD) {
-            adrenalin = AdrenalinConfig.TIER4_THRESHOLD;
+        if (adrenalin > ModConfig.get().adrenalinConfig.tier4_threshold) {
+            adrenalin = ModConfig.get().adrenalinConfig.tier4_threshold;
         }
-        float adrenalinPercentage = adrenalin / AdrenalinConfig.TIER4_THRESHOLD;
+        float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold;
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
         Identifier bar = new Identifier("forglory", "textures/overlay/adrenalin_bar.png");
 

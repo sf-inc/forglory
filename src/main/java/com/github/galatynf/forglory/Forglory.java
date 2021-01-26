@@ -99,7 +99,10 @@ public class Forglory implements ModInitializer {
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
-        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> Feats.initCooldowns());
+        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer ->  {
+            Tier.initThresholds();
+            Feats.initCooldowns();
+        });
 
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);

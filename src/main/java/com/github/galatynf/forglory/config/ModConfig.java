@@ -7,6 +7,10 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.PartitioningSerializer;
 
 @Config(name = "forglory")
 public class ModConfig extends PartitioningSerializer.GlobalData {
+    @ConfigEntry.Category("adrenalin")
+    @ConfigEntry.Gui.TransitiveObject
+    public AdrenalinConfig adrenalinConfig = new AdrenalinConfig();
+
     @ConfigEntry.Category("feats")
     @ConfigEntry.Gui.TransitiveObject
     public FeatConfig featConfig = new FeatConfig();

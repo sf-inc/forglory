@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.items;
 
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -8,8 +9,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-
-import static com.github.galatynf.forglory.config.constants.AdrenalinConfig.*;
 
 public class DebugItem extends Item {
     public DebugItem(Settings settings) {
@@ -26,32 +25,36 @@ public class DebugItem extends Item {
 
     private float amountToAdd(final float adrenalin, final boolean toLoose) {
         float amount;
-        if (adrenalin < TIER1_THRESHOLD) {
+        if (adrenalin < ModConfig.get().adrenalinConfig.tier1_threshold) {
             if (toLoose) {
                 amount = -adrenalin;
             } else {
-                amount = (TIER2_THRESHOLD - TIER1_THRESHOLD) / 2.f + TIER1_THRESHOLD;
+                amount = (ModConfig.get().adrenalinConfig.tier2_threshold - ModConfig.get().adrenalinConfig.tier1_threshold) / 2.0F
+                        + ModConfig.get().adrenalinConfig.tier1_threshold;
                 amount -= adrenalin;
             }
-        } else if (adrenalin < TIER2_THRESHOLD) {
+        } else if (adrenalin < ModConfig.get().adrenalinConfig.tier2_threshold) {
             if (toLoose) {
-                amount = TIER1_THRESHOLD - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.tier1_threshold - adrenalin;
             } else {
-                amount = (TIER3_THRESHOLD - TIER2_THRESHOLD) / 2.f + TIER2_THRESHOLD;
+                amount = (ModConfig.get().adrenalinConfig.tier3_threshold - ModConfig.get().adrenalinConfig.tier2_threshold) / 2.0F
+                        + ModConfig.get().adrenalinConfig.tier2_threshold;
                 amount -= adrenalin;
             }
-        } else if (adrenalin < TIER3_THRESHOLD) {
+        } else if (adrenalin < ModConfig.get().adrenalinConfig.tier3_threshold) {
             if (toLoose) {
-                amount = TIER2_THRESHOLD - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.tier2_threshold - adrenalin;
             } else {
-                amount = (TIER4_THRESHOLD - TIER3_THRESHOLD) / 2.f + TIER3_THRESHOLD;
+                amount = (ModConfig.get().adrenalinConfig.tier4_threshold - ModConfig.get().adrenalinConfig.tier3_threshold) / 2.0F
+                        + ModConfig.get().adrenalinConfig.tier3_threshold;
                 amount -= adrenalin;
             }
         } else {
             if (toLoose) {
-                amount = TIER3_THRESHOLD - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.tier3_threshold - adrenalin;
             } else {
-                amount = (MAX_AMOUNT - TIER4_THRESHOLD) / 2.f + TIER4_THRESHOLD;
+                amount = (ModConfig.get().adrenalinConfig.max_amount - ModConfig.get().adrenalinConfig.tier4_threshold) / 2.0F
+                        + ModConfig.get().adrenalinConfig.tier4_threshold;
                 amount -= adrenalin;
             }
         }
