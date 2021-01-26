@@ -12,6 +12,10 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int dash_intensity = 3;
 
+    @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
+    @ConfigEntry.Gui.Tooltip(count = 3)
+    public int bloodlust_multiplier = 8;
+
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 4;
 

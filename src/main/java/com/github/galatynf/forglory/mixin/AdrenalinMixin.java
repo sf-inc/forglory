@@ -3,11 +3,15 @@ package com.github.galatynf.forglory.mixin;
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.config.constants.AdrenalinConfig;
+import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
+import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.ItemStack;
@@ -35,6 +39,8 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Shadow public abstract float getMovementSpeed();
 
     @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+
+    @Shadow public abstract HungerManager getHungerManager();
 
     @Unique
     protected float forglory_adrenalin = 0;
@@ -109,7 +115,20 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
 
     @Override
     public void addAdrenalin(final float amount) {
-        forglory_adrenalin += amount;
+        float multiplier = 1;
+
+        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
+        if(feat !=null) {
+            if (feat.equals(Feats.BLOODLUST) && amount > 0 && this.getHealth() > 0) {
+                if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
+                    float value = ModConfig.get().bloodlust_multiplier;
+                    multiplier = this.getMaxHealth() / (this.getHealth() * value) + 1 - (1 / value);
+                }
+            }
+        }
+
+        forglory_adrenalin += amount*multiplier;
+
         if(forglory_adrenalin > AdrenalinConfig.MAX_AMOUNT) {
             forglory_adrenalin = AdrenalinConfig.MAX_AMOUNT;
         }

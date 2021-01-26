@@ -10,6 +10,7 @@ public enum Feats {
     SMITE(Tier.TIER1, CooldownsConfig.NO_COOLDOWN),
     SPEED(Tier.TIER1, CooldownsConfig.NO_COOLDOWN),
     RESISTANCE(Tier.TIER1, CooldownsConfig.NO_COOLDOWN),
+    BLOODLUST(Tier.TIER1, CooldownsConfig.NO_COOLDOWN),
 
     DASH(Tier.TIER2, CooldownsConfig.DASH_COOLDOWN),
     FIRE_RESISTANCE(Tier.TIER2, CooldownsConfig.NO_COOLDOWN),
