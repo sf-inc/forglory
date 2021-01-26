@@ -13,7 +13,7 @@
     "damage.InstantKillMixin",
     "damage.SmiteMixin",
     "damage.StrengthMixin",
-    "heal.FireResistanceMixin",
+    "mobility.StridersGraceMixin",
     "heal.HealTrailMixin",
     "heal.LastStandLifeStealMixin",
     "heal.LastStandMixin",

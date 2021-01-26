@@ -13,7 +13,6 @@ public enum Feats {
     BLOODLUST(Tier.TIER1, CooldownsConfig.NO_COOLDOWN),
 
     DASH(Tier.TIER2, CooldownsConfig.DASH_COOLDOWN),
-    FIRE_RESISTANCE(Tier.TIER2, CooldownsConfig.NO_COOLDOWN),
     KNOCKBACK_FIST(Tier.TIER2, CooldownsConfig.KNOCKBACK_FIST_COOLDOWN),
     MOUNTAIN(Tier.TIER2, CooldownsConfig.MOUNTAIN_COOLDOWN),
     STRENGTH(Tier.TIER2, CooldownsConfig.NO_COOLDOWN),
@@ -24,6 +23,7 @@ public enum Feats {
     JUMP_BOOST(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
     SHIELD(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
     SHIELD_RESISTANCE(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
+    STRIDERS_GRACE(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
 
     BEES(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),
     INVISIBLE(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),

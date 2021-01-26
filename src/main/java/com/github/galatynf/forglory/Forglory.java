@@ -51,7 +51,6 @@ public class Forglory implements ModInitializer {
     public static final HealGem healGem = new HealGem(new Item.Settings().group(forGlory));
     public static final ResistanceGem resistanceGem = new ResistanceGem(new Item.Settings().group(forGlory));
     public static final HealingFistGem healingFistGem = new HealingFistGem(new Item.Settings().group(forGlory));
-    public static final FireResistanceGem fireResistanceGem = new FireResistanceGem(new Item.Settings().group(forGlory));
     public static final CompanionHealGem companionHealGem = new CompanionHealGem(new Item.Settings().group(forGlory));
     public static final ShieldGem shieldGem = new ShieldGem(new Item.Settings().group(forGlory));
     public static final ShieldResistanceGem shieldResistanceGem = new ShieldResistanceGem(new Item.Settings().group(forGlory));
@@ -71,6 +70,7 @@ public class Forglory implements ModInitializer {
     public static final SpeedGem speedGem = new SpeedGem(new Item.Settings().group(forGlory));
     public static final DashGem dashGem = new DashGem(new Item.Settings().group(forGlory));
     public static final JumpBoostGem jumpBoostGem = new JumpBoostGem(new Item.Settings().group(forGlory));
+    public static final StridersGraceGem stridersGraceGem = new StridersGraceGem(new Item.Settings().group(forGlory));
 
     public static final QuickFireBlock quickFireBlock = new QuickFireBlock(FabricBlockSettings
             .of(Material.FIRE, MaterialColor.PURPLE).breakInstantly().noCollision().lightLevel(15).sounds(BlockSoundGroup.WOOL));
@@ -113,7 +113,6 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "resistance_gem"), resistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "healing_fist_gem"), healingFistGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_resistance_gem"), fireResistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "companion_heal_gem"), companionHealGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "shield_gem"), shieldGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "shield_resistance_gem"), shieldResistanceGem);
@@ -133,6 +132,7 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "speed_gem"), speedGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "dash_gem"), dashGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "jump_boost_gem"), jumpBoostGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "striders_grace_gem"), stridersGraceGem);
 
         Registry.register(Registry.BLOCK, new Identifier("forglory", "quick_fire"), quickFireBlock);
 

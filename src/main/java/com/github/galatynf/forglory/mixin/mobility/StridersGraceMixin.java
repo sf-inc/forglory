@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.mixin.heal;
+package com.github.galatynf.forglory.mixin.mobility;
 
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
@@ -17,17 +17,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public abstract class FireResistanceMixin extends LivingEntity {
-    protected FireResistanceMixin(EntityType<? extends LivingEntity> entityType, World world) {
+public abstract class StridersGraceMixin extends LivingEntity {
+    protected StridersGraceMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addStridersGraceEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER2);
+        Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER3);
         if (feat == null) return;
-        if (feat.equals(Feats.FIRE_RESISTANCE)) {
-            if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER2.threshold) {
+        if (feat.equals(Feats.STRIDERS_GRACE)) {
+            if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER3.threshold) {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
                 if (this.isInLava()) {
                     double x = (ModConfig.get().striders_grace_speed / 4.0D) * Math.sin((-this.yaw * Math.PI) / 180.0D);

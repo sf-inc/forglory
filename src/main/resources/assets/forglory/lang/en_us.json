@@ -13,7 +13,6 @@
 
   "item.forglory.heal_gem": "Heal Gem",
   "item.forglory.healing_fist_gem": "Healing Fist Gem",
-  "item.forglory.fire_resistance_gem": "Fire Resistance Gem",
   "item.forglory.companion_heal_gem": "Companion Heal Gem",
   "item.forglory.shield_gem": "Shield Gem",
   "item.forglory.last_stand_gem": "Last Stand Gem",
@@ -31,6 +30,7 @@
   "item.forglory.speed_gem": "Speed Gem",
   "item.forglory.dash_gem": "Dash Gem",
   "item.forglory.jump_boost_gem": "Jump Boost Gem",
+  "item.forglory.striders_grace_gem": "Strider's Grace Gem",
 
   "item.forglory.debug_item": "Debug Item",
 
@@ -52,6 +52,7 @@
   "text.autoconfig.forglory.option.bloodlust_multiplier.@Tooltip[0]": "The formula used to compute the multiplier is :",
   "text.autoconfig.forglory.option.bloodlust_multiplier.@Tooltip[1]": "MaxHealth/(CurrentHealth*value) + 1-(1/value)",
   "text.autoconfig.forglory.option.bloodlust_multiplier.@Tooltip[2]": "ergo, the higher the value, the lower the multiplier",
+  "text.autoconfig.forglory.option.striders_grace_speed": "Strider's grace speed",
   "text.autoconfig.forglory.option.life_steal_max_amount": "Max amount of life stealing",
   "text.autoconfig.forglory.option.healTrailConfig": "Heal trail",
   "text.autoconfig.forglory.option.healTrailConfig.heal_trail_radius": "Trail radius",
