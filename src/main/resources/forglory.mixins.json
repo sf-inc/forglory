@@ -18,6 +18,7 @@
     "heal.LastStandLifeStealMixin",
     "heal.LastStandMixin",
     "heal.LastStandRenderMixin",
+    "heal.ResistanceMixin",
     "heal.ShieldEnemyMixin",
     "heal.ShieldItemMixin",
     "heal.ShieldPlayerMixin",

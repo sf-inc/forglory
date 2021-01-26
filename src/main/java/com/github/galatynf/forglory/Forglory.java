@@ -49,6 +49,7 @@ public class Forglory implements ModInitializer {
     public static final InstantKillGem instantKillGem = new InstantKillGem(new Item.Settings().group(forGlory));
 
     public static final HealGem healGem = new HealGem(new Item.Settings().group(forGlory));
+    public static final ResistanceGem resistanceGem = new ResistanceGem(new Item.Settings().group(forGlory));
     public static final HealingFistGem healingFistGem = new HealingFistGem(new Item.Settings().group(forGlory));
     public static final FireResistanceGem fireResistanceGem = new FireResistanceGem(new Item.Settings().group(forGlory));
     public static final CompanionHealGem companionHealGem = new CompanionHealGem(new Item.Settings().group(forGlory));
@@ -108,6 +109,7 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "instant_kill_gem"), instantKillGem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "resistance_gem"), resistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "healing_fist_gem"), healingFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "fire_resistance_gem"), fireResistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "companion_heal_gem"), companionHealGem);
