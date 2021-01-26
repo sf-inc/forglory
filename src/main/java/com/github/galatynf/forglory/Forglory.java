@@ -21,6 +21,7 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -98,6 +99,7 @@ public class Forglory implements ModInitializer {
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
+        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> Feats.initCooldowns());
 
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
