@@ -22,6 +22,7 @@
     "heal.ShieldEnemyMixin",
     "heal.ShieldItemMixin",
     "heal.ShieldPlayerMixin",
+    "heal.ShieldResistanceMixin",
     "misc.BeesEntityMixin",
     "misc.BeesHostileMixin",
     "misc.InvisibleMixin",

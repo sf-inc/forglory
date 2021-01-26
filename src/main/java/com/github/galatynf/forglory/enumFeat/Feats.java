@@ -23,6 +23,7 @@ public enum Feats {
     FIRE_ZONE(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
     JUMP_BOOST(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
     SHIELD(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
+    SHIELD_RESISTANCE(Tier.TIER3, CooldownsConfig.NO_COOLDOWN),
 
     BEES(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),
     INVISIBLE(Tier.TIER4, CooldownsConfig.NO_COOLDOWN),
