@@ -20,6 +20,9 @@ public class ModConfig implements ConfigData {
     public int mountain_height = 4;
 
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
+    public int striders_grace_speed = 3;
+
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int life_steal_max_amount = 3;
 
     @ConfigEntry.Gui.CollapsibleObject

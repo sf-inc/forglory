@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
@@ -22,12 +23,19 @@ public abstract class FireResistanceMixin extends LivingEntity {
     }
 
     @Inject(at=@At("HEAD"), method = "tick")
-    private void addFireResistanceEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER2);
+    private void addStridersGraceEffect(CallbackInfo ci) {
+        Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER2);
         if (feat == null) return;
         if (feat.equals(Feats.FIRE_RESISTANCE)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER2.threshold) {
+            if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER2.threshold) {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
+                if (this.isInLava()) {
+                    double x = (ModConfig.get().striders_grace_speed / 4.0D) * Math.sin((-this.yaw * Math.PI) / 180.0D);
+                    double y = (ModConfig.get().striders_grace_speed / 6.0D) * Math.sin((-this.pitch * Math.PI) / 180.0D);
+                    double z = (ModConfig.get().striders_grace_speed / 4.0D) * Math.cos((-this.yaw * Math.PI) / 180.0D);
+                    this.setVelocity(x, y, z);
+                    this.velocityModified = true;
+                }
             }
         }
     }
