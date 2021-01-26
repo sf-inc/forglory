@@ -2,7 +2,6 @@ package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.config.ModConfig;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,9 +18,8 @@ public class LastStandLifeStealMixin {
         Entity attacker = source.getAttacker();
         if(attacker instanceof PlayerEntity
                 && ((PlayerEntity) attacker).hasStatusEffect(Forglory.lifeStealStatusEffect)) {
-            ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
             ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() +
-                    (amount > config.life_steal_max_amount ? config.life_steal_max_amount : amount));
+                    (amount > ModConfig.get().life_steal_max_amount ? ModConfig.get().life_steal_max_amount : amount));
         }
     }
 }

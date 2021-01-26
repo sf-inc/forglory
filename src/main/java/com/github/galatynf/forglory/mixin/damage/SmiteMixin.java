@@ -5,7 +5,6 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -37,8 +36,7 @@ public abstract class SmiteMixin extends Entity{
                 if (feat.equals(Feats.SMITE)) {
                     if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > Tier.TIER1.threshold)
                         if (this.isUndead()) {
-                            ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-                            return (amount * config.smite_multiplier);
+                            return (amount * ModConfig.get().smite_multiplier);
                         }
                 }
         }

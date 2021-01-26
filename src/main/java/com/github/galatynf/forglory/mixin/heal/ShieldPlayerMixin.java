@@ -6,7 +6,6 @@ import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.imixin.IShieldMixin;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,8 +22,7 @@ public abstract class ShieldPlayerMixin implements IShieldMixin {
 
     @Override
     public void resetBlockedTicks() {
-        ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-        forglory_lastBlocked = config.superShieldConfig.ticks_before_attack;
+        forglory_lastBlocked = ModConfig.get().superShieldConfig.ticks_before_attack;
     }
 
     @Override

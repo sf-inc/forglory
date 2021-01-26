@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.config;
 
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
@@ -100,13 +101,7 @@ public class ModConfig implements ConfigData {
         public int instant_kill_cooldown = 200;
     }
 
-    /*
-    @ConfigEntry.Gui.Excluded
-    InnerStuff invisibleStuff = new InnerStuff();
-
-    static class InnerStuff {
-        int a = 0;
-        int b = 1;
+    public static ModConfig get() {
+        return AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
-     */
 }

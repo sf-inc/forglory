@@ -5,7 +5,6 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,9 +30,8 @@ public abstract class InstantKillMixin {
                 if (((IAdrenalinMixin) source.getAttacker()).getAdrenalin() > Tier.TIER4.threshold
                         && ((IFeatsMixin) source.getAttacker()).getCooldown(Tier.TIER4) == 0) {
                     ((IFeatsMixin) source.getAttacker()).resetCooldown(Tier.TIER4);
-                    ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-                    if (this.getHealth() <= Math.min((config.instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
-                            config.instantKillConfig.max_damage)) {
+                    if (this.getHealth() <= Math.min((ModConfig.get().instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
+                            ModConfig.get().instantKillConfig.max_damage)) {
                         amount = this.getMaxHealth();
                     }
                 }
