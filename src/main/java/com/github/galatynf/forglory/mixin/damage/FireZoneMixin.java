@@ -35,15 +35,15 @@ public abstract class FireZoneMixin extends Entity {
         if (feat == null) return;
         if (feat.equals(Feats.FIRE_ZONE)) {
             if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
-                forglory_playerTick = (forglory_playerTick +1) % ModConfig.get().fireZoneConfig.circle_rate;
-                if ((forglory_playerTick % (ModConfig.get().fireZoneConfig.circle_rate / ModConfig.get().fireZoneConfig.fire_rate)) == 0) {
-                    forglory_fireTick = (forglory_fireTick +1) % ModConfig.get().fireZoneConfig.fire_rate;
-                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / ModConfig.get().fireZoneConfig.fire_rate));
-                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / ModConfig.get().fireZoneConfig.fire_rate));
+                forglory_playerTick = (forglory_playerTick +1) % ModConfig.get().featConfig.fireZoneConfig.circle_rate;
+                if ((forglory_playerTick % (ModConfig.get().featConfig.fireZoneConfig.circle_rate / ModConfig.get().featConfig.fireZoneConfig.fire_rate)) == 0) {
+                    forglory_fireTick = (forglory_fireTick +1) % ModConfig.get().featConfig.fireZoneConfig.fire_rate;
+                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
+                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
 
-                    BlockPos blockPos = this.getBlockPos().add(ModConfig.get().fireZoneConfig.radius * xOffset,
+                    BlockPos blockPos = this.getBlockPos().add(ModConfig.get().featConfig.fireZoneConfig.radius * xOffset,
                             0,
-                            ModConfig.get().fireZoneConfig.radius * zOffset);
+                            ModConfig.get().featConfig.fireZoneConfig.radius * zOffset);
 
                     spawnFire(blockPos);
                 }

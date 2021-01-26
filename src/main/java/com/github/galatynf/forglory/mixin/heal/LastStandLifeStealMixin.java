@@ -19,7 +19,7 @@ public class LastStandLifeStealMixin {
         if(attacker instanceof PlayerEntity
                 && ((PlayerEntity) attacker).hasStatusEffect(Forglory.lifeStealStatusEffect)) {
             ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() +
-                    (amount > ModConfig.get().life_steal_max_amount ? ModConfig.get().life_steal_max_amount : amount));
+                    (amount > ModConfig.get().featConfig.life_steal_max_amount ? ModConfig.get().featConfig.life_steal_max_amount : amount));
         }
     }
 }

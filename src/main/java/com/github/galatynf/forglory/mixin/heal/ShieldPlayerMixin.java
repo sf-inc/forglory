@@ -22,7 +22,7 @@ public abstract class ShieldPlayerMixin implements IShieldMixin {
 
     @Override
     public void resetBlockedTicks() {
-        forglory_lastBlocked = ModConfig.get().superShieldConfig.ticks_before_attack;
+        forglory_lastBlocked = ModConfig.get().featConfig.superShieldConfig.ticks_before_attack;
     }
 
     @Override

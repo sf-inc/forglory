@@ -27,7 +27,7 @@ public class ShieldEnemyMixin {
         if (feat.equals(Feats.SHIELD)) {
             if (((IAdrenalinMixin) attacker).getAdrenalin() > Tier.TIER3.threshold) {
                 if (((IShieldMixin)attacker).getBlockedTicks() != 0) {
-                    amount += ModConfig.get().superShieldConfig.damage_added_on_counterattack;
+                    amount += ModConfig.get().featConfig.superShieldConfig.damage_added_on_counterattack;
                 }
             }
         }

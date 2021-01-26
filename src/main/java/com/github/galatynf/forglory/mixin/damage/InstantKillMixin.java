@@ -30,8 +30,8 @@ public abstract class InstantKillMixin {
                 if (((IAdrenalinMixin) source.getAttacker()).getAdrenalin() > Tier.TIER4.threshold
                         && ((IFeatsMixin) source.getAttacker()).getCooldown(Tier.TIER4) == 0) {
                     ((IFeatsMixin) source.getAttacker()).resetCooldown(Tier.TIER4);
-                    if (this.getHealth() <= Math.min((ModConfig.get().instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
-                            ModConfig.get().instantKillConfig.max_damage)) {
+                    if (this.getHealth() <= Math.min((ModConfig.get().featConfig.instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
+                            ModConfig.get().featConfig.instantKillConfig.max_damage)) {
                         amount = this.getMaxHealth();
                     }
                 }

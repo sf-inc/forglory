@@ -121,7 +121,7 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
         if(feat !=null) {
             if (feat.equals(Feats.BLOODLUST) && amount > 0 && this.getHealth() > 0) {
                 if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
-                    float value = ModConfig.get().bloodlust_multiplier;
+                    float value = ModConfig.get().featConfig.bloodlust_multiplier;
                     multiplier = this.getMaxHealth() / (this.getHealth() * value) + 1 - (1 / value);
                 }
             }
@@ -141,7 +141,7 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     public void playSoundtest(CallbackInfo ci) {
         if(world.isClient()) {
             ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-            if(config.sounds.enableTierJingles) {
+            if(config.guiSoundsConfig.sounds.enableTierJingles) {
                 if (forglory_adrenalin >= AdrenalinConfig.TIER1_THRESHOLD) {
                     if (!forglory_soundPlayed[0]) {
                         playSound(Forglory.tier_1_whoosh_event, 1.2F, 1F);

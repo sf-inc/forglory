@@ -36,7 +36,7 @@ public abstract class SmiteMixin extends Entity{
                 if (feat.equals(Feats.SMITE)) {
                     if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > Tier.TIER1.threshold)
                         if (this.isUndead()) {
-                            return (amount * ModConfig.get().smite_multiplier);
+                            return (amount * ModConfig.get().featConfig.smite_multiplier);
                         }
                 }
         }
