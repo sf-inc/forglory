@@ -44,27 +44,27 @@ public class Forglory implements ModInitializer {
     public static final Item essenceInfuserItem = new BlockItem(essenceInfuser, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
 
     public static final DamageGem damageGem = new DamageGem(new Item.Settings().group(forGlory));
-    public static final FireTrailGem fireTrailGem = new FireTrailGem(new Item.Settings().group(forGlory));
     public static final SmiteGem smiteGem = new SmiteGem(new Item.Settings().group(forGlory));
-    public static final MachineGunGem machineGunGem = new MachineGunGem(new Item.Settings().group(forGlory));
     public static final StrengthGem strengthGem = new StrengthGem(new Item.Settings().group(forGlory));
+    public static final FireTrailGem fireTrailGem = new FireTrailGem(new Item.Settings().group(forGlory));
+    public static final MachineGunGem machineGunGem = new MachineGunGem(new Item.Settings().group(forGlory));
     public static final DamageSlowedGem damageSlowedGem = new DamageSlowedGem(new Item.Settings().group(forGlory));
-    public static final FireZoneGem fireZoneGem = new FireZoneGem(new Item.Settings().group(forGlory));
+    public static final ShieldGem superShieldGem = new ShieldGem(new Item.Settings().group(forGlory));
     public static final FireworkerGem fireworkerGem = new FireworkerGem(new Item.Settings().group(forGlory));
+    public static final FireZoneGem fireZoneGem = new FireZoneGem(new Item.Settings().group(forGlory));
     public static final InstantKillGem instantKillGem = new InstantKillGem(new Item.Settings().group(forGlory));
 
     public static final HealGem healGem = new HealGem(new Item.Settings().group(forGlory));
     public static final ResistanceGem resistanceGem = new ResistanceGem(new Item.Settings().group(forGlory));
     public static final HealingFistGem healingFistGem = new HealingFistGem(new Item.Settings().group(forGlory));
     public static final CompanionHealGem companionHealGem = new CompanionHealGem(new Item.Settings().group(forGlory));
-    public static final ShieldGem shieldGem = new ShieldGem(new Item.Settings().group(forGlory));
     public static final ShieldResistanceGem shieldResistanceGem = new ShieldResistanceGem(new Item.Settings().group(forGlory));
-    public static final LastStandGem lastStandGem = new LastStandGem(new Item.Settings().group(forGlory));
     public static final HealTrailGem healTrailGem = new HealTrailGem(new Item.Settings().group(forGlory));
+    public static final LastStandGem lastStandGem = new LastStandGem(new Item.Settings().group(forGlory));
 
     public static final MiscGem miscGem = new MiscGem(new Item.Settings().group(forGlory));
-    public static final DogGem dogGem = new DogGem(new Item.Settings().group(forGlory));
     public static final BloodlustGem bloodlustGem = new BloodlustGem(new Item.Settings().group(forGlory));
+    public static final DogGem dogGem = new DogGem(new Item.Settings().group(forGlory));
     public static final SniperGem sniperGem = new SniperGem(new Item.Settings().group(forGlory));
     public static final KnockbackFistGem knockbackFistGem = new KnockbackFistGem(new Item.Settings().group(forGlory));
     public static final MountainGem mountainGem = new MountainGem(new Item.Settings().group(forGlory));
@@ -113,27 +113,27 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_trail_gem"), fireTrailGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "smite_gem"), smiteGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "machine_gun_gem"), machineGunGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_trail_gem"), fireTrailGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "machine_gun_gem"), machineGunGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_slowed_gem"), damageSlowedGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_zone_gem"), fireZoneGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "super_shield_gem"), superShieldGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "fireworker_gem"), fireworkerGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "fire_zone_gem"), fireZoneGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "instant_kill_gem"), instantKillGem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "resistance_gem"), resistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "healing_fist_gem"), healingFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "companion_heal_gem"), companionHealGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "shield_gem"), shieldGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "shield_resistance_gem"), shieldResistanceGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "last_stand_gem"), lastStandGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_trail_gem"), healTrailGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "last_stand_gem"), lastStandGem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "misc_gem"), miscGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "dog_gem"), dogGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bloodlust_gem"), bloodlustGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "dog_gem"), dogGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "sniper_gem"), sniperGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "knockback_fist_gem"), knockbackFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "mountain_gem"), mountainGem);
