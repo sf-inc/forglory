@@ -65,10 +65,12 @@ public class Forglory implements ModInitializer {
     public static final MiscGem miscGem = new MiscGem(new Item.Settings().group(forGlory));
     public static final DogGem dogGem = new DogGem(new Item.Settings().group(forGlory));
     public static final BloodlustGem bloodlustGem = new BloodlustGem(new Item.Settings().group(forGlory));
+    public static final SniperGem sniperGem = new SniperGem(new Item.Settings().group(forGlory));
     public static final KnockbackFistGem knockbackFistGem = new KnockbackFistGem(new Item.Settings().group(forGlory));
     public static final MountainGem mountainGem = new MountainGem(new Item.Settings().group(forGlory));
     public static final BeesGem beesGem = new BeesGem(new Item.Settings().group(forGlory));
     public static final InvisibleGem invisibleGem = new InvisibleGem(new Item.Settings().group(forGlory));
+    public static final UndeadArmyGem undeadArmyGem = new UndeadArmyGem(new Item.Settings().group(forGlory));
 
     public static final MobilityGem mobilityGem = new MobilityGem(new Item.Settings().group(forGlory));
     public static final NoHungerGem noHungerGem = new NoHungerGem(new Item.Settings().group(forGlory));
@@ -132,10 +134,12 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "misc_gem"), miscGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "dog_gem"), dogGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bloodlust_gem"), bloodlustGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "sniper_gem"), sniperGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "knockback_fist_gem"), knockbackFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "mountain_gem"), mountainGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bees_gem"), beesGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "invisible_gem"), invisibleGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "undead_army_gem"), undeadArmyGem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "mobility_gem"), mobilityGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "no_hunger_gem"), noHungerGem);

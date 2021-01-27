@@ -9,6 +9,7 @@ public enum Feats {
     NO_HUNGER(Tier.TIER1),
     RESISTANCE(Tier.TIER1),
     SMITE(Tier.TIER1),
+    SNIPER(Tier.TIER1),
     SPEED(Tier.TIER1),
     STRENGTH(Tier.TIER1),
 
@@ -32,7 +33,8 @@ public enum Feats {
     HEAL_TRAIL(Tier.TIER4),
     INSTANT_KILL(Tier.TIER4),
     INVISIBLE(Tier.TIER4),
-    LAST_STAND(Tier.TIER4);
+    LAST_STAND(Tier.TIER4),
+    UNDEAD_ARMY(Tier.TIER4);
 
     public Tier tier;
     public int cooldown;
