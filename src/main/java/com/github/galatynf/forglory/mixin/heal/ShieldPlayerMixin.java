@@ -43,7 +43,7 @@ public abstract class ShieldPlayerMixin implements IShieldMixin {
     public void counterattack(LivingEntity attacker, CallbackInfo ci) {
         Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER3);
         if (feat == null) return;
-        if (feat.equals(Feats.SHIELD)) {
+        if (feat.equals(Feats.SUPER_SHIELD)) {
             if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER3.threshold) {
                 if(forglory_lastBlocked != 0) {
                     this.attack(attacker);

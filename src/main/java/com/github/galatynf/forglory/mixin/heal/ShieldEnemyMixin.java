@@ -24,7 +24,7 @@ public class ShieldEnemyMixin {
         PlayerEntity attacker = (PlayerEntity) source.getAttacker();
         Feats feat = ((IFeatsMixin)attacker).getFeat(Tier.TIER3);
         if (feat == null) return amount;
-        if (feat.equals(Feats.SHIELD)) {
+        if (feat.equals(Feats.SUPER_SHIELD)) {
             if (((IAdrenalinMixin) attacker).getAdrenalin() > Tier.TIER3.threshold) {
                 if (((IShieldMixin)attacker).getBlockedTicks() != 0) {
                     amount += ModConfig.get().featConfig.superShieldConfig.damage_added_on_counterattack;

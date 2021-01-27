@@ -23,9 +23,9 @@ public enum Feats {
     COMPANION_HEAL(Tier.TIER3),
     DAMAGE_SLOWED(Tier.TIER3),
     JUMP_BOOST(Tier.TIER3),
-    SHIELD(Tier.TIER3),
     SHIELD_RESISTANCE(Tier.TIER3),
     STRIDERS_GRACE(Tier.TIER3),
+    SUPER_SHIELD(Tier.TIER3),
 
     BEES(Tier.TIER4),
     FIREWORKER(Tier.TIER4),
