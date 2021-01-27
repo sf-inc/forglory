@@ -15,6 +15,7 @@ public enum Feats {
 
     DASH(Tier.TIER2),
     KNOCKBACK_FIST(Tier.TIER2),
+    MACHINE_GUN(Tier.TIER2),
     MOUNTAIN(Tier.TIER2),
     STRENGTH(Tier.TIER2),
 
@@ -46,6 +47,7 @@ public enum Feats {
         HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healing_fist_cooldown;
         DASH.cooldown = ModConfig.get().cooldownConfig.dash_cooldown;
         KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockback_fist_cooldown;
+        MACHINE_GUN.cooldown = ModConfig.get().cooldownConfig.machine_gun_cooldown;
         MOUNTAIN.cooldown = ModConfig.get().cooldownConfig.mountain_cooldown;
         FIREWORKER.cooldown = ModConfig.get().cooldownConfig.fireworker_cooldown;
         INSTANT_KILL.cooldown = ModConfig.get().cooldownConfig.instant_kill_cooldown;

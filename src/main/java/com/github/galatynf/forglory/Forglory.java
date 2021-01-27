@@ -44,6 +44,7 @@ public class Forglory implements ModInitializer {
     public static final DamageGem damageGem = new DamageGem(new Item.Settings().group(forGlory));
     public static final FireTrailGem fireTrailGem = new FireTrailGem(new Item.Settings().group(forGlory));
     public static final SmiteGem smiteGem = new SmiteGem(new Item.Settings().group(forGlory));
+    public static final MachineGunGem machineGunGem = new MachineGunGem(new Item.Settings().group(forGlory));
     public static final StrengthGem strengthGem = new StrengthGem(new Item.Settings().group(forGlory));
     public static final DamageSlowedGem damageSlowedGem = new DamageSlowedGem(new Item.Settings().group(forGlory));
     public static final FireZoneGem fireZoneGem = new FireZoneGem(new Item.Settings().group(forGlory));
@@ -110,6 +111,7 @@ public class Forglory implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "fire_trail_gem"), fireTrailGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "smite_gem"), smiteGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "machine_gun_gem"), machineGunGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_slowed_gem"), damageSlowedGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "fire_zone_gem"), fireZoneGem);

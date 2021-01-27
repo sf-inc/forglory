@@ -16,6 +16,9 @@ public class CooldownConfig implements ConfigData {
     public int knockback_fist_cooldown = 150;
 
     @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
+    public int machine_gun_cooldown = 250;
+
+    @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
     public int mountain_cooldown = 300;
 
     @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
