@@ -20,14 +20,14 @@ public abstract class FireTrailMixin extends Entity {
     }
 
     @Inject(at=@At("INVOKE"), method = "tick")
-    void addFireTrail(CallbackInfo ci) {
+    void spawnFireTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_TRAIL)) {
             BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
-            spawnFire(blockPos);
+            spawnFireT(blockPos);
         }
     }
 
-    private void spawnFire(BlockPos blockPos) {
+    private void spawnFireT(BlockPos blockPos) {
         BlockPos belowBlockPos = blockPos.down();
 
         if (this.world.getBlockState(blockPos).isAir()

@@ -40,12 +40,12 @@ public abstract class FireZoneMixin extends Entity {
                         0,
                         ModConfig.get().featConfig.fireZoneConfig.radius * zOffset);
 
-                spawnFire(blockPos);
+                spawnFireZ(blockPos);
             }
         }
     }
 
-    private void spawnFire(BlockPos blockPos) {
+    private void spawnFireZ(BlockPos blockPos) {
         BlockPos belowBlockPos = blockPos.down();
 
         if (this.world.getBlockState(blockPos).isAir()
