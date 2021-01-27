@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,12 +21,8 @@ public abstract class ResistanceMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addInvisibleEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
-        if (feat == null) return;
-        if (feat.equals(Feats.RESISTANCE)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER1.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 0));
-            }
+        if (Utils.canUseFeat(this, Feats.RESISTANCE)) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 0));
         }
     }
 }

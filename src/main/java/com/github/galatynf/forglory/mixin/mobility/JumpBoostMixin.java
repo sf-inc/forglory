@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.mobility;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,12 +21,8 @@ public abstract class JumpBoostMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addJumpBoostEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER3);
-        if (feat == null) return;
-        if (feat.equals(Feats.JUMP_BOOST)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 30, 4));
-            }
+        if (Utils.canUseFeat(this, Feats.JUMP_BOOST)) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 30, 4));
         }
     }
 }

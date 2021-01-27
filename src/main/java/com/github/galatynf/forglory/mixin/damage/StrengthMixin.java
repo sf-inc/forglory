@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.damage;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,12 +21,8 @@ public abstract class StrengthMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addStrengthEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER2);
-        if (feat == null) return;
-        if (feat.equals(Feats.STRENGTH)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER2.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
-            }
+        if (Utils.canUseFeat(this, Feats.STRENGTH)) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
         }
     }
 }

@@ -1,12 +1,10 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,22 +29,18 @@ public abstract class FireZoneMixin extends Entity {
 
     @Inject(at=@At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER3);
-        if (feat == null) return;
-        if (feat.equals(Feats.FIRE_ZONE)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER3.threshold) {
-                forglory_playerTick = (forglory_playerTick +1) % ModConfig.get().featConfig.fireZoneConfig.circle_rate;
-                if ((forglory_playerTick % (ModConfig.get().featConfig.fireZoneConfig.circle_rate / ModConfig.get().featConfig.fireZoneConfig.fire_rate)) == 0) {
-                    forglory_fireTick = (forglory_fireTick +1) % ModConfig.get().featConfig.fireZoneConfig.fire_rate;
-                    double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
-                    double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
+        if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
+            forglory_playerTick = (forglory_playerTick +1) % ModConfig.get().featConfig.fireZoneConfig.circle_rate;
+            if ((forglory_playerTick % (ModConfig.get().featConfig.fireZoneConfig.circle_rate / ModConfig.get().featConfig.fireZoneConfig.fire_rate)) == 0) {
+                forglory_fireTick = (forglory_fireTick +1) % ModConfig.get().featConfig.fireZoneConfig.fire_rate;
+                double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
+                double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
 
-                    BlockPos blockPos = this.getBlockPos().add(ModConfig.get().featConfig.fireZoneConfig.radius * xOffset,
-                            0,
-                            ModConfig.get().featConfig.fireZoneConfig.radius * zOffset);
+                BlockPos blockPos = this.getBlockPos().add(ModConfig.get().featConfig.fireZoneConfig.radius * xOffset,
+                        0,
+                        ModConfig.get().featConfig.fireZoneConfig.radius * zOffset);
 
-                    spawnFire(blockPos);
-                }
+                spawnFire(blockPos);
             }
         }
     }

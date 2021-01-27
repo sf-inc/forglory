@@ -1,10 +1,8 @@
 package com.github.galatynf.forglory.mixin.mobility;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -24,19 +22,15 @@ public abstract class StridersGraceMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addStridersGraceEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER3);
-        if (feat == null) return;
-        if (feat.equals(Feats.STRIDERS_GRACE)) {
-            if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER3.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
-                if (this.isInLava()) {
-                    double x = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.sin((-this.yaw * Math.PI) / 180.0D);
-                    double y = (ModConfig.get().featConfig.striders_grace_speed / 6.0D) * Math.sin((-this.pitch * Math.PI) / 180.0D);
-                    y = (0 < this.pitch && this.pitch < 20) ? 0.05 : y;
-                    double z = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.cos((-this.yaw * Math.PI) / 180.0D);
-                    this.setVelocity(x, y, z);
-                    this.velocityModified = true;
-                }
+        if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE)) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
+            if (this.isInLava()) {
+                double x = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.sin((-this.yaw * Math.PI) / 180.0D);
+                double y = (ModConfig.get().featConfig.striders_grace_speed / 6.0D) * Math.sin((-this.pitch * Math.PI) / 180.0D);
+                y = (0 < this.pitch && this.pitch < 20) ? 0.05 : y;
+                double z = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.cos((-this.yaw * Math.PI) / 180.0D);
+                this.setVelocity(x, y, z);
+                this.velocityModified = true;
             }
         }
     }

@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.damage;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +9,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,17 +31,12 @@ public abstract class DamageToSlowedMixin extends Entity {
     @ModifyArg(method = "damage", at=@At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float injectedAmount(DamageSource source, float amount) {
-        Entity sourceAttacker = source.getAttacker();
-        if(sourceAttacker instanceof PlayerEntity) {
-            Feats feat = ((IFeatsMixin)sourceAttacker).getFeat(Tier.TIER3);
-            if (feat == null) return amount;
-            if (feat.equals(Feats.DAMAGE_SLOWED)) {
-                if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > Tier.TIER3.threshold)
-                    if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                        return (amount * (1 + Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier()/2F));
-                    }
+        if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)) {
+            if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
+                return (amount * (1 + Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F));
             }
         }
+
         return amount;
     }
 }

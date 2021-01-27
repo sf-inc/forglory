@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.mixin.heal;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
@@ -30,27 +31,23 @@ public abstract class HealTrailMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void spawnHealTrail(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER4);
-        if (feat == null) return;
-        if (feat.equals(Feats.HEAL_TRAIL)) {
-            if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER4.threshold) {
-                if (forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
-                    AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
-                    areaEffectCloudEntity.setOwner(this);
-                    areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrailConfig.heal_trail_radius);
-                    areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-                    areaEffectCloudEntity.setWaitTime(ModConfig.get().featConfig.healTrailConfig.heal_trail_wait_time);
-                    areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
-                    areaEffectCloudEntity.setDuration(10);
-                    areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);
+        if (Utils.canUseFeat(this, Feats.HEAL_TRAIL)) {
+            if (forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
+                AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
+                areaEffectCloudEntity.setOwner(this);
+                areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrailConfig.heal_trail_radius);
+                areaEffectCloudEntity.setRadiusOnUse(-0.5F);
+                areaEffectCloudEntity.setWaitTime(ModConfig.get().featConfig.healTrailConfig.heal_trail_wait_time);
+                areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
+                areaEffectCloudEntity.setDuration(10);
+                areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);
 
-                    areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0));
+                areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0));
 
-                    this.world.spawnEntity(areaEffectCloudEntity);
-                    forglory_lastSpawned = 0;
-                }
-                forglory_lastSpawned++;
+                this.world.spawnEntity(areaEffectCloudEntity);
+                forglory_lastSpawned = 0;
             }
+            forglory_lastSpawned++;
         }
     }
 }

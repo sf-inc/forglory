@@ -1,8 +1,7 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static com.github.galatynf.forglory.enumFeat.Tier.TIER2;
-
 @Mixin(LivingEntity.class)
 public abstract class KnockbackFistMixin extends Entity{
     @Shadow public abstract void applyStatusEffect(StatusEffectInstance effect);
@@ -30,16 +27,9 @@ public abstract class KnockbackFistMixin extends Entity{
 
     @Inject(at=@At("HEAD"), method="damage")
     private void stunWhenPunched(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        Entity sourceAttacker = source.getAttacker();
-        if(sourceAttacker instanceof PlayerEntity
-            && ((PlayerEntity) sourceAttacker).getMainHandStack() == ItemStack.EMPTY) {
-            Feats feat = ((IFeatsMixin) sourceAttacker).getFeat(TIER2);
-            if (feat != null && feat.equals(Feats.KNOCKBACK_FIST)) {
-                if (((IAdrenalinMixin) sourceAttacker).getAdrenalin() > TIER2.threshold
-                        && ((IFeatsMixin) sourceAttacker).getCooldown(TIER2) == 0) {
-                    this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
-                    ((IFeatsMixin) sourceAttacker).resetCooldown(TIER2);
-                }
+        if (Utils.canUseFeat(source.getAttacker(), Feats.KNOCKBACK_FIST)) {
+            if (((PlayerEntity) source.getAttacker()).getMainHandStack().equals(ItemStack.EMPTY)) {
+                this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
             }
         }
     }

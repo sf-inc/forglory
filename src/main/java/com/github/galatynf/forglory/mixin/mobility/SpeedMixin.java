@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.mobility;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,12 +21,8 @@ public abstract class SpeedMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addSpeedEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
-        if (feat == null) return;
-        if (feat.equals(Feats.SPEED)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER1.threshold) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 0));
-            }
+        if (Utils.canUseFeat(this, Feats.SPEED)) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 0));
         }
     }
 }

@@ -1,10 +1,9 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
@@ -55,24 +54,16 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isDead()Z"), cancellable = true)
     private void becomeBerserk(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(this.getType().equals(EntityType.PLAYER)) {
-            if (this.isDead()) {
-                Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER4);
-                if (feat == null) return;
-                if (feat.equals(Feats.LAST_STAND)) {
-                    if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER4.threshold) {
-                        if(!forglory_isInBerserkState) {
-                            PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-                            PlayerEntity player = world.getPlayerByUuid(this.getUuid());
-                            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Forglory.BERSERK_PACKET_ID, passedData);
+        if (Utils.canUseFeat(this, Feats.LAST_STAND)) {
+            if (this.isDead() && !forglory_isInBerserkState) {
+                PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
+                PlayerEntity player = world.getPlayerByUuid(this.getUuid());
+                ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Forglory.BERSERK_PACKET_ID, passedData);
 
-                            forglory_isInBerserkState = true;
-                            this.setHealth(0.5F);
-                            this.clearStatusEffects();
-                            cir.setReturnValue(false);
-                        }
-                    }
-                }
+                forglory_isInBerserkState = true;
+                this.setHealth(0.5F);
+                this.clearStatusEffects();
+                cir.setReturnValue(false);
             }
         }
     }
@@ -80,7 +71,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void manageBerserkState(CallbackInfo ci) {
         if(this.getType().equals(EntityType.PLAYER)) {
-            if (((IAdrenalinMixin) this).getAdrenalin() < Tier.TIER4.threshold) {
+            if (((IAdrenalinMixin) this).getAdrenalin() < Feats.LAST_STAND.tier.threshold) {
                 forglory_isInBerserkState = false;
             }
             if (forglory_isInBerserkState) {

@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,11 +21,8 @@ public abstract class InvisibleMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void addInvisibleEffect(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER4);
-        if (feat == null) return;
-        if (feat.equals(Feats.INVISIBLE)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER4.threshold &&
-                    !this.onGround) {
+        if (Utils.canUseFeat(this, Feats.INVISIBLE)) {
+            if (!this.onGround) {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
             }
         }

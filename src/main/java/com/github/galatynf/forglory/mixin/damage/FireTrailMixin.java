@@ -1,10 +1,8 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,13 +21,9 @@ public abstract class FireTrailMixin extends Entity {
 
     @Inject(at=@At("INVOKE"), method = "tick")
     void addFireTrail(CallbackInfo ci) {
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
-        if (feat == null) return;
-        if (feat.equals(Feats.FIRE_TRAIL)) {
-            if (((IAdrenalinMixin)this).getAdrenalin() > Tier.TIER1.threshold) {
-                BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
-                spawnFire(blockPos);
-            }
+        if (Utils.canUseFeat(this, Feats.FIRE_TRAIL)) {
+            BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
+            spawnFire(blockPos);
         }
     }
 

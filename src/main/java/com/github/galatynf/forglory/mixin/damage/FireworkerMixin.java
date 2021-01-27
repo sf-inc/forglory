@@ -1,9 +1,7 @@
 package com.github.galatynf.forglory.mixin.damage;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -26,46 +24,37 @@ public class FireworkerMixin {
 
     @Inject(method = "loadProjectiles", at = @At("HEAD"))
     private static void setFireworkProjectile(LivingEntity shooter, ItemStack projectile, CallbackInfoReturnable<Boolean> cir) {
-        if (!(shooter instanceof PlayerEntity)) return;
-        Feats feat = ((IFeatsMixin)shooter).getFeat(Tier.TIER4);
-        if (feat == null) return;
-        if (feat.equals(Feats.FIREWORKER)) {
-            if (((IAdrenalinMixin)shooter).getAdrenalin() > Tier.TIER4.threshold &&
-                    ((IFeatsMixin)shooter).getCooldown(Tier.TIER4) == 0) {
-                ((IFeatsMixin)shooter).resetCooldown(Tier.TIER4);
-                CompoundTag compoundTag = new CompoundTag();
-                CompoundTag firework = new CompoundTag();
-                ListTag explosionsList = new ListTag();
-                CompoundTag explosions = new CompoundTag();
+        if (Utils.canUseFeat(shooter, Feats.FIREWORKER)) {
+            CompoundTag compoundTag = new CompoundTag();
+            CompoundTag firework = new CompoundTag();
+            ListTag explosionsList = new ListTag();
+            CompoundTag explosions = new CompoundTag();
 
-                firework.putInt("Flight", 3);
+            firework.putInt("Flight", 3);
 
-                List<Integer> colors = new ArrayList<>();
-                colors.add(DyeColor.RED.getFireworkColor());
-                colors.add(DyeColor.WHITE.getFireworkColor());
-                explosions.putIntArray("Colors", colors);
-                explosions.putInt("Type", FireworkItem.Type.SMALL_BALL.getId());
+            List<Integer> colors = new ArrayList<>();
+            colors.add(DyeColor.RED.getFireworkColor());
+            colors.add(DyeColor.WHITE.getFireworkColor());
+            explosions.putIntArray("Colors", colors);
+            explosions.putInt("Type", FireworkItem.Type.SMALL_BALL.getId());
 
-                explosionsList.add(explosions);
-                firework.put("Explosions", explosionsList);
+            explosionsList.add(explosions);
+            firework.put("Explosions", explosionsList);
 
-                compoundTag.put("Fireworks", firework);
-                ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
-                stack.setTag(compoundTag);
+            compoundTag.put("Fireworks", firework);
+            ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
+            stack.setTag(compoundTag);
 
-                ItemStack stackOld = shooter.getOffHandStack();
-                stackOld.getOrCreateSubTag("Offhand");
-                shooter.setStackInHand(Hand.OFF_HAND, stack);
-                ((PlayerEntity) shooter).giveItemStack(stackOld);
-            }
+            ItemStack stackOld = shooter.getOffHandStack();
+            stackOld.getOrCreateSubTag("Offhand");
+            shooter.setStackInHand(Hand.OFF_HAND, stack);
+            ((PlayerEntity) shooter).giveItemStack(stackOld);
         }
     }
 
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/CrossbowItem;setCharged(Lnet/minecraft/item/ItemStack;Z)V"))
     private void giveOffhandBack(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        Feats feat = ((IFeatsMixin)user).getFeat(Tier.TIER4);
-        if (feat == null) return;
-        if (feat.equals(Feats.FIREWORKER)) {
+        if (Utils.canUseFeat(user, Feats.FIREWORKER)) {
             for (int i=0; i < user.inventory.main.size(); i++) {
                 ItemStack itemstack = user.inventory.main.get(i);
                 if (itemstack.getSubTag("Offhand") != null) {

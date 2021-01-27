@@ -1,6 +1,6 @@
 package com.github.galatynf.forglory.mixin.misc;
 
-import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IPlayerIDMixin;
 import net.minecraft.entity.Entity;
@@ -57,10 +57,9 @@ public abstract class BeesEntityMixin extends LivingEntity implements IPlayerIDM
     @Inject(at = @At("HEAD"), method = "tick")
     private void findTarget(CallbackInfo ci) {
         if (forglory_playerID != null) {
-            if (((IAdrenalinMixin) Objects.requireNonNull(this.world.getEntityById(forglory_playerID))).getAdrenalin() < Tier.TIER4.threshold) {
+            if (((IAdrenalinMixin) Objects.requireNonNull(this.world.getEntityById(forglory_playerID))).getAdrenalin() < Feats.BEES.tier.threshold) {
                 this.damage(DamageSource.OUT_OF_WORLD, 666);
-            }
-            else if (getAngryAt() == null) {
+            } else if (getAngryAt() == null) {
                 double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
                 LivingEntity targetEntity = this.world.getClosestEntity(HostileEntity.class,
                         (new TargetPredicate()).setBaseMaxDistance(distance),
