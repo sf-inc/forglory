@@ -11,8 +11,8 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int dash_intensity = 3;
 
-    @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
-    public int machine_gun_arrows = 5;
+    @ConfigEntry.BoundedDiscrete(min = 5, max = 50)
+    public int machine_gun_arrows = 30;
 
     @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
     @ConfigEntry.Gui.Tooltip(count = 3)

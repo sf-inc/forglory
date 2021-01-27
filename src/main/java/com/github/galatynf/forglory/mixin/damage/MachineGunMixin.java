@@ -4,6 +4,8 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
@@ -46,9 +48,11 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
                 if (!world.isClient) {
                     PersistentProjectileEntity persistentProjectileEntity = ((ArrowItem) Items.ARROW).createArrow(world, new ItemStack(Items.BOW), this);
                     persistentProjectileEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 3.0F, 1.0F);
+                    persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
 
                     world.spawnEntity(persistentProjectileEntity);
                 }
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, (int) (1.5F *ModConfig.get().featConfig.machine_gun_arrows), 2));
                 this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
             }
         } else {
