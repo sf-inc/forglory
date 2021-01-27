@@ -63,6 +63,7 @@
   "text.autoconfig.forglory.category.feats": "Feats Configs",
   "text.autoconfig.forglory.option.featConfig.smite_multiplier": "Smite damage multiplier",
   "text.autoconfig.forglory.option.featConfig.dash_intensity": "Dash intensity",
+  "text.autoconfig.forglory.option.featConfig.machine_gun_arrows": "Arrows sent with machine gun",
   "text.autoconfig.forglory.option.featConfig.mountain_height": "Mountain height",
   "text.autoconfig.forglory.option.featConfig.bloodlust_multiplier": "Value for bloodlust multiplier formula",
   "text.autoconfig.forglory.option.featConfig.bloodlust_multiplier.@Tooltip[0]": "The formula used to compute the multiplier is :",

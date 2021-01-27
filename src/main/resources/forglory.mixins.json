@@ -11,9 +11,9 @@
     "damage.FireworkerMixin",
     "damage.FireZoneMixin",
     "damage.InstantKillMixin",
+    "damage.MachineGunMixin",
     "damage.SmiteMixin",
     "damage.StrengthMixin",
-    "mobility.StridersGraceMixin",
     "heal.HealTrailMixin",
     "heal.LastStandLifeStealMixin",
     "heal.LastStandMixin",
@@ -30,7 +30,8 @@
     "misc.SummonDogMixin",
     "mobility.JumpBoostMixin",
     "mobility.NoHungerMixin",
-    "mobility.SpeedMixin"
+    "mobility.SpeedMixin",
+    "mobility.StridersGraceMixin"
   ],
   "client": [
     "heal.LastStandMixin",
