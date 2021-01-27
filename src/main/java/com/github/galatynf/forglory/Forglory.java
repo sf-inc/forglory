@@ -26,6 +26,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
@@ -163,10 +164,16 @@ public class Forglory implements ModInitializer {
                     ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
                 if (feat.equals(Feats.DASH)) {
                     NoMixinFeats.dashFeat(playerEntity);
-                } else if (feat.equals(Feats.MACHINE_GUN)) {
+                }
+                else if (feat.equals(Feats.MACHINE_GUN)) {
                     ((IMachineGunMixin) playerEntity).setMachineGun(ModConfig.get().featConfig.machine_gun_arrows);
-                } else if (feat.equals(Feats.MOUNTAIN)) {
+                }
+                else if (feat.equals(Feats.MOUNTAIN)) {
                     NoMixinFeats.mountainFeat(playerEntity);
+                }
+                else if(feat.equals(Feats.HEALING_FIST)) {
+                    System.out.println("AEURGH");
+                    playerEntity.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 100, 0));
                 }
                 ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);
             }

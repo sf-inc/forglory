@@ -7,7 +7,7 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 @Config(name = "cooldowns")
 public class CooldownConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 100, max = 500)
-    public int healing_fist_cooldown = 100;
+    public int healing_fist_cooldown = 150;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 200)
     public int dash_cooldown = 60;
