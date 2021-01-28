@@ -7,8 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.galatynf.forglory.enumFeat.Tier.TIER1;
-
 public class PlayerFeatsComponent implements FeatsComponent {
     public PlayerFeatsComponent() {
         for(int i  = 0 ; i < 4 ; i++) {
@@ -134,7 +132,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
         for (Tier tier : Tier.values()) {
             cooldown = getCooldown(tier);
             if (cooldown != null && cooldown > 0) {
-                forglory_cooldowns.set(tierNum, getCooldown(TIER1) - 1);
+                forglory_cooldowns.set(tierNum, cooldown - 1);
                 tierNum++;
             }
         }

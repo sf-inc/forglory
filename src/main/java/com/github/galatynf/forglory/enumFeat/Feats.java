@@ -6,12 +6,12 @@ import com.github.galatynf.forglory.config.ConstantsConfig;
 public enum Feats {
     NO_FEAT(Tier.NO_TIER),
 
+    ARROW_COMBO(Tier.TIER1),
     BLOODLUST(Tier.TIER1),
     DOG(Tier.TIER1),
     NO_HUNGER(Tier.TIER1),
     RESISTANCE(Tier.TIER1),
     SMITE(Tier.TIER1),
-    SNIPER(Tier.TIER1),
     SPEED(Tier.TIER1),
     STRENGTH(Tier.TIER1),
 

@@ -28,7 +28,7 @@ public abstract class PoweredGem extends Item {
                 &&((IAdrenalinMixin)user).getAdrenalin() == 0
                 && world.getBlockState(pos).isOf(Forglory.essenceInfuser)) {
             MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
-            MyComponents.FEATS.get(user).resetCooldown(feat.tier);
+            //MyComponents.FEATS.get(user).resetCooldown(feat.tier);
             return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
         }
         return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));

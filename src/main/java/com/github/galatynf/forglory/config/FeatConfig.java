@@ -6,24 +6,46 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 
 @Config(name = "feats")
 public class FeatConfig implements ConfigData {
+    @ConfigEntry.Gui.PrefixText
     public float smite_multiplier = 1.5F; //TODO prevent players to put insane values here
 
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+    public int combo_max = 5;
+
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+    public int combo_adrenalin_gain = 7;
+
+    @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
+    @ConfigEntry.Gui.Tooltip(count = 1)
+    public int bloodlust_multiplier = 8;
+
+    @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int dash_intensity = 3;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 50)
     public int machine_gun_arrows = 30;
 
-    @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
-    @ConfigEntry.Gui.Tooltip(count = 3)
-    public int bloodlust_multiplier = 8;
-
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 4;
 
+    @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int striders_grace_speed = 3;
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public SuperShieldConfig superShieldConfig = new SuperShieldConfig();
+
+    public static class SuperShieldConfig {
+        @ConfigEntry.BoundedDiscrete(min = 10, max = 60)
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public int ticks_before_attack = 15;
+
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 10)
+        public int damage_added_on_counterattack = 6;
+    }
+
+    @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int life_steal_max_amount = 3;
 
@@ -64,17 +86,5 @@ public class FeatConfig implements ConfigData {
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
         public int max_damage = 30;
-    }
-
-    @ConfigEntry.Gui.CollapsibleObject
-    public SuperShieldConfig superShieldConfig = new SuperShieldConfig();
-
-    public static class SuperShieldConfig {
-        @ConfigEntry.BoundedDiscrete(min = 10, max = 60)
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        public int ticks_before_attack = 15;
-
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 10)
-        public int damage_added_on_counterattack = 6;
     }
 }
