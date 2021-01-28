@@ -1,9 +1,9 @@
 package com.github.galatynf.forglory.items;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,8 +27,8 @@ public abstract class PoweredGem extends Item {
         if(!world.isClient()
                 &&((IAdrenalinMixin)user).getAdrenalin() == 0
                 && world.getBlockState(pos).isOf(Forglory.essenceInfuser)) {
-            ((IFeatsMixin) user).addOrUpdateFeat(feat);
-            ((IFeatsMixin) user).resetCooldown(feat.tier);
+            MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
+            MyComponents.FEATS.get(user).resetCooldown(feat.tier);
             return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
         }
         return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));

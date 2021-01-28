@@ -1,8 +1,7 @@
 package com.github.galatynf.forglory.blocks;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -57,8 +56,8 @@ public class QuickFireBlock extends AbstractFireBlock {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (entity instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) entity;
-            Feats feat1 = ((IFeatsMixin)playerEntity).getFeat(Tier.TIER1);
-            Feats feat2 = ((IFeatsMixin)playerEntity).getFeat(Tier.TIER3);
+            Feats feat1 = MyComponents.FEATS.get(playerEntity).getFeat(Feats.FIRE_TRAIL.tier);
+            Feats feat2 = MyComponents.FEATS.get(playerEntity).getFeat(Feats.FIRE_ZONE.tier);
             if ((feat1 != null && feat1.equals(Feats.FIRE_TRAIL)) ||
                     (feat2 != null && feat2.equals(Feats.FIRE_ZONE))) {
                 world.removeBlock(pos, false);

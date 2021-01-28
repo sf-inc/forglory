@@ -1,9 +1,9 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -34,11 +34,11 @@ public abstract class SummonDogMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
         if(!world.isClient()) {
-            Feats feat = ((IFeatsMixin) this).getFeat(Tier.TIER1);
+            Feats feat = MyComponents.FEATS.get(this).getFeat(Feats.DOG.tier);
             if (feat == null) return;
             if (feat.equals(Feats.DOG)) {
                 if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
-                    if (((IFeatsMixin) this).getCooldown(Tier.TIER1).equals(Feats.DOG.cooldown)) {
+                    if (MyComponents.FEATS.get(this).getCooldown(Feats.DOG.tier).equals(Feats.DOG.cooldown)) {
                         WolfEntity dog = EntityType.WOLF.create(world);
                         if (dog == null) {
                             System.err.println("Couldn't create dog from dog Mixin");
@@ -52,7 +52,7 @@ public abstract class SummonDogMixin extends LivingEntity {
                         dog.refreshPositionAndAngles(this.getBlockPos(), 0.0F, 0.0F);
                         world.spawnEntity(dog);
                         this.forglory_theDog = dog.getEntityId();
-                        ((IFeatsMixin) this).setUniqueCooldown(Tier.TIER1);
+                        MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
                     }
                     WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
                     if (dog == null) {
@@ -61,7 +61,7 @@ public abstract class SummonDogMixin extends LivingEntity {
                     }
                     dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 10, 0));
                 } else {
-                    if (((IFeatsMixin) this).getCooldown(Tier.TIER1) == 0) {
+                    if (MyComponents.FEATS.get(this).getCooldown(Feats.DOG.tier) == 0) {
                         WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
                         if (dog == null) {
                             System.err.println("Couldn't remove dog from dog Mixin");
@@ -72,7 +72,7 @@ public abstract class SummonDogMixin extends LivingEntity {
                         dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1));
                         dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 200, 0));
                         dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 4));
-                        ((IFeatsMixin) this).resetCooldown(Tier.TIER1);
+                        MyComponents.FEATS.get(this).resetCooldown(Feats.DOG.tier);
                         this.forglory_theDog = null;
                     }
                 }

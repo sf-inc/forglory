@@ -2,11 +2,11 @@ package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import com.github.galatynf.forglory.items.DebugItem;
@@ -163,10 +163,10 @@ public class Forglory implements ModInitializer {
         ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID,
                 (packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
             PlayerEntity playerEntity = packetContext.getPlayer();
-            Feats feat = ((IFeatsMixin) playerEntity).getFeat(Tier.TIER2);
+            Feats feat = MyComponents.FEATS.get(playerEntity).getFeat(Tier.TIER2);
             if (feat == null) return;
             if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
-                    ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
+                    MyComponents.FEATS.get(playerEntity).getCooldown(Tier.TIER2) == 0 ) {
                 if (feat.equals(Feats.DASH)) {
                     NoMixinFeats.dashFeat(playerEntity);
                 } else if (feat.equals(Feats.FIRE_TRAIL)) {
@@ -178,10 +178,9 @@ public class Forglory implements ModInitializer {
                     NoMixinFeats.mountainFeat(playerEntity);
                 }
                 else if(feat.equals(Feats.HEALING_FIST)) {
-                    System.out.println("AEURGH");
                     playerEntity.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 100, 0));
                 }
-                ((IFeatsMixin) playerEntity).resetCooldown(Tier.TIER2);
+                MyComponents.FEATS.get(playerEntity).resetCooldown(Tier.TIER2);
             }
         }));
     }

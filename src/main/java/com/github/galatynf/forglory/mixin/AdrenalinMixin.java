@@ -1,12 +1,12 @@
 package com.github.galatynf.forglory.mixin;
 
 import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFeatsMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -109,8 +109,8 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     public void addAdrenalin(final float amount) {
         float multiplier = 1;
 
-        Feats feat = ((IFeatsMixin)this).getFeat(Tier.TIER1);
-        if(feat !=null) {
+        Feats feat = MyComponents.FEATS.get(this).getFeat(Feats.BLOODLUST.tier);
+        if(feat != null) {
             if (feat.equals(Feats.BLOODLUST) && amount > 0 && this.getHealth() > 0) {
                 if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
                     float value = ModConfig.get().featConfig.bloodlust_multiplier;
