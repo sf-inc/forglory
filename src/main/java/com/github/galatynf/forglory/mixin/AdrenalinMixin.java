@@ -132,7 +132,7 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     @Inject(at=@At("HEAD"), method = "tick")
     public void playSoundtest(CallbackInfo ci) {
         if(world.isClient()) {
-            if(ModConfig.get().guiSoundsConfig.sounds.enableTierJingles) {
+            if(ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (forglory_adrenalin >= ModConfig.get().adrenalinConfig.tier1_threshold) {
                     if (!forglory_soundPlayed[0]) {
                         playSound(Forglory.tier_1_whoosh_event, 1.2F, 1F);

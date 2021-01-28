@@ -6,10 +6,6 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 
 @Config(name = "gui_sounds")
 public class GUISoundsConfig implements ConfigData {
-    @ConfigEntry.Gui.CollapsibleObject
-    public Sounds sounds = new Sounds();
-
-    public static class Sounds {
-        public boolean enableTierJingles = true;
-    }
+    @ConfigEntry.Gui.PrefixText
+    public boolean enable_tier_jingles = true;
 }

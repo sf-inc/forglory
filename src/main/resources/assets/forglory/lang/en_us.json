@@ -104,11 +104,12 @@
   "text.autoconfig.forglory.option.cooldownConfig.healing_fist_cooldown": "Healing Fist Cooldown",
   "text.autoconfig.forglory.option.cooldownConfig.dash_cooldown": "Dash Cooldown",
   "text.autoconfig.forglory.option.cooldownConfig.knockback_fist_cooldown": "Knockback Fist Cooldown",
+  "text.autoconfig.forglory.option.cooldownConfig.machine_gun_cooldown": "Machine Gun Cooldown",
   "text.autoconfig.forglory.option.cooldownConfig.mountain_cooldown": "Mountain Cooldown",
   "text.autoconfig.forglory.option.cooldownConfig.fireworker_cooldown": "Fireworker Cooldown",
   "text.autoconfig.forglory.option.cooldownConfig.instant_kill_cooldown": "Instant Kill Cooldown",
 
   "text.autoconfig.forglory.category.gui_sounds": "GUI and Sounds",
-  "text.autoconfig.forglory.option.guiSoundsConfig.sounds": "Sounds",
-  "text.autoconfig.forglory.option.guiSoundsConfig.sounds.enableTierJingles": "Enable Sounds when passing a higher tier"
+  "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles.@PrefixText": "# Sounds",
+  "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles": "Enable Sounds when passing a higher tier"
 }
