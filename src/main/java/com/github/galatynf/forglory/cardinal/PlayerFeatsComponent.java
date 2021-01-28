@@ -5,137 +5,67 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.nbt.CompoundTag;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class PlayerFeatsComponent implements FeatsComponent {
     public PlayerFeatsComponent() {
-        for(int i  = 0 ; i < 4 ; i++) {
-            forglory_feats.add(i, Feats.NO_FEAT);
-            forglory_cooldowns.add(i, 0);
+        for (Tier tier: Tier.values()) {
+            forglory_feats.put(tier, Feats.NO_FEAT);
+            forglory_cooldowns.put(tier, Feats.NO_FEAT.cooldown);
         }
     }
 
-    private final List<Feats> forglory_feats = new ArrayList<>();
-
-    private final List<Integer> forglory_cooldowns = new ArrayList<>();
+    private final HashMap<Tier, Feats> forglory_feats = new HashMap<>();
+    private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
 
     @Override public void readFromNbt(CompoundTag tag) {
-        for (int i = 0 ; i < 4 ; i++) {
-            this.forglory_feats.set(i, Feats.valueOf(tag.getString("feat" + (i+1))));
-            this.forglory_cooldowns.set(i, tag.getInt("cooldown" + (i+1)));
+        for (Tier tier: Tier.values()) {
+            this.forglory_feats.put(tier, Feats.valueOf(tag.getString("feat" + tier.toString())));
+            this.forglory_cooldowns.put(tier, tag.getInt("cooldown" + tier.toString()));
         }
     }
+
     @Override public void writeToNbt(CompoundTag tag) {
-        tag.putString ("feat1", forglory_feats.get(0).toString());
-        tag.putString ("feat2", forglory_feats.get(1).toString());
-        tag.putString ("feat3", forglory_feats.get(2).toString());
-        tag.putString ("feat4", forglory_feats.get(3).toString());
-        tag.putInt ("cooldown1", forglory_cooldowns.get(0));
-        tag.putInt ("cooldown2", forglory_cooldowns.get(1));
-        tag.putInt ("cooldown3", forglory_cooldowns.get(2));
-        tag.putInt ("cooldown4", forglory_cooldowns.get(3));
+        for (Tier tier: Tier.values()) {
+            tag.putString("feat" + tier.toString(), forglory_feats.get(tier).toString());
+            tag.putInt("cooldown" + tier.toString(), forglory_cooldowns.get(tier));
+        }
     }
 
     @Override
     public Feats getFeat(final Tier tier) {
-        switch (tier) {
-            case TIER1:
-                return forglory_feats.get(0);
-            case TIER2:
-                return forglory_feats.get(1);
-            case TIER3:
-                return forglory_feats.get(2);
-        }
-        return forglory_feats.get(3);
+        return forglory_feats.get(tier);
     }
 
     @Override
     public Integer getCooldown(final Tier tier) {
-        switch (tier) {
-            case TIER1:
-                return forglory_cooldowns.get(0);
-            case TIER2:
-                return forglory_cooldowns.get(1);
-            case TIER3:
-                return forglory_cooldowns.get(2);
-        }
-        return forglory_cooldowns.get(3);
+        return forglory_cooldowns.get(tier);
     }
 
     @Override
     public void addOrUpdateFeat(final Feats feat) {
-        switch (feat.tier) {
-            case TIER1:
-                forglory_feats.set(0, feat);
-                forglory_cooldowns.set(0, 0);
-                break;
-            case TIER2:
-                forglory_feats.set(1, feat);
-                forglory_cooldowns.set(1, 0);
-                break;
-            case TIER3:
-                forglory_feats.set(2, feat);
-                forglory_cooldowns.set(2, 0);
-                break;
-            case TIER4:
-                forglory_feats.set(3, feat);
-                forglory_cooldowns.set(3, 0);
-                break;
-        }
+        forglory_feats.put(feat.tier, feat);
+        forglory_cooldowns.put(feat.tier, ConstantsConfig.NO_COOLDOWN);
     }
 
     @Override
     public void resetCooldown(final Tier tier) {
-        Feats feat;
-        switch (tier) {
-            case TIER1:
-                feat = forglory_feats.get(0);
-                forglory_cooldowns.set(0, feat.cooldown);
-                break;
-            case TIER2:
-                feat = forglory_feats.get(1);
-                forglory_cooldowns.set(1, feat.cooldown);
-                break;
-            case TIER3:
-                feat = forglory_feats.get(2);
-                forglory_cooldowns.set(2, feat.cooldown);
-                break;
-            case TIER4:
-                feat = forglory_feats.get(3);
-                forglory_cooldowns.set(3, feat.cooldown);
-                break;
-        }
+        Feats feat = forglory_feats.get(tier);
+        forglory_cooldowns.put(tier, feat.cooldown);
     }
 
     @Override
     public void setUniqueCooldown(final Tier tier) {
-        switch (tier) {
-            case TIER1:
-                forglory_cooldowns.set(0, ConstantsConfig.UNIQUE_COOLDOWN);
-                break;
-            case TIER2:
-                forglory_cooldowns.set(1, ConstantsConfig.UNIQUE_COOLDOWN);
-                break;
-            case TIER3:
-                forglory_cooldowns.set(2, ConstantsConfig.UNIQUE_COOLDOWN);
-                break;
-            case TIER4:
-                forglory_cooldowns.set(3, ConstantsConfig.UNIQUE_COOLDOWN);
-                break;
-        }
+        forglory_cooldowns.put(tier, ConstantsConfig.UNIQUE_COOLDOWN);
     }
 
     @Override
     public void decrementCooldowns() {
-        int tierNum = 0;
-        Integer cooldown;
-        for (Tier tier : Tier.values()) {
-            cooldown = getCooldown(tier);
+        for (Tier tier: Tier.values()) {
+            Integer cooldown = forglory_cooldowns.get(tier);
             if (cooldown != null && cooldown > 0) {
-                forglory_cooldowns.set(tierNum, cooldown - 1);
+                forglory_cooldowns.put(tier, cooldown - 1);
             }
-            tierNum++;
         }
     }
 }
