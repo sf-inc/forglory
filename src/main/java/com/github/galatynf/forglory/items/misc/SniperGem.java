@@ -6,6 +6,6 @@ import com.github.galatynf.forglory.items.PoweredGem;
 public class SniperGem extends PoweredGem {
     public SniperGem(Settings settings) {
         super(settings);
-        feat = Feats.SNIPER;
+        feat = Feats.ARROW_COMBO;
     }
 }
