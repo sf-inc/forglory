@@ -46,8 +46,6 @@ public enum Feats {
     }
 
     public static void initCooldowns () {
-        DOG.cooldown = ConstantsConfig.UNIQUE_COOLDOWN;
-
         HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healing_fist_cooldown;
         DASH.cooldown = ModConfig.get().cooldownConfig.dash_cooldown;
         KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockback_fist_cooldown;

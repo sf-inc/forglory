@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.cardinal;
 
+import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.nbt.CompoundTag;
@@ -111,16 +112,16 @@ public class PlayerFeatsComponent implements FeatsComponent {
     public void setUniqueCooldown(final Tier tier) {
         switch (tier) {
             case TIER1:
-                forglory_cooldowns.set(0, 0);
+                forglory_cooldowns.set(0, ConstantsConfig.UNIQUE_COOLDOWN);
                 break;
             case TIER2:
-                forglory_cooldowns.set(1, 0);
+                forglory_cooldowns.set(1, ConstantsConfig.UNIQUE_COOLDOWN);
                 break;
             case TIER3:
-                forglory_cooldowns.set(2, 0);
+                forglory_cooldowns.set(2, ConstantsConfig.UNIQUE_COOLDOWN);
                 break;
             case TIER4:
-                forglory_cooldowns.set(3, 0);
+                forglory_cooldowns.set(3, ConstantsConfig.UNIQUE_COOLDOWN);
                 break;
         }
     }
