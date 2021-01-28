@@ -24,9 +24,4 @@ public class ArrowComboPlayerMixin implements IArrowComboMixin {
     public void resetCombo() {
         combo = 0;
     }
-
-    @Override
-    public int getCombo() {
-        return combo;
-    }
 }

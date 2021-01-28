@@ -16,7 +16,7 @@ public class FeatConfig implements ConfigData {
     public int combo_adrenalin_gain = 7;
 
     @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
-    @ConfigEntry.Gui.Tooltip(count = 1)
+    @ConfigEntry.Gui.Tooltip()
     public int bloodlust_multiplier = 8;
 
     @ConfigEntry.Gui.PrefixText
