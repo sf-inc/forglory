@@ -1,9 +1,8 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IPlayerIDMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -29,24 +28,18 @@ public abstract class SummonDogMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
         if(!world.isClient()) {
-            Feats feat = MyComponents.FEATS.get(this).getFeat(Feats.DOG.tier);
-            if (feat == null) return;
-            if (feat.equals(Feats.DOG)) {
-                if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
-                    if (MyComponents.FEATS.get(this).getCooldown(Feats.DOG.tier).equals(Feats.DOG.cooldown)) {
-                        WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
-                        if (wolfEntity == null) {
-                            System.err.println("Couldn't create dog from dog Mixin");
-                            return;
-                        }
-                        wolfEntity.setTamed(true);
-                        wolfEntity.setOwnerUuid(this.getUuid());
-                        wolfEntity.setInvulnerable(true);
-                        wolfEntity.setGlowing(true);
-                        ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
-                        MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
-                    }
+            if (Utils.canUseFeat(this, Feats.DOG)) {
+                WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+                if (wolfEntity == null) {
+                    System.err.println("Couldn't create dog from dog Mixin");
+                    return;
                 }
+                wolfEntity.setTamed(true);
+                wolfEntity.setOwnerUuid(this.getUuid());
+                wolfEntity.setInvulnerable(true);
+                wolfEntity.setGlowing(true);
+                ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
+                MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
             }
         }
     }
