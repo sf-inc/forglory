@@ -4,7 +4,7 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 
 public enum Feats {
-    NO_FEAT(Tier.NO_TIER),
+    NO_FEAT(Tier.TIER1),
 
     ARROW_COMBO(Tier.TIER1),
     BLOODLUST(Tier.TIER1),

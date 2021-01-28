@@ -133,8 +133,8 @@ public class PlayerFeatsComponent implements FeatsComponent {
             cooldown = getCooldown(tier);
             if (cooldown != null && cooldown > 0) {
                 forglory_cooldowns.set(tierNum, cooldown - 1);
-                tierNum++;
             }
+            tierNum++;
         }
     }
 }
