@@ -5,7 +5,6 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IArrowComboMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -24,7 +23,7 @@ public abstract class ArrowComboMixin {
     @Inject(at = @At("TAIL"), method="onBlockHit")
     private void resetCombo(BlockHitResult blockHitResult, CallbackInfo ci) {
         Entity owner = this.getOwner();
-        if(owner instanceof PlayerEntity && Utils.canUseFeat(owner, Feats.ARROW_COMBO)) {
+        if(Utils.canUseFeat(owner, Feats.ARROW_COMBO)) {
             ((IArrowComboMixin)owner).resetCombo();
         }
     }
@@ -32,7 +31,7 @@ public abstract class ArrowComboMixin {
     @Inject(at = @At("HEAD"), method="onEntityHit")
     private void incrementCombo(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity owner = getOwner();
-        if(owner instanceof PlayerEntity && Utils.canUseFeat(owner, Feats.ARROW_COMBO) && entityHitResult.getEntity() instanceof LivingEntity) {
+        if(Utils.canUseFeat(owner, Feats.ARROW_COMBO) && entityHitResult.getEntity() instanceof LivingEntity) {
             ((IArrowComboMixin)owner).incrementCombo();
         }
     }
