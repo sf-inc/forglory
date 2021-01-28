@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.enumFeat;
 import com.github.galatynf.forglory.config.ModConfig;
 
 public enum Tier {
+    NO_TIER,
     TIER1,
     TIER2,
     TIER3,
