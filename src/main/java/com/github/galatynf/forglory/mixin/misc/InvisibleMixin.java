@@ -22,9 +22,8 @@ public abstract class InvisibleMixin extends LivingEntity {
     @Inject(at=@At("HEAD"), method = "tick")
     private void addInvisibleEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.INVISIBLE)) {
-            if (!this.onGround) {
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
-            }
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
+            this.fallDistance = 0;
         }
     }
 }
