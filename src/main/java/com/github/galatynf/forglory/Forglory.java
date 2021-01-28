@@ -7,6 +7,7 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.IFeatsMixin;
+import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import com.github.galatynf.forglory.items.DebugItem;
 import com.github.galatynf.forglory.items.damage.*;
@@ -168,8 +169,9 @@ public class Forglory implements ModInitializer {
                     ((IFeatsMixin)playerEntity).getCooldown(Tier.TIER2) == 0) {
                 if (feat.equals(Feats.DASH)) {
                     NoMixinFeats.dashFeat(playerEntity);
-                }
-                else if (feat.equals(Feats.MACHINE_GUN)) {
+                } else if (feat.equals(Feats.FIRE_TRAIL)) {
+                    ((IFireTrailMixin) playerEntity).invertFireTrail();
+                } else if (feat.equals(Feats.MACHINE_GUN)) {
                     ((IMachineGunMixin) playerEntity).setMachineGun(ModConfig.get().featConfig.machine_gun_arrows);
                 }
                 else if (feat.equals(Feats.MOUNTAIN)) {
