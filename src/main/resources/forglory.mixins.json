@@ -27,6 +27,7 @@
     "misc.ArrowComboPlayerMixin",
     "misc.BeesEntityMixin",
     "misc.BeesHostileMixin",
+    "misc.DogMixin",
     "misc.InvisibleMixin",
     "misc.KnockbackFistMixin",
     "misc.SummonDogMixin",

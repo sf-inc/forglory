@@ -4,18 +4,16 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
+import com.github.galatynf.forglory.imixin.IPlayerIDMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,9 +26,6 @@ public abstract class SummonDogMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Unique
-    Integer forglory_theDog;
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
         if(!world.isClient()) {
@@ -39,41 +34,17 @@ public abstract class SummonDogMixin extends LivingEntity {
             if (feat.equals(Feats.DOG)) {
                 if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
                     if (MyComponents.FEATS.get(this).getCooldown(Feats.DOG.tier).equals(Feats.DOG.cooldown)) {
-                        WolfEntity dog = EntityType.WOLF.create(world);
-                        if (dog == null) {
+                        WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+                        if (wolfEntity == null) {
                             System.err.println("Couldn't create dog from dog Mixin");
                             return;
                         }
-                        dog.setTamed(true);
-                        dog.setOwnerUuid(this.getUuid());
-                        dog.setInvulnerable(true);
-                        dog.setGlowing(true);
-                        dog.initialize(world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.COMMAND, null, null);
-                        dog.refreshPositionAndAngles(this.getBlockPos(), 0.0F, 0.0F);
-                        world.spawnEntity(dog);
-                        this.forglory_theDog = dog.getEntityId();
+                        wolfEntity.setTamed(true);
+                        wolfEntity.setOwnerUuid(this.getUuid());
+                        wolfEntity.setInvulnerable(true);
+                        wolfEntity.setGlowing(true);
+                        ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
                         MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
-                    }
-                    WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
-                    if (dog == null) {
-                        System.err.println("Couldn't get dog from dog Mixin");
-                        return;
-                    }
-                    dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 10, 0));
-                } else {
-                    if (MyComponents.FEATS.get(this).getCooldown(Feats.DOG.tier) == 0) {
-                        WolfEntity dog = (WolfEntity) world.getEntityById(this.forglory_theDog);
-                        if (dog == null) {
-                            System.err.println("Couldn't remove dog from dog Mixin");
-                            return;
-                        }
-                        dog.setInvulnerable(false);
-                        dog.setHealth(4);
-                        dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1));
-                        dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 200, 0));
-                        dog.applyStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 200, 4));
-                        MyComponents.FEATS.get(this).resetCooldown(Feats.DOG.tier);
-                        this.forglory_theDog = null;
                     }
                 }
             }
