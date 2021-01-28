@@ -12,6 +12,7 @@ public class Utils {
         if (object == null) return false;
         if (!(object instanceof PlayerEntity)) return false;
         PlayerEntity playerEntity = (PlayerEntity) object;
+        if (playerEntity.world.isClient) return false;
 
         Feats playerFeat = MyComponents.FEATS.get(playerEntity).getFeat(feat.tier);
         if (playerFeat == null) return false;

@@ -27,20 +27,18 @@ public abstract class SummonDogMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
-        if(!world.isClient()) {
-            if (Utils.canUseFeat(this, Feats.DOG)) {
-                WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
-                if (wolfEntity == null) {
-                    System.err.println("Couldn't create dog from dog Mixin");
-                    return;
-                }
-                wolfEntity.setTamed(true);
-                wolfEntity.setOwnerUuid(this.getUuid());
-                wolfEntity.setInvulnerable(true);
-                wolfEntity.setGlowing(true);
-                ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
-                MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
+        if (Utils.canUseFeat(this, Feats.DOG)) {
+            WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+            if (wolfEntity == null) {
+                System.err.println("Couldn't create dog from dog Mixin");
+                return;
             }
+            wolfEntity.setTamed(true);
+            wolfEntity.setOwnerUuid(this.getUuid());
+            wolfEntity.setInvulnerable(true);
+            wolfEntity.setGlowing(true);
+            ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
+            MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
         }
     }
 }
