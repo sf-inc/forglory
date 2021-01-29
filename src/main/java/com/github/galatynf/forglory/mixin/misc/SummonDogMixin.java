@@ -10,6 +10,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +29,7 @@ public abstract class SummonDogMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog (CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.DOG)) {
-            WolfEntity wolfEntity = EntityType.WOLF.spawn(world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+            WolfEntity wolfEntity = EntityType.WOLF.spawn((ServerWorld) world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
             if (wolfEntity == null) {
                 System.err.println("Couldn't create dog from dog Mixin");
                 return;

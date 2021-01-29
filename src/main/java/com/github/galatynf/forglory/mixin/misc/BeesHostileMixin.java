@@ -10,6 +10,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +28,7 @@ public abstract class BeesHostileMixin extends Entity {
         if (Utils.canUseFeat(source.getAttacker(), Feats.BEES)) {
             if (this.world.getEntityById(this.getEntityId()) instanceof HostileEntity) {
                 for (int i = 0; i < 3; i++) {
-                    BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+                    BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
                     if (beeEntity != null) {
                         ((IPlayerIDMixin) beeEntity).setPlayerID(source.getAttacker().getEntityId());
                     }
@@ -36,7 +37,7 @@ public abstract class BeesHostileMixin extends Entity {
         } else if (source.getAttacker() != null
                 && source.getAttacker() instanceof BeeEntity
                 && ((IPlayerIDMixin) source.getAttacker()).getPlayerID() != null) {
-            BeeEntity beeEntity = EntityType.BEE.spawn(world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+            BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
             if (beeEntity != null) {
                 ((IPlayerIDMixin) beeEntity).setPlayerID(((IPlayerIDMixin) source.getAttacker()).getPlayerID());
             }
