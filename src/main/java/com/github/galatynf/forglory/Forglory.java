@@ -18,28 +18,44 @@ import com.github.galatynf.forglory.items.heal.*;
 import com.github.galatynf.forglory.items.misc.*;
 import com.github.galatynf.forglory.items.mobility.*;
 import com.github.galatynf.forglory.statusEffects.LifeStealStatusEffect;
+import com.github.galatynf.forglory.structures.MyFeature;
+import com.github.galatynf.forglory.structures.MyGenerator;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
 
 public class Forglory implements ModInitializer {
     public static final ItemGroup forGlory = FabricItemGroupBuilder.create(
             new Identifier("forglory", "gems"))
             .icon(() -> new ItemStack(Items.QUARTZ))
             .build();
+
+    public static final StructurePieceType MY_PIECE = MyGenerator.MyPiece::new;
+    private static final StructureFeature<DefaultFeatureConfig> MY_STRUCTURE = new MyFeature(DefaultFeatureConfig.CODEC);
+    private static final ConfiguredStructureFeature<?, ?> MY_CONFIGURED = MY_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
 
     public static final Block essenceInfuser = new EssenceInfuser(FabricBlockSettings.of(Material.METAL).hardness(50.0f).lightLevel(15).sounds(BlockSoundGroup.GLASS));
     public static final Item essenceInfuserItem = new BlockItem(essenceInfuser, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
@@ -109,6 +125,19 @@ public class Forglory implements ModInitializer {
             Tier.initThresholds();
             Feats.initCooldowns();
         });
+
+        Registry.register(Registry.STRUCTURE_PIECE, new Identifier("forglory", "my_piece"), MY_PIECE);
+        FabricStructureBuilder.create(new Identifier("forglory", "lost_sanctuary"), MY_STRUCTURE)
+                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+                .defaultConfig(ModConfig.get().generalConfig.struct_max_distance, ModConfig.get().generalConfig.struct_min_distance, 42685)
+                .adjustsSurface()
+                .register();
+
+        RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN,
+                new Identifier("forglory", "my_structure"));
+        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, myConfigured.getValue(), MY_CONFIGURED);
+
+        BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);
 
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
