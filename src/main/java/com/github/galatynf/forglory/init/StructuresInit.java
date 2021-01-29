@@ -1,0 +1,42 @@
+package com.github.galatynf.forglory.init;
+
+import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.structures.MyFeature;
+import com.github.galatynf.forglory.structures.MyGenerator;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
+import net.minecraft.structure.StructurePieceType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
+
+public class StructuresInit {
+    private StructuresInit() {}
+
+    public static final StructurePieceType MY_PIECE = MyGenerator.MyPiece::new;
+
+    private static final StructureFeature<DefaultFeatureConfig> MY_STRUCTURE = new MyFeature(DefaultFeatureConfig.CODEC);
+
+    private static final ConfiguredStructureFeature<?, ?> MY_CONFIGURED = MY_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
+
+    public static void init () {
+        Registry.register(Registry.STRUCTURE_PIECE, new Identifier("forglory", "my_piece"), MY_PIECE);
+        FabricStructureBuilder.create(new Identifier("forglory", "lost_sanctuary"), MY_STRUCTURE)
+                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+                .defaultConfig(ModConfig.get().generalConfig.struct_max_distance, ModConfig.get().generalConfig.struct_min_distance, 42685)
+                .adjustsSurface()
+                .register();
+
+        RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN,
+                new Identifier("forglory", "my_structure"));
+        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, myConfigured.getValue(), MY_CONFIGURED);
+
+        BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);
+    }
+}

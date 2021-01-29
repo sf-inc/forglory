@@ -1,10 +1,10 @@
 package com.github.galatynf.forglory.mixin.damage;
 
-import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.init.BlocksInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,22 +50,22 @@ public abstract class FireZoneMixin extends Entity {
 
         if (this.world.getBlockState(blockPos).isAir()
                 && !this.world.getBlockState(belowBlockPos).isAir()
-                && !this.world.getBlockState(belowBlockPos).getBlock().equals(Forglory.quickFireBlock)) {
+                && !this.world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
             this.world.setBlockState(blockPos,
-                    Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                    BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
         } else {
             for (int i = 1; i < 3; i++) {
                 if (this.world.getBlockState(blockPos.down(i)).isAir()
                         && !this.world.getBlockState(belowBlockPos.down(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.down(i)).getBlock().equals(Forglory.quickFireBlock)) {
+                        && !this.world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
                     this.world.setBlockState(blockPos.down(i),
-                            Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 } else if (this.world.getBlockState(blockPos.up(i)).isAir()
                         && !this.world.getBlockState(belowBlockPos.up(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.up(i)).getBlock().equals(Forglory.quickFireBlock)) {
+                        && !this.world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
                     this.world.setBlockState(blockPos.up(i),
-                            Forglory.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 }
             }

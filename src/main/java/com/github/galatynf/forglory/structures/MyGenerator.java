@@ -1,6 +1,6 @@
 package com.github.galatynf.forglory.structures;
 
-import com.github.galatynf.forglory.Forglory;
+import com.github.galatynf.forglory.init.StructuresInit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -26,14 +26,14 @@ public class MyGenerator {
         private final Identifier template;
 
         public MyPiece(StructureManager structureManager, CompoundTag compoundTag) {
-            super(Forglory.MY_PIECE, compoundTag);
+            super(StructuresInit.MY_PIECE, compoundTag);
             this.template = new Identifier(compoundTag.getString("Template"));
             this.rotation = BlockRotation.valueOf(compoundTag.getString("Rot"));
             this.initializeStructureData(structureManager);
         }
 
         public MyPiece(StructureManager structureManager, BlockPos pos, Identifier template, BlockRotation rotation) {
-            super(Forglory.MY_PIECE, 0);
+            super(StructuresInit.MY_PIECE, 0);
             this.pos = pos;
             this.rotation = rotation;
             this.template = template;

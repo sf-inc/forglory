@@ -1,10 +1,11 @@
 package com.github.galatynf.forglory.mixin.heal;
 
-import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
+import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.StatusEffectsInit;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.Entity;
@@ -58,7 +59,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
             if (this.isDead() && !forglory_isInBerserkState) {
                 PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
                 PlayerEntity player = world.getPlayerByUuid(this.getUuid());
-                ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Forglory.BERSERK_PACKET_ID, passedData);
+                ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, NetworkInit.BERSERK_PACKET_ID, passedData);
 
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
@@ -79,7 +80,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 1));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 3));
-                this.addStatusEffect(new StatusEffectInstance(Forglory.lifeStealStatusEffect, 30, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 30, 0));
             }
         }
     }
