@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:fire_resistance_gem"
+      "item": "forglory:healing_fist_gem"
     },
     {
       "item": "minecraft:diamond"

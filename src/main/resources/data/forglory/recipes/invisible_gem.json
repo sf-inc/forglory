@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:knockback_fist_gem"
+      "item": "forglory:mountain_gem"
     },
     {
       "item": "minecraft:netherite_scrap"
     },
     {
-      "item": "minecraft:spider_eye"
+      "item": "minecraft:fermented_spider_eye"
     }
   ],
   "result": {

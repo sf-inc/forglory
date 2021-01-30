@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:heal_gem"
+      "item": "forglory:resistance_gem"
     },
     {
-      "item": "minecraft:lapis_lazuli"
+      "item": "minecraft:emerald"
     },
     {
-      "item": "minecraft:bread"
+      "item": "minecraft:glistering_melon_slice"
     }
   ],
   "result": {

@@ -32,9 +32,9 @@ public class GemsInit {
     public static final LastStandGem lastStandGem = new LastStandGem(settings);
 
     public static final MiscGem miscGem = new MiscGem(settings);
+    public static final ArrowComboGem arrowComboGem = new ArrowComboGem(settings);
     public static final BloodlustGem bloodlustGem = new BloodlustGem(settings);
     public static final DogGem dogGem = new DogGem(settings);
-    public static final SniperGem sniperGem = new SniperGem(settings);
     public static final KnockbackFistGem knockbackFistGem = new KnockbackFistGem(settings);
     public static final MountainGem mountainGem = new MountainGem(settings);
     public static final BeesGem beesGem = new BeesGem(settings);
@@ -71,7 +71,7 @@ public class GemsInit {
         Registry.register(Registry.ITEM, new Identifier("forglory", "misc_gem"), miscGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bloodlust_gem"), bloodlustGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "dog_gem"), dogGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "sniper_gem"), sniperGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "arrow_combo_gem"), arrowComboGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "knockback_fist_gem"), knockbackFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "mountain_gem"), mountainGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bees_gem"), beesGem);

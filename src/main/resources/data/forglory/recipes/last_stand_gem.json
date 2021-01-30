@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:shield_gem"
+      "item": "forglory:shield_resistance_gem"
     },
     {
       "item": "minecraft:netherite_scrap"

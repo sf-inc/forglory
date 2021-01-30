@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:damage_gem"
+      "item": "forglory:heal_gem"
     },
     {
       "item": "minecraft:lapis_lazuli"
     },
     {
-      "item": "minecraft:stick"
+      "item": "minecraft:iron_ingot"
     }
   ],
   "result": {
-    "item": "forglory:strength_gem",
+    "item": "forglory:resistance_gem",
     "count": 1
   }
 }

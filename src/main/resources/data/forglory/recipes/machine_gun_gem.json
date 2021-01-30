@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:bloodlust_gem"
+      "item": "forglory:smite_gem"
     },
     {
       "item": "minecraft:emerald"
     },
     {
-      "item": "minecraft:string"
+      "item": "minecraft:bow"
     }
   ],
   "result": {
-    "item": "forglory:knockback_fist_gem",
+    "item": "forglory:machine_gun_gem",
     "count": 1
   }
 }

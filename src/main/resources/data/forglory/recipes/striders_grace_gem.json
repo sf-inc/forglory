@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:fire_resistance_gem"
+      "item": "forglory:dash_gem"
     },
     {
       "item": "minecraft:diamond"
     },
     {
-      "item": "minecraft:shield"
+      "item": "minecraft:warped_fungus"
     }
   ],
   "result": {
-    "item": "forglory:shield_gem",
+    "item": "forglory:striders_grace_gem",
     "count": 1
   }
 }

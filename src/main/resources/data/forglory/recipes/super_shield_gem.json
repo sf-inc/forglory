@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:machine_gun_gem"
+      "item": "forglory:fire_trail_gem"
     },
     {
       "item": "minecraft:diamond"
     },
     {
-      "item": "minecraft:clock"
+      "item": "minecraft:shield"
     }
   ],
   "result": {
-    "item": "forglory:damage_slowed_gem",
+    "item": "forglory:super_shield_gem",
     "count": 1
   }
 }

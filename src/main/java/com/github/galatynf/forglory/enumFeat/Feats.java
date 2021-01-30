@@ -8,7 +8,6 @@ public enum Feats {
 
     ARROW_COMBO(Tier.TIER1),
     BLOODLUST(Tier.TIER1),
-    DOG(Tier.TIER1),
     NO_HUNGER(Tier.TIER1),
     RESISTANCE(Tier.TIER1),
     SMITE(Tier.TIER1),
@@ -16,6 +15,7 @@ public enum Feats {
     STRENGTH(Tier.TIER1),
 
     DASH(Tier.TIER2),
+    DOG(Tier.TIER2),
     FIRE_TRAIL(Tier.TIER2),
     HEALING_FIST(Tier.TIER2),
     KNOCKBACK_FIST(Tier.TIER2),

@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "forglory:dog_gem"
+      "item": "forglory:knockback_fist_gem"
     },
     {
       "item": "minecraft:netherite_scrap"
     },
     {
-      "item": "minecraft:honeycomb"
+      "item": "minecraft:bell"
     }
   ],
   "result": {
-    "item": "forglory:bees_gem",
+    "item": "forglory:undead_army_gem",
     "count": 1
   }
 }

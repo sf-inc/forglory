@@ -1,11 +1,16 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
+    [
+      {
+        "item": "forglory:bloodlust_gem"
+      },
+      {
+        "item": "forglory:arrow_combo_gem"
+      }
+    ],
     {
-      "item": "forglory:misc_gem"
-    },
-    {
-      "item": "minecraft:lapis_lazuli"
+      "item": "minecraft:emerald"
     },
     {
       "item": "minecraft:bone"

@@ -5,14 +5,14 @@
       "item": "forglory:healing_fist_gem"
     },
     {
-      "item": "minecraft:emerald"
+      "item": "minecraft:diamond"
     },
     {
-      "item": "minecraft:iron_chestplate"
+      "item": "minecraft:shield"
     }
   ],
   "result": {
-    "item": "forglory:fire_resistance_gem",
+    "item": "forglory:shield_resistance_gem",
     "count": 1
   }
 }

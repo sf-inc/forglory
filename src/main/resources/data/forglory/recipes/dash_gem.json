@@ -1,9 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "forglory:speed_gem"
-    },
+    [
+      {
+        "item": "forglory:no_hunger_gem"
+      },
+      {
+        "item": "forglory:speed_gem"
+      }
+    ],
     {
       "item": "minecraft:emerald"
     },
