@@ -27,5 +27,6 @@ public class Forglory implements ModInitializer {
         SoundsInit.init();
         StatusEffectsInit.init();
         StructuresInit.init();
+        EntitiesInit.init();
     }
 }
