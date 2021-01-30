@@ -22,7 +22,6 @@ public enum Feats {
     MACHINE_GUN(Tier.TIER2),
     MOUNTAIN(Tier.TIER2),
 
-    COMPANION_HEAL(Tier.TIER3),
     DAMAGE_SLOWED(Tier.TIER3),
     JUMP_BOOST(Tier.TIER3),
     SHIELD_RESISTANCE(Tier.TIER3),

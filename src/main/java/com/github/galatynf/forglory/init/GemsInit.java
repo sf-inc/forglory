@@ -26,7 +26,6 @@ public class GemsInit {
     public static final HealGem healGem = new HealGem(settings);
     public static final ResistanceGem resistanceGem = new ResistanceGem(settings);
     public static final HealingFistGem healingFistGem = new HealingFistGem(settings);
-    public static final CompanionHealGem companionHealGem = new CompanionHealGem(settings);
     public static final ShieldResistanceGem shieldResistanceGem = new ShieldResistanceGem(settings);
     public static final HealTrailGem healTrailGem = new HealTrailGem(settings);
     public static final LastStandGem lastStandGem = new LastStandGem(settings);
@@ -63,7 +62,6 @@ public class GemsInit {
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_gem"), healGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "resistance_gem"), resistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "healing_fist_gem"), healingFistGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "companion_heal_gem"), companionHealGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "shield_resistance_gem"), shieldResistanceGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "heal_trail_gem"), healTrailGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "last_stand_gem"), lastStandGem);
