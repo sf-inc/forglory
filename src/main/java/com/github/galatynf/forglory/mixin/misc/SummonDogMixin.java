@@ -38,7 +38,7 @@ public abstract class SummonDogMixin extends LivingEntity {
             wolfEntity.setOwnerUuid(this.getUuid());
             wolfEntity.setInvulnerable(true);
             wolfEntity.setGlowing(true);
-            ((IPlayerIDMixin) wolfEntity).setPlayerID(this.getEntityId());
+            MyComponents.SUMMONED.get(wolfEntity).setPlayer(this.getUuid());
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.DOG.tier);
         }
     }

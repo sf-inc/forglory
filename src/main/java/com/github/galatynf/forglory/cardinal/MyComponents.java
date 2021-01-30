@@ -6,6 +6,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import nerdhub.cardinal.components.api.util.RespawnCopyStrategy;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
 
 public class MyComponents implements EntityComponentInitializer {
@@ -19,6 +20,7 @@ public class MyComponents implements EntityComponentInitializer {
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(FEATS, player -> new PlayerFeatsComponent(), RespawnCopyStrategy.ALWAYS_COPY);
-        registry.registerFor(HeroEntity.class, SUMMONED, summ -> new SummonerComponent());
+        registry.registerFor(HeroEntity.class, SUMMONED, hero -> new SummonerComponent());
+        registry.registerFor(WolfEntity.class, SUMMONED, wolf -> new SummonerComponent());
     }
 }
