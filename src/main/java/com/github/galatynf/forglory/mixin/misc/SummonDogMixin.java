@@ -3,7 +3,6 @@ package com.github.galatynf.forglory.mixin.misc;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IPlayerIDMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
