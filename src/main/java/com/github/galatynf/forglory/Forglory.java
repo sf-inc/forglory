@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.entity.HeroEntity;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.init.*;
@@ -27,5 +28,6 @@ public class Forglory implements ModInitializer {
         SoundsInit.init();
         StatusEffectsInit.init();
         StructuresInit.init();
+        EntitiesInit.init();
     }
 }

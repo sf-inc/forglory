@@ -36,7 +36,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "forglory:feats"
+      "forglory:feats",
+      "forglory:summoned"
     ]
   }
 }

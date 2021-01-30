@@ -31,6 +31,7 @@
     "misc.InvisibleMixin",
     "misc.KnockbackFistMixin",
     "misc.SummonDogMixin",
+    "misc.SummonUndeadArmyMixin",
     "mobility.JumpBoostMixin",
     "mobility.NoHungerMixin",
     "mobility.SpeedMixin",
