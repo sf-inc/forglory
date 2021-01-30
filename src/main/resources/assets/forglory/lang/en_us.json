@@ -2,6 +2,8 @@
   "block.forglory.essence_infuser": "Essence Infuser",
   "item.forglory.essence_infuser_item": "Essence Infuser",
 
+  "itemGroup.forglory.gems": "Forglory Gems",
+
   "item.forglory.damage_gem": "Damage Gem",
   "item.forglory.fire_trail_gem": "Fire Trail Gem",
   "item.forglory.smite_gem": "Smite Gem",
