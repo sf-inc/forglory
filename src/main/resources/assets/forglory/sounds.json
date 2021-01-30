@@ -18,6 +18,42 @@
     "sounds": [
       "forglory:tier_4_overcharged"
     ]
+  },
+  "male_grunt": {
+    "sounds": [
+      "forglory:male_grunt0",
+      "forglory:male_grunt1",
+      "forglory:male_grunt2",
+      "forglory:male_grunt3"
+    ]
+  },
+  "female_grunt": {
+    "sounds": [
+      "forglory:female_grunt0",
+      "forglory:female_grunt1",
+      "forglory:female_grunt2",
+      "forglory:female_grunt3"
+    ]
+  },
+  "male_death": {
+    "sounds": [
+      "forglory:male_death0"
+    ]
+  },
+  "female_death": {
+    "sounds": [
+      "forglory:female_death0"
+    ]
+  },
+  "incre": {
+    "sounds": [
+      "forglory:incre"
+    ]
+  },
+  "dibilis": {
+    "sounds": [
+      "forglory:dibilis"
+    ]
   }
 }
 
