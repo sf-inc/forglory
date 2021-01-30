@@ -1,7 +1,6 @@
 package com.github.galatynf.forglory.mixin.misc;
 
-import com.github.galatynf.forglory.Utils;
-import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,9 +26,13 @@ public abstract class KnockbackFistMixin extends Entity{
 
     @Inject(at=@At("HEAD"), method="damage")
     private void stunWhenPunched(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (Utils.canUseFeat(source.getAttacker(), Feats.KNOCKBACK_FIST)) {
-            if (((PlayerEntity) source.getAttacker()).getMainHandStack().equals(ItemStack.EMPTY)) {
+        Entity attacker = source.getAttacker();
+        if (attacker instanceof PlayerEntity
+            && ((IKnockbackFistPlayerMixin)attacker).isKnockbackActivated()) {
+            if (((PlayerEntity) attacker).getMainHandStack().equals(ItemStack.EMPTY)) {
+                //playsound(DIBILIS)
                 this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
+                ((IKnockbackFistPlayerMixin)attacker).setKnockBack(false);
             }
         }
     }

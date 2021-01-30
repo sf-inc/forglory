@@ -5,14 +5,12 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
-import com.github.galatynf.forglory.imixin.IFireTrailMixin;
-import com.github.galatynf.forglory.imixin.ILastStandMixin;
-import com.github.galatynf.forglory.imixin.IMachineGunMixin;
+import com.github.galatynf.forglory.imixin.*;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.impl.networking.ClientSidePacketRegistryImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,6 +61,10 @@ public class NetworkInit {
 
                         else if(feat.equals(Feats.HEALING_FIST)) {
                             playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
+                        }
+                        else if(feat.equals(Feats.KNOCKBACK_FIST)) {
+                            //playsound(INCRE)
+                            ((IKnockbackFistPlayerMixin)playerEntity).setKnockBack(true);
                         }
                         MyComponents.FEATS.get(playerEntity).resetCooldown(Tier.TIER2);
                     }
