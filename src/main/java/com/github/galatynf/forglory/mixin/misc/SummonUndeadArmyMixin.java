@@ -39,9 +39,7 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                     return;
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
-                theHero.setOwner((PlayerEntity)(Object)this);
             }
-
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }
     }

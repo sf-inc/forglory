@@ -26,7 +26,6 @@ import java.util.*;
 //Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
 
-    private PlayerEntity owner = null;
     private AttributeContainer attributeContainer;
     private String texture;
     private static final String[] NAMES = {"Galatyn", "Pardys", "Zebus", "Chocofurtif", "Extoleon", "Holden", "Daubeny", "Astrea", "Apollyon", "Goemon", "Sakura", "Lykeidon", "Iskandar", "Waver", "Dysnomia", "Denheb", "Altair", "Ordan", "Teshin", "Cressa", "Amaryn", "Mercy", "Siv", "Runa", "Seijuro", "Kenshi", "Ermac", "Ultra Galactron the Third, Destroyer of worlds", "NeroBrine", "Faering", "Syntribos", "Asbetos", "Sabaktes", "Rhamnusia", "Dikaiosyne"};
@@ -111,14 +110,6 @@ public class HeroEntity extends ZombieEntity {
         }
     }
 
-    public void setOwner(PlayerEntity owner) {
-        this.owner = owner;
-    }
-
-    public PlayerEntity getOwner() {
-        return owner;
-    }
-
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new PounceAtTargetGoal(this, 0.3F));
@@ -170,10 +161,14 @@ public class HeroEntity extends ZombieEntity {
     @Override
     public void tick() {
         super.tick();
-        if(owner != null) {
-            if (((IAdrenalinMixin) owner).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
-                this.kill();
-                MyComponents.FEATS.get(owner).resetCooldown(Feats.UNDEAD_ARMY.tier);
+        UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
+        if (uuid != null) {
+            PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
+            if (playerEntity != null) {
+                if (((IAdrenalinMixin) playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
+                    this.kill();
+                    MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.UNDEAD_ARMY.tier);
+                }
             }
         }
     }
