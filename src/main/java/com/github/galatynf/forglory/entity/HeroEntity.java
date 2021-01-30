@@ -124,7 +124,7 @@ public class HeroEntity extends ZombieEntity {
         this.goalSelector.add(1, new PounceAtTargetGoal(this, 0.3F));
         this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0D, false));
         this.goalSelector.add(7, new FollowTargetGoal(this, PlayerEntity.class, 5, false, true, (livingEntity) -> {
-            UUID summonerID = MyComponents.SUMMONED.get(this).getSummoner();
+            UUID summonerID = MyComponents.SUMMONED.get(this).getPlayer();
             if(summonerID != null) {
                 PlayerEntity summoner = world.getPlayerByUuid(summonerID);
                 return (livingEntity.equals(summoner) && distanceTo(summoner) > 15F);

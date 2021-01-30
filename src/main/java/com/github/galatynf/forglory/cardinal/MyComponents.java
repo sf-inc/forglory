@@ -12,13 +12,13 @@ public class MyComponents implements EntityComponentInitializer {
     public static final ComponentKey<FeatsComponent> FEATS =
             ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:feats"), FeatsComponent.class);
 
-    public static final ComponentKey<UndeadComponent> SUMMONED =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:summoned"), UndeadComponent.class);
+    public static final ComponentKey<PlayerComponent> SUMMONED =
+            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:summoned"), PlayerComponent.class);
 
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(FEATS, player -> new PlayerFeatsComponent(), RespawnCopyStrategy.ALWAYS_COPY);
-        registry.registerFor(HeroEntity.class, SUMMONED, summ -> new UndeadSummonedComponent());
+        registry.registerFor(HeroEntity.class, SUMMONED, summ -> new SummonerComponent());
     }
 }
