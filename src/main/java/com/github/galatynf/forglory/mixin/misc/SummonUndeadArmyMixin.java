@@ -38,7 +38,7 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                     System.err.println("Couldn't create hero from undead army Mixin");
                     return;
                 }
-                MyComponents.SUMMONED.get(theHero).setSummoner(this.getUuid());
+                MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
                 theHero.setOwner((PlayerEntity)(Object)this);
             }
 
