@@ -96,6 +96,6 @@ public class FeatConfig implements ConfigData {
         public int number_summoned = 5;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
-        public int initial_stats_pool = 30;
+        public int heroes_OPness = 0;
     }
 }

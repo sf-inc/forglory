@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.mixin.misc;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.entity.HeroEntity;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.EntitiesInit;
@@ -12,6 +13,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,8 +30,10 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonOneZombie (CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.UNDEAD_ARMY)) {
-            for(int i = 0; i<4; ++i) {
-                HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+            Vec3i offset;
+            for(int i = 0; i< ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
+                offset = new Vec3i(Math.random()*6-3, 1, Math.random()*6-3);
+                HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) world, null, null, null, this.getBlockPos().add(offset), SpawnReason.COMMAND, false, false);
                 if (theHero == null) {
                     System.err.println("Couldn't create hero from undead army Mixin");
                     return;

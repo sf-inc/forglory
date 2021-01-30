@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory.entity;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.init.SoundsInit;
@@ -15,11 +16,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-import java.util.UUID;
+import java.util.*;
 
 //Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
@@ -27,17 +29,21 @@ public class HeroEntity extends ZombieEntity {
     private PlayerEntity owner = null;
     private AttributeContainer attributeContainer;
     private String texture;
+    private static final String[] NAMES = {"Galatyn", "Pardys", "Zebus", "Chocofurtif", "Extoleon", "Holden", "Daubeny", "Astrea", "Apollyon", "Goemon", "Sakura", "Lykeidon", "Iskandar", "Waver", "Dysnomia", "Denheb", "Altair", "Ordan", "Teshin", "Cressa", "Amaryn", "Mercy", "Siv", "Runa", "Seijuro", "Kenshi", "Ermac", "Ultra Galactron the Third, Destroyer of worlds", "NeroBrine", "Faering", "Syntribos", "Asbetos", "Sabaktes", "Rhamnusia", "Dikaiosyne"};
 
     public HeroEntity(EntityType<? extends ZombieEntity> entityType, World world) {
         super(entityType, world);
         this.experiencePoints = 0;
         int rand = (int) (Math.random()*6);
-        texture = "hero"+rand;
+        this.texture = "hero"+rand;
+        String name = NAMES[(int)(Math.random()*(NAMES.length-1))];
+        this.setCustomName(Text.of(name));
     }
 
     @Override
     protected void initEquipment(LocalDifficulty difficulty) {
-        int rand = (int) (Math.random()*4);
+        int opness = ModConfig.get().featConfig.undeadArmyConfig.heroes_OPness;
+        int rand = (int) (Math.random()*7 + opness);
         switch (rand) {
             case(0):
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
@@ -48,9 +54,9 @@ public class HeroEntity extends ZombieEntity {
             case(2):
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
                 break;
-                //If rand equals 4 the hero should not have a helmet
+                //If rand is greater than 2 the hero should not have a helmet
         }
-        rand = (int) (Math.random()*3);
+        rand = (int) (Math.random()*7 + opness);
         switch (rand) {
             case(0):
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
@@ -62,7 +68,7 @@ public class HeroEntity extends ZombieEntity {
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
                 break;
         }
-        rand = (int) (Math.random()*3);
+        rand = (int) (Math.random()*5 + opness);
         switch (rand) {
             case(0):
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
@@ -74,7 +80,7 @@ public class HeroEntity extends ZombieEntity {
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
                 break;
         }
-        rand = (int) (Math.random()*3);
+        rand = (int) (Math.random()*4 + opness);
         switch (rand) {
             case(0):
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
@@ -86,7 +92,7 @@ public class HeroEntity extends ZombieEntity {
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
                 break;
         }
-        rand = (int) (Math.random()*2);
+        rand = (int) (Math.random()*2 + opness);
         switch (rand) {
             case(0):
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
@@ -95,9 +101,13 @@ public class HeroEntity extends ZombieEntity {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
                 break;
         }
-        rand = (int) (Math.random()*2);
+        // Purely cosmetic (that's nice if you have Optifine/lambdynamic lights installed :D)
+        rand = (int) (Math.random()*5);
         if (rand == 0) {
             this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        }
+        else if (rand == 1) {
+            this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.TORCH));
         }
     }
 
@@ -113,7 +123,7 @@ public class HeroEntity extends ZombieEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new PounceAtTargetGoal(this, 0.3F));
         this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0D, false));
-        this.goalSelector.add(4, new FollowTargetGoal(this, PlayerEntity.class, 5, false, true, (livingEntity) -> {
+        this.goalSelector.add(7, new FollowTargetGoal(this, PlayerEntity.class, 5, false, true, (livingEntity) -> {
             UUID summonerID = MyComponents.SUMMONED.get(this).getSummoner();
             if(summonerID != null) {
                 PlayerEntity summoner = world.getPlayerByUuid(summonerID);
@@ -123,7 +133,7 @@ public class HeroEntity extends ZombieEntity {
         }));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.targetSelector.add(3, new FollowTargetGoal(this, HostileEntity.class, 5, false, true, (livingEntity) -> !(livingEntity instanceof HeroEntity)));
     }
 
@@ -135,23 +145,24 @@ public class HeroEntity extends ZombieEntity {
     @Override
     protected void initAttributes() {
         super.initAttributes();
+        Float[] multipliers = { 0.5f, 0.25f, 1f, 1.2f, 1.5f };
+        int i = 0;
 
-        float multiplier = (float) (Math.random() + 0.5);
+        List<Float> listMult = Arrays.asList(multipliers);
+
+        Collections.shuffle(listMult);
+
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)
-                .setBaseValue(40 * multiplier);
+                .setBaseValue(40 * listMult.get(i++));
 
-        multiplier = (float) (Math.random() + 0.5);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(2.5D * multiplier);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(2.5D * listMult.get(i++));
 
-        multiplier = (float) (Math.random() + 0.5);
-        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3D * (multiplier/2));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3D * (listMult.get(i++)));
 
-        multiplier = (float) (Math.random() + 0.5);
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)
-                .setBaseValue(5 * multiplier);
+                .setBaseValue(5 * listMult.get(i++));
 
-        multiplier = (float) (Math.random() + 0.5);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue(1.2D * multiplier);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue(1.2D * listMult.get(i));
 
         this.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(20.0D);
     }
