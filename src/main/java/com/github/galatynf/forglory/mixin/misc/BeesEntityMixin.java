@@ -8,7 +8,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Angerable;
@@ -32,8 +31,6 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
 
     @Shadow public abstract UUID getAngryAt();
 
-    @Shadow public abstract boolean damage(DamageSource source, float amount);
-
     @Shadow public abstract void setAngerTime(int ticks);
 
     protected BeesEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
@@ -47,7 +44,7 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
             PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
             if (playerEntity != null) {
                 if (((IAdrenalinMixin) playerEntity).getAdrenalin() < Feats.BEES.tier.threshold) {
-                    this.damage(DamageSource.OUT_OF_WORLD, 666);
+                    this.kill();
                 } else if (getAngryAt() == null) {
                     double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
                     LivingEntity targetEntity = this.world.getClosestEntity(HostileEntity.class,
