@@ -1,6 +1,5 @@
 package com.github.galatynf.forglory.mixin.misc;
 
-import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.entity.HeroEntity;

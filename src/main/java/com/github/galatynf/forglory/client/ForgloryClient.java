@@ -1,6 +1,5 @@
 package com.github.galatynf.forglory.client;
 
-import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.entity.HeroEntityRenderer;
 import com.github.galatynf.forglory.gui.AdrenalinBar;
 import com.github.galatynf.forglory.init.BlocksInit;
