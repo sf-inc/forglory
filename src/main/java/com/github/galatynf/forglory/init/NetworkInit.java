@@ -64,6 +64,7 @@ public class NetworkInit {
                         }
                         else if(feat.equals(Feats.KNOCKBACK_FIST)) {
                             //playsound(INCRE)
+                            playerEntity.playSound(SoundsInit.incre, 1F, 1F);
                             ((IKnockbackFistPlayerMixin)playerEntity).setKnockBack(true);
                         }
                         MyComponents.FEATS.get(playerEntity).resetCooldown(Tier.TIER2);

@@ -32,7 +32,6 @@ import java.util.*;
 //Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
 
-    private PlayerEntity owner = null;
     private AttributeContainer attributeContainer;
     private String texture;
     private boolean isFemale;
@@ -125,18 +124,18 @@ public class HeroEntity extends ZombieEntity {
         }
     }
 
-    public void setOwner(PlayerEntity owner) {
-        this.owner = owner;
-    }
-
-    public PlayerEntity getOwner() {
-        return owner;
-    }
-
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new PounceAtTargetGoal(this, 0.3F));
         this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0D, false));
+        this.goalSelector.add(7, new FollowTargetGoal(this, PlayerEntity.class, 5, false, true, (livingEntity) -> {
+            UUID summonerID = MyComponents.SUMMONED.get(this).getPlayer();
+            if(summonerID != null) {
+                PlayerEntity summoner = world.getPlayerByUuid(summonerID);
+                return (livingEntity.equals(summoner) && distanceTo(summoner) > 15F);
+            }
+            return false;
+        }));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
@@ -176,10 +175,14 @@ public class HeroEntity extends ZombieEntity {
     @Override
     public void tick() {
         super.tick();
-        if(owner != null) {
-            if (((IAdrenalinMixin) owner).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
-                this.kill();
-                MyComponents.FEATS.get(owner).resetCooldown(Feats.UNDEAD_ARMY.tier);
+        UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
+        if (uuid != null) {
+            PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
+            if (playerEntity != null) {
+                if (((IAdrenalinMixin) playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
+                    this.kill();
+                    MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.UNDEAD_ARMY.tier);
+                }
             }
         }
     }

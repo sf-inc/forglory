@@ -49,7 +49,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
         return forglory_cooldowns.get(tier);
     }
 
-    public FeatsClass getForglory_class() {
+    public FeatsClass getForgloryClass() {
         return forglory_class;
     }
 
@@ -58,6 +58,10 @@ public class PlayerFeatsComponent implements FeatsComponent {
         forglory_feats.put(feat.tier, feat);
         forglory_cooldowns.put(feat.tier, ConstantsConfig.NO_COOLDOWN);
         forglory_class = FeatsClass.hasClass(forglory_feats);
+        for (Feats theFeats : forglory_feats.values()) {
+            System.out.println(theFeats.toString());
+        }
+        System.out.println(forglory_class.toString());
     }
 
     @Override

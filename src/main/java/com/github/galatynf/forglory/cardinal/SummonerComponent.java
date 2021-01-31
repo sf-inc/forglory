@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import java.util.UUID;
 
-public class UndeadSummonedComponent implements UndeadComponent {
+public class SummonerComponent implements PlayerComponent {
 
     private UUID summonerID = null;
 
@@ -28,12 +28,12 @@ public class UndeadSummonedComponent implements UndeadComponent {
     }
 
     @Override
-    public void setSummoner(UUID player) {
+    public void setPlayer(final UUID player) {
         summonerID = player;
     }
 
     @Override
-    public UUID getSummoner() {
+    public UUID getPlayer() {
         return summonerID;
     }
 }

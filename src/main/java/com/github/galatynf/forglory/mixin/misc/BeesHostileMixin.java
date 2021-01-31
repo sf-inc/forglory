@@ -1,8 +1,8 @@
 package com.github.galatynf.forglory.mixin.misc;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IPlayerIDMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -30,16 +30,16 @@ public abstract class BeesHostileMixin extends Entity {
                 for (int i = 0; i < 3; i++) {
                     BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
                     if (beeEntity != null) {
-                        ((IPlayerIDMixin) beeEntity).setPlayerID(source.getAttacker().getEntityId());
+                        MyComponents.SUMMONED.get(beeEntity).setPlayer(source.getAttacker().getUuid());
                     }
                 }
             }
         } else if (source.getAttacker() != null
                 && source.getAttacker() instanceof BeeEntity
-                && ((IPlayerIDMixin) source.getAttacker()).getPlayerID() != null) {
+                && MyComponents.SUMMONED.get(source.getAttacker()).getPlayer() != null) {
             BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
             if (beeEntity != null) {
-                ((IPlayerIDMixin) beeEntity).setPlayerID(((IPlayerIDMixin) source.getAttacker()).getPlayerID());
+                MyComponents.SUMMONED.get(beeEntity).setPlayer(MyComponents.SUMMONED.get(source.getAttacker()).getPlayer());
             }
         }
     }
