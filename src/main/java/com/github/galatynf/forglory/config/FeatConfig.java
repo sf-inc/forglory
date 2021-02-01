@@ -95,8 +95,8 @@ public class FeatConfig implements ConfigData {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 40)
         public int number_summoned = 5;
 
-        @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
         @ConfigEntry.Gui.Tooltip()
-        public int heroes_OPness = 0;
+        public int heroes_OPness = 5;
     }
 }
