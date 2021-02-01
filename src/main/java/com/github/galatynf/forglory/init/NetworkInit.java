@@ -45,7 +45,7 @@ public class NetworkInit {
         ServerPlayNetworking.registerGlobalReceiver(ACTIVATE_FEAT_PACKET_ID, (server, player, handler, buf, responseSender) -> server.execute(() -> {
             Feats feat = MyComponents.FEATS.get(player).getFeat(Tier.TIER2);
             if (feat == null) return;
-            if (((IAdrenalinMixin) player).getAdrenalin() > Tier.TIER2.threshold &&
+            if (MyComponents.ADRENALIN.get(player).getAdrenalin() > Tier.TIER2.threshold &&
                     MyComponents.FEATS.get(player).getCooldown(Tier.TIER2) == 0 ) {
 
                 if (feat.equals(Feats.DASH)) {

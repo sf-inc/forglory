@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.items;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,9 +17,9 @@ public class DebugItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        float adrenalin = ((IAdrenalinMixin)user).getAdrenalin();
+        float adrenalin = MyComponents.ADRENALIN.get(user).getAdrenalin();
         float toAdd = amountToAdd(adrenalin, user.isSneaking());
-        ((IAdrenalinMixin)user).addAdrenalin(toAdd);
+        MyComponents.ADRENALIN.get(user).addAdrenalin(toAdd);
         return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
     }
 

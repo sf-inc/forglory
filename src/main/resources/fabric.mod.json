@@ -36,6 +36,7 @@
   },
   "custom": {
     "cardinal-components": [
+      "forglory:adrenalin",
       "forglory:feats",
       "forglory:summoned"
     ]

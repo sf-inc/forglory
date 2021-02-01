@@ -2,7 +2,6 @@ package com.github.galatynf.forglory.mixin.misc;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -29,7 +28,7 @@ public abstract class DogMixin extends LivingEntity {
         if (uuid != null) {
             PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
             if (playerEntity != null) {
-                if (((IAdrenalinMixin) playerEntity).getAdrenalin() < Feats.DOG.tier.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.DOG.tier.threshold) {
                     this.setInvulnerable(false);
                     this.kill();
                     MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.DOG.tier);

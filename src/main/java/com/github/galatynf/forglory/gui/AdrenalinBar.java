@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.gui;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -17,8 +17,8 @@ public class AdrenalinBar extends WWidget {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        assert MinecraftClient.getInstance().player != null;
-        float adrenalin = ((IAdrenalinMixin)MinecraftClient.getInstance().player).getAdrenalin();
+        if (MinecraftClient.getInstance().player == null) return;
+        float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
 
         int a = 255;
         int r, g;

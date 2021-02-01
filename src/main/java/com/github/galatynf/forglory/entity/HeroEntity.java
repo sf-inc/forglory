@@ -3,7 +3,6 @@ package com.github.galatynf.forglory.entity;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -13,7 +12,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
@@ -181,7 +179,7 @@ public class HeroEntity extends ZombieEntity {
         if (uuid != null) {
             PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
             if (playerEntity != null) {
-                if (((IAdrenalinMixin) playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
                     this.kill();
                     MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.UNDEAD_ARMY.tier);
                 }

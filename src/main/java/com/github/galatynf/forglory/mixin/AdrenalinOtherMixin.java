@@ -1,7 +1,8 @@
 package com.github.galatynf.forglory.mixin;
 
+import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,8 +17,11 @@ public class AdrenalinOtherMixin {
     private void incrementPlayerWhenAttacking(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
     {
         if (source.getAttacker() instanceof PlayerEntity) {
-            float adrenalin = Math.min(amount * ModConfig.get().adrenalinConfig.attack_multiplier, 25);
-            ((IAdrenalinMixin) source.getAttacker()).addAdrenalin(adrenalin);
+            System.out.println("avant "+MyComponents.ADRENALIN.get(source.getAttacker()).getAdrenalin());
+            float adrenalinAmount = Math.min(amount * ModConfig.get().adrenalinConfig.attack_multiplier, 25);
+            adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) source.getAttacker(), adrenalinAmount);
+            MyComponents.ADRENALIN.get(source.getAttacker()).addAdrenalin(adrenalinAmount);
+            System.out.println("apres "+MyComponents.ADRENALIN.get(source.getAttacker()).getAdrenalin());
         }
     }
 }

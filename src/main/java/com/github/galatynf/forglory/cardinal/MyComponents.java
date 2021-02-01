@@ -11,6 +11,9 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
 
 public class MyComponents implements EntityComponentInitializer {
+    public static final ComponentKey<AdrenalinComponent> ADRENALIN =
+            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:adrenalin"), AdrenalinComponent.class);
+
     public static final ComponentKey<FeatsComponent> FEATS =
             ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:feats"), FeatsComponent.class);
 
@@ -20,6 +23,7 @@ public class MyComponents implements EntityComponentInitializer {
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+        registry.registerForPlayers(ADRENALIN, PlayerAdrenalinComponent::new, RespawnCopyStrategy.NEVER_COPY);
         registry.registerForPlayers(FEATS, player -> new PlayerFeatsComponent(), RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerFor(HeroEntity.class, SUMMONED, hero -> new SummonerComponent());
         registry.registerFor(BeeEntity.class, SUMMONED, bee -> new SummonerComponent());

@@ -1,8 +1,8 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.StatusEffectsInit;
@@ -71,7 +71,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void manageBerserkState(CallbackInfo ci) {
         if(this.getType().equals(EntityType.PLAYER)) {
-            if (((IAdrenalinMixin) this).getAdrenalin() < Feats.LAST_STAND.tier.threshold) {
+            if (MyComponents.ADRENALIN.get(this).getAdrenalin() < Feats.LAST_STAND.tier.threshold) {
                 forglory_isInBerserkState = false;
             }
             if (forglory_isInBerserkState) {
