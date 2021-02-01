@@ -6,15 +6,11 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.*;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
 public class NetworkInit {
@@ -28,18 +24,17 @@ public class NetworkInit {
     public static void initClient () {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (KeyInit.activateFeatKey.wasPressed()) {
-                PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-                ClientSidePacketRegistry.INSTANCE.sendToServer(ACTIVATE_FEAT_PACKET_ID, passedData);
+                ClientPlayNetworking.send(ACTIVATE_FEAT_PACKET_ID, PacketByteBufs.empty());
             }
         });
 
-        ClientSidePacketRegistry.INSTANCE.register(BERSERK_PACKET_ID, (packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
-            assert MinecraftClient.getInstance().player != null;
-            ((ILastStandMixin)MinecraftClient.getInstance().player).setBerserk();
+        ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> client.execute(() -> {
+            if (client.player != null) {
+                ((ILastStandMixin) client.player).setBerserk();
+            }
         }));
 
         ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> client.execute(() -> {
-            // Everything in this lambda is run on the render thread
             if (client.player != null) {
                 client.player.playSound(SoundsInit.incre, 1, 1);
             }
@@ -47,37 +42,35 @@ public class NetworkInit {
     }
 
     public static void init () {
-        ServerSidePacketRegistry.INSTANCE.register(ACTIVATE_FEAT_PACKET_ID,
-                (packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
-                    PlayerEntity playerEntity = packetContext.getPlayer();
-                    Feats feat = MyComponents.FEATS.get(playerEntity).getFeat(Tier.TIER2);
-                    if (feat == null) return;
-                    if (((IAdrenalinMixin) playerEntity).getAdrenalin() > Tier.TIER2.threshold &&
-                            MyComponents.FEATS.get(playerEntity).getCooldown(Tier.TIER2) == 0 ) {
+        ServerPlayNetworking.registerGlobalReceiver(ACTIVATE_FEAT_PACKET_ID, (server, player, handler, buf, responseSender) -> server.execute(() -> {
+            Feats feat = MyComponents.FEATS.get(player).getFeat(Tier.TIER2);
+            if (feat == null) return;
+            if (((IAdrenalinMixin) player).getAdrenalin() > Tier.TIER2.threshold &&
+                    MyComponents.FEATS.get(player).getCooldown(Tier.TIER2) == 0 ) {
 
-                        if (feat.equals(Feats.DASH)) {
-                            NoMixinFeats.dashFeat(playerEntity);
+                if (feat.equals(Feats.DASH)) {
+                    NoMixinFeats.dashFeat(player);
 
-                        } else if (feat.equals(Feats.FIRE_TRAIL)) {
-                            ((IFireTrailMixin) playerEntity).invertFireTrail();
+                } else if (feat.equals(Feats.FIRE_TRAIL)) {
+                    ((IFireTrailMixin) player).invertFireTrail();
 
-                        } else if (feat.equals(Feats.MACHINE_GUN)) {
-                            ((IMachineGunMixin) playerEntity).setMachineGun(ModConfig.get().featConfig.machine_gun_arrows);
+                } else if (feat.equals(Feats.MACHINE_GUN)) {
+                    ((IMachineGunMixin) player).setMachineGun(ModConfig.get().featConfig.machine_gun_arrows);
 
-                        } else if (feat.equals(Feats.MOUNTAIN)) {
-                            NoMixinFeats.mountainFeat(playerEntity);
-                        }
+                } else if (feat.equals(Feats.MOUNTAIN)) {
+                    NoMixinFeats.mountainFeat(player);
+                }
 
-                        else if(feat.equals(Feats.HEALING_FIST)) {
-                            playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
-                        }
-                        else if(feat.equals(Feats.KNOCKBACK_FIST)) {
-                            //playsound(INCRE)
-                            playerEntity.playSound(SoundsInit.incre, 1F, 1F);
-                            ((IKnockbackFistPlayerMixin)playerEntity).setKnockBack(true);
-                        }
-                        MyComponents.FEATS.get(playerEntity).resetCooldown(Tier.TIER2);
-                    }
-                }));
+                else if(feat.equals(Feats.HEALING_FIST)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
+                }
+                else if(feat.equals(Feats.KNOCKBACK_FIST)) {
+                    //playsound(INCRE)
+                    player.playSound(SoundsInit.incre, 1F, 1F);
+                    ((IKnockbackFistPlayerMixin)player).setKnockBack(true);
+                }
+                MyComponents.FEATS.get(player).resetCooldown(Tier.TIER2);
+            }
+        }));
     }
 }

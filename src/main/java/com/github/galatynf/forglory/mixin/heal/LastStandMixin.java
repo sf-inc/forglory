@@ -6,16 +6,15 @@ import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.StatusEffectsInit;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,9 +56,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     private void becomeBerserk(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (Utils.canUseFeat(this, Feats.LAST_STAND)) {
             if (this.isDead() && !forglory_isInBerserkState) {
-                PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-                PlayerEntity player = world.getPlayerByUuid(this.getUuid());
-                ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, NetworkInit.BERSERK_PACKET_ID, passedData);
+                ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUuid(this.getUuid());
+                if (player == null) return;
+                ServerPlayNetworking.send(player, NetworkInit.BERSERK_PACKET_ID, PacketByteBufs.empty());
 
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
