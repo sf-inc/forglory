@@ -65,8 +65,6 @@ public class NetworkInit {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
                 }
                 else if(feat.equals(Feats.KNOCKBACK_FIST)) {
-                    //playsound(INCRE)
-                    player.playSound(SoundsInit.incre, 1F, 1F);
                     ((IKnockbackFistPlayerMixin)player).setKnockBack(true);
                 }
                 MyComponents.FEATS.get(player).resetCooldown(Tier.TIER2);
