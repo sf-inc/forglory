@@ -25,6 +25,7 @@ public class AdrenalinConfig implements ConfigData {
     public float quick_loss = -25;       // Must be a negative value
     public float sprint_gain  = 1.2f;    // Must be a positive value, bigger than natural loss
     public float jump_gain = 10;         // Must be a positive value
+    public float attack_multiplier = 3;  // Must be a positive value
     public float fall_multiplier = 5;    // Must be a positive value
     public float damage_multiplier = 10; // Must be a positive value
 }
