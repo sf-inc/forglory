@@ -5,17 +5,23 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IAdrenalinMixin;
 import com.github.galatynf.forglory.init.SoundsInit;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
@@ -28,13 +34,21 @@ public class HeroEntity extends ZombieEntity {
 
     private AttributeContainer attributeContainer;
     private String texture;
-    private static final String[] NAMES = {"Galatyn", "Pardys", "Zebus", "Chocofurtif", "Extoleon", "Holden", "Daubeny", "Astrea", "Apollyon", "Goemon", "Sakura", "Lykeidon", "Iskandar", "Waver", "Dysnomia", "Denheb", "Altair", "Ordan", "Teshin", "Cressa", "Amaryn", "Mercy", "Siv", "Runa", "Seijuro", "Kenshi", "Ermac", "Ultra Galactron the Third, Destroyer of worlds", "NeroBrine", "Faering", "Syntribos", "Asbetos", "Sabaktes", "Rhamnusia", "Dikaiosyne"};
+    private boolean isFemale;
+    private static final String[] NAMES = {"Galatyn", "Pardys", "Zebus", "Chocofurtif", "Extoleon", "Holden", "Hervis", "Astrea", "Apollyon", "Goemon", "Sakura", "Lykeidon", "Iskandar", "Waver", "Dysnomia", "Denheb", "Altair", "Ordan", "Teshin", "Cressa", "Amaryn", "Mercy", "Siv", "Runa", "Seijuro", "Kenshi", "Ermac", "Ultra Galactron the Third, Destroyer of worlds", "NeroBrine", "Faering", "Syntribos", "Asbetos", "Sabaktes", "Rhamnusia", "Dikaiosyne"};
 
     public HeroEntity(EntityType<? extends ZombieEntity> entityType, World world) {
         super(entityType, world);
         this.experiencePoints = 0;
-        int rand = (int) (Math.random()*6);
-        this.texture = "hero"+rand;
+        int rand = (int) (Math.random()*3);
+        if(rand%2 == 0) {
+            this.isFemale = true;
+            this.texture = "female_hero"+rand;
+        }
+        else {
+            this.isFemale = false;
+            this.texture = "male_hero"+rand;
+        }
         String name = NAMES[(int)(Math.random()*(NAMES.length-1))];
         this.setCustomName(Text.of(name));
     }
@@ -174,6 +188,14 @@ public class HeroEntity extends ZombieEntity {
     }
 
     @Override
+    public void dealDamage(LivingEntity attacker, Entity target) {
+        super.dealDamage(attacker, target);
+        if(target instanceof LivingEntity && (int)(Math.random()*5) == 0) {
+            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0, false, false));
+        }
+    }
+
+    @Override
     public boolean isConvertingInWater() {
         return false;
     }
@@ -190,21 +212,34 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundsInit.tier_1_whoosh_event;
+        return SoundEvents.ENTITY_TURTLE_SHAMBLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        return SoundsInit.tier_1_whoosh_event;
+        if(!isFemale) {
+            return SoundsInit.male_grunt;
+        }
+        else {
+            return SoundsInit.female_grunt;
+        }
+    }
+
+    @Override
+    protected SoundEvent getStepSound() {
+        return SoundEvents.BLOCK_WOOL_STEP;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundsInit.tier_1_whoosh_event;
-    }
-
-    protected SoundEvent getStepSound() {
-        return SoundsInit.tier_1_whoosh_event;
+        SoundEvent returned;
+        if(isFemale) {
+            returned = SoundsInit.female_death;
+        }
+        else {
+            returned = SoundsInit.male_death;
+        }
+        return returned;
     }
 
     public String getTexture() {

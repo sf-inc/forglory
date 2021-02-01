@@ -33,7 +33,8 @@ public abstract class DamageToSlowedMixin extends Entity {
     private float injectedAmount(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)) {
             if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                return (amount * (1 + Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F));
+                float mult = Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F;
+                return (amount * (1 + (mult > 3 ? 3 : mult)));
             }
         }
 

@@ -40,7 +40,9 @@
   ],
   "client": [
     "heal.LastStandMixin",
-    "heal.LastStandRenderMixin"
+    "heal.LastStandRenderMixin",
+    "misc.KnockbackFistMixin",
+    "misc.KnockbackFistPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.cardinal;
 
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.nbt.CompoundTag;
 
@@ -17,11 +18,15 @@ public class PlayerFeatsComponent implements FeatsComponent {
 
     private final HashMap<Tier, Feats> forglory_feats = new HashMap<>();
     private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
+    private FeatsClass forglory_class = FeatsClass.NONE;
 
     @Override public void readFromNbt(CompoundTag tag) {
         for (Tier tier: Tier.values()) {
             this.forglory_feats.put(tier, Feats.valueOf(tag.getString("feat" + tier.toString())));
             this.forglory_cooldowns.put(tier, tag.getInt("cooldown" + tier.toString()));
+            if(!tag.getString("class").equals("")) {
+                this.forglory_class = FeatsClass.valueOf(tag.getString("class"));
+            }
         }
     }
 
@@ -29,6 +34,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
         for (Tier tier: Tier.values()) {
             tag.putString("feat" + tier.toString(), forglory_feats.get(tier).toString());
             tag.putInt("cooldown" + tier.toString(), forglory_cooldowns.get(tier));
+            tag.putString("class", forglory_class.toString());
         }
     }
 
@@ -42,10 +48,15 @@ public class PlayerFeatsComponent implements FeatsComponent {
         return forglory_cooldowns.get(tier);
     }
 
+    public FeatsClass getForgloryClass() {
+        return forglory_class;
+    }
+
     @Override
     public void addOrUpdateFeat(final Feats feat) {
         forglory_feats.put(feat.tier, feat);
         forglory_cooldowns.put(feat.tier, ConstantsConfig.NO_COOLDOWN);
+        forglory_class = FeatsClass.hasClass(forglory_feats);
     }
 
     @Override

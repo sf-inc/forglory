@@ -8,9 +8,9 @@ import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.*;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.fabricmc.fabric.impl.networking.ClientSidePacketRegistryImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,6 +19,8 @@ import net.minecraft.util.Identifier;
 
 public class NetworkInit {
     private NetworkInit() {}
+
+    public static final Identifier PLAY_SOUND_ID = new Identifier("forglory", "play_sound");
 
     public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
     public static final Identifier BERSERK_PACKET_ID = new Identifier("forglory", "is_berserk");
@@ -34,6 +36,13 @@ public class NetworkInit {
         ClientSidePacketRegistry.INSTANCE.register(BERSERK_PACKET_ID, (packetContext, attachedData) -> packetContext.getTaskQueue().execute(() -> {
             assert MinecraftClient.getInstance().player != null;
             ((ILastStandMixin)MinecraftClient.getInstance().player).setBerserk();
+        }));
+
+        ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> client.execute(() -> {
+            // Everything in this lambda is run on the render thread
+            if (client.player != null) {
+                client.player.playSound(SoundsInit.incre, 1, 1);
+            }
         }));
     }
 
@@ -64,6 +73,7 @@ public class NetworkInit {
                         }
                         else if(feat.equals(Feats.KNOCKBACK_FIST)) {
                             //playsound(INCRE)
+                            playerEntity.playSound(SoundsInit.incre, 1F, 1F);
                             ((IKnockbackFistPlayerMixin)playerEntity).setKnockBack(true);
                         }
                         MyComponents.FEATS.get(playerEntity).resetCooldown(Tier.TIER2);

@@ -1,6 +1,9 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -30,7 +33,9 @@ public abstract class KnockbackFistMixin extends Entity{
         if (attacker instanceof PlayerEntity
             && ((IKnockbackFistPlayerMixin)attacker).isKnockbackActivated()) {
             if (((PlayerEntity) attacker).getMainHandStack().equals(ItemStack.EMPTY)) {
-                //playsound(DIBILIS)
+                if(MyComponents.FEATS.get(attacker).getForgloryClass() == FeatsClass.CENTURION) {
+                    playSound(SoundsInit.dibilis, 1F, 1F);
+                }
                 this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
                 ((IKnockbackFistPlayerMixin)attacker).setKnockBack(false);
             }
