@@ -24,7 +24,6 @@ public class PlayerFeatsComponent implements FeatsComponent {
         for (Tier tier: Tier.values()) {
             this.forglory_feats.put(tier, Feats.valueOf(tag.getString("feat" + tier.toString())));
             this.forglory_cooldowns.put(tier, tag.getInt("cooldown" + tier.toString()));
-            System.out.println(tag.getString("class"));
             if(!tag.getString("class").equals("")) {
                 this.forglory_class = FeatsClass.valueOf(tag.getString("class"));
             }
