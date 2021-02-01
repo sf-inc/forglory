@@ -106,20 +106,24 @@ public abstract class AdrenalinMixin extends LivingEntity implements IAdrenalinM
     }
 
     @Override
-    public void addAdrenalin(final float amount) {
-        float multiplier = 1;
-
+    public void addAdrenalin(float amount) {
         Feats feat = MyComponents.FEATS.get(this).getFeat(Feats.BLOODLUST.tier);
         if(feat != null) {
             if (feat.equals(Feats.BLOODLUST) && amount > 0 && this.getHealth() > 0) {
                 if (((IAdrenalinMixin) this).getAdrenalin() > Tier.TIER1.threshold) {
                     float value = ModConfig.get().featConfig.bloodlust_multiplier;
-                    multiplier = this.getMaxHealth() / (this.getHealth() * value) + 1 - (1 / value);
+                    amount *= this.getMaxHealth() / (this.getHealth() * value) + 1 - (1 / value);
                 }
             }
         }
 
-        forglory_adrenalin += amount*multiplier;
+        if (forglory_adrenalin > ModConfig.get().adrenalinConfig.tier3_threshold) {
+            int maxArmor = Math.max(this.getArmor(), 20);
+            float multiplier = 1 + (maxArmor - this.getArmor()) / (float) maxArmor;
+            amount *= multiplier;
+        }
+
+        forglory_adrenalin += amount;
 
         if(forglory_adrenalin > ModConfig.get().adrenalinConfig.max_amount) {
             forglory_adrenalin = ModConfig.get().adrenalinConfig.max_amount;
