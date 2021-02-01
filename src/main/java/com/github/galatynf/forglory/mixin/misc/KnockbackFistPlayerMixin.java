@@ -1,10 +1,15 @@
 package com.github.galatynf.forglory.mixin.misc;
 
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -33,12 +38,11 @@ public abstract class KnockbackFistPlayerMixin extends LivingEntity implements I
     @Override
     public void setKnockBack(boolean setter) {
         knockbackActivated = setter;
-        System.out.println("INCRE");
-        playSound(SoundEvents.BLOCK_ANVIL_LAND, 1, 1);
-        world.playSound((PlayerEntity) (Object)this, this.getBlockPos(), SoundEvents.ENTITY_DONKEY_ANGRY, SoundCategory.AMBIENT, 1, 1);
-        playSound(SoundsInit.incre, 1F, 1F);
-        if(setter) {
-            playSound(SoundsInit.incre, 1F, 1F);
+        // "!world.isclient()" condition in theory unnecessary
+        if(setter && !world.isClient()) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeIdentifier(SoundsInit.INCRE_ID);
+            ServerPlayNetworking.send((ServerPlayerEntity) (Object) this, NetworkInit.PLAY_SOUND_ID, buf);
         }
     }
 }
