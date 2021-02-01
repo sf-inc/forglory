@@ -24,8 +24,8 @@
   "item.forglory.heal_trail_gem": "Heal Trail Gem",
 
   "item.forglory.misc_gem": "Misc Gem",
+  "item.forglory.arrow_combo_gem": "Arrow Combo Gem",
   "item.forglory.bloodlust_gem": "Bloodlust Gem",
-  "item.forglory.sniper_gem": "Sniper Gem",
   "item.forglory.dog_gem": "Dog Gem",
   "item.forglory.knockback_fist_gem": "Knockback Fist Gem",
   "item.forglory.mountain_gem": "Mountain Gem",
@@ -44,16 +44,20 @@
 
   "effect.forglory.life_steal_status_effect": "Life Steal",
 
-  "subtitles.forglory.tier_1_whoosh": "Tier 1 whoosh",
-  "subtitles.forglory.tier_2_bass": "Tier 2 bass",
-  "subtitles.forglory.tier_3_strong_bass": "Bass Drop",
-  "subtitles.forglory.tier_4_overcharged": "OVERCHARGED",
+  "subtitles.forglory.tier_1_whoosh": "Tier 1: Whoosh",
+  "subtitles.forglory.tier_2_bass": "Tier 2: Bass",
+  "subtitles.forglory.tier_3_strong_bass": "Tier 3: Bass Drop",
+  "subtitles.forglory.tier_4_overcharged": "Tier 4: OVERCHARGED",
 
   "category.forglory.keys": "For Glory",
   "key.forglory.activateFeatKey": "Activate feat",
 
 
   "text.autoconfig.forglory.title": "For Glory Configuration",
+
+  "text.autoconfig.forglory.category.general": "General Configs",
+  "text.autoconfig.forglory.category.general.struct_min_distance": "Distance min between structures (chunks)",
+  "text.autoconfig.forglory.category.general.struct_max_distance": "Distance max between structures (chunks)",
 
   "text.autoconfig.forglory.category.adrenalin": "Adrenalin Configs",
   "text.autoconfig.forglory.option.adrenalinConfig.tier1_threshold": "Tier 1 threshold",
@@ -101,6 +105,10 @@
   "text.autoconfig.forglory.option.featConfig.instantKillConfig": "Instant kill",
   "text.autoconfig.forglory.option.featConfig.instantKillConfig.health_percentage": "Mob health percentage",
   "text.autoconfig.forglory.option.featConfig.instantKillConfig.max_damage": "Maximum damage",
+  "text.autoconfig.forglory.option.featConfig.undeadArmyConfig": "Undead army",
+  "text.autoconfig.forglory.option.featConfig.undeadArmyConfig.number_summoned": "Number of heroes summoned",
+  "text.autoconfig.forglory.option.featConfig.undeadArmyConfig.heroes_OPness": "Heroes OPness",
+  "text.autoconfig.forglory.option.featConfig.undeadArmyConfig.heroes_OPness.@Tooltip[0]": "The lower, the more badass",
 
   "text.autoconfig.forglory.category.cooldowns": "Feats Cooldowns",
   "text.autoconfig.forglory.option.cooldownConfig.healing_fist_cooldown": "Healing Fist Cooldown",

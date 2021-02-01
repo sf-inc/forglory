@@ -67,9 +67,9 @@ public class GemsInit {
         Registry.register(Registry.ITEM, new Identifier("forglory", "last_stand_gem"), lastStandGem);
 
         Registry.register(Registry.ITEM, new Identifier("forglory", "misc_gem"), miscGem);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "arrow_combo_gem"), arrowComboGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bloodlust_gem"), bloodlustGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "dog_gem"), dogGem);
-        Registry.register(Registry.ITEM, new Identifier("forglory", "arrow_combo_gem"), arrowComboGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "knockback_fist_gem"), knockbackFistGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "mountain_gem"), mountainGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "bees_gem"), beesGem);
