@@ -49,6 +49,9 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int life_steal_max_amount = 3;
 
+    @ConfigEntry.BoundedDiscrete(min = 4, max = 8)
+    public int fireworker_power = 6;
+
     @ConfigEntry.Gui.CollapsibleObject
     public HealTrailConfig healTrailConfig = new HealTrailConfig();
 

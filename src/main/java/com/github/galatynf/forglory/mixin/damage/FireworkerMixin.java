@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +39,9 @@ public class FireworkerMixin {
             explosions.putIntArray("Colors", colors);
             explosions.putInt("Type", FireworkItem.Type.SMALL_BALL.getId());
 
-            explosionsList.add(explosions);
+            for (int i=0; i < ModConfig.get().featConfig.fireworker_power; i++) {
+                explosionsList.add(explosions);
+            }
             firework.put("Explosions", explosionsList);
 
             compoundTag.put("Fireworks", firework);
