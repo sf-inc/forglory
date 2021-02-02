@@ -42,6 +42,9 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
             if (forglory_nextArrow == world.getTime()
                     || forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
 
+                if (forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2 * ModConfig.get().featConfig.machine_gun_arrows, 2));
+                }
                 forglory_machineGun -= 1;
                 forglory_nextArrow = world.getTime() + 2;
 
@@ -52,7 +55,6 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
 
                     world.spawnEntity(persistentProjectileEntity);
                 }
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, (int) (1.5F *ModConfig.get().featConfig.machine_gun_arrows), 2));
                 this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
             }
         } else {
