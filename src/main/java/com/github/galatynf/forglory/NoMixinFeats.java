@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.config.ModConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class NoMixinFeats {
@@ -20,17 +21,28 @@ public class NoMixinFeats {
 
     public static void mountainFeat(final PlayerEntity playerEntity) {
         BlockPos blockPos = playerEntity.getBlockPos();
-        BlockPos blockPos2 = blockPos;
+        BlockPos newBlockPos = blockPos;
+        BlockPos sideBlockPos;
         int height = ModConfig.get().featConfig.mountain_height;
         for (int i = 0; i < height; i++) {
-            blockPos2 = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
-            BlockPos blockPos3 = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
-            if (playerEntity.world.getBlockState(blockPos3).isAir()) {
-                playerEntity.world.setBlockState(blockPos2, Blocks.DIRT.getDefaultState());
+            newBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
+            BlockPos blockPosHead = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
+            if (playerEntity.world.getBlockState(blockPosHead).isAir()) {
+                playerEntity.world.setBlockState(newBlockPos, Blocks.DIRT.getDefaultState());
             } else {
                 break;
             }
         }
-        playerEntity.teleport(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ(), true);
+        for (Direction direction: Direction.values()) {
+            if (direction.getHorizontal() != -1) {
+                int heightMax = (int) (height * ((direction.getHorizontal()+1) / 5F));
+                for (int i=0; i < heightMax; i++) {
+                    sideBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
+                    sideBlockPos = sideBlockPos.offset(direction);
+                    playerEntity.world.setBlockState(sideBlockPos, Blocks.DIRT.getDefaultState());
+                }
+            }
+        }
+        playerEntity.teleport(newBlockPos.getX(), newBlockPos.getY() + 1, newBlockPos.getZ(), true);
     }
 }
