@@ -73,11 +73,12 @@ public class FeatConfig implements ConfigData {
         @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
         public int radius = 5;
 
-        @ConfigEntry.BoundedDiscrete(min = 500, max = 1500)
-        public int circle_rate = 750;
+        @ConfigEntry.BoundedDiscrete(min = 4, max = 8)
+        public int fire_rate = 6;
 
-        @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
-        public int fire_rate = 25;
+        @ConfigEntry.BoundedDiscrete(min = 5, max = 10)
+        @ConfigEntry.Gui.Tooltip()
+        public int fire_speed = 7;
     }
 
     @ConfigEntry.Gui.CollapsibleObject

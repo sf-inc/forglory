@@ -23,23 +23,22 @@ public abstract class FireZoneMixin extends Entity {
     }
 
     @Unique
-    int forglory_playerTick;
-    @Unique
-    int forglory_fireTick;
+    float forglory_fireRadius;
 
     @Inject(at=@At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
-            forglory_playerTick = (forglory_playerTick +1) % ModConfig.get().featConfig.fireZoneConfig.circle_rate;
-            if ((forglory_playerTick % (ModConfig.get().featConfig.fireZoneConfig.circle_rate / ModConfig.get().featConfig.fireZoneConfig.fire_rate)) == 0) {
-                forglory_fireTick = (forglory_fireTick +1) % ModConfig.get().featConfig.fireZoneConfig.fire_rate;
-                double xOffset = Math.cos(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
-                double zOffset = Math.sin(forglory_fireTick * ((2*Math.PI) / ModConfig.get().featConfig.fireZoneConfig.fire_rate));
+            forglory_fireRadius +=  (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
+            forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
 
-                BlockPos blockPos = this.getBlockPos().add(ModConfig.get().featConfig.fireZoneConfig.radius * xOffset,
+            final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) forglory_fireRadius;
+            final double angle = (2 * Math.PI) / spawnFire;
+            BlockPos blockPos;
+
+            for (int i=0; i < spawnFire; i++) {
+                blockPos = this.getBlockPos().add(forglory_fireRadius * Math.cos(i * angle),
                         0,
-                        ModConfig.get().featConfig.fireZoneConfig.radius * zOffset);
-
+                        forglory_fireRadius * Math.sin(i * angle));
                 spawnFireZ(blockPos);
             }
         }
