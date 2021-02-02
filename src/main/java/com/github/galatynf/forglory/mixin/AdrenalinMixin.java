@@ -48,8 +48,6 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at=@At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
-        if (world.isClient) System.out.println("client "+MyComponents.ADRENALIN.get(this).getAdrenalin());
-        else System.out.println(MyComponents.ADRENALIN.get(this).getAdrenalin());
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier2_threshold
                 && this.isSprinting()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprint_gain);

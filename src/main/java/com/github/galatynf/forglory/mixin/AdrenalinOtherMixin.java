@@ -17,11 +17,9 @@ public class AdrenalinOtherMixin {
     private void incrementPlayerWhenAttacking(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir)
     {
         if (source.getAttacker() instanceof PlayerEntity) {
-            System.out.println("avant "+MyComponents.ADRENALIN.get(source.getAttacker()).getAdrenalin());
             float adrenalinAmount = Math.min(amount * ModConfig.get().adrenalinConfig.attack_multiplier, 25);
             adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) source.getAttacker(), adrenalinAmount);
             MyComponents.ADRENALIN.get(source.getAttacker()).addAdrenalin(adrenalinAmount);
-            System.out.println("apres "+MyComponents.ADRENALIN.get(source.getAttacker()).getAdrenalin());
         }
     }
 }
