@@ -56,7 +56,6 @@ public class NetworkInit {
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) world, player.getBlockPos())) {
             ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
         }
-        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
     public static void playSound(Identifier sound, PlayerEntity player) {
