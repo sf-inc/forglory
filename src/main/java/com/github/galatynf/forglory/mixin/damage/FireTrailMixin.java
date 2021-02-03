@@ -4,12 +4,17 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
+    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+
     public FireTrailMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -43,6 +50,7 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
                     for (int j =-1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
                         spawnFireT(blockPos);
+                        NetworkInit.playSound(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this);
                     }
                 }
             }

@@ -11,7 +11,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class NetworkInit {
     private NetworkInit() {}
@@ -34,11 +38,25 @@ public class NetworkInit {
             }
         }));
 
-        ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> client.execute(() -> {
+        ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
             if (client.player != null) {
-                client.player.playSound(SoundsInit.incre, 1, 1);
+                client.player.playSound(Registry.SOUND_EVENT.get(buf.readIdentifier()), 1, 1);
             }
-        }));
+            client.execute(() -> {
+            });
+        });
+    }
+
+    public static void playSound(Identifier sound, ServerPlayerEntity player) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
+    }
+
+    public static void playSound(Identifier sound, PlayerEntity player) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
     public static void init () {
@@ -63,6 +81,7 @@ public class NetworkInit {
 
                 else if(feat.equals(Feats.HEALING_FIST)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
+                    playSound(SoundsInit.VAMPIRISM_ID, player);
                 }
                 else if(feat.equals(Feats.KNOCKBACK_FIST)) {
                     ((IKnockbackFistPlayerMixin)player).setKnockBack(true);

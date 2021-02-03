@@ -5,12 +5,17 @@ import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class FireZoneMixin extends Entity {
+    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+
     public FireZoneMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -28,6 +35,9 @@ public abstract class FireZoneMixin extends Entity {
     @Inject(at=@At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
+            if(forglory_fireRadius == 0) {
+                NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
+            }
             forglory_fireRadius +=  (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
 

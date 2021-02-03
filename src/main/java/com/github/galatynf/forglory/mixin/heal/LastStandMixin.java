@@ -3,8 +3,10 @@ package com.github.galatynf.forglory.mixin.heal;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import com.github.galatynf.forglory.init.StatusEffectsInit;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -14,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -63,6 +66,10 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
+                NetworkInit.playSound(SoundsInit.LAST_STANDING_ID, (PlayerEntity)(Object) this);
+                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
+                    NetworkInit.playSound(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity)(Object) this);
+                }
                 cir.setReturnValue(false);
             }
         }

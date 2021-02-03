@@ -54,6 +54,89 @@
     "sounds": [
       "forglory:dibilis"
     ]
+  },
+  "dash": {
+    "sounds": [
+      "forglory:dash"
+    ]
+  },
+  "mountain": {
+    "sounds": [
+      "forglory:earth"
+    ]
+  },
+  "fire_trail_act": {
+    "sounds": [
+      "forglory:fire_trail"
+    ]
+  },
+  "vampirism": {
+    "sounds": [
+      "forglory:hiss"
+    ]
+  },
+  "machine_gun": {
+    "sounds": [
+      "forglory:minigun_windup"
+    ]
+  },
+  "knockback_fist_act": {
+    "sounds": [
+      "forglory:power_up"
+    ]
+  },
+  "knockback_fisted": {
+    "sounds": [
+      "forglory:strong_punch"
+    ]
+  },
+  "shield_res_hits": {
+    "sounds": [
+      "forglory:bonk1",
+      "forglory:bonk2",
+      "forglory:crash1",
+      "forglory:crash2"
+    ]
+  },
+  "undead_army_spawn": {
+    "sounds": [
+      "forglory:ahou"
+    ]
+  },
+  "undead_army_voice": {
+    "sounds": [
+      "forglory:pugna_non_perfecta_est"
+    ]
+  },
+  "invisible": {
+    "sounds": [
+      "forglory:smoke_bomb"
+    ]
+  },
+  "heal_trail": {
+    "sounds": [
+      "forglory:choir"
+    ]
+  },
+  "fire_zone_pulse": {
+    "sounds": [
+      "forglory:fire_zone"
+    ]
+  },
+  "instant_killed": {
+    "sounds": [
+      "forglory:instant_kill"
+    ]
+  },
+  "last_standing": {
+    "sounds": [
+      "forglory:last_stand"
+    ]
+  },
+  "last_standing_voice": {
+    "sounds": [
+      "forglory:valkyr_cry"
+    ]
   }
 }
 

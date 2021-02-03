@@ -3,8 +3,12 @@ package com.github.galatynf.forglory.mixin.damage;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,6 +27,7 @@ public abstract class InstantKillMixin {
             if (this.getHealth() <= Math.min((ModConfig.get().featConfig.instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
                     ModConfig.get().featConfig.instantKillConfig.max_damage)) {
                 amount = this.getMaxHealth();
+                NetworkInit.playSound(SoundsInit.INSTANT_KILLED_ID, (ServerPlayerEntity) source.getAttacker());
             }
         }
 
