@@ -9,13 +9,16 @@ import com.github.galatynf.forglory.imixin.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 public class NetworkInit {
     private NetworkInit() {}
@@ -47,9 +50,12 @@ public class NetworkInit {
         });
     }
 
-    public static void playSound(Identifier sound, ServerPlayerEntity player) {
+    public static void playSound(Identifier sound, ServerPlayerEntity player, World world) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
+        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) world, player.getBlockPos())) {
+            ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
+        }
         ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
