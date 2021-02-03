@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.mixin.heal;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
@@ -11,6 +12,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +30,7 @@ public abstract class HealTrailMixin extends LivingEntity {
     private int forglory_lastSpawned = 0;
 
     @Unique
-    private boolean firstTime = true;
+    private boolean forglory_firstTime = true;
 
     protected HealTrailMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -37,9 +39,9 @@ public abstract class HealTrailMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void spawnHealTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.HEAL_TRAIL)) {
-            if(firstTime) {
-                playSound(SoundsInit.heal_trail, 1, 1);
-                firstTime = false;
+            if(forglory_firstTime) {
+                NetworkInit.playSound(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this);
+                forglory_firstTime = false;
             }
             if (forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
                 AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
@@ -59,7 +61,7 @@ public abstract class HealTrailMixin extends LivingEntity {
             forglory_lastSpawned++;
         }
         else {
-            firstTime = true;
+            forglory_firstTime = true;
         }
     }
 }

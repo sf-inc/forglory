@@ -16,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -65,9 +66,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
-                playSound(SoundsInit.last_standing, 1, 1);
+                NetworkInit.playSound(SoundsInit.LAST_STANDING_ID, (PlayerEntity)(Object) this);
                 if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
-                    playSound(SoundsInit.last_standing_voice, 1, 1);
+                    NetworkInit.playSound(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity)(Object) this);
                 }
                 cir.setReturnValue(false);
             }

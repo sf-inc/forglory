@@ -4,10 +4,12 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,7 +50,7 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
                     for (int j =-1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
                         spawnFireT(blockPos);
-                        this.playSound(SoundsInit.fire_trail_act, 1, 1);
+                        NetworkInit.playSound(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this);
                     }
                 }
             }

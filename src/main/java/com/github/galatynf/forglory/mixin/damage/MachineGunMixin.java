@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -49,7 +51,7 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
 
                 if (forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2 * ModConfig.get().featConfig.machine_gun_arrows, 2));
-                    playSound(SoundsInit.machine_gun, 1, 1);
+                    NetworkInit.playSound(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity)(Object) this);
                 }
                 forglory_machineGun -= 1;
                 forglory_nextArrow = world.getTime() + 2;

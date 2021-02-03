@@ -7,6 +7,7 @@ import com.github.galatynf.forglory.entity.HeroEntity;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.EntitiesInit;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3i;
@@ -46,9 +48,9 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
             }
-            playSound(SoundsInit.undead_army_spawn, 1, 1);
+            NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity)(Object) this);
             if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                playSound(SoundsInit.undead_army_voice, 1, 1);
+                NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity)(Object) this);
             }
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }

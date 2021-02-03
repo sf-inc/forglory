@@ -5,10 +5,12 @@ import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,7 +36,7 @@ public abstract class FireZoneMixin extends Entity {
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
             if(forglory_fireRadius == 0) {
-                playSound(SoundsInit.fire_zone_pulse, 1, 1);
+                NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
             }
             forglory_fireRadius +=  (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
