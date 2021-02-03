@@ -27,17 +27,23 @@ public abstract class PoweredGem extends Item {
         BlockPos pos = user.getBlockPos().down();
         BlockState blockState = world.getBlockState(pos);
 
-        if (!world.isClient()
-                && MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
-                && blockState.isOf(BlocksInit.essenceInfuser)
-                && blockState.get(EssenceInfuser.CHARGED)) {
+        if (!world.isClient()) {
+            if (user.isCreative()) {
+                MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
+                return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
 
-            if (!blockState.get(EssenceInfuser.INFINITE)) {
-                world.setBlockState(pos, ((EssenceInfuser) BlocksInit.essenceInfuser).getState(false, false));
+            } else if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
+                    && blockState.isOf(BlocksInit.essenceInfuser)
+                    && blockState.get(EssenceInfuser.CHARGED)) {
+
+                if (!blockState.get(EssenceInfuser.INFINITE)) {
+                    world.setBlockState(pos, ((EssenceInfuser) BlocksInit.essenceInfuser).getState(false, false));
+                }
+                MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
+                return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
             }
-            MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
-            return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
+            return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));
         }
-        return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));
+        return new TypedActionResult<>(ActionResult.PASS, user.getStackInHand(hand));
     }
 }
