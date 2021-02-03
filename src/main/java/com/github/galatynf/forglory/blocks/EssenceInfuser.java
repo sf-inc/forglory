@@ -19,9 +19,7 @@ public class EssenceInfuser extends Block {
 
     public EssenceInfuser(Settings settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState()
-                .with(CHARGED, true)
-                .with(INFINITE, true));
+        setDefaultState(getState(true, true));
     }
 
     @Override
@@ -33,9 +31,7 @@ public class EssenceInfuser extends Block {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getStateManager().getDefaultState()
-                .with(CHARGED, false)
-                .with(INFINITE, false);
+        return getState(false, false);
     }
 
     @Override
@@ -60,5 +56,11 @@ public class EssenceInfuser extends Block {
                 world.spawnEntity(itemEntity);
             }
         }
+    }
+
+    public BlockState getState(final boolean isCharged, final boolean isInfinite) {
+        return getStateManager().getDefaultState()
+                .with(CHARGED, isCharged)
+                .with(INFINITE, isInfinite);
     }
 }
