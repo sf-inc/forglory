@@ -18,7 +18,8 @@ import net.minecraft.util.registry.Registry;
 public class BlocksInit {
     private BlocksInit() {}
 
-    public static final Block essenceInfuser = new EssenceInfuser(FabricBlockSettings.of(Material.METAL).hardness(50.0f).luminance(15).sounds(BlockSoundGroup.GLASS));
+    public static final Block essenceInfuser = new EssenceInfuser(FabricBlockSettings
+            .of(Material.STONE, MaterialColor.LIGHT_GRAY).requiresTool().strength(50.F, 6.F).luminance(8).sounds(BlockSoundGroup.LANTERN));
     public static final Item essenceInfuserItem = new BlockItem(essenceInfuser, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
 
     public static final QuickFireBlock quickFireBlock = new QuickFireBlock(FabricBlockSettings
