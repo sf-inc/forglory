@@ -50,10 +50,10 @@ public class NetworkInit {
         });
     }
 
-    public static void playSound(Identifier sound, ServerPlayerEntity player, World world) {
+    public static void playSound(Identifier sound, ServerPlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
-        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) world, player.getBlockPos())) {
+        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
             ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
         }
     }
