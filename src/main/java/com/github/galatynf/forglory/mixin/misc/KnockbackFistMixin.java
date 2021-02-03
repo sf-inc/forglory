@@ -36,6 +36,7 @@ public abstract class KnockbackFistMixin extends Entity{
                 if(MyComponents.FEATS.get(attacker).getForgloryClass() == FeatsClass.CENTURION) {
                     playSound(SoundsInit.dibilis, 1F, 1F);
                 }
+                playSound(SoundsInit.knockback_fisted, 1, 1);
                 this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
                 ((IKnockbackFistPlayerMixin)attacker).setKnockBack(false);
             }

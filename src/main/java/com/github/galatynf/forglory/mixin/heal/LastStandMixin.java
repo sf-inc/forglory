@@ -3,8 +3,10 @@ package com.github.galatynf.forglory.mixin.heal;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import com.github.galatynf.forglory.init.StatusEffectsInit;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -63,6 +65,10 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
+                playSound(SoundsInit.last_standing, 1, 1);
+                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
+                    playSound(SoundsInit.last_standing_voice, 1, 1);
+                }
                 cir.setReturnValue(false);
             }
         }

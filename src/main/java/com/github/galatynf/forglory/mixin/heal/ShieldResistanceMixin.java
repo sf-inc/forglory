@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -9,11 +10,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class ShieldResistanceMixin extends Entity {
@@ -21,6 +25,8 @@ public abstract class ShieldResistanceMixin extends Entity {
     @Shadow public abstract boolean isBlocking();
 
     @Shadow protected ItemStack activeItemStack;
+
+    @Shadow @Final private static UUID SOUL_SPEED_BOOST_ID;
 
     public ShieldResistanceMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -34,6 +40,7 @@ public abstract class ShieldResistanceMixin extends Entity {
             if (this.activeItemStack.getItem() == Items.SHIELD) {
                 this.activeItemStack.setDamage(this.activeItemStack.getDamage() - 10);
             }
+            playSound(SoundsInit.shield_res_hits, 1, 1);
             cir.setReturnValue(true);
         }
     }

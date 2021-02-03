@@ -1,6 +1,7 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +18,7 @@ public class NoMixinFeats {
         double z = velocity.z + ( ((ModConfig.get().featConfig.dash_intensity+2) / 4.0D) * Math.cos((-playerEntity.yaw * Math.PI) / 180.0D));
         playerEntity.setVelocity(x, y, z);
         playerEntity.velocityModified = true;
+        playerEntity.playSound(SoundsInit.dash, 1, 1);
     }
 
     public static void mountainFeat(final PlayerEntity playerEntity) {
@@ -44,5 +46,6 @@ public class NoMixinFeats {
             }
         }
         playerEntity.teleport(newBlockPos.getX(), newBlockPos.getY() + 1, newBlockPos.getZ(), true);
+        playerEntity.playSound(SoundsInit.mountain, 1, 1);
     }
 }

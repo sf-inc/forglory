@@ -1,5 +1,7 @@
 package com.github.galatynf.forglory.mixin.misc;
 
+import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
@@ -40,7 +42,10 @@ public abstract class KnockbackFistPlayerMixin extends LivingEntity implements I
         if(setter && !world.isClient()) {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeIdentifier(SoundsInit.INCRE_ID);
-            ServerPlayNetworking.send((ServerPlayerEntity) (Object) this, NetworkInit.PLAY_SOUND_ID, buf);
+            if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
+                ServerPlayNetworking.send((ServerPlayerEntity) (Object) this, NetworkInit.PLAY_INCRE_ID, buf);
+            }
+            ServerPlayNetworking.send((ServerPlayerEntity) (Object) this, NetworkInit.PLAY_KNOCKBACK_FIST_ACT_ID, buf);
         }
     }
 }
