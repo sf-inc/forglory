@@ -35,7 +35,7 @@ public abstract class FireZoneMixin extends Entity {
     @Inject(at=@At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
-            if(forglory_fireRadius == 0) {
+            if(forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius == 0) {
                 NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
             }
             forglory_fireRadius +=  (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
