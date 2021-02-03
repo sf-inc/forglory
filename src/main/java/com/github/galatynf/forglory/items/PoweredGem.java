@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 
 public abstract class PoweredGem extends Item {
     protected Feats feat;
+    protected Gem gem;
     protected PoweredGem(Settings settings) {
         super(settings);
     }
