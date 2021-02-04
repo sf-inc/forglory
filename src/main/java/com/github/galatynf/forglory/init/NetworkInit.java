@@ -50,13 +50,22 @@ public class NetworkInit {
         });
     }
 
-    public static void playSound(Identifier sound, ServerPlayerEntity player) {
+    public static void playSoundWide(Identifier sound, ServerPlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
+            if(aPlayer.distanceTo(player) > 30) {
+                ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
+            }
         }
     }
+
+    public static void playSound(Identifier sound, ServerPlayerEntity player) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
+    }
+
 
     public static void playSound(Identifier sound, PlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
