@@ -2,7 +2,7 @@
   "block.forglory.essence_infuser": "Essence Infuser",
   "item.forglory.essence_infuser_item": "Essence Infuser",
 
-  "itemGroup.forglory.gems": "Forglory Gems",
+  "itemGroup.forglory.gems": "For Glory Gems",
 
   "item.forglory.damage_gem": "Damage Gem",
   "item.forglory.fire_trail_gem": "Fire Trail Gem",
@@ -98,6 +98,7 @@
   "text.autoconfig.forglory.option.featConfig.life_steal_max_amount.@PrefixText": "# Tier 4",
   "text.autoconfig.forglory.option.featConfig.life_steal_max_amount": "Max amount of life stealing",
   "text.autoconfig.forglory.option.featConfig.fireworker_power": "Firework power",
+  "text.autoconfig.forglory.option.featConfig.seconds_of_last_standing": "Max seconds on Last Stand",
   "text.autoconfig.forglory.option.featConfig.healTrailConfig": "Heal trail",
   "text.autoconfig.forglory.option.featConfig.healTrailConfig.heal_trail_radius": "Trail radius",
   "text.autoconfig.forglory.option.featConfig.healTrailConfig.heal_trail_frequency": "Frequency of lingering effects",
