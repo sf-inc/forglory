@@ -48,7 +48,7 @@ public class HeroEntity extends ZombieEntity {
             this.texture = "male_hero"+rand;
         }
         String name = NAMES[(int)(Math.random()*(NAMES.length-1))];
-        this.setCustomName(Text.of(name));
+        //this.setCustomName(Text.of(name));
     }
 
     @Override
