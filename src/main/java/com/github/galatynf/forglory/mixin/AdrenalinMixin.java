@@ -50,7 +50,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
     private void incrementWhenSprinting(CallbackInfo ci) {
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier2_threshold
                 && this.isSprinting()) {
-            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprint_gain);
+            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprint_gain / 10.F);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
     }

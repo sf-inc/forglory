@@ -21,11 +21,26 @@ public class AdrenalinConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 500, max = 10000)
     public int max_amount = 5000;
 
-    public float natural_loss = -1;      // Must be a negative value
-    public float quick_loss = -25;       // Must be a negative value
-    public float sprint_gain  = 1.2f;    // Must be a positive value, bigger than natural loss
-    public float jump_gain = 10;         // Must be a positive value
-    public float attack_multiplier = 3;  // Must be a positive value
-    public float fall_multiplier = 5;    // Must be a positive value
-    public float damage_multiplier = 10; // Must be a positive value
+
+    @ConfigEntry.BoundedDiscrete(min = -10, max = -1)
+    public int natural_loss = -1;
+
+    @ConfigEntry.BoundedDiscrete(min = -100, max = -10)
+    public int quick_loss = -25;
+
+    @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    public int sprint_gain  = 12;
+
+    @ConfigEntry.BoundedDiscrete(min = 3, max = 20)
+    public int jump_gain = 10;
+
+    @ConfigEntry.BoundedDiscrete(min = 2, max = 5)
+    public int attack_multiplier = 3;
+
+    @ConfigEntry.BoundedDiscrete(min = 2, max = 10)
+    public int fall_multiplier = 5;
+
+    @ConfigEntry.BoundedDiscrete(min = 2, max = 20)
+    public int damage_multiplier = 10;
 }

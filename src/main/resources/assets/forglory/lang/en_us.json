@@ -67,9 +67,12 @@
   "text.autoconfig.forglory.option.adrenalinConfig.tier4_threshold": "Tier 4 threshold",
   "text.autoconfig.forglory.option.adrenalinConfig.max_amount": "Max amount",
   "text.autoconfig.forglory.option.adrenalinConfig.natural_loss": "Natural loss",
-  "text.autoconfig.forglory.option.adrenalinConfig.quick_loss": "Quck loss (sneaking)",
+  "text.autoconfig.forglory.option.adrenalinConfig.quick_loss": "Quick loss (sneaking)",
   "text.autoconfig.forglory.option.adrenalinConfig.sprint_gain": "Sprinting gain",
+"text.autoconfig.forglory.option.adrenalinConfig.sprint_gain.@Tooltip[0]": "FLOAT VALUE: Divided by 10!",
+  "text.autoconfig.forglory.option.adrenalinConfig.sprint_gain.@Tooltip[1]": "(must be bigger than natural loss)",
   "text.autoconfig.forglory.option.adrenalinConfig.jump_gain": "Jumping gain",
+  "text.autoconfig.forglory.option.adrenalinConfig.attack_multiplier": "Attack multiplier",
   "text.autoconfig.forglory.option.adrenalinConfig.fall_multiplier": "Fall multiplier",
   "text.autoconfig.forglory.option.adrenalinConfig.damage_multiplier": "Damage multiplier",
 
