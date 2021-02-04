@@ -98,6 +98,11 @@
       "forglory:crash2"
     ]
   },
+  "shield_flip": {
+    "sounds": [
+      "forglory:shield_flip"
+    ]
+  },
   "undead_army_spawn": {
     "sounds": [
       "forglory:ahou"

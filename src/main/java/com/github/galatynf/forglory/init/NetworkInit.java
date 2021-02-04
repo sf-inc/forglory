@@ -43,7 +43,7 @@ public class NetworkInit {
 
         ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
             if (client.player != null) {
-                client.player.playSound(Registry.SOUND_EVENT.get(buf.readIdentifier()), 1, 1);
+                client.player.playSound(Registry.SOUND_EVENT.get(buf.readIdentifier()), 0.7f, 1);
             }
             client.execute(() -> {
             });

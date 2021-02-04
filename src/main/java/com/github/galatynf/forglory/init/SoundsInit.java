@@ -63,6 +63,9 @@ public class SoundsInit {
     public static final Identifier SHIELD_RES_HITS_ID = new Identifier("forglory:shield_res_hits");
     public static SoundEvent shield_res_hits = new SoundEvent(SHIELD_RES_HITS_ID);
 
+    public static final Identifier SHIELD_FLIP_ID = new Identifier("forglory:shield_flip");
+    public static SoundEvent shield_flip = new SoundEvent(SHIELD_FLIP_ID);
+
     public static final Identifier UNDEAD_ARMY_SPAWN_ID = new Identifier("forglory:undead_army_spawn");
     public static SoundEvent undead_army_spawn = new SoundEvent(UNDEAD_ARMY_SPAWN_ID);
 
@@ -119,6 +122,8 @@ public class SoundsInit {
         Registry.register(Registry.SOUND_EVENT, KNOCKBACK_FISTED_ID, knockback_fisted);
 
         Registry.register(Registry.SOUND_EVENT, SHIELD_RES_HITS_ID, shield_res_hits);
+
+        Registry.register(Registry.SOUND_EVENT, SHIELD_FLIP_ID, shield_flip);
 
         Registry.register(Registry.SOUND_EVENT, UNDEAD_ARMY_SPAWN_ID, undead_army_spawn);
 
