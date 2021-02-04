@@ -64,7 +64,8 @@ public class QuickFireBlock extends AbstractFireBlock {
                     (feat2 != null && feat2.equals(Feats.FIRE_ZONE))) {
                 world.removeBlock(pos, false);
             }
-        } else if (entity instanceof LivingEntity) {
+        }
+        if (entity instanceof LivingEntity) {
             if (!entity.isFireImmune()) {
                 entity.setFireTicks(entity.getFireTicks() + 1);
                 if (entity.getFireTicks() == 0) {
