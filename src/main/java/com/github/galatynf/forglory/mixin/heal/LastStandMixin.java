@@ -17,6 +17,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -55,8 +56,8 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     }
 
     @Override
-    public void setBerserk() {
-        forglory_isInBerserkState = true;
+    public void setBerserk(boolean setter) {
+        forglory_isInBerserkState = setter;
     }
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isDead()Z"), cancellable = true)
@@ -65,7 +66,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
             if (this.isDead() && !forglory_isInBerserkState) {
                 ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUuid(this.getUuid());
                 if (player == null) return;
-                ServerPlayNetworking.send(player, NetworkInit.BERSERK_PACKET_ID, PacketByteBufs.empty());
+                PacketByteBuf buffy = PacketByteBufs.create();
+                buffy.writeBoolean(true);
+                ServerPlayNetworking.send(player, NetworkInit.BERSERK_PACKET_ID, buffy);
 
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
@@ -84,6 +87,15 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
         if (this.getType().equals(EntityType.PLAYER)) {
             if (MyComponents.ADRENALIN.get(this).getAdrenalin() < Feats.LAST_STAND.tier.threshold) {
                 forglory_isInBerserkState = false;
+
+                if(!world.isClient()) {
+                    ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUuid(this.getUuid());
+                    PacketByteBuf buffy = PacketByteBufs.create();
+                    buffy.writeBoolean(false);
+                    if (player != null) {
+                        ServerPlayNetworking.send(player, NetworkInit.BERSERK_PACKET_ID, buffy);
+                    }
+                }
             }
             if (forglory_isInBerserkState) {
                 // Invulnerable, strength 1, speed 2, , resistance 4, life steal, fire resistance ?

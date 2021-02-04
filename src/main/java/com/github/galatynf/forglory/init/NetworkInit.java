@@ -38,15 +38,20 @@ public class NetworkInit {
             }
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> client.execute(() -> {
-            if (client.player != null) {
-                ((ILastStandMixin) client.player).setBerserk();
-            }
-        }));
+        ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> {
+            boolean setter = buf.readBoolean();
+            client.execute(() -> {
+                if (client.player != null) {
+                    ((ILastStandMixin) client.player).setBerserk(setter);
+                }
+            });
+
+        });
 
         ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
+            Identifier id = buf.readIdentifier();
             if (client.player != null) {
-                client.player.playSound(Registry.SOUND_EVENT.get(buf.readIdentifier()), 0.7f, 1);
+                client.player.playSound(Registry.SOUND_EVENT.get(id), 0.7f, 1);
             }
             client.execute(() -> {
             });
