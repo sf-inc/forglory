@@ -22,7 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     public FireTrailMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -41,20 +42,19 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
         forglory_startFireTrail = forglory_doFireTrail;
     }
 
-    @Inject(at=@At("INVOKE"), method = "tick")
+    @Inject(at = @At("INVOKE"), method = "tick")
     void spawnFireTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_TRAIL)) {
             if (forglory_startFireTrail) {
                 forglory_startFireTrail = false;
-                for (int i=-1; i < 2; i++) {
-                    for (int j =-1; j < 2; j++) {
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
                         spawnFireT(blockPos);
                         NetworkInit.playSound(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this);
                     }
                 }
-            }
-            else if (forglory_doFireTrail) {
+            } else if (forglory_doFireTrail) {
                 BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
                 spawnFireT(blockPos);
             }

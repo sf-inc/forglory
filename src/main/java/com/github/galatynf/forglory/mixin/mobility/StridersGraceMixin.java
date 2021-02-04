@@ -20,7 +20,7 @@ public abstract class StridersGraceMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void addStridersGraceEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));

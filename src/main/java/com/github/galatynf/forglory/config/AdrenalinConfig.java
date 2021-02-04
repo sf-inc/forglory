@@ -30,7 +30,7 @@ public class AdrenalinConfig implements ConfigData {
 
     @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
     @ConfigEntry.Gui.Tooltip(count = 2)
-    public int sprint_gain  = 12;
+    public int sprint_gain = 12;
 
     @ConfigEntry.BoundedDiscrete(min = 3, max = 20)
     public int jump_gain = 10;

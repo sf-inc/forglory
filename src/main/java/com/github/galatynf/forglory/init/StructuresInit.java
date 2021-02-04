@@ -21,7 +21,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StructuresInit {
-    private StructuresInit() {}
+    private StructuresInit() {
+    }
 
     public static final StructurePieceType MY_PIECE = MyGenerator.MyPiece::new;
 
@@ -34,7 +35,7 @@ public class StructuresInit {
                     Biome.Category.NETHER,
                     Biome.Category.THEEND);
 
-    public static void init () {
+    public static void init() {
         Registry.register(Registry.STRUCTURE_PIECE, new Identifier("forglory", "my_piece"), MY_PIECE);
         FabricStructureBuilder.create(new Identifier("forglory", "lost_sanctuary"), MY_STRUCTURE)
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)

@@ -19,7 +19,7 @@ public abstract class ResistanceMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void addInvisibleEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.RESISTANCE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 0));

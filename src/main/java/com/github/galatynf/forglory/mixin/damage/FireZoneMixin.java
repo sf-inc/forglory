@@ -23,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class FireZoneMixin extends Entity {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     public FireZoneMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -32,20 +33,20 @@ public abstract class FireZoneMixin extends Entity {
     @Unique
     float forglory_fireRadius;
 
-    @Inject(at=@At("INVOKE"), method = "tick")
+    @Inject(at = @At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
-            if(forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius == 0) {
+            if (forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius == 0) {
                 NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
             }
-            forglory_fireRadius +=  (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
+            forglory_fireRadius += (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
 
             final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) forglory_fireRadius;
             final double angle = (2 * Math.PI) / spawnFire;
             BlockPos blockPos;
 
-            for (int i=0; i < spawnFire; i++) {
+            for (int i = 0; i < spawnFire; i++) {
                 blockPos = this.getBlockPos().add(forglory_fireRadius * Math.cos(i * angle),
                         0,
                         forglory_fireRadius * Math.sin(i * angle));

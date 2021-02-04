@@ -30,7 +30,8 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
         super(entityType, world);
     }
 
-    @Shadow public abstract void attack(Entity target);
+    @Shadow
+    public abstract void attack(Entity target);
 
     @Override
     public void resetBlockedTicks() {
@@ -45,15 +46,15 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
     @Inject(at = @At("HEAD"), method = "tick")
     public void decrementBlock(CallbackInfo ci) {
         forglory_lastBlocked--;
-        if(forglory_lastBlocked <= 0)
+        if (forglory_lastBlocked <= 0)
             forglory_lastBlocked = 0;
     }
 
-    @Inject(at=@At("HEAD"), method = "takeShieldHit")
+    @Inject(at = @At("HEAD"), method = "takeShieldHit")
     public void counterattack(LivingEntity attacker, CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)) {
             if (forglory_lastBlocked != 0) {
-                NetworkInit.playSound(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity)(Object) this);
+                NetworkInit.playSound(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity) (Object) this);
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
                 this.attack(attacker);
             }

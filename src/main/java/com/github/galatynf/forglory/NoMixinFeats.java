@@ -11,13 +11,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class NoMixinFeats {
-    private NoMixinFeats() {}
+    private NoMixinFeats() {
+    }
 
-    public static void dashFeat (final PlayerEntity playerEntity) {
+    public static void dashFeat(final PlayerEntity playerEntity) {
         Vec3d velocity = playerEntity.getVelocity();
-        double x = velocity.x + ( ((ModConfig.get().featConfig.dash_intensity+2) / 4.0D) * Math.sin((-playerEntity.yaw * Math.PI) / 180.0D));
-        double y = velocity.y + ( ((ModConfig.get().featConfig.dash_intensity+2) / 6.0D) * Math.sin((-playerEntity.pitch * Math.PI) / 180.0D));
-        double z = velocity.z + ( ((ModConfig.get().featConfig.dash_intensity+2) / 4.0D) * Math.cos((-playerEntity.yaw * Math.PI) / 180.0D));
+        double x = velocity.x + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.sin((-playerEntity.yaw * Math.PI) / 180.0D));
+        double y = velocity.y + (((ModConfig.get().featConfig.dash_intensity + 2) / 6.0D) * Math.sin((-playerEntity.pitch * Math.PI) / 180.0D));
+        double z = velocity.z + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.cos((-playerEntity.yaw * Math.PI) / 180.0D));
         playerEntity.setVelocity(x, y, z);
         playerEntity.velocityModified = true;
         NetworkInit.playSound(SoundsInit.DASH_ID, (ServerPlayerEntity) playerEntity);
@@ -37,10 +38,10 @@ public class NoMixinFeats {
                 break;
             }
         }
-        for (Direction direction: Direction.values()) {
+        for (Direction direction : Direction.values()) {
             if (direction.getHorizontal() != -1) {
-                int heightMax = (int) (height * ((direction.getHorizontal()+1) / 5F));
-                for (int i=0; i < heightMax; i++) {
+                int heightMax = (int) (height * ((direction.getHorizontal() + 1) / 5F));
+                for (int i = 0; i < heightMax; i++) {
                     sideBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
                     sideBlockPos = sideBlockPos.offset(direction);
                     playerEntity.world.setBlockState(sideBlockPos, Blocks.DIRT.getDefaultState());

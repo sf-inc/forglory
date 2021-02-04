@@ -24,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class HealTrailMixin extends LivingEntity {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Unique
     private int forglory_lastSpawned = 0;
@@ -39,7 +40,7 @@ public abstract class HealTrailMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void spawnHealTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.HEAL_TRAIL)) {
-            if(forglory_firstTime) {
+            if (forglory_firstTime) {
                 NetworkInit.playSound(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this);
                 forglory_firstTime = false;
             }
@@ -59,8 +60,7 @@ public abstract class HealTrailMixin extends LivingEntity {
                 forglory_lastSpawned = 0;
             }
             forglory_lastSpawned++;
-        }
-        else {
+        } else {
             forglory_firstTime = true;
         }
     }

@@ -25,13 +25,17 @@ import java.util.Objects;
 @Mixin(PlayerEntity.class)
 public abstract class AdrenalinMixin extends LivingEntity {
 
-    @Shadow protected abstract SoundEvent getHighSpeedSplashSound();
+    @Shadow
+    protected abstract SoundEvent getHighSpeedSplashSound();
 
-    @Shadow public abstract float getMovementSpeed();
+    @Shadow
+    public abstract float getMovementSpeed();
 
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
-    @Shadow public abstract boolean isCreative();
+    @Shadow
+    public abstract boolean isCreative();
 
     @Unique
     protected boolean[] forglory_soundPlayed = this.initialiseSoundPlayed();
@@ -42,13 +46,13 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     private boolean[] initialiseSoundPlayed() {
         boolean[] ret = new boolean[4];
-        for(int i = 0; i<4;++i) {
+        for (int i = 0; i < 4; ++i) {
             ret[i] = false;
         }
         return ret;
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier2_threshold
                 && this.isSprinting()) {
@@ -75,7 +79,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
-        if(!this.isCreative()) {
+        if (!this.isCreative()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
@@ -86,14 +90,13 @@ public abstract class AdrenalinMixin extends LivingEntity {
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier1_threshold
                 && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.GOLDEN_APPLE)) {
             MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.tier1_threshold);
-        }
-        else if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier3_threshold
+        } else if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier3_threshold
                 && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.ENCHANTED_GOLDEN_APPLE)) {
             MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.tier3_threshold);
         }
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void loseAdrenalin(CallbackInfo ci) {
         if (isSneaking()) {
             MyComponents.ADRENALIN.get(this).addAdrenalin(ModConfig.get().adrenalinConfig.quick_loss);
@@ -102,10 +105,10 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     public void playSoundtest(CallbackInfo ci) {
-        if(world.isClient()) {
-            if(ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
+        if (world.isClient()) {
+            if (ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier1_threshold) {
                     if (!forglory_soundPlayed[0]) {
                         playSound(SoundsInit.tier_1_whoosh_event, 1.2F, 1F);

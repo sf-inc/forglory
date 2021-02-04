@@ -14,15 +14,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
-public abstract class SmiteMixin extends Entity{
+public abstract class SmiteMixin extends Entity {
 
     public SmiteMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Shadow public abstract boolean isUndead();
+    @Shadow
+    public abstract boolean isUndead();
 
-    @ModifyArg(method = "damage", at=@At(value = "INVOKE",
+    @ModifyArg(method = "damage", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float injectedAmount(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SMITE)) {

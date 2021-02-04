@@ -10,7 +10,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ItemsInit {
-    private ItemsInit() {}
+    private ItemsInit() {
+    }
 
     public static final ItemGroup forGlory = FabricItemGroupBuilder.create(
             new Identifier("forglory", "gems"))
@@ -21,7 +22,7 @@ public class ItemsInit {
     public static final DebugItem debugItem = new DebugItem(settings);
     public static final Item essence = new Item(new Item.Settings().group(ItemGroup.MISC));
 
-    public static void init (){
+    public static void init() {
         Registry.register(Registry.ITEM, new Identifier("forglory", "debug_item"), debugItem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence"), essence);
         GemsInit.init();

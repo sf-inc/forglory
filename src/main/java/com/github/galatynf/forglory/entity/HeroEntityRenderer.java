@@ -19,6 +19,6 @@ public class HeroEntityRenderer extends BipedEntityRenderer<HeroEntity, ZombieEn
 
     @Override
     public Identifier getTexture(HeroEntity hero) {
-        return new Identifier("forglory", "textures/entity/"+hero.getTexture()+".png");
+        return new Identifier("forglory", "textures/entity/" + hero.getTexture() + ".png");
     }
 }

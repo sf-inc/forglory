@@ -48,10 +48,9 @@ public class QuickFireBlock extends AbstractFireBlock {
             ageMax = 5;
         }
         if (age < ageMax) {
-            state = state.with(AGE, age+1);
+            state = state.with(AGE, age + 1);
             world.setBlockState(pos, state, 4);
-        }
-        else {
+        } else {
             world.removeBlock(pos, false);
         }
     }

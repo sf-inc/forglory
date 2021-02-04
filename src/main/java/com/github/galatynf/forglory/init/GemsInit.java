@@ -10,7 +10,8 @@ import net.minecraft.util.registry.Registry;
 import static com.github.galatynf.forglory.init.ItemsInit.settings;
 
 public class GemsInit {
-    private GemsInit() {}
+    private GemsInit() {
+    }
 
     public static final DamageGem damageGem = new DamageGem(settings);
     public static final SmiteGem smiteGem = new SmiteGem(settings);
@@ -47,7 +48,7 @@ public class GemsInit {
     public static final JumpBoostGem jumpBoostGem = new JumpBoostGem(settings);
     public static final StridersGraceGem stridersGraceGem = new StridersGraceGem(settings);
 
-    public static void init () {
+    public static void init() {
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "smite_gem"), smiteGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);

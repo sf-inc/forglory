@@ -26,11 +26,14 @@ import java.util.UUID;
 
 @Mixin(BeeEntity.class)
 public abstract class BeesEntityMixin extends LivingEntity implements Angerable {
-    @Shadow public abstract void setAngryAt(@Nullable UUID uuid);
+    @Shadow
+    public abstract void setAngryAt(@Nullable UUID uuid);
 
-    @Shadow public abstract UUID getAngryAt();
+    @Shadow
+    public abstract UUID getAngryAt();
 
-    @Shadow public abstract void setAngerTime(int ticks);
+    @Shadow
+    public abstract void setAngerTime(int ticks);
 
     protected BeesEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -67,8 +70,8 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z", shift = At.Shift.AFTER))
     private void changeStungEffect(Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (MyComponents.SUMMONED.get(this).getPlayer() != null) {
-            ((LivingEntity)target).removeStatusEffect(StatusEffects.POISON);
-            ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 250, 1));
+            ((LivingEntity) target).removeStatusEffect(StatusEffects.POISON);
+            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 250, 1));
         }
     }
 }

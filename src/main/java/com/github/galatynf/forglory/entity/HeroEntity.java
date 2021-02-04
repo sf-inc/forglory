@@ -14,18 +14,21 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 //Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
@@ -38,86 +41,84 @@ public class HeroEntity extends ZombieEntity {
     public HeroEntity(EntityType<? extends ZombieEntity> entityType, World world) {
         super(entityType, world);
         this.experiencePoints = 0;
-        int rand = (int) (Math.random()*3);
-        if(rand%2 == 0) {
+        int rand = (int) (Math.random() * 3);
+        if (rand % 2 == 0) {
             this.isFemale = true;
-            this.texture = "female_hero"+rand;
-        }
-        else {
+            this.texture = "female_hero" + rand;
+        } else {
             this.isFemale = false;
-            this.texture = "male_hero"+rand;
+            this.texture = "male_hero" + rand;
         }
-        String name = NAMES[(int)(Math.random()*(NAMES.length-1))];
+        String name = NAMES[(int) (Math.random() * (NAMES.length - 1))];
         //this.setCustomName(Text.of(name));
     }
 
     @Override
     protected void initEquipment(LocalDifficulty difficulty) {
         int opness = ModConfig.get().featConfig.undeadArmyConfig.heroes_OPness;
-        int rand = (int) (Math.random()*(7 + opness));
+        int rand = (int) (Math.random() * (7 + opness));
         switch (rand) {
-            case(0):
+            case (0):
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
                 break;
-            case(1):
+            case (1):
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
                 break;
-            case(2):
+            case (2):
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
                 break;
-                //If rand is greater than 2 the hero should not have a helmet
+            //If rand is greater than 2 the hero should not have a helmet
         }
-        rand = (int) (Math.random()*(7 + opness));
+        rand = (int) (Math.random() * (7 + opness));
         switch (rand) {
-            case(0):
+            case (0):
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
                 break;
-            case(1):
+            case (1):
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
                 break;
-            case(2):
+            case (2):
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
                 break;
         }
-        rand = (int) (Math.random()*(5 + opness));
+        rand = (int) (Math.random() * (5 + opness));
         switch (rand) {
-            case(0):
+            case (0):
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
                 break;
-            case(1):
+            case (1):
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
                 break;
-            case(2):
+            case (2):
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
                 break;
         }
-        rand = (int) (Math.random()*(4 + opness));
+        rand = (int) (Math.random() * (4 + opness));
         switch (rand) {
-            case(0):
+            case (0):
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
                 break;
-            case(1):
+            case (1):
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
                 break;
-            case(2):
+            case (2):
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
                 break;
         }
-        rand = (int) (Math.random()*(2 + opness));
+        rand = (int) (Math.random() * (2 + opness));
         switch (rand) {
-            case(0):
+            case (0):
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
                 break;
-            case(1):
+            case (1):
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
                 break;
         }
         // Purely cosmetic (that's nice if you have Optifine/lambdynamic lights installed :D)
-        rand = (int) (Math.random()*5);
+        rand = (int) (Math.random() * 5);
         if (rand == 0) {
             this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
-        else if (rand == 1) {
+        } else if (rand == 1) {
             this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.TORCH));
         }
     }
@@ -150,7 +151,7 @@ public class HeroEntity extends ZombieEntity {
     @Override
     protected void initAttributes() {
         super.initAttributes();
-        Float[] multipliers = { 0.8f, 0.9f, 1f, 1.1f, 1.2f };
+        Float[] multipliers = {0.8f, 0.9f, 1f, 1.1f, 1.2f};
         int i = 0;
 
         List<Float> listMult = Arrays.asList(multipliers);
@@ -190,7 +191,7 @@ public class HeroEntity extends ZombieEntity {
     @Override
     public void dealDamage(LivingEntity attacker, Entity target) {
         super.dealDamage(attacker, target);
-        if(target instanceof LivingEntity && (int)(Math.random()*5) == 0) {
+        if (target instanceof LivingEntity && (int) (Math.random() * 5) == 0) {
             ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0, false, false));
         }
     }
@@ -217,10 +218,9 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        if(!isFemale) {
+        if (!isFemale) {
             return SoundsInit.male_grunt;
-        }
-        else {
+        } else {
             return SoundsInit.female_grunt;
         }
     }
@@ -233,10 +233,9 @@ public class HeroEntity extends ZombieEntity {
     @Override
     protected SoundEvent getDeathSound() {
         SoundEvent returned;
-        if(isFemale) {
+        if (isFemale) {
             returned = SoundsInit.female_death;
-        }
-        else {
+        } else {
             returned = SoundsInit.male_death;
         }
         return returned;
@@ -270,10 +269,9 @@ public class HeroEntity extends ZombieEntity {
     }
 
     @Override
-    public AttributeContainer getAttributes()
-    {
-        if(attributeContainer == null)
-            attributeContainer =  new AttributeContainer(
+    public AttributeContainer getAttributes() {
+        if (attributeContainer == null)
+            attributeContainer = new AttributeContainer(
                     HeroEntity.createZombieAttributes().build());
         return attributeContainer;
     }

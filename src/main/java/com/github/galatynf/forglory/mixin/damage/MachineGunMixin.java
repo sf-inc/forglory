@@ -27,7 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class MachineGunMixin extends LivingEntity implements IMachineGunMixin {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     protected MachineGunMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -43,7 +44,7 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
         forglory_machineGun = machineGun;
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void shootArrows(CallbackInfo ci) {
         if (forglory_machineGun > 0) {
             if (forglory_nextArrow == world.getTime()
@@ -51,7 +52,7 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
 
                 if (forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2 * ModConfig.get().featConfig.machine_gun_arrows, 2));
-                    NetworkInit.playSound(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity)(Object) this);
+                    NetworkInit.playSound(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity) (Object) this);
                 }
                 forglory_machineGun -= 1;
                 forglory_nextArrow = world.getTime() + 2;

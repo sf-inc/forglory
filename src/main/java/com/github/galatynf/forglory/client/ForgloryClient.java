@@ -18,12 +18,13 @@ import net.minecraft.entity.EntityType;
 @Environment(EnvType.CLIENT)
 public class ForgloryClient implements ClientModInitializer {
     public static EntityType<?> entityType;
+
     @Override
     public void onInitializeClient() {
         BlocksInit.initClient();
         KeyInit.initClient();
         NetworkInit.initClient();
-        EntityRendererRegistry.INSTANCE.register(EntitiesInit.HERO, (r, c)->new HeroEntityRenderer(r));
+        EntityRendererRegistry.INSTANCE.register(EntitiesInit.HERO, (r, c) -> new HeroEntityRenderer(r));
 
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksInit.quickFireBlock, RenderLayer.getCutout());
 

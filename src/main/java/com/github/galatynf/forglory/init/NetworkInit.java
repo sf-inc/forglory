@@ -5,7 +5,10 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.imixin.*;
+import com.github.galatynf.forglory.imixin.IFireTrailMixin;
+import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
+import com.github.galatynf.forglory.imixin.ILastStandMixin;
+import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -18,17 +21,17 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 public class NetworkInit {
-    private NetworkInit() {}
+    private NetworkInit() {
+    }
 
     public static final Identifier PLAY_SOUND_ID = new Identifier("forglory", "play_sound");
 
     public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
     public static final Identifier BERSERK_PACKET_ID = new Identifier("forglory", "is_berserk");
 
-    public static void initClient () {
+    public static void initClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (KeyInit.activateFeatKey.wasPressed()) {
                 ClientPlayNetworking.send(ACTIVATE_FEAT_PACKET_ID, PacketByteBufs.empty());
@@ -54,7 +57,7 @@ public class NetworkInit {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if(aPlayer.distanceTo(player) > 30) {
+            if (aPlayer.distanceTo(player) > 30) {
                 ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
             }
         }
@@ -73,12 +76,12 @@ public class NetworkInit {
         ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
-    public static void init () {
+    public static void init() {
         ServerPlayNetworking.registerGlobalReceiver(ACTIVATE_FEAT_PACKET_ID, (server, player, handler, buf, responseSender) -> server.execute(() -> {
             Feats feat = MyComponents.FEATS.get(player).getFeat(Tier.TIER2);
             if (feat == null) return;
             if (MyComponents.ADRENALIN.get(player).getAdrenalin() > Tier.TIER2.threshold &&
-                    MyComponents.FEATS.get(player).getCooldown(Tier.TIER2) == 0 ) {
+                    MyComponents.FEATS.get(player).getCooldown(Tier.TIER2) == 0) {
 
                 if (feat.equals(Feats.DASH)) {
                     NoMixinFeats.dashFeat(player);
@@ -91,14 +94,11 @@ public class NetworkInit {
 
                 } else if (feat.equals(Feats.MOUNTAIN)) {
                     NoMixinFeats.mountainFeat(player);
-                }
-
-                else if(feat.equals(Feats.HEALING_FIST)) {
+                } else if (feat.equals(Feats.HEALING_FIST)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
                     playSound(SoundsInit.VAMPIRISM_ID, player);
-                }
-                else if(feat.equals(Feats.KNOCKBACK_FIST)) {
-                    ((IKnockbackFistPlayerMixin)player).setKnockBack(true);
+                } else if (feat.equals(Feats.KNOCKBACK_FIST)) {
+                    ((IKnockbackFistPlayerMixin) player).setKnockBack(true);
                 }
                 MyComponents.FEATS.get(player).resetCooldown(Tier.TIER2);
             }

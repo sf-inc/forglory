@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.enumFeat;
 
-import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.config.ConstantsConfig;
+import com.github.galatynf.forglory.config.ModConfig;
 
 public enum Feats {
     NO_FEAT(Tier.TIER1),
@@ -39,12 +39,13 @@ public enum Feats {
 
     public Tier tier;
     public int cooldown;
+
     Feats(final Tier tier) {
         this.tier = tier;
         this.cooldown = ConstantsConfig.NO_COOLDOWN;
     }
 
-    public static void initCooldowns () {
+    public static void initCooldowns() {
         HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healing_fist_cooldown;
         DASH.cooldown = ModConfig.get().cooldownConfig.dash_cooldown;
         KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockback_fist_cooldown;

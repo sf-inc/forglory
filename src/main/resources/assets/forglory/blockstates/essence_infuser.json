@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "forglory:block/essence_infuser" }
+    "": {
+      "model": "forglory:block/essence_infuser"
+    }
   }
 }

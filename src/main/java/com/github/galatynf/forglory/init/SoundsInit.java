@@ -5,7 +5,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class SoundsInit {
-    private SoundsInit() {}
+    private SoundsInit() {
+    }
 
     public static final Identifier TIER_1_EFFECT_ID = new Identifier("forglory:tier_1_whoosh");
     public static SoundEvent tier_1_whoosh_event = new SoundEvent(TIER_1_EFFECT_ID);
@@ -45,7 +46,7 @@ public class SoundsInit {
     public static final Identifier MOUNTAIN_ID = new Identifier("forglory:mountain");
     public static SoundEvent mountain = new SoundEvent(MOUNTAIN_ID);
 
-    public static final Identifier  FIRE_TRAIL_ACT_ID = new Identifier("forglory:fire_trail_act");
+    public static final Identifier FIRE_TRAIL_ACT_ID = new Identifier("forglory:fire_trail_act");
     public static SoundEvent fire_trail_act = new SoundEvent(FIRE_TRAIL_ACT_ID);
 
     public static final Identifier VAMPIRISM_ID = new Identifier("forglory:vampirism");
@@ -90,7 +91,7 @@ public class SoundsInit {
     public static final Identifier LAST_STANDING_VOICE_ID = new Identifier("forglory:last_standing_voice");
     public static SoundEvent last_standing_voice = new SoundEvent(LAST_STANDING_VOICE_ID);
 
-    public static void init () {
+    public static void init() {
         Registry.register(Registry.SOUND_EVENT, TIER_1_EFFECT_ID, tier_1_whoosh_event);
         Registry.register(Registry.SOUND_EVENT, TIER_2_EFFECT_ID, tier_2_bass_event);
         Registry.register(Registry.SOUND_EVENT, TIER_3_EFFECT_ID, tier_3_strong_bass_event);

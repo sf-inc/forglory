@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
 public class ShieldEnemyMixin {
-    @ModifyArg(method = "damage", at=@At(value = "INVOKE",
+    @ModifyArg(method = "damage", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float moreDamageIfCountered(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SUPER_SHIELD)) {

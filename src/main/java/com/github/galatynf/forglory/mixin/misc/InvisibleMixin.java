@@ -21,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class InvisibleMixin extends LivingEntity {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Unique
     private boolean forglory_first_time = true;
@@ -30,17 +31,16 @@ public abstract class InvisibleMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at=@At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void addInvisibleEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.INVISIBLE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
             this.fallDistance = 0;
-            if(forglory_first_time) {
+            if (forglory_first_time) {
                 NetworkInit.playSound(SoundsInit.INVISIBLE_ID, (ServerPlayerEntity) (Object) this);
                 forglory_first_time = false;
             }
-        }
-        else {
+        } else {
             forglory_first_time = true;
         }
     }

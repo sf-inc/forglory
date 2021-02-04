@@ -6,11 +6,12 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyInit {
-    private KeyInit() {}
+    private KeyInit() {
+    }
 
     public static KeyBinding activateFeatKey;
 
-    public static void initClient () {
+    public static void initClient() {
         activateFeatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.forglory.activateFeatKey",
                 InputUtil.Type.KEYSYM,

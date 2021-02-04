@@ -16,7 +16,7 @@ public class Forglory implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
 
-        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer ->  {
+        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> {
             Tier.initThresholds();
             Feats.initCooldowns();
         });

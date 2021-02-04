@@ -21,9 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class ShieldResistanceMixin extends Entity {
 
-    @Shadow public abstract boolean isBlocking();
+    @Shadow
+    public abstract boolean isBlocking();
 
-    @Shadow protected ItemStack activeItemStack;
+    @Shadow
+    protected ItemStack activeItemStack;
 
     public ShieldResistanceMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -37,7 +39,7 @@ public abstract class ShieldResistanceMixin extends Entity {
             if (this.activeItemStack.getItem() == Items.SHIELD) {
                 this.activeItemStack.setDamage(this.activeItemStack.getDamage() - 10);
             }
-            NetworkInit.playSound(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity)(Object)this);
+            NetworkInit.playSound(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity) (Object) this);
             cir.setReturnValue(true);
         }
     }

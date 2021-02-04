@@ -5,7 +5,10 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.FireworkItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.DyeColor;
@@ -39,7 +42,7 @@ public class FireworkerMixin {
             explosions.putIntArray("Colors", colors);
             explosions.putInt("Type", FireworkItem.Type.SMALL_BALL.getId());
 
-            for (int i=0; i < ModConfig.get().featConfig.fireworker_power; i++) {
+            for (int i = 0; i < ModConfig.get().featConfig.fireworker_power; i++) {
                 explosionsList.add(explosions);
             }
             firework.put("Explosions", explosionsList);
@@ -58,7 +61,7 @@ public class FireworkerMixin {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/CrossbowItem;setCharged(Lnet/minecraft/item/ItemStack;Z)V"))
     private void giveOffhandBack(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
         if (Utils.canUseFeat(user, Feats.FIREWORKER)) {
-            for (int i=0; i < user.inventory.main.size(); i++) {
+            for (int i = 0; i < user.inventory.main.size(); i++) {
                 ItemStack itemstack = user.inventory.main.get(i);
                 if (itemstack.getSubTag("Offhand") != null) {
                     itemstack.removeSubTag("Offhand");

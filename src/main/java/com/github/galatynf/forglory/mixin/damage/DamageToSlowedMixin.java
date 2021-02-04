@@ -20,15 +20,18 @@ import java.util.Objects;
 
 @Mixin(LivingEntity.class)
 public abstract class DamageToSlowedMixin extends Entity {
-    @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
+    @Shadow
+    public abstract boolean hasStatusEffect(StatusEffect effect);
 
-    @Shadow public @Nullable abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
+    @Shadow
+    public @Nullable
+    abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
     public DamageToSlowedMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @ModifyArg(method = "damage", at=@At(value = "INVOKE",
+    @ModifyArg(method = "damage", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float injectedAmount(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)) {

@@ -7,9 +7,10 @@ import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class Utils {
-    private Utils() {}
+    private Utils() {
+    }
 
-    public static boolean canUseFeat (final Object object, final Feats feat) {
+    public static boolean canUseFeat(final Object object, final Feats feat) {
         if (object == null) return false;
         if (!(object instanceof PlayerEntity)) return false;
         PlayerEntity playerEntity = (PlayerEntity) object;
@@ -28,11 +29,11 @@ public class Utils {
         return false;
     }
 
-    public static float adrenalinMultiplier (final PlayerEntity playerEntity, float amount) {
+    public static float adrenalinMultiplier(final PlayerEntity playerEntity, float amount) {
         if (amount < 0) return amount;
 
         Feats feat = MyComponents.FEATS.get(playerEntity).getFeat(Feats.BLOODLUST.tier);
-        if(feat != null) {
+        if (feat != null) {
             if (feat.equals(Feats.BLOODLUST) && playerEntity.getHealth() > 0) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER1.threshold) {
                     float value = ModConfig.get().featConfig.bloodlust_multiplier;

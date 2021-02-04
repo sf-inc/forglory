@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class PlayerFeatsComponent implements FeatsComponent {
     public PlayerFeatsComponent() {
-        for (Tier tier: Tier.values()) {
+        for (Tier tier : Tier.values()) {
             forglory_feats.put(tier, Feats.NO_FEAT);
             forglory_cooldowns.put(tier, Feats.NO_FEAT.cooldown);
         }
@@ -20,16 +20,18 @@ public class PlayerFeatsComponent implements FeatsComponent {
     private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
     private FeatsClass forglory_class = FeatsClass.NONE;
 
-    @Override public void readFromNbt(CompoundTag tag) {
-        for (Tier tier: Tier.values()) {
+    @Override
+    public void readFromNbt(CompoundTag tag) {
+        for (Tier tier : Tier.values()) {
             this.forglory_feats.put(tier, Feats.valueOf(tag.getString("feat" + tier.toString())));
             this.forglory_cooldowns.put(tier, tag.getInt("cooldown" + tier.toString()));
         }
         this.forglory_class = FeatsClass.valueOf(tag.getString("class"));
     }
 
-    @Override public void writeToNbt(CompoundTag tag) {
-        for (Tier tier: Tier.values()) {
+    @Override
+    public void writeToNbt(CompoundTag tag) {
+        for (Tier tier : Tier.values()) {
             tag.putString("feat" + tier.toString(), forglory_feats.get(tier).toString());
             tag.putInt("cooldown" + tier.toString(), forglory_cooldowns.get(tier));
         }
@@ -70,7 +72,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
 
     @Override
     public void decrementCooldowns() {
-        for (Tier tier: Tier.values()) {
+        for (Tier tier : Tier.values()) {
             Integer cooldown = forglory_cooldowns.get(tier);
             if (cooldown != null && cooldown > 0) {
                 forglory_cooldowns.put(tier, cooldown - 1);

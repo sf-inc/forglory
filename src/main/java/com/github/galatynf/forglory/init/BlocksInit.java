@@ -16,7 +16,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BlocksInit {
-    private BlocksInit() {}
+    private BlocksInit() {
+    }
 
     public static final Block essenceInfuser = new EssenceInfuser(FabricBlockSettings
             .of(Material.STONE, MaterialColor.LIGHT_GRAY).requiresTool().strength(50.F, 6.F).luminance(8).sounds(BlockSoundGroup.LANTERN));
@@ -25,11 +26,11 @@ public class BlocksInit {
     public static final QuickFireBlock quickFireBlock = new QuickFireBlock(FabricBlockSettings
             .of(Material.FIRE, MaterialColor.PURPLE).breakInstantly().noCollision().luminance(15).sounds(BlockSoundGroup.WOOL));
 
-    public static void initClient () {
+    public static void initClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(quickFireBlock, RenderLayer.getCutout());
     }
 
-    public static void init () {
+    public static void init() {
         Registry.register(Registry.BLOCK, new Identifier("forglory", "essence_infuser"), essenceInfuser);
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
 

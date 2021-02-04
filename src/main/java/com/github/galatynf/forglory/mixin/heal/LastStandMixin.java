@@ -34,13 +34,17 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
         super(type, world);
     }
 
-    @Shadow public abstract boolean isDead();
+    @Shadow
+    public abstract boolean isDead();
 
-    @Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
+    @Shadow
+    public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
-    @Shadow public abstract void setHealth(float health);
+    @Shadow
+    public abstract void setHealth(float health);
 
-    @Shadow public abstract boolean clearStatusEffects();
+    @Shadow
+    public abstract boolean clearStatusEffects();
 
     @Unique
     private boolean forglory_isInBerserkState = false;
@@ -66,9 +70,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
-                NetworkInit.playSound(SoundsInit.LAST_STANDING_ID, (PlayerEntity)(Object) this);
-                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
-                    NetworkInit.playSound(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity)(Object) this);
+                NetworkInit.playSound(SoundsInit.LAST_STANDING_ID, (PlayerEntity) (Object) this);
+                if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
+                    NetworkInit.playSound(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity) (Object) this);
                 }
                 cir.setReturnValue(false);
             }
@@ -77,7 +81,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void manageBerserkState(CallbackInfo ci) {
-        if(this.getType().equals(EntityType.PLAYER)) {
+        if (this.getType().equals(EntityType.PLAYER)) {
             if (MyComponents.ADRENALIN.get(this).getAdrenalin() < Feats.LAST_STAND.tier.threshold) {
                 forglory_isInBerserkState = false;
             }

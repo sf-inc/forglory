@@ -29,18 +29,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class SummonUndeadArmyMixin extends LivingEntity {
-    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+    @Shadow
+    public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     protected SummonUndeadArmyMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void summonOneZombie (CallbackInfo ci) {
+    private void summonOneZombie(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.UNDEAD_ARMY)) {
             Vec3i offset;
-            for(int i = 0; i< ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
-                offset = new Vec3i(Math.random()*6-3, 1, Math.random()*6-3);
+            for (int i = 0; i < ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
+                offset = new Vec3i(Math.random() * 6 - 3, 1, Math.random() * 6 - 3);
                 HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) world, null, null, null, this.getBlockPos().add(offset), SpawnReason.COMMAND, false, false);
                 if (theHero == null) {
                     System.err.println("Couldn't create hero from undead army Mixin");
@@ -48,18 +49,18 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
             }
-            NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity)(Object) this);
-            if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity)(Object) this);
+            NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this);
+            if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
+                NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this);
             }
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }
     }
 
-    @Inject(at=@At("INVOKE"), method = "damage", cancellable = true)
+    @Inject(at = @At("INVOKE"), method = "damage", cancellable = true)
     private void preventSummonedtoHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         Entity attacker = source.getAttacker();
-        if(attacker instanceof HeroEntity) {
+        if (attacker instanceof HeroEntity) {
             cir.cancel();
         }
     }
