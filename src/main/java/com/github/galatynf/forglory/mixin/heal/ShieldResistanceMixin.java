@@ -1,6 +1,8 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
@@ -41,6 +43,18 @@ public abstract class ShieldResistanceMixin extends Entity {
             }
             NetworkInit.playSound(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity) (Object) this);
             cir.setReturnValue(true);
+        }
+    }
+
+    //Serves to counteract the natural increase when damaged
+    @Inject(at = @At("HEAD"), method = "damage")
+    private void decreaseAdrenalinWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (Utils.canUseFeat(this, Feats.SHIELD_RESISTANCE)
+                && this.isBlocking()
+                && !source.isOutOfWorld()
+                && !source.equals(DamageSource.DROWN) ) {
+            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damage_multiplier);
+            MyComponents.ADRENALIN.get(this).addAdrenalin(-adrenalinAmount);
         }
     }
 }
