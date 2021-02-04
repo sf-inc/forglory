@@ -54,7 +54,8 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void incrementWhenSprinting(CallbackInfo ci) {
-        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier2_threshold
+        int threshold = ModConfig.get().adrenalinConfig.tier2_threshold;
+        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10
                 && this.isSprinting()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprint_gain / 10.F);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
@@ -63,7 +64,8 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "jump")
     private void incrementWhenJumping(CallbackInfo ci) {
-        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier2_threshold) {
+        int threshold = ModConfig.get().adrenalinConfig.tier2_threshold;
+        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.jump_gain);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
