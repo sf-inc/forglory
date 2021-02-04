@@ -33,7 +33,7 @@ public abstract class DogMixin extends LivingEntity {
                     this.kill();
                     MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.DOG.tier);
                 } else {
-                    this.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
                 }
             }
         }

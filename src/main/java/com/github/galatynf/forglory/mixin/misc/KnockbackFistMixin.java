@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.mixin.misc;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
+import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,12 +21,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class KnockbackFistMixin extends Entity{
-    @Shadow public abstract void applyStatusEffect(StatusEffectInstance effect);
+public abstract class KnockbackFistMixin {
 
-    public KnockbackFistMixin(EntityType<?> type, World world) {
-        super(type, world);
-    }
+    @Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
     @Inject(at=@At("HEAD"), method="damage")
     private void stunWhenPunched(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -34,10 +32,10 @@ public abstract class KnockbackFistMixin extends Entity{
             && ((IKnockbackFistPlayerMixin)attacker).isKnockbackActivated()) {
             if (((PlayerEntity) attacker).getMainHandStack().equals(ItemStack.EMPTY)) {
                 if(MyComponents.FEATS.get(attacker).getForgloryClass() == FeatsClass.CENTURION) {
-                    playSound(SoundsInit.dibilis, 1F, 1F);
+                    NetworkInit.playSound(SoundsInit.DIBILIS_ID, (PlayerEntity) attacker);
                 }
-                playSound(SoundsInit.knockback_fisted, 1, 1);
-                this.applyStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
+                NetworkInit.playSound(SoundsInit.KNOCKBACK_FISTED_ID, (PlayerEntity) attacker);
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
                 ((IKnockbackFistPlayerMixin)attacker).setKnockBack(false);
             }
         }

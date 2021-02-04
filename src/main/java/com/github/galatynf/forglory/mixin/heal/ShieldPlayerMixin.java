@@ -54,7 +54,7 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
         if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)) {
             if (forglory_lastBlocked != 0) {
                 NetworkInit.playSound(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity)(Object) this);
-                this.applyStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
                 this.attack(attacker);
             }
         }
