@@ -18,7 +18,6 @@
     "heal.HealTrailMixin",
     "heal.LastStandLifeStealMixin",
     "heal.LastStandMixin",
-    "heal.LastStandRenderMixin",
     "heal.ResistanceMixin",
     "heal.ShieldEnemyMixin",
     "heal.ShieldItemMixin",
@@ -40,10 +39,7 @@
     "mobility.StridersGraceMixin"
   ],
   "client": [
-    "heal.LastStandMixin",
-    "heal.LastStandRenderMixin",
-    "misc.KnockbackFistMixin",
-    "misc.KnockbackFistPlayerMixin"
+    "heal.LastStandRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
