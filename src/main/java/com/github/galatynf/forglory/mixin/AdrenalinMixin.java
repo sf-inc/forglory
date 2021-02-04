@@ -31,6 +31,8 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
+    @Shadow public abstract boolean isCreative();
+
     @Unique
     protected boolean[] forglory_soundPlayed = this.initialiseSoundPlayed();
 
@@ -73,8 +75,10 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "handleFallDamage")
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
-        float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
-        MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
+        if(!this.isCreative()) {
+            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
+            MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "eatFood")
