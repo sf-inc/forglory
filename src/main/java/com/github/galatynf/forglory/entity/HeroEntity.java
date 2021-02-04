@@ -166,7 +166,7 @@ public class HeroEntity extends ZombieEntity {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3D * (listMult.get(i++)));
 
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)
-                .setBaseValue(2.5 * listMult.get(i++));
+                .setBaseValue(1.5 * listMult.get(i++));
 
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue(1.1D * listMult.get(i));
 

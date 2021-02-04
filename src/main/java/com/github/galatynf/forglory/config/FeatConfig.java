@@ -104,6 +104,6 @@ public class FeatConfig implements ConfigData {
 
         @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
         @ConfigEntry.Gui.Tooltip()
-        public int heroes_OPness = 5;
+        public int heroes_OPness = 7;
     }
 }
