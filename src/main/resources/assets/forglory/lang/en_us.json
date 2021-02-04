@@ -79,6 +79,7 @@
   "text.autoconfig.forglory.category.feats": "Feats Configs",
   "text.autoconfig.forglory.option.featConfig.smite_multiplier.@PrefixText": "# Tier 1",
   "text.autoconfig.forglory.option.featConfig.smite_multiplier": "Smite damage multiplier",
+  "text.autoconfig.forglory.option.featConfig.smite_multiplier.@Tooltip": "FLOAT VALUE: Divided by 10!",
   "text.autoconfig.forglory.option.featConfig.combo_max": "Combo max",
   "text.autoconfig.forglory.option.featConfig.combo_adrenalin_gain": "Adrenalin gain with combo feat",
   "text.autoconfig.forglory.option.featConfig.bloodlust_multiplier": "Bloodlust adrenalin multiplier",

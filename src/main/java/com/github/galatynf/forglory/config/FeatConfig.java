@@ -7,7 +7,9 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 @Config(name = "feats")
 public class FeatConfig implements ConfigData {
     @ConfigEntry.Gui.PrefixText
-    public float smite_multiplier = 1.5F; //TODO prevent players to put insane values here
+    @ConfigEntry.BoundedDiscrete(min = 11, max = 25)
+    @ConfigEntry.Gui.Tooltip()
+    public int smite_multiplier = 15;
 
     @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
     public int combo_max = 5;
@@ -27,7 +29,7 @@ public class FeatConfig implements ConfigData {
     public int machine_gun_arrows = 30;
 
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
-    public int mountain_height = 4;
+    public int mountain_height = 5;
 
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
@@ -56,7 +58,8 @@ public class FeatConfig implements ConfigData {
     public HealTrailConfig healTrailConfig = new HealTrailConfig();
 
     public static class HealTrailConfig {
-        public float heal_trail_radius = 2.0F;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 3)
+        public int heal_trail_radius = 2;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
         public int heal_trail_frequency = 20;
