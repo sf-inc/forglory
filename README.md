@@ -27,7 +27,7 @@ if you're not doing anything special, and you will lose it even quicker while sn
 
 * **Being hurt :** not the safest way to get adrenalin as it means getting damaged, but quite efficient. Mob/player attacks, fall damage, ... you won't **ever** regret being low life *(joking, you will because you're gonna die right after it)*
 
-**Living dangerously :** embrace the path of the heroes, and face your destiny. The less armour you wear, the more adrenalin you gain, from all sources
+* **Living dangerously :** embrace the path of the heroes, and face your destiny. The less armour you wear, the more adrenalin you gain, from all sources
 
 * **Attacking :** definitely **THE** way to get adrenalin
 
