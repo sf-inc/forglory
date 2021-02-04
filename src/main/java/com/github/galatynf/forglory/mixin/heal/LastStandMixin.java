@@ -2,6 +2,8 @@ package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
+import com.github.galatynf.forglory.config.FeatConfig;
+import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
@@ -47,8 +49,15 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     @Shadow
     public abstract boolean clearStatusEffects();
 
+    @Shadow public abstract float getHealth();
+
+    @Shadow public abstract float getMaxHealth();
+
     @Unique
     private boolean forglory_isInBerserkState = false;
+
+    @Unique
+    private int forglory_berserkTimer = ModConfig.get().featConfig.seconds_of_last_standing * 20;
 
     @Override
     public boolean isBerserk() {
@@ -103,6 +112,20 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 1));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 3));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 30, 0));
+                forglory_berserkTimer--;
+                if(forglory_berserkTimer == 0) {
+                    forglory_berserkTimer = ModConfig.get().featConfig.seconds_of_last_standing * 20;
+                    forglory_isInBerserkState = false;
+                    MyComponents.ADRENALIN.get(this).setAdrenalin((float)(ModConfig.get().adrenalinConfig.tier4_threshold - ModConfig.get().adrenalinConfig.tier3_threshold)/2);
+                    if(this.getHealth() != this.getMaxHealth()) {
+                        //Dude, you ran away from the fight, that's not really brave
+                        this.setHealth(1);
+                        this.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 300, 2));
+                    }
+                    else {
+                        this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 2));
+                    }
+                }
             }
         }
     }
