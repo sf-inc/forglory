@@ -47,11 +47,11 @@ public abstract class FireZoneMixin extends Entity {
                 }
                 forglory_firstTime_FZ = false;
             }
-            if (forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius == 0) {
-                NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
-            }
             forglory_fireRadius += (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
-            forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
+            if (forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
+                NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
+                forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
+            }
 
             final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) forglory_fireRadius;
             final double angle = (2 * Math.PI) / spawnFire;
