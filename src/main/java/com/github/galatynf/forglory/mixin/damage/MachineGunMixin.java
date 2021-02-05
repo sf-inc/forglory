@@ -60,7 +60,7 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
                     }
                 }
                 forglory_machineGun -= 1;
-                forglory_nextArrow = world.getTime() + 2;
+                forglory_nextArrow = world.getTime() + 3;
 
                 if (!world.isClient) {
                     PersistentProjectileEntity persistentProjectileEntity = ((ArrowItem) Items.ARROW).createArrow(world, new ItemStack(Items.BOW), this);

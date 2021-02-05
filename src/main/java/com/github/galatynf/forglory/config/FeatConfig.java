@@ -26,7 +26,7 @@ public class FeatConfig implements ConfigData {
     public int dash_intensity = 3;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 50)
-    public int machine_gun_arrows = 30;
+    public int machine_gun_arrows = 15;
 
     @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
     public int mountain_height = 5;
@@ -91,8 +91,8 @@ public class FeatConfig implements ConfigData {
     public InstantKillConfig instantKillConfig = new InstantKillConfig();
 
     public static class InstantKillConfig {
-        @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
-        public int health_percentage = 20;
+        @ConfigEntry.BoundedDiscrete(min = 20, max = 100)
+        public int health_percentage = 35;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
         public int max_damage = 30;
