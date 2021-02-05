@@ -43,9 +43,9 @@ public abstract class KnockbackFistPlayerMixin extends LivingEntity implements I
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeIdentifier(SoundsInit.INCRE_ID);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                NetworkInit.playSound(SoundsInit.INCRE_ID, (ServerPlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.INCRE_ID, (ServerPlayerEntity) (Object) this, true);
             }
-            NetworkInit.playSound(SoundsInit.KNOCKBACK_FIST_ACT_ID, (ServerPlayerEntity) (Object) this);
+            NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FIST_ACT_ID, (ServerPlayerEntity) (Object) this, false);
         }
     }
 }

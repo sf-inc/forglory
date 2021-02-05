@@ -43,7 +43,7 @@ public abstract class HealTrailMixin extends LivingEntity {
     private void spawnHealTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.HEAL_TRAIL)) {
             if (forglory_firstTime_HT) {
-                NetworkInit.playSound(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this, false);
                 if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PALADIN) {
                     NetworkInit.playSoundWide(SoundsInit.HEAL_TRAIL_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
                 }

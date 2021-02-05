@@ -49,9 +49,9 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
             }
-            NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this);
+            NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this, false);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                NetworkInit.playSound(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
             }
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }

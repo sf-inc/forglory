@@ -66,8 +66,19 @@ public class NetworkInit {
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(isClassSound);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if (aPlayer.distanceTo(player) < 30) {
+            if (aPlayer.distanceTo(player) < 15) {
                 ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
+            }
+        }
+    }
+
+    public static void playSoundWide(Identifier sound, PlayerEntity player, boolean isClassSound) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        buffy.writeBoolean(isClassSound);
+        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
+            if (aPlayer.distanceTo(player) < 30) {
+                ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
             }
         }
     }

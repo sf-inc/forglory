@@ -31,9 +31,9 @@ public abstract class KnockbackFistMixin {
                 && ((IKnockbackFistPlayerMixin) attacker).isKnockbackActivated()) {
             if (((PlayerEntity) attacker).getMainHandStack().equals(ItemStack.EMPTY)) {
                 if (MyComponents.FEATS.get(attacker).getForgloryClass() == FeatsClass.CENTURION) {
-                    NetworkInit.playSound(SoundsInit.DIBILIS_ID, (PlayerEntity) attacker);
+                    NetworkInit.playSoundWide(SoundsInit.DIBILIS_ID, (PlayerEntity) attacker, true);
                 }
-                NetworkInit.playSound(SoundsInit.KNOCKBACK_FISTED_ID, (PlayerEntity) attacker);
+                NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FISTED_ID, (PlayerEntity) attacker, false);
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
                 ((IKnockbackFistPlayerMixin) attacker).setKnockBack(false);
             }

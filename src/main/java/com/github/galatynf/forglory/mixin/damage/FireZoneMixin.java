@@ -43,13 +43,13 @@ public abstract class FireZoneMixin extends Entity {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
             if(forglory_firstTime_FZ) {
                 if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
-                    NetworkInit.playSound(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
+                    NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
                 }
                 forglory_firstTime_FZ = false;
             }
             forglory_fireRadius += (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             if (forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
-                NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this, false);
                 forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
             }
 

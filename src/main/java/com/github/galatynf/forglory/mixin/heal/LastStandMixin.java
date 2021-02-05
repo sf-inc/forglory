@@ -82,9 +82,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 forglory_isInBerserkState = true;
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
-                NetworkInit.playSound(SoundsInit.LAST_STANDING_ID, (PlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.LAST_STANDING_ID, (PlayerEntity) (Object) this, false);
                 if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
-                    NetworkInit.playSound(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity) (Object) this, true);
+                    NetworkInit.playSoundWide(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity) (Object) this, true);
                 }
                 cir.setReturnValue(false);
             }

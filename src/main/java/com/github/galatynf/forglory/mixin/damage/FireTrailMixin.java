@@ -51,7 +51,7 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
                     for (int j = -1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
                         spawnFireT(blockPos);
-                        NetworkInit.playSound(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this);
+                        NetworkInit.playSoundWide(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this, false);
                     }
                 }
             } else if (forglory_doFireTrail) {

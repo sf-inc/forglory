@@ -54,7 +54,7 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
     public void counterattack(LivingEntity attacker, CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)) {
             if (forglory_lastBlocked != 0) {
-                NetworkInit.playSound(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity) (Object) this);
+                NetworkInit.playSoundWide(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity) (Object) this, false);
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
                 this.attack(attacker);
             }

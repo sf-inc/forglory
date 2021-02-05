@@ -41,7 +41,7 @@ public abstract class ShieldResistanceMixin extends Entity {
             if (this.activeItemStack.getItem() == Items.SHIELD) {
                 this.activeItemStack.setDamage(this.activeItemStack.getDamage() - 10);
             }
-            NetworkInit.playSound(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity) (Object) this);
+            NetworkInit.playSoundWide(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity) (Object) this, false);
             cir.setReturnValue(true);
         }
     }
