@@ -51,9 +51,10 @@ public class NetworkInit {
         ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
             Identifier id = buf.readIdentifier();
             boolean isClassSound = buf.readBoolean();
+            float distance = buf.readFloat();
             if(!isClassSound || ModConfig.get().guiSoundsConfig.enable_class_sounds) {
                 if (client.player != null) {
-                    client.player.playSound(Registry.SOUND_EVENT.get(id), 0.7f, 1);
+                    client.player.playSound(Registry.SOUND_EVENT.get(id), (float) (1 / Math.sqrt(distance + 1)), 1);
                 }
             }
             client.execute(() -> {
@@ -67,6 +68,7 @@ public class NetworkInit {
         buffy.writeBoolean(isClassSound);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
             if (aPlayer.distanceTo(player) < 15) {
+                buffy.writeFloat(aPlayer.distanceTo(player));
                 ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
             }
         }
@@ -77,7 +79,8 @@ public class NetworkInit {
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(isClassSound);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if (aPlayer.distanceTo(player) < 30) {
+            if (aPlayer.distanceTo(player) < 15) {
+                buffy.writeFloat(aPlayer.distanceTo(player));
                 ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
             }
         }
@@ -87,6 +90,7 @@ public class NetworkInit {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(false);
+        buffy.writeFloat(1);
         ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
@@ -94,6 +98,7 @@ public class NetworkInit {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(isClassSound);
+        buffy.writeFloat(1);
         ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
@@ -101,6 +106,7 @@ public class NetworkInit {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(false);
+        buffy.writeFloat(1);
         ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
@@ -108,6 +114,7 @@ public class NetworkInit {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(isClassSound);
+        buffy.writeFloat(1);
         ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
