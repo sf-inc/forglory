@@ -73,7 +73,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "damage")
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source.getAttacker() instanceof LivingEntity) {
+        if (source.getAttacker() instanceof LivingEntity && !this.isCreative()) {
             float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damage_multiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(adrenalinAmount);
         }
@@ -83,7 +83,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
         if (!this.isCreative()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
-            MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
+            MyComponents.ADRENALIN.get(this).addAdrenalin(amount>50 ? 50 : amount);
         }
     }
 
@@ -108,7 +108,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
-    public void playSoundtest(CallbackInfo ci) {
+    public void playSounds(CallbackInfo ci) {
         if (world.isClient()) {
             if (ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier1_threshold) {
