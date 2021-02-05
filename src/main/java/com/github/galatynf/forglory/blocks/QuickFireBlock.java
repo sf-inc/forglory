@@ -63,6 +63,7 @@ public class QuickFireBlock extends AbstractFireBlock {
             if ((feat1 != null && feat1.equals(Feats.FIRE_TRAIL)) ||
                     (feat2 != null && feat2.equals(Feats.FIRE_ZONE))) {
                 world.removeBlock(pos, false);
+                return;
             }
         }
         if (entity instanceof LivingEntity) {
