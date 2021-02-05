@@ -38,7 +38,20 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
 
     @Override
     public void addAdrenalin(final float amount) {
+        int threshold = ModConfig.get().adrenalinConfig.tier4_threshold;
+        if(forglory_adrenalin >= threshold && amount > 0) {
+            return;
+        }
+        float prev_adrenalin = forglory_adrenalin;
         forglory_adrenalin += amount;
+        if(prev_adrenalin >= threshold && forglory_adrenalin < threshold) {
+            forglory_adrenalin = (float)(threshold + ModConfig.get().adrenalinConfig.tier3_threshold)/2;
+            return;
+        }
+        if(prev_adrenalin < threshold && forglory_adrenalin >= threshold) {
+            forglory_adrenalin = threshold+600;
+            return;
+        }
 
         if (forglory_adrenalin > ModConfig.get().adrenalinConfig.max_amount) {
             forglory_adrenalin = ModConfig.get().adrenalinConfig.max_amount;
