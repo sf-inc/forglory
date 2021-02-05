@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.cardinal;
 
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -50,6 +51,9 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
         }
         if(prev_adrenalin < threshold && forglory_adrenalin >= threshold) {
             forglory_adrenalin = threshold+600;
+            if(MyComponents.FEATS.get(this).getForgloryClass() != FeatsClass.NONE) {
+                forglory_adrenalin += 200;
+            }
             return;
         }
 
