@@ -15,7 +15,7 @@ public class KeyInit {
         activateFeatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.forglory.activateFeatKey",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_Z,
+                GLFW.GLFW_KEY_LEFT_ALT,
                 "category.forglory.keys"
         ));
     }
