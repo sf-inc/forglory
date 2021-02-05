@@ -50,8 +50,11 @@ public class NetworkInit {
 
         ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
             Identifier id = buf.readIdentifier();
-            if (client.player != null) {
-                client.player.playSound(Registry.SOUND_EVENT.get(id), 0.7f, 1);
+            boolean isClassSound = buf.readBoolean();
+            if(!isClassSound || ModConfig.get().guiSoundsConfig.enable_class_sounds) {
+                if (client.player != null) {
+                    client.player.playSound(Registry.SOUND_EVENT.get(id), 0.7f, 1);
+                }
             }
             client.execute(() -> {
             });
@@ -61,8 +64,9 @@ public class NetworkInit {
     public static void playSoundWide(Identifier sound, ServerPlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
+        buffy.writeBoolean(false);
         for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if (aPlayer.distanceTo(player) > 30) {
+            if (aPlayer.distanceTo(player) < 30) {
                 ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
             }
         }
@@ -71,6 +75,14 @@ public class NetworkInit {
     public static void playSound(Identifier sound, ServerPlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
+        buffy.writeBoolean(false);
+        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
+    }
+
+    public static void playSound(Identifier sound, ServerPlayerEntity player, boolean isClassSound) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        buffy.writeBoolean(isClassSound);
         ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 
@@ -78,6 +90,14 @@ public class NetworkInit {
     public static void playSound(Identifier sound, PlayerEntity player) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
+        buffy.writeBoolean(false);
+        ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
+    }
+
+    public static void playSound(Identifier sound, PlayerEntity player, boolean isClassSound) {
+        PacketByteBuf buffy = PacketByteBufs.create();
+        buffy.writeIdentifier(sound);
+        buffy.writeBoolean(isClassSound);
         ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
     }
 

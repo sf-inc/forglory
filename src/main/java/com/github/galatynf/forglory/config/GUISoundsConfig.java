@@ -8,4 +8,6 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 public class GUISoundsConfig implements ConfigData {
     @ConfigEntry.Gui.PrefixText
     public boolean enable_tier_jingles = true;
+
+    public boolean enable_class_sounds = true;
 }
