@@ -1,8 +1,10 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -31,7 +33,7 @@ public abstract class HealTrailMixin extends LivingEntity {
     private int forglory_lastSpawned = 0;
 
     @Unique
-    private boolean forglory_firstTime = true;
+    private boolean forglory_firstTime_HT = true;
 
     protected HealTrailMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -40,9 +42,12 @@ public abstract class HealTrailMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void spawnHealTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.HEAL_TRAIL)) {
-            if (forglory_firstTime) {
+            if (forglory_firstTime_HT) {
                 NetworkInit.playSound(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this);
-                forglory_firstTime = false;
+                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PALADIN) {
+                    NetworkInit.playSoundWide(SoundsInit.HEAL_TRAIL_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
+                }
+                forglory_firstTime_HT = false;
             }
             if (forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
                 AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.world, this.getX(), this.getY(), this.getZ());
@@ -61,7 +66,7 @@ public abstract class HealTrailMixin extends LivingEntity {
             }
             forglory_lastSpawned++;
         } else {
-            forglory_firstTime = true;
+            forglory_firstTime_HT = true;
         }
     }
 }

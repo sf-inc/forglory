@@ -70,6 +70,11 @@
       "forglory:fire_trail"
     ]
   },
+  "fire_trail_act_voice": {
+    "sounds": [
+      "forglory:fire_trap"
+    ]
+  },
   "vampirism": {
     "sounds": [
       "forglory:hiss"
@@ -78,6 +83,11 @@
   "machine_gun": {
     "sounds": [
       "forglory:minigun_windup"
+    ]
+  },
+  "machine_gun_voice": {
+    "sounds": [
+      "forglory:bastion_ult"
     ]
   },
   "knockback_fist_act": {
@@ -123,9 +133,19 @@
       "forglory:choir"
     ]
   },
+  "heal_trail_voice": {
+    "sounds": [
+      "forglory:deus_vult"
+    ]
+  },
   "fire_zone_pulse": {
     "sounds": [
       "forglory:fire_zone"
+    ]
+  },
+  "fire_zone_voice": {
+    "sounds": [
+      "forglory:fire_storm"
     ]
   },
   "instant_killed": {
@@ -141,6 +161,11 @@
   "last_standing_voice": {
     "sounds": [
       "forglory:valkyr_cry"
+    ]
+  },
+  "fireworker_voice": {
+    "sounds": [
+      "forglory:shokyaku"
     ]
   }
 }

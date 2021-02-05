@@ -1,8 +1,12 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Utils;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
+import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
@@ -11,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -29,6 +34,9 @@ public class FireworkerMixin {
     @Inject(method = "loadProjectiles", at = @At("HEAD"))
     private static void setFireworkProjectile(LivingEntity shooter, ItemStack projectile, CallbackInfoReturnable<Boolean> cir) {
         if (Utils.canUseFeat(shooter, Feats.FIREWORKER)) {
+            if(MyComponents.FEATS.get(shooter).getForgloryClass() == FeatsClass.HUNTER) {
+                NetworkInit.playSound(SoundsInit.FIREWORKER_VOICE_ID, (ServerPlayerEntity) shooter, true);
+            }
             CompoundTag compoundTag = new CompoundTag();
             CompoundTag firework = new CompoundTag();
             ListTag explosionsList = new ListTag();

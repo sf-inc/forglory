@@ -49,11 +49,17 @@ public class SoundsInit {
     public static final Identifier FIRE_TRAIL_ACT_ID = new Identifier("forglory:fire_trail_act");
     public static SoundEvent fire_trail_act = new SoundEvent(FIRE_TRAIL_ACT_ID);
 
+    public static final Identifier FIRE_TRAIL_ACT_VOICE_ID = new Identifier("forglory:fire_trail_act_voice");
+    public static SoundEvent fire_trail_act_voice = new SoundEvent(FIRE_TRAIL_ACT_VOICE_ID);
+
     public static final Identifier VAMPIRISM_ID = new Identifier("forglory:vampirism");
     public static SoundEvent vampirism = new SoundEvent(VAMPIRISM_ID);
 
     public static final Identifier MACHINE_GUN_ID = new Identifier("forglory:machine_gun");
     public static SoundEvent machine_gun = new SoundEvent(MACHINE_GUN_ID);
+
+    public static final Identifier MACHINE_GUN_VOICE_ID = new Identifier("forglory:machine_gun_voice");
+    public static SoundEvent machine_gun_voice = new SoundEvent(MACHINE_GUN_VOICE_ID);
 
     public static final Identifier KNOCKBACK_FIST_ACT_ID = new Identifier("forglory:knockback_fist_act");
     public static SoundEvent knockback_fist_act = new SoundEvent(KNOCKBACK_FIST_ACT_ID);
@@ -79,8 +85,14 @@ public class SoundsInit {
     public static final Identifier HEAL_TRAIL_ID = new Identifier("forglory:heal_trail");
     public static SoundEvent heal_trail = new SoundEvent(HEAL_TRAIL_ID);
 
+    public static final Identifier HEAL_TRAIL_VOICE_ID = new Identifier("forglory:heal_trail_voice");
+    public static SoundEvent heal_trail_voice = new SoundEvent(HEAL_TRAIL_VOICE_ID);
+
     public static final Identifier FIRE_ZONE_PULSE_ID = new Identifier("forglory:fire_zone_pulse");
     public static SoundEvent fire_zone_pulse = new SoundEvent(FIRE_ZONE_PULSE_ID);
+
+    public static final Identifier FIRE_ZONE_VOICE_ID = new Identifier("forglory:fire_zone_voice");
+    public static SoundEvent fire_zone_voice = new SoundEvent(FIRE_ZONE_VOICE_ID);
 
     public static final Identifier INSTANT_KILLED_ID = new Identifier("forglory:instant_killed");
     public static SoundEvent instant_killed = new SoundEvent(INSTANT_KILLED_ID);
@@ -90,6 +102,9 @@ public class SoundsInit {
 
     public static final Identifier LAST_STANDING_VOICE_ID = new Identifier("forglory:last_standing_voice");
     public static SoundEvent last_standing_voice = new SoundEvent(LAST_STANDING_VOICE_ID);
+
+    public static final Identifier FIREWORKER_VOICE_ID = new Identifier("forglory:fireworker_voice");
+    public static SoundEvent fireworker_voice = new SoundEvent(FIREWORKER_VOICE_ID);
 
     public static void init() {
         Registry.register(Registry.SOUND_EVENT, TIER_1_EFFECT_ID, tier_1_whoosh_event);
@@ -114,9 +129,13 @@ public class SoundsInit {
 
         Registry.register(Registry.SOUND_EVENT, FIRE_TRAIL_ACT_ID, fire_trail_act);
 
+        Registry.register(Registry.SOUND_EVENT, FIRE_TRAIL_ACT_VOICE_ID, fire_trail_act_voice);
+
         Registry.register(Registry.SOUND_EVENT, VAMPIRISM_ID, vampirism);
 
         Registry.register(Registry.SOUND_EVENT, MACHINE_GUN_ID, machine_gun);
+
+        Registry.register(Registry.SOUND_EVENT, MACHINE_GUN_VOICE_ID, machine_gun_voice);
 
         Registry.register(Registry.SOUND_EVENT, KNOCKBACK_FIST_ACT_ID, knockback_fist_act);
 
@@ -134,7 +153,11 @@ public class SoundsInit {
 
         Registry.register(Registry.SOUND_EVENT, HEAL_TRAIL_ID, heal_trail);
 
+        Registry.register(Registry.SOUND_EVENT, HEAL_TRAIL_VOICE_ID, heal_trail_voice);
+
         Registry.register(Registry.SOUND_EVENT, FIRE_ZONE_PULSE_ID, fire_zone_pulse);
+
+        Registry.register(Registry.SOUND_EVENT, FIRE_ZONE_VOICE_ID, fire_zone_voice);
 
         Registry.register(Registry.SOUND_EVENT, INSTANT_KILLED_ID, instant_killed);
 

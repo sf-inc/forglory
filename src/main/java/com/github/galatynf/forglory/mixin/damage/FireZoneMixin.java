@@ -2,8 +2,10 @@ package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.BlocksInit;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
@@ -33,9 +35,18 @@ public abstract class FireZoneMixin extends Entity {
     @Unique
     float forglory_fireRadius;
 
+    @Unique
+    private boolean forglory_firstTime_FZ = true;
+
     @Inject(at = @At("INVOKE"), method = "tick")
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
+            if(forglory_firstTime_FZ) {
+                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
+                    NetworkInit.playSound(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
+                }
+                forglory_firstTime_FZ = false;
+            }
             if (forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius == 0) {
                 NetworkInit.playSound(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this);
             }
@@ -52,6 +63,9 @@ public abstract class FireZoneMixin extends Entity {
                         forglory_fireRadius * Math.sin(i * angle));
                 spawnFireZ(blockPos);
             }
+        }
+        else {
+            forglory_firstTime_FZ = true;
         }
     }
 
