@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "QTQ",
+    " Q "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:emerald"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "forglory:anti_gem2",
+    "count": 1
+  }
+}

@@ -4,6 +4,11 @@
 
   "itemGroup.forglory.gems": "For Glory : Gemmes",
 
+  "item.forglory.anti_gem1": "Anti-Gemme Tier 1",
+  "item.forglory.anti_gem2": "Anti-Gemme Tier 2",
+  "item.forglory.anti_gem3": "Anti-Gemme Tier 3",
+  "item.forglory.anti_gem4": "Anti-Gemme Tier 4",
+
   "item.forglory.damage_gem": "Gemme de Dégâts",
   "item.forglory.fire_trail_gem": "Gemme de Traînée de Feu",
   "item.forglory.smite_gem": "Gemme de Châtiment",
