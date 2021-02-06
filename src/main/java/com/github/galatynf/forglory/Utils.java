@@ -4,7 +4,12 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.init.ItemsInit;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class Utils {
     private Utils() {
@@ -48,5 +53,16 @@ public class Utils {
             amount *= multiplier;
         }
         return amount;
+    }
+
+    public static void dropEssence(final World world, final BlockPos blockPos, final int min, final int max) {
+        ItemEntity itemEntity;
+        ItemStack loot = new ItemStack(ItemsInit.essence);
+        loot.setCount(world.random.nextInt((max - min) + 1) + min);
+        if (!loot.isEmpty()) {
+            itemEntity = new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), loot);
+            itemEntity.setToDefaultPickupDelay();
+            world.spawnEntity(itemEntity);
+        }
     }
 }

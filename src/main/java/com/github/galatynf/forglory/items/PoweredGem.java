@@ -1,11 +1,11 @@
 package com.github.galatynf.forglory.items;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.BlocksInit;
-import com.github.galatynf.forglory.init.ItemsInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,16 +48,9 @@ public abstract class PoweredGem extends Item {
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0F, 1.0F);
                 user.getStackInHand(hand).decrement(1);
 
-                ItemEntity itemEntity;
-                ItemStack loot = new ItemStack(ItemsInit.essence);
-                loot.setCount(world.random.nextInt(2));
-                if (!loot.isEmpty()) {
-                    itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), loot);
-                    itemEntity.setToDefaultPickupDelay();
-                    world.spawnEntity(itemEntity);
-                }
-                loot = new ItemStack(this.gem);
-                itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), loot);
+                Utils.dropEssence(world, pos, 0, 1);
+                ItemStack loot = new ItemStack(this.gem);
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), loot);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
 

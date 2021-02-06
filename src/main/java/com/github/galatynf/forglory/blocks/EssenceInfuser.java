@@ -1,9 +1,9 @@
 package com.github.galatynf.forglory.blocks;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.init.ItemsInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -62,24 +62,14 @@ public class EssenceInfuser extends Block {
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        ItemStack essence;
-        int essenceNumber;
         boolean isCharged = state.get(CHARGED);
         boolean isInfinite = state.get(INFINITE);
 
         if (isCharged) {
             if (isInfinite) {
-                essenceNumber = world.random.nextInt(3) + 1;
+                Utils.dropEssence(world, pos, 1, 3);
             } else {
-                essenceNumber = world.random.nextInt(2);
-            }
-            essence = new ItemStack(ItemsInit.essence);
-            essence.setCount(essenceNumber);
-
-            if (!essence.isEmpty()) {
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), essence);
-                itemEntity.setToDefaultPickupDelay();
-                world.spawnEntity(itemEntity);
+                Utils.dropEssence(world, pos, 0, 1);
             }
         }
     }
@@ -94,7 +84,6 @@ public class EssenceInfuser extends Block {
 
     public static void charge(World world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(CHARGED, true), 3);
-        // Change with custom sound
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 

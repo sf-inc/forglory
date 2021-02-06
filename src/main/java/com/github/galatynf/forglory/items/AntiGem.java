@@ -1,11 +1,10 @@
 package com.github.galatynf.forglory.items;
 
+import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.init.ItemsInit;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,14 +34,7 @@ public class AntiGem extends Item {
                 user.getStackInHand(hand).damage(1, user,
                         playerEntity -> playerEntity.sendEquipmentBreakStatus(hand.equals(Hand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
 
-                ItemEntity itemEntity;
-                ItemStack loot = new ItemStack(ItemsInit.essence);
-                loot.setCount(world.random.nextInt(2));
-                if (!loot.isEmpty()) {
-                    itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), loot);
-                    itemEntity.setToDefaultPickupDelay();
-                    world.spawnEntity(itemEntity);
-                }
+                Utils.dropEssence(world, pos, 0, 1);
 
                 return new TypedActionResult<>(ActionResult.CONSUME, user.getStackInHand(hand));
             }
