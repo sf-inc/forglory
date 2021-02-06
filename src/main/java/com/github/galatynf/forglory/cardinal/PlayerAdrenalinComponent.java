@@ -51,7 +51,7 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
         }
         if(prev_adrenalin < threshold && forglory_adrenalin >= threshold) {
             forglory_adrenalin = threshold+600;
-            if(MyComponents.FEATS.get(this).getForgloryClass() != FeatsClass.NONE) {
+            if(MyComponents.FEATS.get(provider).getForgloryClass() != FeatsClass.NONE) {
                 forglory_adrenalin += 200;
             }
             return;
