@@ -19,12 +19,14 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class PoweredGem extends Item {
-    protected Feats feat;
-    protected Gem gem;
+public class PoweredGem extends Item {
+    private final Feats feat;
+    private final Gem gem;
 
-    protected PoweredGem(Settings settings) {
+    public PoweredGem(Settings settings, Feats feat, Gem gem) {
         super(settings);
+        this.feat = feat;
+        this.gem = gem;
     }
 
     @Override

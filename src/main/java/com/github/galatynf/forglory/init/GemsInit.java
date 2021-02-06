@@ -1,11 +1,10 @@
 package com.github.galatynf.forglory.init;
 
+import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.items.AntiGem;
-import com.github.galatynf.forglory.items.damage.*;
-import com.github.galatynf.forglory.items.heal.*;
-import com.github.galatynf.forglory.items.misc.*;
-import com.github.galatynf.forglory.items.mobility.*;
+import com.github.galatynf.forglory.items.Gem;
+import com.github.galatynf.forglory.items.PoweredGem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -20,40 +19,40 @@ public class GemsInit {
     public static final AntiGem antiGemIII = new AntiGem(settings.maxDamage(3), Tier.TIER3);
     public static final AntiGem antiGemIV = new AntiGem(settings.maxDamage(4), Tier.TIER4);
 
-    public static final DamageGem damageGem = new DamageGem(settings);
-    public static final SmiteGem smiteGem = new SmiteGem(settings);
-    public static final StrengthGem strengthGem = new StrengthGem(settings);
-    public static final FireTrailGem fireTrailGem = new FireTrailGem(settings);
-    public static final MachineGunGem machineGunGem = new MachineGunGem(settings);
-    public static final DamageSlowedGem damageSlowedGem = new DamageSlowedGem(settings);
-    public static final ShieldGem superShieldGem = new ShieldGem(settings);
-    public static final FireworkerGem fireworkerGem = new FireworkerGem(settings);
-    public static final FireZoneGem fireZoneGem = new FireZoneGem(settings);
-    public static final InstantKillGem instantKillGem = new InstantKillGem(settings);
+    public static final Gem damageGem = new Gem(settings);
+    public static final PoweredGem smiteGem = new PoweredGem(settings, Feats.SMITE, damageGem);
+    public static final PoweredGem strengthGem = new PoweredGem(settings, Feats.STRENGTH, damageGem);
+    public static final PoweredGem fireTrailGem = new PoweredGem(settings, Feats.FIRE_TRAIL, damageGem);
+    public static final PoweredGem machineGunGem = new PoweredGem(settings, Feats.MACHINE_GUN, damageGem);
+    public static final PoweredGem damageSlowedGem = new PoweredGem(settings, Feats.DAMAGE_SLOWED, damageGem);
+    public static final PoweredGem superShieldGem = new PoweredGem(settings, Feats.SUPER_SHIELD, damageGem);
+    public static final PoweredGem fireworkerGem = new PoweredGem(settings, Feats.FIREWORKER, damageGem);
+    public static final PoweredGem fireZoneGem = new PoweredGem(settings, Feats.FIRE_ZONE, damageGem);
+    public static final PoweredGem instantKillGem = new PoweredGem(settings, Feats.INSTANT_KILL, damageGem);
 
-    public static final HealGem healGem = new HealGem(settings);
-    public static final ResistanceGem resistanceGem = new ResistanceGem(settings);
-    public static final HealingFistGem healingFistGem = new HealingFistGem(settings);
-    public static final ShieldResistanceGem shieldResistanceGem = new ShieldResistanceGem(settings);
-    public static final HealTrailGem healTrailGem = new HealTrailGem(settings);
-    public static final LastStandGem lastStandGem = new LastStandGem(settings);
+    public static final Gem healGem = new Gem(settings);
+    public static final PoweredGem resistanceGem = new PoweredGem(settings, Feats.RESISTANCE, healGem);
+    public static final PoweredGem healingFistGem = new PoweredGem(settings, Feats.HEALING_FIST, healGem);
+    public static final PoweredGem shieldResistanceGem = new PoweredGem(settings, Feats.SHIELD_RESISTANCE, healGem);
+    public static final PoweredGem healTrailGem = new PoweredGem(settings, Feats.HEAL_TRAIL, healGem);
+    public static final PoweredGem lastStandGem = new PoweredGem(settings, Feats.LAST_STAND, healGem);
 
-    public static final MiscGem miscGem = new MiscGem(settings);
-    public static final ArrowComboGem arrowComboGem = new ArrowComboGem(settings);
-    public static final BloodlustGem bloodlustGem = new BloodlustGem(settings);
-    public static final DogGem dogGem = new DogGem(settings);
-    public static final KnockbackFistGem knockbackFistGem = new KnockbackFistGem(settings);
-    public static final MountainGem mountainGem = new MountainGem(settings);
-    public static final BeesGem beesGem = new BeesGem(settings);
-    public static final InvisibleGem invisibleGem = new InvisibleGem(settings);
-    public static final UndeadArmyGem undeadArmyGem = new UndeadArmyGem(settings);
+    public static final Gem miscGem = new Gem(settings);
+    public static final PoweredGem arrowComboGem = new PoweredGem(settings, Feats.ARROW_COMBO, miscGem);
+    public static final PoweredGem bloodlustGem = new PoweredGem(settings, Feats.BLOODLUST, miscGem);
+    public static final PoweredGem dogGem = new PoweredGem(settings, Feats.DOG, miscGem);
+    public static final PoweredGem knockbackFistGem = new PoweredGem(settings, Feats.KNOCKBACK_FIST, miscGem);
+    public static final PoweredGem mountainGem = new PoweredGem(settings, Feats.MOUNTAIN, miscGem);
+    public static final PoweredGem beesGem = new PoweredGem(settings, Feats.BEES, miscGem);
+    public static final PoweredGem invisibleGem = new PoweredGem(settings, Feats.INVISIBLE, miscGem);
+    public static final PoweredGem undeadArmyGem = new PoweredGem(settings, Feats.UNDEAD_ARMY, miscGem);
 
-    public static final MobilityGem mobilityGem = new MobilityGem(settings);
-    public static final NoHungerGem noHungerGem = new NoHungerGem(settings);
-    public static final SpeedGem speedGem = new SpeedGem(settings);
-    public static final DashGem dashGem = new DashGem(settings);
-    public static final JumpBoostGem jumpBoostGem = new JumpBoostGem(settings);
-    public static final StridersGraceGem stridersGraceGem = new StridersGraceGem(settings);
+    public static final Gem mobilityGem = new Gem(settings);
+    public static final PoweredGem noHungerGem = new PoweredGem(settings, Feats.NO_HUNGER, mobilityGem);
+    public static final PoweredGem speedGem = new PoweredGem(settings, Feats.SPEED, mobilityGem);
+    public static final PoweredGem dashGem = new PoweredGem(settings, Feats.DASH, mobilityGem);
+    public static final PoweredGem jumpBoostGem = new PoweredGem(settings, Feats.JUMP_BOOST, mobilityGem);
+    public static final PoweredGem stridersGraceGem = new PoweredGem(settings, Feats.STRIDERS_GRACE, mobilityGem);
 
     public static void init() {
         Registry.register(Registry.ITEM, new Identifier("forglory", "anti_gem1"), antiGemI);
