@@ -3,8 +3,8 @@ package com.github.galatynf.forglory.init;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.items.AntiGem;
-import com.github.galatynf.forglory.items.Gem;
 import com.github.galatynf.forglory.items.PoweredGem;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -19,7 +19,7 @@ public class GemsInit {
     public static final AntiGem antiGemIII = new AntiGem(settings.maxDamage(3), Tier.TIER3);
     public static final AntiGem antiGemIV = new AntiGem(settings.maxDamage(4), Tier.TIER4);
 
-    public static final Gem damageGem = new Gem(settings);
+    public static final Item damageGem = new Item(settings);
     public static final PoweredGem smiteGem = new PoweredGem(settings, Feats.SMITE, damageGem);
     public static final PoweredGem strengthGem = new PoweredGem(settings, Feats.STRENGTH, damageGem);
     public static final PoweredGem fireTrailGem = new PoweredGem(settings, Feats.FIRE_TRAIL, damageGem);
@@ -30,14 +30,14 @@ public class GemsInit {
     public static final PoweredGem fireZoneGem = new PoweredGem(settings, Feats.FIRE_ZONE, damageGem);
     public static final PoweredGem instantKillGem = new PoweredGem(settings, Feats.INSTANT_KILL, damageGem);
 
-    public static final Gem healGem = new Gem(settings);
+    public static final Item healGem = new Item(settings);
     public static final PoweredGem resistanceGem = new PoweredGem(settings, Feats.RESISTANCE, healGem);
     public static final PoweredGem healingFistGem = new PoweredGem(settings, Feats.HEALING_FIST, healGem);
     public static final PoweredGem shieldResistanceGem = new PoweredGem(settings, Feats.SHIELD_RESISTANCE, healGem);
     public static final PoweredGem healTrailGem = new PoweredGem(settings, Feats.HEAL_TRAIL, healGem);
     public static final PoweredGem lastStandGem = new PoweredGem(settings, Feats.LAST_STAND, healGem);
 
-    public static final Gem miscGem = new Gem(settings);
+    public static final Item miscGem = new Item(settings);
     public static final PoweredGem arrowComboGem = new PoweredGem(settings, Feats.ARROW_COMBO, miscGem);
     public static final PoweredGem bloodlustGem = new PoweredGem(settings, Feats.BLOODLUST, miscGem);
     public static final PoweredGem dogGem = new PoweredGem(settings, Feats.DOG, miscGem);
@@ -47,7 +47,7 @@ public class GemsInit {
     public static final PoweredGem invisibleGem = new PoweredGem(settings, Feats.INVISIBLE, miscGem);
     public static final PoweredGem undeadArmyGem = new PoweredGem(settings, Feats.UNDEAD_ARMY, miscGem);
 
-    public static final Gem mobilityGem = new Gem(settings);
+    public static final Item mobilityGem = new Item(settings);
     public static final PoweredGem noHungerGem = new PoweredGem(settings, Feats.NO_HUNGER, mobilityGem);
     public static final PoweredGem speedGem = new PoweredGem(settings, Feats.SPEED, mobilityGem);
     public static final PoweredGem dashGem = new PoweredGem(settings, Feats.DASH, mobilityGem);

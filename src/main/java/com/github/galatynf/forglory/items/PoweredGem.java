@@ -21,9 +21,9 @@ import net.minecraft.world.World;
 
 public class PoweredGem extends Item {
     private final Feats feat;
-    private final Gem gem;
+    private final Item gem;
 
-    public PoweredGem(Settings settings, Feats feat, Gem gem) {
+    public PoweredGem(Settings settings, Feats feat, Item gem) {
         super(settings);
         this.feat = feat;
         this.gem = gem;
