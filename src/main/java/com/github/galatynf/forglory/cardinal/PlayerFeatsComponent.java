@@ -60,6 +60,13 @@ public class PlayerFeatsComponent implements FeatsComponent {
     }
 
     @Override
+    public void removeFeat(Tier tier) {
+        forglory_feats.put(tier, Feats.NO_FEAT);
+        forglory_cooldowns.put(tier, ConstantsConfig.NO_COOLDOWN);
+        forglory_class = FeatsClass.hasClass(forglory_feats);
+    }
+
+    @Override
     public void resetCooldown(final Tier tier) {
         Feats feat = forglory_feats.get(tier);
         forglory_cooldowns.put(tier, feat.cooldown);
