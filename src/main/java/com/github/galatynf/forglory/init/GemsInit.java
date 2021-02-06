@@ -1,5 +1,7 @@
 package com.github.galatynf.forglory.init;
 
+import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.items.AntiGem;
 import com.github.galatynf.forglory.items.damage.*;
 import com.github.galatynf.forglory.items.heal.*;
 import com.github.galatynf.forglory.items.misc.*;
@@ -12,6 +14,11 @@ import static com.github.galatynf.forglory.init.ItemsInit.settings;
 public class GemsInit {
     private GemsInit() {
     }
+
+    public static final AntiGem antiGemI = new AntiGem(settings.maxDamage(1), Tier.TIER1);
+    public static final AntiGem antiGemII = new AntiGem(settings.maxDamage(2), Tier.TIER2);
+    public static final AntiGem antiGemIII = new AntiGem(settings.maxDamage(3), Tier.TIER3);
+    public static final AntiGem antiGemIV = new AntiGem(settings.maxDamage(4), Tier.TIER4);
 
     public static final DamageGem damageGem = new DamageGem(settings);
     public static final SmiteGem smiteGem = new SmiteGem(settings);
@@ -49,6 +56,11 @@ public class GemsInit {
     public static final StridersGraceGem stridersGraceGem = new StridersGraceGem(settings);
 
     public static void init() {
+        Registry.register(Registry.ITEM, new Identifier("forglory", "anti_gem1"), antiGemI);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "anti_gem2"), antiGemII);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "anti_gem3"), antiGemIII);
+        Registry.register(Registry.ITEM, new Identifier("forglory", "anti_gem4"), antiGemIV);
+
         Registry.register(Registry.ITEM, new Identifier("forglory", "damage_gem"), damageGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "smite_gem"), smiteGem);
         Registry.register(Registry.ITEM, new Identifier("forglory", "strength_gem"), strengthGem);
