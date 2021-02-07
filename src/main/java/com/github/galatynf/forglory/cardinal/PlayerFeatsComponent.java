@@ -4,21 +4,26 @@ import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.enumFeat.Tier;
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.HashMap;
 
-public class PlayerFeatsComponent implements FeatsComponent {
-    public PlayerFeatsComponent() {
+public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent {
+
+    private final PlayerEntity provider;
+    private final HashMap<Tier, Feats> forglory_feats = new HashMap<>();
+    private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
+    private FeatsClass forglory_class = FeatsClass.NONE;
+
+    public PlayerFeatsComponent(final PlayerEntity playerEntity) {
+        provider = playerEntity;
         for (Tier tier : Tier.values()) {
             forglory_feats.put(tier, Feats.NO_FEAT);
             forglory_cooldowns.put(tier, Feats.NO_FEAT.cooldown);
         }
     }
-
-    private final HashMap<Tier, Feats> forglory_feats = new HashMap<>();
-    private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
-    private FeatsClass forglory_class = FeatsClass.NONE;
 
     @Override
     public void readFromNbt(CompoundTag tag) {
@@ -57,6 +62,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
         forglory_feats.put(feat.tier, feat);
         forglory_cooldowns.put(feat.tier, ConstantsConfig.NO_COOLDOWN);
         forglory_class = FeatsClass.hasClass(forglory_feats);
+        MyComponents.FEATS.sync(provider);
     }
 
     @Override
@@ -64,6 +70,7 @@ public class PlayerFeatsComponent implements FeatsComponent {
         forglory_feats.put(tier, Feats.NO_FEAT);
         forglory_cooldowns.put(tier, ConstantsConfig.NO_COOLDOWN);
         forglory_class = FeatsClass.hasClass(forglory_feats);
+        MyComponents.FEATS.sync(provider);
     }
 
     @Override

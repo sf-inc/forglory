@@ -24,7 +24,7 @@ public class MyComponents implements EntityComponentInitializer {
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(ADRENALIN, PlayerAdrenalinComponent::new, RespawnCopyStrategy.NEVER_COPY);
-        registry.registerForPlayers(FEATS, player -> new PlayerFeatsComponent(), RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerForPlayers(FEATS, PlayerFeatsComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerFor(HeroEntity.class, SUMMONED, hero -> new SummonerComponent());
         registry.registerFor(BeeEntity.class, SUMMONED, bee -> new SummonerComponent());
         registry.registerFor(WolfEntity.class, SUMMONED, wolf -> new SummonerComponent());
