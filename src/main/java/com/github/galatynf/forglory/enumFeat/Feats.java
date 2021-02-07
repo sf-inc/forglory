@@ -45,6 +45,12 @@ public enum Feats {
         this.cooldown = ConstantsConfig.NO_COOLDOWN;
     }
 
+    public String toTranslatableText() {
+        String string = "text.forglory.";
+        string += super.toString().toLowerCase();
+        return string;
+    }
+
     public static void initCooldowns() {
         HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healing_fist_cooldown;
         DASH.cooldown = ModConfig.get().cooldownConfig.dash_cooldown;

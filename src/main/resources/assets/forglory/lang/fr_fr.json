@@ -17,7 +17,7 @@
   "item.forglory.damage_slowed_gem": "Gemme des serres de l'aigle",
   "item.forglory.super_shield_gem": "Gemme du rempart contre-attaque",
   "item.forglory.fire_zone_gem": "Gemme du pandemonium",
-  "item.forglory.fireworker_gem": "Gem de l'artificier",
+  "item.forglory.fireworker_gem": "Gemme de l'artificier",
   "item.forglory.instant_kill_gem": "Gemme senbonzakura",
 
   "item.forglory.heal_gem": "Gemme de soin",
@@ -27,7 +27,7 @@
   "item.forglory.last_stand_gem": "Gemme du baroud d'honneur",
   "item.forglory.heal_trail_gem": "Gemme du phare de l'espoir",
 
-  "item.forglory.misc_gem": "Gemme divers",
+  "item.forglory.misc_gem": "Gemme diverse",
   "item.forglory.arrow_combo_gem": "Gemme du sniper",
   "item.forglory.bloodlust_gem": "Gemme de soif de sang",
   "item.forglory.dog_gem": "Gemme du chien",
@@ -134,5 +134,38 @@
   "text.autoconfig.forglory.category.gui_sounds": "Interface et sons",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles.@PrefixText": "# Sons",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles": "Jouer un son en passant à un tier supérieur",
-  "text.autoconfig.forglory.option.guiSoundsConfig.enable_class_sounds": "Activer les sons de classe"
+  "text.autoconfig.forglory.option.guiSoundsConfig.enable_class_sounds": "Activer les sons de classe",
+
+  "text.forglory.no_feat": "Pas de feat",
+
+  "text.forglory.fire_trail": "Traînée de feu",
+  "text.forglory.smite": "Châtiment",
+  "text.forglory.strength": "Force",
+  "text.forglory.machine_gun": "Mitrailleuse",
+  "text.forglory.damage_slowed": "Serres de l'aigle",
+  "text.forglory.super_shield": "Rempart contre-attaque",
+  "text.forglory.fire_zone": "Pandemonium",
+  "text.forglory.fireworker": "Artificier",
+  "text.forglory.instant_kill": "Senbonzakura",
+
+  "text.forglory.resistance": "Résistance",
+  "text.forglory.healing_fist": "Vampirisme",
+  "text.forglory.shield_resistance": "Volonté de fer",
+  "text.forglory.last_stand": "Baroud d'honneur",
+  "text.forglory.heal_trail": "Phare de l'espoir",
+
+  "text.forglory.arrow_combo": "Sniper",
+  "text.forglory.bloodlust": "Soif de sang",
+  "text.forglory.dog": "Chien",
+  "text.forglory.knockback_fist": "Poing de la légion",
+  "text.forglory.mountain": "Tour",
+  "text.forglory.bees": "Colère de la nature",
+  "text.forglory.invisible": "Guerrier de l'ombre",
+  "text.forglory.undead_army": "Héros de la Terre plate",
+
+  "text.forglory.no_hunger": "Marcheur infatigable",
+  "text.forglory.speed": "Vitesse",
+  "text.forglory.dash": "Ruée",
+  "text.forglory.jump_boost": "Sauts améliorés",
+  "text.forglory.striders_grace": "Grâce de l'arpenteur"
 }

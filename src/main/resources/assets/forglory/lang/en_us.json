@@ -134,5 +134,39 @@
   "text.autoconfig.forglory.category.gui_sounds": "GUI and Sounds",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles.@PrefixText": "# Sounds",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles": "Enable Sounds when passing a higher tier",
-  "text.autoconfig.forglory.option.guiSoundsConfig.enable_class_sounds": "Enable class sounds"
+  "text.autoconfig.forglory.option.guiSoundsConfig.enable_class_sounds": "Enable class sounds",
+
+
+  "text.forglory.no_feat": "No feat",
+
+  "text.forglory.fire_trail": "Fire trail",
+  "text.forglory.smite": "Smite",
+  "text.forglory.strength": "Strength",
+  "text.forglory.machine_gun": "Machine gun",
+  "text.forglory.damage_slowed": "Eagle talons",
+  "text.forglory.super_shield": "Bulwark counter",
+  "text.forglory.fire_zone": "Pandemonium",
+  "text.forglory.fireworker": "Fireworker",
+  "text.forglory.instant_kill": "Senbonzakura",
+
+  "text.forglory.resistance": "Resistance",
+  "text.forglory.healing_fist": "Vampirism",
+  "text.forglory.shield_resistance": "Iron will",
+  "text.forglory.last_stand": "Last stand",
+  "text.forglory.heal_trail": "Beacon of hope",
+
+  "text.forglory.arrow_combo": "Sniper",
+  "text.forglory.bloodlust": "Bloodlust",
+  "text.forglory.dog": "Dog",
+  "text.forglory.knockback_fist": "Legion jab",
+  "text.forglory.mountain": "Tower",
+  "text.forglory.bees": "Wrath of nature",
+  "text.forglory.invisible": "Shadow warrior",
+  "text.forglory.undead_army": "Heroes of the Overworld",
+
+  "text.forglory.no_hunger": "Tireless",
+  "text.forglory.speed": "Speed",
+  "text.forglory.dash": "Dash",
+  "text.forglory.jump_boost": "Bunny spirit",
+  "text.forglory.striders_grace": "Strider's grace"
 }
