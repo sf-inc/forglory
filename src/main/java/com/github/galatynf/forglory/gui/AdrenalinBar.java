@@ -7,7 +7,9 @@ import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -37,9 +39,21 @@ public class AdrenalinBar extends WWidget {
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
         Identifier bar = new Identifier("forglory", "textures/overlay/adrenalin_bar.png");
 
-        if (heightAdrenalin > 0) {
-            ScreenDrawing.coloredRect(x + 1, y - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
+        Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();
+        Window window = MinecraftClient.getInstance().getWindow();
+        int hudWidth = window.getScaledWidth();
+        int xOffset;
+
+        if (arm == Arm.LEFT) {
+            xOffset = (hudWidth / 2) + 91;
+        } else {
+            xOffset = (hudWidth / 2) - 91 - width;
         }
-        ScreenDrawing.texturedRect(x, y, width, height, bar, -1);
+        xOffset = (xOffset > (hudWidth / 2)) ? xOffset + 5 : xOffset - 5;
+
+        if (heightAdrenalin > 0) {
+            ScreenDrawing.coloredRect(x + xOffset + 1, y - height - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
+        }
+        ScreenDrawing.texturedRect(x + xOffset, y - height, width, height, bar, -1);
     }
 }

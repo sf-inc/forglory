@@ -29,6 +29,6 @@ public class ForgloryClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksInit.quickFireBlock, RenderLayer.getCutout());
 
         AdrenalinBar adrenalinBar = new AdrenalinBar();
-        CottonHud.INSTANCE.add(adrenalinBar, 135, -37, 9, 34);
+        CottonHud.INSTANCE.add(adrenalinBar, 0, -3, 9, 34);
     }
 }
