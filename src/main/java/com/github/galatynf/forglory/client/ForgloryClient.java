@@ -1,7 +1,9 @@
 package com.github.galatynf.forglory.client;
 
 import com.github.galatynf.forglory.entity.HeroEntityRenderer;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.gui.AdrenalinBar;
+import com.github.galatynf.forglory.gui.FeatLabel;
 import com.github.galatynf.forglory.init.BlocksInit;
 import com.github.galatynf.forglory.init.EntitiesInit;
 import com.github.galatynf.forglory.init.KeyInit;
@@ -25,7 +27,10 @@ public class ForgloryClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksInit.quickFireBlock, RenderLayer.getCutout());
 
-        AdrenalinBar adrenalinBar = new AdrenalinBar();
-        CottonHud.INSTANCE.add(adrenalinBar, 0, -3, 9, 34);
+        CottonHud.INSTANCE.add(new AdrenalinBar(), 0, -3, 9, 34);
+
+        for (int i=0; i < Tier.values().length; i++) {
+            CottonHud.INSTANCE.add(new FeatLabel(Tier.values()[i]), 0, 20 * (i+1), 100, 15);
+        }
     }
 }
