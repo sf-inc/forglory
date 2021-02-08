@@ -20,6 +20,11 @@ public class AdrenalinBar extends WWidget {
         if (MinecraftClient.getInstance().player == null) return;
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
 
+        if((adrenalin < ModConfig.get().adrenalinConfig.tier1_threshold
+                && ModConfig.get().guiSoundsConfig.hide_adrenalin_bar)){
+            return;
+        }
+
         int a = 255;
         int r, g;
         if (adrenalin < ModConfig.get().adrenalinConfig.tier4_threshold) {
