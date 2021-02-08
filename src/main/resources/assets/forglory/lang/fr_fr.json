@@ -132,6 +132,8 @@
   "text.autoconfig.forglory.option.cooldownConfig.instant_kill_cooldown": "Cooldown : Senbonzakura",
 
   "text.autoconfig.forglory.category.gui_sounds": "Interface et sons",
+  "text.autoconfig.forglory.option.guiSoundsConfig.hide_adrenalin_bar.@PrefixText": "# Interface",
+  "text.autoconfig.forglory.option.guiSoundsConfig.hide_adrenalin_bar": "Cacher la barre d'adrénaline quand elle est basse",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles.@PrefixText": "# Sons",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_tier_jingles": "Jouer un son en passant à un tier supérieur",
   "text.autoconfig.forglory.option.guiSoundsConfig.enable_class_sounds": "Activer les sons de classe",
