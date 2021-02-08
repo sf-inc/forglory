@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.items;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
+import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +28,8 @@ public class AntiGem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient()) {
-            if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT) {
+            if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
+                && !MyComponents.FEATS.get(user).getFeat(this.tier).equals(Feats.NO_FEAT)) {
                 BlockPos pos = user.getBlockPos();
                 MyComponents.FEATS.get(user).removeFeat(this.tier);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 1.0F);
