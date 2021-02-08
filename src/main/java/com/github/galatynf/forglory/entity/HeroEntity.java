@@ -42,15 +42,15 @@ public class HeroEntity extends ZombieEntity {
     public HeroEntity(EntityType<? extends ZombieEntity> entityType, World world) {
         super(entityType, world);
         this.experiencePoints = 0;
-        int rand = (int) (Math.random() * 3);
-        if (rand % 2 == 0) {
+
+        if (world.random.nextBoolean()) {
             this.isFemale = true;
-            this.texture = "female_hero" + rand;
+            this.texture = "female_hero" + world.random.nextInt(4);
         } else {
             this.isFemale = false;
-            this.texture = "male_hero" + rand;
+            this.texture = "male_hero" + world.random.nextInt(6);
         }
-        String name = NAMES[(int) (Math.random() * (NAMES.length - 1))];
+        String name = NAMES[world.random.nextInt(NAMES.length)];
         this.setCustomName(new LiteralText(name));
     }
 
