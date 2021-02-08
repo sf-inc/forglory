@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
@@ -50,7 +51,7 @@ public class HeroEntity extends ZombieEntity {
             this.texture = "male_hero" + rand;
         }
         String name = NAMES[(int) (Math.random() * (NAMES.length - 1))];
-        //this.setCustomName(Text.of(name));
+        this.setCustomName(new LiteralText(name));
     }
 
     @Override
