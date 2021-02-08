@@ -18,6 +18,7 @@ public class FeatLabel extends WDynamicLabel {
         super(() -> I18n.translate("text.forglory.no_feat"));
         this.alignment = HorizontalAlignment.CENTER;
         this.tier = tier;
+        this.color = 15000000;
     }
 
     @Override
