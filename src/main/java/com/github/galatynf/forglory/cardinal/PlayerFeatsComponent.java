@@ -16,6 +16,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
     private final HashMap<Tier, Feats> forglory_feats = new HashMap<>();
     private final HashMap<Tier, Integer> forglory_cooldowns = new HashMap<>();
     private FeatsClass forglory_class = FeatsClass.NONE;
+    private boolean forglory_has_a_feat = false;
 
     public PlayerFeatsComponent(final PlayerEntity playerEntity) {
         provider = playerEntity;
@@ -32,6 +33,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
             this.forglory_cooldowns.put(tier, tag.getInt("cooldown" + tier.toString()));
         }
         this.forglory_class = FeatsClass.valueOf(tag.getString("class"));
+        this.forglory_has_a_feat = tag.getBoolean("hasFeat");
     }
 
     @Override
@@ -41,6 +43,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
             tag.putInt("cooldown" + tier.toString(), forglory_cooldowns.get(tier));
         }
         tag.putString("class", forglory_class.toString());
+        tag.putBoolean("hasFeat", forglory_has_a_feat);
     }
 
     @Override
@@ -62,6 +65,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
         forglory_feats.put(feat.tier, feat);
         forglory_cooldowns.put(feat.tier, ConstantsConfig.NO_COOLDOWN);
         forglory_class = FeatsClass.hasClass(forglory_feats);
+        forglory_has_a_feat = true;
         MyComponents.FEATS.sync(provider);
     }
 
@@ -70,6 +74,13 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
         forglory_feats.put(tier, Feats.NO_FEAT);
         forglory_cooldowns.put(tier, ConstantsConfig.NO_COOLDOWN);
         forglory_class = FeatsClass.hasClass(forglory_feats);
+        forglory_has_a_feat = false;
+        for(Feats aFeat : forglory_feats.values()) {
+            if(aFeat != Feats.NO_FEAT) {
+                forglory_has_a_feat = true;
+                break;
+            }
+        }
         MyComponents.FEATS.sync(provider);
     }
 
@@ -92,5 +103,10 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
                 forglory_cooldowns.put(tier, cooldown - 1);
             }
         }
+    }
+
+    @Override
+    public boolean hasAFeat() {
+        return forglory_has_a_feat;
     }
 }

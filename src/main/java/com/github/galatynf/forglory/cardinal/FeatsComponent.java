@@ -21,4 +21,6 @@ public interface FeatsComponent extends ComponentV3 {
     void decrementCooldowns();
 
     FeatsClass getForgloryClass();
+
+    boolean hasAFeat();
 }

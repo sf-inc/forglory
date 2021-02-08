@@ -39,6 +39,9 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
 
     @Override
     public void addAdrenalin(final float amount) {
+        if(!MyComponents.FEATS.get(provider).hasAFeat()) {
+            return;
+        }
         int threshold = ModConfig.get().adrenalinConfig.tier4_threshold;
         if(forglory_adrenalin >= threshold && amount > 0) {
             return;
