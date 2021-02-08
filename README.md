@@ -40,7 +40,7 @@ instantly go back to half tier 3.
 
 Around the world, a new structure can spawn: ***the lost sanctuary***. A few gifts are waiting for you there, including a new block: ***the essence infuser***.
 
-* **Using:** Standing on it and using a powered gem will give you the power of the gem. You may do this an unlimited number of times as long as you don't break the block
+* **Using:** Standing on it will show you your current feats, and using a powered gem *(still standing on it)*) will give you the power of the gem. You may do this an unlimited number of times as long as you don't break the block
 
 * **Charging:** If you want to bring the block home, breaking it will make it not infinite anymore. In order to use it again, you will need to charge it with ***essence*** before each use
 
@@ -50,11 +50,17 @@ Around the world, a new structure can spawn: ***the lost sanctuary***. A few gif
 
 To get a feat, you got it: you need different ***gems***. A gem is the basis of a power. It can be a damage, a heal, a miscellaneous, or a mobility one.
 
-* **Powered gems:** Those gems are associated with a specific feat. You need a basic gem to create a tier 1 powered gem
+* **Powered gems:** These gems are associated with a specific feat. You need a basic gem to create a tier 1 powered gem
 
 * **More powered gems:** If you want to create a better tier gem, you will need a gem of the same power and of the previous tier. So yes, tier 4 needs a lot of basic gems
 
-* **Using:** When you get the feat of a powered gem *(standing on a charged essence infuser)*, the essence infuser will consume it and give you back the basis gem along with 0 or 1 essence
+* **Using powered gems:** When you get the feat of a powered gem *(standing on a charged essence infuser)*, the essence infuser will consume it and give you back the basis gem along with 0 or 1 essence
+
+* **Anti-gems:** Those gems are associated with a specific tier. Depending on it, they will have a different durability, from 1 to 4
+
+* **Using anti-gems:** Using an anti-gem will get the power of the associated tier out of your body, and it may also give you back 1 essence
+
+Note that for both powered and anti-gems, you need to get rid of your adrenalin
 
 ### Feats
 
@@ -65,6 +71,8 @@ Now that you got your feat(s), there are a few things you need to know:
 * **Not more:** If you try to get a feat of a given tier while you already had one on this slot, the new feat will replace the old one
 
 * **Not dead yet:** Even if you die ~~(and you will)~~, you keep your powers
+
+* **Feat class:** Almost all feats have an associated class. If you get every feat of a class, some special sounds will be played and your adrenalin will last longer in tier 4
 
 For a list of every feat, download the mod. Try, it's fun *(and free !)*
 
