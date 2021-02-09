@@ -62,6 +62,9 @@ public class EssenceInfuser extends Block {
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBreak(world, pos, state, player);
+        if (player.isCreative()) return;
+
         boolean isCharged = state.get(CHARGED);
         boolean isInfinite = state.get(INFINITE);
 
