@@ -33,7 +33,14 @@ public class StructuresInit {
     private static final List<Biome.Category> blacklistedCategories = Arrays
             .asList(Biome.Category.NONE,
                     Biome.Category.NETHER,
-                    Biome.Category.THEEND);
+                    Biome.Category.THEEND,
+                    Biome.Category.OCEAN,
+                    Biome.Category.RIVER,
+                    Biome.Category.DESERT,
+                    Biome.Category.MESA,
+                    Biome.Category.EXTREME_HILLS,
+                    Biome.Category.ICY,
+                    Biome.Category.MUSHROOM);
 
     public static void init() {
         Registry.register(Registry.STRUCTURE_PIECE, new Identifier("forglory", "my_piece"), MY_PIECE);
