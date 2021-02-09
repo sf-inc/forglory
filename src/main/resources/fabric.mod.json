@@ -8,7 +8,11 @@
     "GalatynF",
     "Pardys"
   ],
-  "contact": {},
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/for-glory",
+    "issues": "https://github.com/GalatynF/forglory/issues",
+    "sources": "https://github.com/GalatynF/forglory"
+  },
   "license": "MIT",
   "icon": "assets/forglory/icon.png",
   "environment": "*",
