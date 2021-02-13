@@ -26,10 +26,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 //Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
@@ -141,8 +138,12 @@ public class HeroEntity extends ZombieEntity {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
-        this.targetSelector.add(3, new FollowTargetGoal(this, HostileEntity.class, 5, false, true, (livingEntity) -> !(livingEntity instanceof HeroEntity)));
-    }
+        this.targetSelector.add(3, new FollowTargetGoal<>(this, HostileEntity.class, 5, false, true, (livingEntity) -> !(livingEntity instanceof HeroEntity)));
+        this.targetSelector.add(2, new FollowTargetGoal<>(this, LivingEntity.class, 5, false, true, (livingEntity) -> {
+            PlayerEntity summoner = world.getPlayerByUuid(MyComponents.SUMMONED.get(this).getPlayer());
+            if (summoner == null) return false;
+            return (!(livingEntity instanceof HeroEntity) && (Objects.equals(summoner.getAttacker(), livingEntity) || Objects.equals(summoner.getAttacking(), livingEntity)));
+        }));    }
 
     @Override
     public boolean canPickUpLoot() {

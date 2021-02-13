@@ -80,6 +80,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 ServerPlayNetworking.send(player, NetworkInit.BERSERK_PACKET_ID, buffy);
 
                 forglory_isInBerserkState = true;
+                MyComponents.ADRENALIN.get(this).setAdrenalin(
+                        (float)(ModConfig.get().adrenalinConfig.tier3_threshold+ModConfig.get().adrenalinConfig.tier4_threshold)/2
+                );
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
                 NetworkInit.playSoundWide(SoundsInit.LAST_STANDING_ID, (PlayerEntity) (Object) this, false);
