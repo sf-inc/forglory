@@ -6,6 +6,15 @@ Currently, every **stable** mod version is available on **1.16.4** and **1.16.5*
 * **x.X versions** are either updates that add content or major bug fixes
 * **x.x.X versions** are either small content updates (language translation, new textures, ...) or bug fixes
 
+#### v1.0.2
+
+* Fixed quick fire spawning on liquids
+
+#### v1.0.1
+
+* Fixed adrenalin resetting when activating Last Stand
+* Improved Heroes AI
+
 ## v1.0
 
 * Added adrenalin and a bar to display it
@@ -58,8 +67,3 @@ Currently, every **stable** mod version is available on **1.16.4** and **1.16.5*
 * Quick fire block (spawns with fire trail and fire zone feats)
 * Highly configurable
 * Many other things that you will find out by yourself or in the readme...
-
-#### v1.0.1
-
-* Fixed adrenalin resetting when activating Last Stand
-* Improved Heroes AI
