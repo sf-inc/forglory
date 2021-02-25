@@ -2,6 +2,7 @@ package com.github.galatynf.forglory.init;
 
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.blocks.WittyDirt;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -26,6 +27,9 @@ public class BlocksInit {
     public static final QuickFireBlock quickFireBlock = new QuickFireBlock(FabricBlockSettings
             .of(Material.FIRE, MaterialColor.PURPLE).breakInstantly().noCollision().luminance(15).sounds(BlockSoundGroup.WOOL));
 
+    public static final Block wittyDirt = new WittyDirt(FabricBlockSettings
+            .of(Material.SOIL, MaterialColor.DIRT).strength(0.7F).luminance(1).sounds(BlockSoundGroup.GRAVEL).ticksRandomly());
+
     public static void initClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(quickFireBlock, RenderLayer.getCutout());
     }
@@ -35,5 +39,6 @@ public class BlocksInit {
         Registry.register(Registry.ITEM, new Identifier("forglory", "essence_infuser"), essenceInfuserItem);
 
         Registry.register(Registry.BLOCK, new Identifier("forglory", "quick_fire"), quickFireBlock);
+        Registry.register(Registry.BLOCK, new Identifier("forglory", "witty_dirt"), wittyDirt);
     }
 }

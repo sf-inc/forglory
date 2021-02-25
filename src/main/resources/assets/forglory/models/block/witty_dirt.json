@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "forglory:block/witty_dirt_side",
+    "north": "forglory:block/witty_dirt_side",
+    "south": "forglory:block/witty_dirt_side",
+    "east": "forglory:block/witty_dirt_side",
+    "west": "forglory:block/witty_dirt_side",
+    "up": "forglory:block/witty_dirt_top",
+    "down": "forglory:block/witty_dirt_bottom"
+  }
+}
