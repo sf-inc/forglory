@@ -68,10 +68,12 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
 
         if (this.world.getBlockState(blockPos).isAir()
                 && !this.world.getBlockState(belowBlockPos).isAir()
+                && !this.world.getBlockState(belowBlockPos).getMaterial().isLiquid()
                 && !this.world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
             this.world.setBlockState(blockPos, BlocksInit.quickFireBlock.getDefaultState());
         } else if (this.world.getBlockState(blockPos.down()).isAir()
                 && !this.world.getBlockState(belowBlockPos.down()).isAir()
+                && !this.world.getBlockState(belowBlockPos.down()).getMaterial().isLiquid()
                 && !this.world.getBlockState(belowBlockPos.down()).getBlock().equals(BlocksInit.quickFireBlock)) {
             this.world.setBlockState(blockPos.down(), BlocksInit.quickFireBlock.getDefaultState());
         }
