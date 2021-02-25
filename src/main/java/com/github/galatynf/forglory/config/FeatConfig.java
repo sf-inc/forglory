@@ -28,8 +28,16 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 5, max = 50)
     public int machine_gun_arrows = 15;
 
-    @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
-    public int mountain_height = 5;
+    @ConfigEntry.Gui.CollapsibleObject
+    public MountainConfig mountainConfig = new MountainConfig();
+
+    public static class MountainConfig {
+        @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
+        public int height = 5;
+
+        @ConfigEntry.BoundedDiscrete(min = 3, max = 25)
+        public int max_distance = 10;
+    }
 
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)

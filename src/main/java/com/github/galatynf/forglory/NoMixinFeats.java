@@ -1,9 +1,9 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.init.BlocksInit;
 import com.github.galatynf.forglory.init.NetworkInit;
 import com.github.galatynf.forglory.init.SoundsInit;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -28,12 +28,12 @@ public class NoMixinFeats {
         BlockPos blockPos = playerEntity.getBlockPos();
         BlockPos newBlockPos = blockPos;
         BlockPos sideBlockPos;
-        int height = ModConfig.get().featConfig.mountain_height;
+        int height = ModConfig.get().featConfig.mountainConfig.height;
         for (int i = 0; i < height; i++) {
             newBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
             BlockPos blockPosHead = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
             if (playerEntity.world.getBlockState(blockPosHead).isAir()) {
-                playerEntity.world.setBlockState(newBlockPos, Blocks.DIRT.getDefaultState());
+                playerEntity.world.setBlockState(newBlockPos, BlocksInit.wittyDirt.getDefaultState());
             } else {
                 break;
             }
@@ -44,7 +44,7 @@ public class NoMixinFeats {
                 for (int i = 0; i < heightMax; i++) {
                     sideBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
                     sideBlockPos = sideBlockPos.offset(direction);
-                    playerEntity.world.setBlockState(sideBlockPos, Blocks.DIRT.getDefaultState());
+                    playerEntity.world.setBlockState(sideBlockPos, BlocksInit.wittyDirt.getDefaultState());
                 }
             }
         }
