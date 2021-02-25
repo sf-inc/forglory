@@ -9,6 +9,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class EntitiesInit {
+    private EntitiesInit() {
+    }
 
     public static final EntityType<HeroEntity> HERO = FabricEntityTypeBuilder
             .create(SpawnGroup.MONSTER, HeroEntity::new)
