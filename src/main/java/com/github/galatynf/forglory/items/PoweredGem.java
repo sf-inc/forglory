@@ -33,11 +33,12 @@ public class PoweredGem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         BlockPos pos = user.getBlockPos().down();
         BlockState blockState = world.getBlockState(pos);
+        ItemStack stack = user.getStackInHand(hand);
 
         if (!world.isClient()) {
             if (user.isCreative()) {
                 MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
-                return new TypedActionResult<>(ActionResult.SUCCESS, user.getStackInHand(hand));
+                return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 
             } else if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
                     && blockState.isOf(BlocksInit.essenceInfuser)
@@ -48,7 +49,7 @@ public class PoweredGem extends Item {
                 }
                 MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                user.getStackInHand(hand).decrement(1);
+                stack.decrement(1);
 
                 Utils.dropEssence(world, pos, 0, 1);
                 ItemStack loot = new ItemStack(this.gem);
@@ -56,10 +57,10 @@ public class PoweredGem extends Item {
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
 
-                return new TypedActionResult<>(ActionResult.CONSUME, user.getStackInHand(hand));
+                return new TypedActionResult<>(ActionResult.CONSUME, stack);
             }
-            return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));
+            return new TypedActionResult<>(ActionResult.FAIL, stack);
         }
-        return new TypedActionResult<>(ActionResult.PASS, user.getStackInHand(hand));
+        return new TypedActionResult<>(ActionResult.PASS, stack);
     }
 }

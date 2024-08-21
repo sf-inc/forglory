@@ -5,7 +5,7 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AntiGem extends Item {
-    Tier tier;
+    private final Tier tier;
 
     public AntiGem(Settings settings, Tier tier) {
         super(settings);
@@ -27,21 +27,21 @@ public class AntiGem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
         if (!world.isClient()) {
             if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
                 && !MyComponents.FEATS.get(user).getFeat(this.tier).equals(Feats.NO_FEAT)) {
                 BlockPos pos = user.getBlockPos();
                 MyComponents.FEATS.get(user).removeFeat(this.tier);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                user.getStackInHand(hand).damage(1, user,
-                        playerEntity -> playerEntity.sendEquipmentBreakStatus(hand.equals(Hand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+                stack.damage(1, user, LivingEntity.getSlotForHand(hand));
 
                 Utils.dropEssence(world, pos, 0, 1);
 
-                return new TypedActionResult<>(ActionResult.CONSUME, user.getStackInHand(hand));
+                return new TypedActionResult<>(ActionResult.CONSUME, stack);
             }
-            return new TypedActionResult<>(ActionResult.FAIL, user.getStackInHand(hand));
+            return new TypedActionResult<>(ActionResult.FAIL, stack);
         }
-        return new TypedActionResult<>(ActionResult.PASS, user.getStackInHand(hand));
+        return new TypedActionResult<>(ActionResult.PASS, stack);
     }
 }

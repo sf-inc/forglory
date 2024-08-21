@@ -2,12 +2,12 @@ package com.github.galatynf.forglory.blocks;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -15,49 +15,58 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 import java.util.Collections;
-import java.util.Random;
 
 
 public class QuickFireBlock extends AbstractFireBlock {
+    public static final MapCodec<QuickFireBlock> CODEC = createCodec(QuickFireBlock::new);
     private static final IntProperty AGE = Properties.AGE_25;
     public static final BooleanProperty SHORT = BooleanProperty.of("short");
     private static final float forglory_damage = 1.5F;
+    private static final int forglory_short = 5;
+
+    @Override
+    public MapCodec<QuickFireBlock> getCodec() {
+        return CODEC;
+    }
 
     public QuickFireBlock(Settings settings) {
         super(settings, forglory_damage);
-        setDefaultState(getStateManager().getDefaultState().with(SHORT, false));
+        this.setDefaultState(this.getStateManager().getDefaultState()
+                .with(AGE, 0)
+                .with(SHORT, false));
     }
 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         super.onBlockAdded(state, world, pos, oldState, notify);
-        world.getBlockTickScheduler().schedule(pos, this, 1);
+        world.scheduleBlockTick(pos, this, 1);
     }
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        world.getBlockTickScheduler().schedule(pos, this, 1);
+    @Override
+    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        world.scheduleBlockTick(pos, this, 1);
         if (!state.canPlaceAt(world, pos)) {
             world.removeBlock(pos, false);
         }
 
         int age = state.get(AGE);
-        int ageMax = Collections.max(AGE.getValues());
-        if (state.get(SHORT)) {
-            ageMax = 5;
-        }
+        int ageMax = state.get(SHORT)
+                ? forglory_short
+                : Collections.max(AGE.getValues());
+
         if (age < ageMax) {
             state = state.with(AGE, age + 1);
-            world.setBlockState(pos, state, 4);
+            world.setBlockState(pos, state, Block.NO_REDRAW);
         } else {
             world.removeBlock(pos, false);
         }
     }
 
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity) entity;
+        if (entity instanceof PlayerEntity playerEntity) {
             Feats feat1 = MyComponents.FEATS.get(playerEntity).getFeat(Feats.FIRE_TRAIL.tier);
             Feats feat2 = MyComponents.FEATS.get(playerEntity).getFeat(Feats.FIRE_ZONE.tier);
             if ((feat1 != null && feat1.equals(Feats.FIRE_TRAIL)) ||
@@ -73,7 +82,7 @@ public class QuickFireBlock extends AbstractFireBlock {
                     entity.setOnFireFor(8);
                 }
 
-                entity.damage(DamageSource.IN_FIRE, forglory_damage);
+                entity.damage(world.getDamageSources().inFire(), forglory_damage);
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.imixin;
 
 public interface ILastStandMixin {
-    boolean isBerserk();
+    boolean forglory$isBerserk();
 
-    void setBerserk(boolean setter);
+    void forglory$setBerserk(boolean setter);
 }

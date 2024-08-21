@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.imixin;
 
 public interface IKnockbackFistPlayerMixin {
-    boolean isKnockbackActivated();
+    boolean forglory$isKnockbackActivated();
 
-    void setKnockBack(boolean setter);
+    void forglory$setKnockBack(boolean setter);
 }

@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShieldItem.class)
 public class ShieldItemMixin {
-    @Inject(at = @At("TAIL"), method = "use")
+    @Inject(method = "use", at = @At("TAIL"))
     public void updateTickBlocked(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        ((IShieldMixin) user).resetBlockedTicks();
+        ((IShieldMixin) user).forglory$resetBlockedTicks();
     }
 
 }

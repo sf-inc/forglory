@@ -1,5 +1,5 @@
 package com.github.galatynf.forglory.imixin;
 
 public interface IFireTrailMixin {
-    void invertFireTrail();
+    void forglory$invertFireTrail();
 }

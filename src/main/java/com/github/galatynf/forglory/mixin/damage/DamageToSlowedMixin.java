@@ -9,6 +9,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,12 +21,8 @@ import java.util.Objects;
 
 @Mixin(LivingEntity.class)
 public abstract class DamageToSlowedMixin extends Entity {
-    @Shadow
-    public abstract boolean hasStatusEffect(StatusEffect effect);
-
-    @Shadow
-    public @Nullable
-    abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
+    @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
+    @Shadow @Nullable public abstract StatusEffectInstance getStatusEffect(RegistryEntry<StatusEffect> effect);
 
     public DamageToSlowedMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -37,7 +34,7 @@ public abstract class DamageToSlowedMixin extends Entity {
         if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)) {
             if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
                 float mult = Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F;
-                return (amount * (1 + (mult > 2 ? 2 : mult)));
+                return (amount * (1 + Math.min(mult, 2)));
             }
         }
 

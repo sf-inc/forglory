@@ -25,10 +25,10 @@ public abstract class StridersGraceMixin extends LivingEntity {
         if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
             if (this.isInLava()) {
-                double x = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.sin((-this.yaw * Math.PI) / 180.0D);
-                double y = (ModConfig.get().featConfig.striders_grace_speed / 6.0D) * Math.sin((-this.pitch * Math.PI) / 180.0D);
-                y = (0 < this.pitch && this.pitch < 20) ? 0.05 : y;
-                double z = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.cos((-this.yaw * Math.PI) / 180.0D);
+                double x = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.sin((-this.getYaw() * Math.PI) / 180.0D);
+                double y = (ModConfig.get().featConfig.striders_grace_speed / 6.0D) * Math.sin((-this.getPitch() * Math.PI) / 180.0D);
+                y = (0 < this.getPitch() && this.getPitch() < 20) ? 0.05 : y;
+                double z = (ModConfig.get().featConfig.striders_grace_speed / 4.0D) * Math.cos((-this.getYaw() * Math.PI) / 180.0D);
                 this.setVelocity(x, y, z);
                 this.velocityModified = true;
             }

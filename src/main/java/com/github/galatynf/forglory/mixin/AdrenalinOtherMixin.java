@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public class AdrenalinOtherMixin {
-    @Inject(at = @At("HEAD"), method = "damage")
+    @Inject(method = "damage", at = @At("HEAD"))
     private void incrementPlayerWhenAttacking(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source.getAttacker() instanceof PlayerEntity) {
+        if (source.getAttacker() instanceof PlayerEntity player) {
             float adrenalinAmount = Math.min(amount * ModConfig.get().adrenalinConfig.attack_multiplier, 25);
-            adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) source.getAttacker(), adrenalinAmount);
-            MyComponents.ADRENALIN.get(source.getAttacker()).addAdrenalin(adrenalinAmount);
+            adrenalinAmount = Utils.adrenalinMultiplier(player, adrenalinAmount);
+            MyComponents.ADRENALIN.get(player).addAdrenalin(adrenalinAmount);
         }
     }
 }

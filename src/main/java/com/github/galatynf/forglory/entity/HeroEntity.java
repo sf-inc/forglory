@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -19,20 +18,19 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 import java.util.*;
 
-//Ignore the world constructor error
 public class HeroEntity extends ZombieEntity {
-
-    private AttributeContainer attributeContainer;
-    private String texture;
+    private final String texture;
     private final boolean isFemale;
     private static final String[] NAMES = {"Galatyn", "Pardys", "Zebus", "Chocofurtif", "Extoleon", "Holden", "Hervis", "Astrea", "Apollyon", "Goemon", "Sakura", "Lykeidon", "Iskandar", "Waver", "Dysnomia", "Denheb", "Altair", "Ordan", "Teshin", "Cressa", "Amaryn", "Mercy", "Siv", "Runa", "Seijuro", "Kenshi", "Ermac", "Ultra Galactron the Third, Destroyer of worlds", "NeroBrine", "Faering", "Syntribos", "Asbetos", "Sabaktes", "Rhamnusia", "Dikaiosyne"};
 
@@ -48,67 +46,67 @@ public class HeroEntity extends ZombieEntity {
             this.texture = "male_hero" + world.random.nextInt(6);
         }
         String name = NAMES[world.random.nextInt(NAMES.length)];
-        this.setCustomName(new LiteralText(name));
+        this.setCustomName(Text.literal(name));
     }
 
     @Override
-    protected void initEquipment(LocalDifficulty difficulty) {
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         int opness = ModConfig.get().featConfig.undeadArmyConfig.heroes_OPness;
         int rand = (int) (Math.random() * (7 + opness));
         switch (rand) {
-            case (0):
+            case 0:
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
                 break;
-            case (1):
+            case 1:
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
                 break;
-            case (2):
+            case 2:
                 this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
                 break;
             //If rand is greater than 2 the hero should not have a helmet
         }
         rand = (int) (Math.random() * (7 + opness));
         switch (rand) {
-            case (0):
+            case 0:
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
                 break;
-            case (1):
+            case 1:
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
                 break;
-            case (2):
+            case 2:
                 this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
                 break;
         }
         rand = (int) (Math.random() * (5 + opness));
         switch (rand) {
-            case (0):
+            case 0:
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
                 break;
-            case (1):
+            case 1:
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
                 break;
-            case (2):
+            case 2:
                 this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
                 break;
         }
         rand = (int) (Math.random() * (4 + opness));
         switch (rand) {
-            case (0):
+            case 0:
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
                 break;
-            case (1):
+            case 1:
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
                 break;
-            case (2):
+            case 2:
                 this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
                 break;
         }
         rand = (int) (Math.random() * (2 + opness));
         switch (rand) {
-            case (0):
+            case 0:
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
                 break;
-            case (1):
+            case 1:
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
                 break;
         }
@@ -138,9 +136,9 @@ public class HeroEntity extends ZombieEntity {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, HostileEntity.class, 5, false, true, (livingEntity) -> !(livingEntity instanceof HeroEntity)));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, LivingEntity.class, 5, false, true, (livingEntity) -> {
-            PlayerEntity summoner = world.getPlayerByUuid(MyComponents.SUMMONED.get(this).getPlayer());
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, HostileEntity.class, 5, false, true, (livingEntity) -> !(livingEntity instanceof HeroEntity)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 5, false, true, (livingEntity) -> {
+            PlayerEntity summoner = this.getWorld().getPlayerByUuid(MyComponents.SUMMONED.get(this).getPlayer());
             if (summoner == null) return false;
             return (!(livingEntity instanceof HeroEntity) && (Objects.equals(summoner.getAttacker(), livingEntity) || Objects.equals(summoner.getAttacking(), livingEntity)));
         }));
@@ -153,6 +151,7 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected void initAttributes() {
+        // TODO: Remove super call to avoid call reinforcement
         super.initAttributes();
         Float[] multipliers = {0.8f, 0.9f, 1f, 1.1f, 1.2f};
         int i = 0;
@@ -181,7 +180,7 @@ public class HeroEntity extends ZombieEntity {
         super.tick();
         UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
         if (uuid != null) {
-            PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
+            PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
                     this.kill();
@@ -192,10 +191,15 @@ public class HeroEntity extends ZombieEntity {
     }
 
     @Override
-    public void dealDamage(LivingEntity attacker, Entity target) {
-        super.dealDamage(attacker, target);
-        if (target instanceof LivingEntity && (int) (Math.random() * 5) == 0) {
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0, false, false));
+    public boolean tryAttack(Entity target) {
+        if (!super.tryAttack(target)) {
+            return false;
+        } else {
+            if (target instanceof LivingEntity livingEntity) {
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100), this);
+            }
+
+            return true;
         }
     }
 
@@ -221,7 +225,7 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
-        if (!isFemale) {
+        if (!this.isFemale) {
             return SoundsInit.male_grunt;
         } else {
             return SoundsInit.female_grunt;
@@ -235,23 +239,14 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        SoundEvent returned;
-        if (isFemale) {
-            returned = SoundsInit.female_death;
-        } else {
-            returned = SoundsInit.male_death;
-        }
-        return returned;
+        return this.isFemale ? SoundsInit.female_death : SoundsInit.male_death;
     }
 
     public String getTexture() {
-        return texture;
+        return this.texture;
     }
 
-    public void setTexture(String texture) {
-        this.texture = texture;
-    }
-
+    // TODO: Check if enough, I'd think it still allows spawning as baby
     @Override
     public boolean isBaby() {
         return false;
@@ -268,15 +263,6 @@ public class HeroEntity extends ZombieEntity {
     }
 
     @Override
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
     }
-
-    @Override
-    public AttributeContainer getAttributes() {
-        if (attributeContainer == null)
-            attributeContainer = new AttributeContainer(
-                    HeroEntity.createZombieAttributes().build());
-        return attributeContainer;
-    }
-
 }

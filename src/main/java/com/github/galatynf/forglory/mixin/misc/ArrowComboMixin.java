@@ -17,16 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ProjectileEntity.class)
 public abstract class ArrowComboMixin {
+    @Shadow @Nullable public abstract Entity getOwner();
 
-    @Shadow
-    @Nullable
-    public abstract Entity getOwner();
-
-    @Inject(at = @At("TAIL"), method = "onBlockHit")
+    @Inject(method = "onBlockHit", at = @At("TAIL"))
     private void resetCombo(BlockHitResult blockHitResult, CallbackInfo ci) {
         Entity owner = this.getOwner();
         if (Utils.canUseFeat(owner, Feats.ARROW_COMBO)) {
-            ((IArrowComboMixin) owner).resetCombo();
+            ((IArrowComboMixin) owner).forglory$resetCombo();
         }
     }
 
@@ -34,7 +31,7 @@ public abstract class ArrowComboMixin {
     private void incrementCombo(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity owner = getOwner();
         if (Utils.canUseFeat(owner, Feats.ARROW_COMBO) && entityHitResult.getEntity() instanceof LivingEntity) {
-            ((IArrowComboMixin) owner).incrementCombo();
+            ((IArrowComboMixin) owner).forglory$incrementCombo();
         }
     }
 }

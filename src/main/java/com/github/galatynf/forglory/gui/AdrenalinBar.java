@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.gui;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
@@ -7,8 +8,8 @@ import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.Window;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 
@@ -16,7 +17,7 @@ import net.minecraft.util.Identifier;
 public class AdrenalinBar extends WWidget {
 
     @Override
-    public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
+    public void paint(DrawContext context, int x, int y, int mouseX, int mouseY) {
         if (MinecraftClient.getInstance().player == null) return;
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
 
@@ -42,7 +43,7 @@ public class AdrenalinBar extends WWidget {
         }
         float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold;
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
-        Identifier bar = new Identifier("forglory", "textures/overlay/adrenalin_bar.png");
+        Identifier bar = Forglory.id("textures/overlay/adrenalin_bar.png");
 
         Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();
         Window window = MinecraftClient.getInstance().getWindow();
@@ -57,8 +58,8 @@ public class AdrenalinBar extends WWidget {
         xOffset = (xOffset > (hudWidth / 2)) ? xOffset + 5 : xOffset - 5;
 
         if (heightAdrenalin > 0) {
-            ScreenDrawing.coloredRect(x + xOffset + 1, y - height - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
+            ScreenDrawing.coloredRect(context, x + xOffset + 1, y - height - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
         }
-        ScreenDrawing.texturedRect(x + xOffset, y - height, width, height, bar, -1);
+        ScreenDrawing.texturedRect(context, x + xOffset, y - height, width, height, bar, -1);
     }
 }

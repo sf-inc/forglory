@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.init.ItemsInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -11,11 +12,12 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class EssenceInfuser extends Block {
@@ -40,30 +42,24 @@ public class EssenceInfuser extends Block {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(INFINITE)) {
-            return ActionResult.PASS;
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos,
+                                             PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (isChargeItem(stack) && canCharge(state)) {
+            charge(player, world, pos, state);
+            stack.decrementUnlessCreative(1, player);
+            return ItemActionResult.success(world.isClient);
         } else {
-            ItemStack itemStack = player.getStackInHand(hand);
-            if (hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))) {
-                return ActionResult.PASS;
-            } else if (isChargeItem(itemStack) && canCharge(state)) {
-                charge(world, pos, state);
-                if (!player.abilities.creativeMode) {
-                    itemStack.decrement(1);
-                }
-
-                return ActionResult.success(world.isClient);
-            } else {
-                return ActionResult.PASS;
-            }
+            return hand == Hand.MAIN_HAND && isChargeItem(player.getStackInHand(Hand.OFF_HAND)) && canCharge(state)
+                    ? ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION
+                    : ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
     }
 
+    // TODO: Replace with datagen?
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        if (player.isCreative()) return;
+        if (player.isCreative()) return state;
 
         boolean isCharged = state.get(CHARGED);
         boolean isInfinite = state.get(INFINITE);
@@ -75,18 +71,21 @@ public class EssenceInfuser extends Block {
                 Utils.dropEssence(world, pos, 0, 1);
             }
         }
+        return state;
     }
 
     private static boolean isChargeItem(final ItemStack stack) {
-        return stack.getItem() == ItemsInit.essence;
+        return stack.isOf(ItemsInit.essence);
     }
 
     private static boolean canCharge(final BlockState state) {
-        return !state.get(CHARGED);
+        return !state.get(INFINITE) && !state.get(CHARGED);
     }
 
-    public static void charge(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(CHARGED, true), 3);
+    public static void charge(@Nullable Entity charger, World world, BlockPos pos, BlockState state) {
+        BlockState newState = state.with(CHARGED, true);
+        world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+        world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(charger, newState));
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 

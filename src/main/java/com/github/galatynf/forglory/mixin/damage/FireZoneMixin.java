@@ -7,12 +7,9 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.BlocksInit;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,18 +35,20 @@ public abstract class FireZoneMixin extends Entity {
     @Unique
     private boolean forglory_firstTime_FZ = true;
 
-    @Inject(at = @At("INVOKE"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
-            if(forglory_firstTime_FZ) {
-                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
-                    NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
+            if (forglory_firstTime_FZ) {
+                if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
+                    // FIXME: Replace with world sound
+                    //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
                 }
                 forglory_firstTime_FZ = false;
             }
-            forglory_fireRadius += (double) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
+            forglory_fireRadius += (float) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             if (forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
-                NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this, false);
+                // FIXME: Replace with world sound
+                //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this, false);
                 forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
             }
 
@@ -58,9 +57,9 @@ public abstract class FireZoneMixin extends Entity {
             BlockPos blockPos;
 
             for (int i = 0; i < spawnFire; i++) {
-                blockPos = this.getBlockPos().add(forglory_fireRadius * Math.cos(i * angle),
+                blockPos = this.getBlockPos().add((int) (forglory_fireRadius * Math.cos(i * angle)),
                         0,
-                        forglory_fireRadius * Math.sin(i * angle));
+                        (int) (forglory_fireRadius * Math.sin(i * angle)));
                 spawnFireZ(blockPos);
             }
         }
@@ -69,29 +68,31 @@ public abstract class FireZoneMixin extends Entity {
         }
     }
 
+    @Unique
     private void spawnFireZ(BlockPos blockPos) {
         BlockPos belowBlockPos = blockPos.down();
+        World world = this.getWorld();
 
-        if (this.world.getBlockState(blockPos).isAir()
-                && !this.world.getBlockState(belowBlockPos).isAir()
-                && !this.world.getBlockState(belowBlockPos).getMaterial().isLiquid()
-                && !this.world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
-            this.world.setBlockState(blockPos,
+        if (world.getBlockState(blockPos).isAir()
+                && !world.getBlockState(belowBlockPos).isAir()
+                && !world.getBlockState(belowBlockPos).getFluidState().isEmpty()
+                && !world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
+            world.setBlockState(blockPos,
                     BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
         } else {
             for (int i = 1; i < 3; i++) {
-                if (this.world.getBlockState(blockPos.down(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.down(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.down(i)).getMaterial().isLiquid()
-                        && !this.world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
-                    this.world.setBlockState(blockPos.down(i),
+                if (world.getBlockState(blockPos.down(i)).isAir()
+                        && !world.getBlockState(belowBlockPos.down(i)).isAir()
+                        && !world.getBlockState(belowBlockPos.down(i)).getFluidState().isEmpty()
+                        && !world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
+                    world.setBlockState(blockPos.down(i),
                             BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
-                } else if (this.world.getBlockState(blockPos.up(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.up(i)).isAir()
-                        && !this.world.getBlockState(belowBlockPos.up(i)).getMaterial().isLiquid()
-                        && !this.world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
-                    this.world.setBlockState(blockPos.up(i),
+                } else if (world.getBlockState(blockPos.up(i)).isAir()
+                        && !world.getBlockState(belowBlockPos.up(i)).isAir()
+                        && !world.getBlockState(belowBlockPos.up(i)).getFluidState().isEmpty()
+                        && !world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
+                    world.setBlockState(blockPos.up(i),
                             BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 }

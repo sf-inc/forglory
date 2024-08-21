@@ -36,12 +36,13 @@ public abstract class InvisibleMixin extends LivingEntity {
         if (Utils.canUseFeat(this, Feats.INVISIBLE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
             this.fallDistance = 0;
-            if (forglory_first_time) {
-                NetworkInit.playSoundWide(SoundsInit.INVISIBLE_ID, (ServerPlayerEntity) (Object) this, false);
-                forglory_first_time = false;
+            if (this.forglory_first_time) {
+                // FIXME: Replace with world sound
+                //NetworkInit.playSoundWide(SoundsInit.INVISIBLE_ID, (ServerPlayerEntity) (Object) this, false);
+                this.forglory_first_time = false;
             }
         } else {
-            forglory_first_time = true;
+            this.forglory_first_time = true;
         }
     }
 }

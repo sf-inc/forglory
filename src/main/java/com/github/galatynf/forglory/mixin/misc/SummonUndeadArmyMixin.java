@@ -41,27 +41,30 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
         if (Utils.canUseFeat(this, Feats.UNDEAD_ARMY)) {
             Vec3i offset;
             for (int i = 0; i < ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
-                offset = new Vec3i(Math.random() * 6 - 3, 1, Math.random() * 6 - 3);
-                HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) world, null, null, null, this.getBlockPos().add(offset), SpawnReason.COMMAND, false, false);
+                offset = new Vec3i(this.random.nextBetween(-3, 3), 1, this.random.nextBetween(-3, 3));
+                HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) this.getWorld(), this.getBlockPos().add(offset), SpawnReason.MOB_SUMMONED);
                 if (theHero == null) {
                     System.err.println("Couldn't create hero from undead army Mixin");
                     return;
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
             }
-            NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this, false);
+            // FIXME: Replace with world sound
+            //NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this, false);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
+                // FIXME: Replace with world sound
+                //NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
             }
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }
     }
 
-    @Inject(at = @At("INVOKE"), method = "damage", cancellable = true)
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void preventSummonedtoHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        // FIXME: This doesn't check if summoner
         Entity attacker = source.getAttacker();
         if (attacker instanceof HeroEntity) {
-            cir.cancel();
+            cir.setReturnValue(false);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.github.galatynf.forglory.imixin;
 
 public interface IArrowComboMixin {
-    void incrementCombo();
-
-    void resetCombo();
+    void forglory$incrementCombo();
+    void forglory$resetCombo();
 }

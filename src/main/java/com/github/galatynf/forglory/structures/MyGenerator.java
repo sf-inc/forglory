@@ -1,21 +1,8 @@
 package com.github.galatynf.forglory.structures;
 
-import com.github.galatynf.forglory.init.StructuresInit;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.structure.*;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ServerWorldAccess;
-
-import java.util.List;
-import java.util.Random;
-
+// TODO: Remove when data generated
 public class MyGenerator {
-    private static final Identifier LOST_SANCTUARY = new Identifier("forglory:lost_sanctuary");
+    /*private static final Identifier LOST_SANCTUARY = new Identifier("forglory:lost_sanctuary");
 
     public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieces) {
         pieces.add(new MyPiece(manager, pos, LOST_SANCTUARY, rotation));
@@ -60,5 +47,5 @@ public class MyGenerator {
         protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox) {
 
         }
-    }
+    }*/
 }

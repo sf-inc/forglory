@@ -3,8 +3,6 @@ package com.github.galatynf.forglory.mixin.misc;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -28,14 +26,16 @@ public abstract class KnockbackFistMixin {
     private void stunWhenPunched(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         Entity attacker = source.getAttacker();
         if (attacker instanceof PlayerEntity
-                && ((IKnockbackFistPlayerMixin) attacker).isKnockbackActivated()) {
+                && ((IKnockbackFistPlayerMixin) attacker).forglory$isKnockbackActivated()) {
             if (((PlayerEntity) attacker).getMainHandStack().equals(ItemStack.EMPTY)) {
                 if (MyComponents.FEATS.get(attacker).getForgloryClass() == FeatsClass.CENTURION) {
-                    NetworkInit.playSoundWide(SoundsInit.DIBILIS_ID, (PlayerEntity) attacker, true);
+                    // FIXME: Replace with world sound
+                    //NetworkInit.playSoundWide(SoundsInit.DIBILIS_ID, (PlayerEntity) attacker, true);
                 }
-                NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FISTED_ID, (PlayerEntity) attacker, false);
+                // FIXME: Replace with world sound
+                //NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FISTED_ID, (PlayerEntity) attacker, false);
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 100));
-                ((IKnockbackFistPlayerMixin) attacker).setKnockBack(false);
+                ((IKnockbackFistPlayerMixin) attacker).forglory$setKnockBack(false);
             }
         }
     }

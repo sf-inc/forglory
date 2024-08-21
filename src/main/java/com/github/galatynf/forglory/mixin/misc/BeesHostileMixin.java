@@ -25,19 +25,19 @@ public abstract class BeesHostileMixin extends Entity {
 
     @Inject(at = @At("HEAD"), method = "onDeath")
     private void transformIntoBee(DamageSource source, CallbackInfo ci) {
+        LivingEntity thisEntity = (LivingEntity) (Object) this;
         if (Utils.canUseFeat(source.getAttacker(), Feats.BEES)) {
-            if (this.world.getEntityById(this.getEntityId()) instanceof HostileEntity) {
+            if (thisEntity instanceof HostileEntity) {
                 for (int i = 0; i < 3; i++) {
-                    BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+                    BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.TRIGGERED);
                     if (beeEntity != null) {
                         MyComponents.SUMMONED.get(beeEntity).setPlayer(source.getAttacker().getUuid());
                     }
                 }
             }
-        } else if (source.getAttacker() != null
-                && source.getAttacker() instanceof BeeEntity
+        } else if (source.getAttacker() instanceof BeeEntity
                 && MyComponents.SUMMONED.get(source.getAttacker()).getPlayer() != null) {
-            BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) world, null, null, null, this.getBlockPos().up(), SpawnReason.COMMAND, false, false);
+            BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.TRIGGERED);
             if (beeEntity != null) {
                 MyComponents.SUMMONED.get(beeEntity).setPlayer(MyComponents.SUMMONED.get(source.getAttacker()).getPlayer());
             }

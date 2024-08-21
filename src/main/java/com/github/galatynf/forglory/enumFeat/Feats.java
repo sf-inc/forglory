@@ -37,7 +37,7 @@ public enum Feats {
     LAST_STAND(Tier.TIER4),
     UNDEAD_ARMY(Tier.TIER4);
 
-    public Tier tier;
+    public final Tier tier;
     public int cooldown;
 
     Feats(final Tier tier) {
@@ -47,7 +47,7 @@ public enum Feats {
 
     public String toTranslatableText() {
         String string = "text.forglory.";
-        string += super.toString().toLowerCase();
+        string += this.toString().toLowerCase();
         return string;
     }
 

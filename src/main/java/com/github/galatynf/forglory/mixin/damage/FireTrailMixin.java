@@ -4,12 +4,9 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.init.BlocksInit;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -37,12 +34,12 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
 
 
     @Override
-    public void invertFireTrail() {
+    public void forglory$invertFireTrail() {
         forglory_doFireTrail = !forglory_doFireTrail;
         forglory_startFireTrail = forglory_doFireTrail;
     }
 
-    @Inject(at = @At("INVOKE"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     void spawnFireTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_TRAIL)) {
             if (forglory_startFireTrail) {
@@ -51,7 +48,8 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
                     for (int j = -1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
                         spawnFireT(blockPos);
-                        NetworkInit.playSoundWide(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this, false);
+                        // FIXME: Replace with world sound
+                        //NetworkInit.playSoundWide(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this, false);
                     }
                 }
             } else if (forglory_doFireTrail) {
@@ -63,19 +61,21 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
         }
     }
 
+    @Unique
     private void spawnFireT(BlockPos blockPos) {
         BlockPos belowBlockPos = blockPos.down();
+        World world = this.getWorld();
 
-        if (this.world.getBlockState(blockPos).isAir()
-                && !this.world.getBlockState(belowBlockPos).isAir()
-                && !this.world.getBlockState(belowBlockPos).getMaterial().isLiquid()
-                && !this.world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
-            this.world.setBlockState(blockPos, BlocksInit.quickFireBlock.getDefaultState());
-        } else if (this.world.getBlockState(blockPos.down()).isAir()
-                && !this.world.getBlockState(belowBlockPos.down()).isAir()
-                && !this.world.getBlockState(belowBlockPos.down()).getMaterial().isLiquid()
-                && !this.world.getBlockState(belowBlockPos.down()).getBlock().equals(BlocksInit.quickFireBlock)) {
-            this.world.setBlockState(blockPos.down(), BlocksInit.quickFireBlock.getDefaultState());
+        if (world.getBlockState(blockPos).isAir()
+                && !world.getBlockState(belowBlockPos).isAir()
+                && !world.getBlockState(belowBlockPos).getFluidState().isEmpty()
+                && !world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
+            world.setBlockState(blockPos, BlocksInit.quickFireBlock.getDefaultState());
+        } else if (world.getBlockState(blockPos.down()).isAir()
+                && !world.getBlockState(belowBlockPos.down()).isAir()
+                && !world.getBlockState(belowBlockPos.down()).getFluidState().isEmpty()
+                && !world.getBlockState(belowBlockPos.down()).getBlock().equals(BlocksInit.quickFireBlock)) {
+            world.setBlockState(blockPos.down(), BlocksInit.quickFireBlock.getDefaultState());
         }
     }
 }

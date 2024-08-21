@@ -14,17 +14,17 @@ public class ArrowComboPlayerMixin implements IArrowComboMixin {
     private int combo = 0;
 
     @Override
-    public void incrementCombo() {
-        combo++;
-        if (combo > ModConfig.get().featConfig.combo_max) {
-            combo = ModConfig.get().featConfig.combo_max;
+    public void forglory$incrementCombo() {
+        this.combo++;
+        if (this.combo > ModConfig.get().featConfig.combo_max) {
+            this.combo = ModConfig.get().featConfig.combo_max;
         }
-        float amount = ModConfig.get().featConfig.combo_adrenalin_gain * combo;
+        float amount = ModConfig.get().featConfig.combo_adrenalin_gain * this.combo;
         MyComponents.ADRENALIN.get(this).addAdrenalin(Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount));
     }
 
     @Override
-    public void resetCombo() {
-        combo = 0;
+    public void forglory$resetCombo() {
+        this.combo = 0;
     }
 }

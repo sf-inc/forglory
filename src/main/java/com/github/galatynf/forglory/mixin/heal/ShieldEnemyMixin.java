@@ -16,7 +16,7 @@ public class ShieldEnemyMixin {
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float moreDamageIfCountered(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SUPER_SHIELD)) {
-            if (((IShieldMixin) source.getAttacker()).getBlockedTicks() != 0) {
+            if (((IShieldMixin) source.getAttacker()).forglory$getBlockedTicks() != 0) {
                 amount += ModConfig.get().featConfig.superShieldConfig.damage_added_on_counterattack;
             }
         }

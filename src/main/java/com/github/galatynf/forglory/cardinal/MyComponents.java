@@ -1,25 +1,24 @@
 package com.github.galatynf.forglory.cardinal;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.entity.HeroEntity;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import nerdhub.cardinal.components.api.util.RespawnCopyStrategy;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.util.Identifier;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
 public class MyComponents implements EntityComponentInitializer {
     public static final ComponentKey<AdrenalinComponent> ADRENALIN =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:adrenalin"), AdrenalinComponent.class);
+            ComponentRegistry.getOrCreate(Forglory.id("adrenalin"), AdrenalinComponent.class);
 
     public static final ComponentKey<FeatsComponent> FEATS =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:feats"), FeatsComponent.class);
+            ComponentRegistry.getOrCreate(Forglory.id("feats"), FeatsComponent.class);
 
     public static final ComponentKey<PlayerComponent> SUMMONED =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("forglory:summoned"), PlayerComponent.class);
-
+            ComponentRegistry.getOrCreate(Forglory.id("summoned"), PlayerComponent.class);
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {

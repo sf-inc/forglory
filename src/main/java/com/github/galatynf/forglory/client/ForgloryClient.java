@@ -13,7 +13,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 
 @Environment(EnvType.CLIENT)
@@ -23,14 +23,14 @@ public class ForgloryClient implements ClientModInitializer {
         BlocksInit.initClient();
         KeyInit.initClient();
         NetworkInit.initClient();
-        EntityRendererRegistry.INSTANCE.register(EntitiesInit.HERO, (r, c) -> new HeroEntityRenderer(r));
+        EntityRendererRegistry.register(EntitiesInit.HERO,  HeroEntityRenderer::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksInit.quickFireBlock, RenderLayer.getCutout());
 
-        CottonHud.INSTANCE.add(new AdrenalinBar(), 0, -3, 9, 34);
+        CottonHud.add(new AdrenalinBar(), 0, -3, 9, 34);
 
-        for (int i=0; i < Tier.values().length; i++) {
-            CottonHud.INSTANCE.add(new FeatLabel(Tier.values()[i]), 0, 20 * (i+1), 100, 15);
+        for (int i = 0; i < Tier.values().length; ++i) {
+            CottonHud.add(new FeatLabel(Tier.values()[i]), 0, 20 * (i+1), 100, 15);
         }
     }
 }

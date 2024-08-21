@@ -26,7 +26,7 @@ public abstract class DogMixin extends LivingEntity {
     private void invincibleDog(CallbackInfo ci) {
         UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
         if (uuid != null) {
-            PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
+            PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.DOG.tier.threshold) {
                     this.setInvulnerable(false);

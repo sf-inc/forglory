@@ -29,12 +29,12 @@ public abstract class SummonDogMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void summonTheDog(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.DOG)) {
-            WolfEntity wolfEntity = EntityType.WOLF.spawn((ServerWorld) world, null, null, null, this.getBlockPos(), SpawnReason.COMMAND, false, false);
+            WolfEntity wolfEntity = EntityType.WOLF.spawn((ServerWorld) this.getWorld(), this.getBlockPos(), SpawnReason.MOB_SUMMONED);
             if (wolfEntity == null) {
                 System.err.println("Couldn't create dog from dog Mixin");
                 return;
             }
-            wolfEntity.setTamed(true);
+            wolfEntity.setTamed(true, false);
             wolfEntity.setOwnerUuid(this.getUuid());
             wolfEntity.setInvulnerable(true);
             wolfEntity.setGlowing(true);

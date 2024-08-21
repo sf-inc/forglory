@@ -1,5 +1,6 @@
 package com.github.galatynf.forglory.init;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.NoMixinFeats;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
@@ -7,38 +8,30 @@ import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
-import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class NetworkInit {
     private NetworkInit() {
     }
 
-    public static final Identifier PLAY_SOUND_ID = new Identifier("forglory", "play_sound");
+    public static final Identifier PLAY_SOUND_ID = Forglory.id("play_sound");
 
-    public static final Identifier ACTIVATE_FEAT_PACKET_ID = new Identifier("forglory", "activate_feat");
-    public static final Identifier BERSERK_PACKET_ID = new Identifier("forglory", "is_berserk");
+    public static final Identifier ACTIVATE_FEAT_PACKET_ID = Forglory.id("activate_feat");
+    public static final Identifier BERSERK_PACKET_ID = Forglory.id("is_berserk");
 
     public static void initClient() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+        // FIXME: Make the keybind send a packet
+        /*ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (KeyInit.activateFeatKey.wasPressed()) {
-                ClientPlayNetworking.send(ACTIVATE_FEAT_PACKET_ID, PacketByteBufs.empty());
+                ClientPlayNetworking.send( ACTIVATE_FEAT_PACKET_ID, PacketByteBufs.empty());
             }
-        });
+        });*/
 
-        ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> {
+        // TODO: Check why we have a berserk packet
+        /*ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> {
             boolean setter = buf.readBoolean();
             client.execute(() -> {
                 if (client.player != null) {
@@ -46,9 +39,10 @@ public class NetworkInit {
                 }
             });
 
-        });
+        });*/
 
-        ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
+        // FIXME: Rework sound system to not use packets
+        /*ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
             Identifier id = buf.readIdentifier();
             boolean isClassSound = buf.readBoolean();
             float distance = buf.readFloat();
@@ -59,10 +53,10 @@ public class NetworkInit {
             }
             client.execute(() -> {
             });
-        });
+        });*/
     }
 
-    public static void playSoundWide(Identifier sound, ServerPlayerEntity player, boolean isClassSound) {
+    /*public static void playSoundWide(Identifier sound, ServerPlayerEntity player, boolean isClassSound) {
         PacketByteBuf buffy = PacketByteBufs.create();
         buffy.writeIdentifier(sound);
         buffy.writeBoolean(isClassSound);
@@ -116,10 +110,12 @@ public class NetworkInit {
         buffy.writeBoolean(isClassSound);
         buffy.writeFloat(1);
         ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
-    }
+    }*/
 
     public static void init() {
-        ServerPlayNetworking.registerGlobalReceiver(ACTIVATE_FEAT_PACKET_ID, (server, player, handler, buf, responseSender) -> server.execute(() -> {
+        // FIXME: Handle the receive packet from the keybind
+        /*ServerPlayNetworking.registerGlobalReceiver(ACTIVATE_FEAT_PACKET_ID, (payload, context) -> context.server().execute(() -> {
+            ServerPlayerEntity player = context.player();
             Feats feat = MyComponents.FEATS.get(player).getFeat(Tier.TIER2);
             if (feat == null) return;
             if (MyComponents.ADRENALIN.get(player).getAdrenalin() > Tier.TIER2.threshold &&
@@ -137,13 +133,15 @@ public class NetworkInit {
                 } else if (feat.equals(Feats.MOUNTAIN)) {
                     NoMixinFeats.mountainFeat(player);
                 } else if (feat.equals(Feats.HEALING_FIST)) {
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
-                    playSound(SoundsInit.VAMPIRISM_ID, player);
+                    // FIXME: Do proper registration for effects
+                    //player.addStatusEffect(new StatusEffectInstance(StatusEffectsInit.lifeStealStatusEffect, 100, 0));
+                    // FIXME: Play vampirism sound
+                    //playSound(SoundsInit.VAMPIRISM_ID, player);
                 } else if (feat.equals(Feats.KNOCKBACK_FIST)) {
                     ((IKnockbackFistPlayerMixin) player).setKnockBack(true);
                 }
                 MyComponents.FEATS.get(player).resetCooldown(Tier.TIER2);
             }
-        }));
+        }));*/
     }
 }

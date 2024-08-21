@@ -1,30 +1,11 @@
 package com.github.galatynf.forglory.init;
 
-import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.structures.MyFeature;
-import com.github.galatynf.forglory.structures.MyGenerator;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.minecraft.structure.StructurePieceType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
-
-import java.util.Arrays;
-import java.util.List;
-
 public class StructuresInit {
     private StructuresInit() {
     }
 
-    public static final StructurePieceType MY_PIECE = MyGenerator.MyPiece::new;
+    // FIXME: Replace with data
+    /*public static final StructurePieceType MY_PIECE = MyGenerator.MyPiece::new;
 
     private static final StructureFeature<DefaultFeatureConfig> MY_STRUCTURE = new MyFeature(DefaultFeatureConfig.CODEC);
 
@@ -60,5 +41,5 @@ public class StructuresInit {
                         ModificationPhase.ADDITIONS,
                         context -> !blacklistedCategories.contains(context.getBiome().getCategory()),
                         context -> context.getGenerationSettings().addBuiltInStructure(MY_CONFIGURED));
-    }
+    }*/
 }

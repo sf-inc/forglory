@@ -15,20 +15,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class NoHungerMixin extends LivingEntity {
-    @Shadow
-    public abstract HungerManager getHungerManager();
-
-    @Shadow
-    protected HungerManager hungerManager;
+    @Shadow protected HungerManager hungerManager;
 
     protected NoHungerMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    @Inject(at = @At("INVOKE"), method = "addExhaustion", cancellable = true)
+    @Inject(method = "addExhaustion", at = @At("HEAD"), cancellable = true)
     void preventHungerFromDropping(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.NO_HUNGER)) {
-            if (this.getHungerManager().getFoodLevel() < 7) {
+            if (this.hungerManager.getFoodLevel() < 7) {
                 this.hungerManager.setFoodLevel(7);
                 ci.cancel();
             }

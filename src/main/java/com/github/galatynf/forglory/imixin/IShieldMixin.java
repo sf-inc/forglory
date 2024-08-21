@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.imixin;
 
 public interface IShieldMixin {
-    void resetBlockedTicks();
+    int forglory$getBlockedTicks();
 
-    int getBlockedTicks();
+    void forglory$resetBlockedTicks();
 }

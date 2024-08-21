@@ -16,10 +16,9 @@ public class LastStandLifeStealMixin {
     @Inject(method = "damage", at = @At("TAIL"))
     private void giveHealth(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         Entity attacker = source.getAttacker();
-        if (attacker instanceof PlayerEntity
-                && ((PlayerEntity) attacker).hasStatusEffect(StatusEffectsInit.lifeStealStatusEffect)) {
-            ((PlayerEntity) attacker).setHealth(((PlayerEntity) attacker).getHealth() +
-                    (amount > ModConfig.get().featConfig.life_steal_max_amount ? ModConfig.get().featConfig.life_steal_max_amount : amount));
+        if (attacker instanceof PlayerEntity player
+                && player.hasStatusEffect(StatusEffectsInit.lifeStealStatusEffect)) {
+            player.heal(Math.min(amount, ModConfig.get().featConfig.life_steal_max_amount));
         }
     }
 }

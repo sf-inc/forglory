@@ -17,9 +17,8 @@ public class Utils {
 
     public static boolean canUseFeat(final Object object, final Feats feat) {
         if (object == null) return false;
-        if (!(object instanceof PlayerEntity)) return false;
-        PlayerEntity playerEntity = (PlayerEntity) object;
-        if (playerEntity.world.isClient) return false;
+        if (!(object instanceof PlayerEntity playerEntity)) return false;
+        if (playerEntity.getWorld().isClient()) return false;
 
         Feats playerFeat = MyComponents.FEATS.get(playerEntity).getFeat(feat.tier);
         if (playerFeat == null) return false;

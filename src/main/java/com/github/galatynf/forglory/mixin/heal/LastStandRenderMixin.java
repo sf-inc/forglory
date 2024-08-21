@@ -1,48 +1,36 @@
 package com.github.galatynf.forglory.mixin.heal;
 
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public abstract class LastStandRenderMixin {
-
-    @Shadow
-    @Final
-    private MinecraftClient client;
-    @Shadow
-    private int scaledWidth;
-    @Shadow
-    private int scaledHeight;
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(method = "render", at = @At("HEAD"))
     private void render(CallbackInfo info) {
-        this.scaledWidth = this.client.getWindow().getScaledWidth();
-        this.scaledHeight = this.client.getWindow().getScaledHeight();
-
         assert client.player != null;
-        if (((ILastStandMixin) client.player).isBerserk()) {
+        if (((ILastStandMixin) client.player).forglory$isBerserk()) {
             this.renderBerserkOverlay();
         }
     }
 
+    @Unique
     private void renderBerserkOverlay() {
-        RenderSystem.enableBlend();
+        // FIXME: Check how to render overlay
+        /*RenderSystem.enableBlend();
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.defaultBlendFunc();
-        this.client.getTextureManager().bindTexture(new Identifier("forglory", "textures/overlay/last_stand.png"));
+        this.client.getTextureManager().bindTexture(Forglory.id("textures/overlay/last_stand.png"));
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
@@ -52,6 +40,6 @@ public abstract class LastStandRenderMixin {
         bufferBuilder.vertex(0.0D, 0.0D, -90.0D).texture(0.0F, 0.0F).next();
         tessellator.draw();
         RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
+        RenderSystem.enableDepthTest();*/
     }
 }

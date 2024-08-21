@@ -2,10 +2,7 @@ package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.init.BlocksInit;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -16,12 +13,13 @@ public class NoMixinFeats {
 
     public static void dashFeat(final PlayerEntity playerEntity) {
         Vec3d velocity = playerEntity.getVelocity();
-        double x = velocity.x + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.sin((-playerEntity.yaw * Math.PI) / 180.0D));
-        double y = velocity.y + (((ModConfig.get().featConfig.dash_intensity + 2) / 6.0D) * Math.sin((-playerEntity.pitch * Math.PI) / 180.0D));
-        double z = velocity.z + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.cos((-playerEntity.yaw * Math.PI) / 180.0D));
+        double x = velocity.x + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.sin((-playerEntity.getYaw() * Math.PI) / 180.0D));
+        double y = velocity.y + (((ModConfig.get().featConfig.dash_intensity + 2) / 6.0D) * Math.sin((-playerEntity.getPitch() * Math.PI) / 180.0D));
+        double z = velocity.z + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.cos((-playerEntity.getYaw() * Math.PI) / 180.0D));
         playerEntity.setVelocity(x, y, z);
         playerEntity.velocityModified = true;
-        NetworkInit.playSoundWide(SoundsInit.DASH_ID, (ServerPlayerEntity) playerEntity, false);
+        // FIXME: Replace with world sound
+        //NetworkInit.playSoundWide(SoundsInit.DASH_ID, (ServerPlayerEntity) playerEntity, false);
     }
 
     public static void mountainFeat(final PlayerEntity playerEntity) {
@@ -29,11 +27,11 @@ public class NoMixinFeats {
         BlockPos newBlockPos = blockPos;
         BlockPos sideBlockPos;
         int height = ModConfig.get().featConfig.mountainConfig.height;
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < height; ++i) {
             newBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
             BlockPos blockPosHead = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
-            if (playerEntity.world.getBlockState(blockPosHead).isAir()) {
-                playerEntity.world.setBlockState(newBlockPos, BlocksInit.wittyDirt.getDefaultState());
+            if (playerEntity.getWorld().getBlockState(blockPosHead).isAir()) {
+                playerEntity.getWorld().setBlockState(newBlockPos, BlocksInit.wittyDirt.getDefaultState());
             } else {
                 break;
             }
@@ -44,12 +42,12 @@ public class NoMixinFeats {
                 for (int i = 0; i < heightMax; i++) {
                     sideBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
                     sideBlockPos = sideBlockPos.offset(direction);
-                    playerEntity.world.setBlockState(sideBlockPos, BlocksInit.wittyDirt.getDefaultState());
+                    playerEntity.getWorld().setBlockState(sideBlockPos, BlocksInit.wittyDirt.getDefaultState());
                 }
             }
         }
         playerEntity.teleport(newBlockPos.getX(), newBlockPos.getY() + 1, newBlockPos.getZ(), true);
-        NetworkInit.playSoundWide(SoundsInit.MOUNTAIN_ID, (ServerPlayerEntity) playerEntity, false);
-
+        // FIXME: Replace with world sound
+        //NetworkInit.playSoundWide(SoundsInit.MOUNTAIN_ID, (ServerPlayerEntity) playerEntity, false);
     }
 }

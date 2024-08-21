@@ -4,8 +4,6 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -15,7 +13,6 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -42,36 +39,40 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
     private long forglory_nextArrow;
 
     @Override
-    public void setMachineGun(final int machineGun) {
+    public void forglory$setMachineGun(final int machineGun) {
         forglory_machineGun = machineGun;
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void shootArrows(CallbackInfo ci) {
         if (forglory_machineGun > 0) {
-            if (forglory_nextArrow == world.getTime()
+            if (forglory_nextArrow == this.getWorld().getTime()
                     || forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
 
                 int shootSpeed = 3;
 
                 if (forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machine_gun_arrows, 2));
-                    NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity) (Object) this, false);
-                    if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
-                        NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
+                    // FIXME: Replace with world sound
+                    //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity) (Object) this, false);
+                    if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
+                        // FIXME: Replace with world sound
+                        //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
                     }
                 }
                 forglory_machineGun -= 1;
-                forglory_nextArrow = world.getTime() + shootSpeed;
+                forglory_nextArrow = this.getWorld().getTime() + shootSpeed;
 
-                if (!world.isClient) {
-                    PersistentProjectileEntity persistentProjectileEntity = ((ArrowItem) Items.ARROW).createArrow(world, new ItemStack(Items.BOW), this);
-                    persistentProjectileEntity.setProperties(this, this.pitch, this.yaw, 0.0F, 3.0F, 1.0F);
+                if (!this.getWorld().isClient()) {
+                    ArrowItem arrowItem = (ArrowItem) Items.ARROW;
+                    ItemStack arrowStack = new ItemStack(arrowItem);
+                    PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(this.getWorld(), arrowStack, this, new ItemStack(Items.BOW));
+                    persistentProjectileEntity.setVelocity(this, this.getPitch(), this.getYaw(),0.0F, 3.0F, 1.0F);
                     persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
 
-                    world.spawnEntity(persistentProjectileEntity);
+                    this.getWorld().spawnEntity(persistentProjectileEntity);
                 }
-                this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
             }
         } else {
             forglory_machineGun = 0;

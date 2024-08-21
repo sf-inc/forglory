@@ -9,8 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public class FeatsMixin {
-
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void updateCooldown(CallbackInfo ci) {
         MyComponents.FEATS.get(this).decrementCooldowns();
     }

@@ -7,8 +7,8 @@ import io.github.cottonmc.cotton.gui.widget.WDynamicLabel;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
@@ -22,16 +22,16 @@ public class FeatLabel extends WDynamicLabel {
     }
 
     @Override
-    public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
+    public void paint(DrawContext context, int x, int y, int mouseX, int mouseY) {
         PlayerEntity playerEntity = MinecraftClient.getInstance().player;
         if (playerEntity == null) return;
 
         BlockPos pos = playerEntity.getBlockPos().down();
-        BlockState blockState = playerEntity.world.getBlockState(pos);
+        BlockState blockState = playerEntity.getWorld().getBlockState(pos);
         if (!blockState.isOf(BlocksInit.essenceInfuser)) return;
 
         x = (MinecraftClient.getInstance().getWindow().getScaledWidth() - this.width) / 2;
         this.text = () -> I18n.translate(MyComponents.FEATS.get(playerEntity).getFeat(this.tier).toTranslatableText());
-        super.paint(matrices, x, y, mouseX, mouseY);
+        super.paint(context, x, y, mouseX, mouseY);
     }
 }

@@ -31,21 +31,22 @@ public abstract class KnockbackFistPlayerMixin extends LivingEntity implements I
     }
 
     @Override
-    public boolean isKnockbackActivated() {
-        return knockbackActivated;
+    public boolean forglory$isKnockbackActivated() {
+        return this.knockbackActivated;
     }
 
     @Override
-    public void setKnockBack(boolean setter) {
-        knockbackActivated = setter;
-        // "!world.isclient()" condition in theory unnecessary
-        if (setter && !world.isClient()) {
+    public void forglory$setKnockBack(boolean setter) {
+        this.knockbackActivated = setter;
+        if (setter && !this.getWorld().isClient()) {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeIdentifier(SoundsInit.INCRE_ID);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                NetworkInit.playSoundWide(SoundsInit.INCRE_ID, (ServerPlayerEntity) (Object) this, true);
+                // FIXME: Replace with world sound
+                //NetworkInit.playSoundWide(SoundsInit.INCRE_ID, (ServerPlayerEntity) (Object) this, true);
             }
-            NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FIST_ACT_ID, (ServerPlayerEntity) (Object) this, false);
+            // FIXME: Replace with world sound
+            //NetworkInit.playSoundWide(SoundsInit.KNOCKBACK_FIST_ACT_ID, (ServerPlayerEntity) (Object) this, false);
         }
     }
 }

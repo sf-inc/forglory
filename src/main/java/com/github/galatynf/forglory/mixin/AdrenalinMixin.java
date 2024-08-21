@@ -4,12 +4,13 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.init.SoundsInit;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,22 +21,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
-
 @Mixin(PlayerEntity.class)
 public abstract class AdrenalinMixin extends LivingEntity {
 
-    @Shadow
-    protected abstract SoundEvent getHighSpeedSplashSound();
+    @Shadow protected abstract SoundEvent getHighSpeedSplashSound();
+    @Shadow public abstract float getMovementSpeed();
+    @Shadow public abstract boolean isCreative();
 
-    @Shadow
-    public abstract float getMovementSpeed();
-
-    @Shadow
-    public abstract void playSound(SoundEvent sound, float volume, float pitch);
-
-    @Shadow
-    public abstract boolean isCreative();
+    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Unique
     protected boolean[] forglory_soundPlayed = this.initialiseSoundPlayed();
@@ -44,6 +37,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
         super(entityType, world);
     }
 
+    @Unique
     private boolean[] initialiseSoundPlayed() {
         boolean[] ret = new boolean[4];
         for (int i = 0; i < 4; ++i) {
@@ -52,7 +46,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
         return ret;
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void incrementWhenSprinting(CallbackInfo ci) {
         int threshold = ModConfig.get().adrenalinConfig.tier2_threshold;
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10
@@ -62,7 +56,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "jump")
+    @Inject(method = "jump", at = @At("HEAD"))
     private void incrementWhenJumping(CallbackInfo ci) {
         int threshold = ModConfig.get().adrenalinConfig.tier2_threshold;
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10) {
@@ -71,7 +65,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "damage")
+    @Inject(method = "damage", at = @At("HEAD"))
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.getAttacker() instanceof LivingEntity && !this.isCreative()) {
             float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damage_multiplier);
@@ -79,26 +73,28 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "handleFallDamage")
-    private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "handleFallDamage", at = @At("HEAD"))
+    private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource,
+                                         CallbackInfoReturnable<Boolean> cir) {
         if (!this.isCreative()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount>50 ? 50 : amount);
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "eatFood")
-    private void incrementWhenEating(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(method = "eatFood", at = @At("HEAD"))
+    private void incrementWhenEating(World world, ItemStack stack, FoodComponent foodComponent,
+                                     CallbackInfoReturnable<ItemStack> cir) {
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier1_threshold
-                && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.GOLDEN_APPLE)) {
+                && stack.isOf(Items.GOLDEN_APPLE)) {
             MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.tier1_threshold);
         } else if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.tier3_threshold
-                && Objects.equals(stack.getItem().getFoodComponent(), FoodComponents.ENCHANTED_GOLDEN_APPLE)) {
+                && stack.isOf(Items.ENCHANTED_GOLDEN_APPLE)) {
             MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.tier3_threshold);
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void loseAdrenalin(CallbackInfo ci) {
         if (isSneaking()) {
             MyComponents.ADRENALIN.get(this).addAdrenalin(ModConfig.get().adrenalinConfig.quick_loss);
@@ -107,9 +103,9 @@ public abstract class AdrenalinMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     public void playSounds(CallbackInfo ci) {
-        if (world.isClient()) {
+        if (this.getWorld().isClient()) {
             if (ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier1_threshold) {
                     if (!forglory_soundPlayed[0]) {

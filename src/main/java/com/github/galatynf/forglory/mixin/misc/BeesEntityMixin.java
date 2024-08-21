@@ -26,31 +26,27 @@ import java.util.UUID;
 
 @Mixin(BeeEntity.class)
 public abstract class BeesEntityMixin extends LivingEntity implements Angerable {
-    @Shadow
-    public abstract void setAngryAt(@Nullable UUID uuid);
+    @Shadow public abstract UUID getAngryAt();
 
-    @Shadow
-    public abstract UUID getAngryAt();
-
-    @Shadow
-    public abstract void setAngerTime(int ticks);
+    @Shadow public abstract void setAngryAt(@Nullable UUID uuid);
+    @Shadow public abstract void setAngerTime(int ticks);
 
     protected BeesEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void findTarget(CallbackInfo ci) {
         UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
         if (uuid != null) {
-            PlayerEntity playerEntity = this.world.getPlayerByUuid(uuid);
+            PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.threshold) {
                     this.kill();
                 } else if (getAngryAt() == null) {
                     double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
-                    LivingEntity targetEntity = this.world.getClosestEntity(HostileEntity.class,
-                            (new TargetPredicate()).setBaseMaxDistance(distance),
+                    LivingEntity targetEntity = this.getWorld().getClosestEntity(HostileEntity.class,
+                            TargetPredicate.DEFAULT.setBaseMaxDistance(distance),
                             this,
                             this.getX(),
                             this.getEyeY(),
@@ -66,8 +62,7 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
         }
     }
 
-    @Inject(method = "tryAttack",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z", shift = At.Shift.AFTER))
+    @Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", shift = At.Shift.AFTER))
     private void changeStungEffect(Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (MyComponents.SUMMONED.get(this).getPlayer() != null) {
             ((LivingEntity) target).removeStatusEffect(StatusEffects.POISON);

@@ -19,7 +19,7 @@ public abstract class StrengthMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void addStrengthEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.STRENGTH)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
