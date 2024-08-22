@@ -41,13 +41,13 @@ public abstract class HealTrailMixin extends LivingEntity {
             if (this.forglory_firstTime_HT) {
                 // FIXME: Replace with world sound
                 //NetworkInit.playSoundWide(SoundsInit.HEAL_TRAIL_ID, (ServerPlayerEntity) (Object) this, false);
-                if(MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PALADIN) {
+                if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PALADIN) {
                     // FIXME: Replace with world sound
                     //NetworkInit.playSoundWide(SoundsInit.HEAL_TRAIL_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
                 }
                 this.forglory_firstTime_HT = false;
             }
-            if (forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
+            if (this.forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
                 AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.getWorld(), this.getX(), this.getY(), this.getZ());
                 areaEffectCloudEntity.setOwner(this);
                 areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrailConfig.heal_trail_radius);

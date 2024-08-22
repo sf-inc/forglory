@@ -22,28 +22,27 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
+    @Unique
+    private boolean forglory_doFireTrail;
+    @Unique
+    private boolean forglory_startFireTrail;
+
     public FireTrailMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Unique
-    private boolean forglory_doFireTrail;
-
-    @Unique
-    private boolean forglory_startFireTrail;
-
 
     @Override
     public void forglory$invertFireTrail() {
-        forglory_doFireTrail = !forglory_doFireTrail;
-        forglory_startFireTrail = forglory_doFireTrail;
+        this.forglory_doFireTrail = !this.forglory_doFireTrail;
+        this.forglory_startFireTrail = this.forglory_doFireTrail;
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
     void spawnFireTrail(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_TRAIL)) {
-            if (forglory_startFireTrail) {
-                forglory_startFireTrail = false;
+            if (this.forglory_startFireTrail) {
+                this.forglory_startFireTrail = false;
                 for (int i = -1; i < 2; i++) {
                     for (int j = -1; j < 2; j++) {
                         BlockPos blockPos = this.getBlockPos().add(i, 0, j);
@@ -52,12 +51,12 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
                         //NetworkInit.playSoundWide(SoundsInit.FIRE_TRAIL_ACT_ID, (ServerPlayerEntity) (Object) this, false);
                     }
                 }
-            } else if (forglory_doFireTrail) {
+            } else if (this.forglory_doFireTrail) {
                 BlockPos blockPos = this.getBlockPos().offset(this.getMovementDirection().getOpposite());
                 spawnFireT(blockPos);
             }
         } else {
-            forglory_doFireTrail = false;
+            this.forglory_doFireTrail = false;
         }
     }
 

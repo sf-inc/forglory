@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(PlayerEntity.class)
 public abstract class KnockbackFistPlayerMixin extends LivingEntity implements IKnockbackFistPlayerMixin {
-
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 

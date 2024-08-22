@@ -29,29 +29,29 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
-    protected MachineGunMixin(EntityType<? extends LivingEntity> entityType, World world) {
-        super(entityType, world);
-    }
-
     @Unique
     private int forglory_machineGun;
     @Unique
     private long forglory_nextArrow;
 
+    protected MachineGunMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
     @Override
     public void forglory$setMachineGun(final int machineGun) {
-        forglory_machineGun = machineGun;
+        this.forglory_machineGun = machineGun;
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void shootArrows(CallbackInfo ci) {
-        if (forglory_machineGun > 0) {
-            if (forglory_nextArrow == this.getWorld().getTime()
-                    || forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
+        if (this.forglory_machineGun > 0) {
+            if (this.forglory_nextArrow == this.getWorld().getTime()
+                    || this.forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
 
                 int shootSpeed = 3;
 
-                if (forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
+                if (this.forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machine_gun_arrows, 2));
                     // FIXME: Replace with world sound
                     //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity) (Object) this, false);
@@ -60,8 +60,8 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
                         //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
                     }
                 }
-                forglory_machineGun -= 1;
-                forglory_nextArrow = this.getWorld().getTime() + shootSpeed;
+                this.forglory_machineGun -= 1;
+                this.forglory_nextArrow = this.getWorld().getTime() + shootSpeed;
 
                 if (!this.getWorld().isClient()) {
                     ArrowItem arrowItem = (ArrowItem) Items.ARROW;
@@ -75,7 +75,7 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
             }
         } else {
-            forglory_machineGun = 0;
+            this.forglory_machineGun = 0;
         }
     }
 }

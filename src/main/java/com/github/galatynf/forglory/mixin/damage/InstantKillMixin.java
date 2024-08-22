@@ -12,11 +12,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
 public abstract class InstantKillMixin {
-    @Shadow
-    public abstract float getHealth();
-
-    @Shadow
-    public abstract float getMaxHealth();
+    @Shadow public abstract float getHealth();
+    @Shadow public abstract float getMaxHealth();
 
     @ModifyArg(method = "damage", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))

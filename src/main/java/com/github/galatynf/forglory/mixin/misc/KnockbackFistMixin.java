@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class KnockbackFistMixin {
-
-    @Shadow
-    public abstract boolean addStatusEffect(StatusEffectInstance effect);
+    @Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
     @Inject(at = @At("HEAD"), method = "damage")
     private void stunWhenPunched(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {

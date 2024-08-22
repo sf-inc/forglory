@@ -25,46 +25,45 @@ public abstract class FireZoneMixin extends Entity {
     @Shadow
     public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
+    @Unique
+    float forglory_fireRadius;
+    @Unique
+    private boolean forglory_firstTime_FZ = true;
+
     public FireZoneMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Unique
-    float forglory_fireRadius;
-
-    @Unique
-    private boolean forglory_firstTime_FZ = true;
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void spawnFireZone(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
-            if (forglory_firstTime_FZ) {
+            if (this.forglory_firstTime_FZ) {
                 if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
                     // FIXME: Replace with world sound
                     //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
                 }
-                forglory_firstTime_FZ = false;
+                this.forglory_firstTime_FZ = false;
             }
-            forglory_fireRadius += (float) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
-            if (forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
+            this.forglory_fireRadius += (float) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
+            if (this.forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
                 // FIXME: Replace with world sound
                 //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this, false);
-                forglory_fireRadius = forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
+                this.forglory_fireRadius = this.forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
             }
 
-            final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) forglory_fireRadius;
+            final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) this.forglory_fireRadius;
             final double angle = (2 * Math.PI) / spawnFire;
             BlockPos blockPos;
 
             for (int i = 0; i < spawnFire; i++) {
-                blockPos = this.getBlockPos().add((int) (forglory_fireRadius * Math.cos(i * angle)),
+                blockPos = this.getBlockPos().add((int) (this.forglory_fireRadius * Math.cos(i * angle)),
                         0,
-                        (int) (forglory_fireRadius * Math.sin(i * angle)));
+                        (int) (this.forglory_fireRadius * Math.sin(i * angle)));
                 spawnFireZ(blockPos);
             }
         }
         else {
-            forglory_firstTime_FZ = true;
+            this.forglory_firstTime_FZ = true;
         }
     }
 

@@ -19,9 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class SummonDogMixin extends LivingEntity {
-    @Shadow
-    public abstract boolean damage(DamageSource source, float amount);
-
     protected SummonDogMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }

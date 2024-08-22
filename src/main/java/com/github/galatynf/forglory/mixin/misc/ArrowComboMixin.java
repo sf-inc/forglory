@@ -29,7 +29,7 @@ public abstract class ArrowComboMixin {
 
     @Inject(at = @At("HEAD"), method = "onEntityHit")
     private void incrementCombo(EntityHitResult entityHitResult, CallbackInfo ci) {
-        Entity owner = getOwner();
+        Entity owner = this.getOwner();
         if (Utils.canUseFeat(owner, Feats.ARROW_COMBO) && entityHitResult.getEntity() instanceof LivingEntity) {
             ((IArrowComboMixin) owner).forglory$incrementCombo();
         }

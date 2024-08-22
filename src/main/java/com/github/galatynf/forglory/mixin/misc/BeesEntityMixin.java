@@ -43,7 +43,7 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
             if (playerEntity != null) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.threshold) {
                     this.kill();
-                } else if (getAngryAt() == null) {
+                } else if (this.getAngryAt() == null) {
                     double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
                     LivingEntity targetEntity = this.getWorld().getClosestEntity(HostileEntity.class,
                             TargetPredicate.DEFAULT.setBaseMaxDistance(distance),

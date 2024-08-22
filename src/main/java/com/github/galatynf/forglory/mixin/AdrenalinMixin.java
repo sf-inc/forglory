@@ -23,9 +23,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class AdrenalinMixin extends LivingEntity {
-
-    @Shadow protected abstract SoundEvent getHighSpeedSplashSound();
-    @Shadow public abstract float getMovementSpeed();
     @Shadow public abstract boolean isCreative();
 
     @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
@@ -78,7 +75,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                                          CallbackInfoReturnable<Boolean> cir) {
         if (!this.isCreative()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fall_multiplier);
-            MyComponents.ADRENALIN.get(this).addAdrenalin(amount>50 ? 50 : amount);
+            MyComponents.ADRENALIN.get(this).addAdrenalin(amount > 50 ? 50 : amount);
         }
     }
 
@@ -108,36 +105,36 @@ public abstract class AdrenalinMixin extends LivingEntity {
         if (this.getWorld().isClient()) {
             if (ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier1_threshold) {
-                    if (!forglory_soundPlayed[0]) {
+                    if (!this.forglory_soundPlayed[0]) {
                         playSound(SoundRegistry.TIER_1_WHOOSH_EVENT, 1.2F, 1F);
-                        forglory_soundPlayed[0] = true;
+                        this.forglory_soundPlayed[0] = true;
                     }
                 } else {
-                    forglory_soundPlayed[0] = false;
+                    this.forglory_soundPlayed[0] = false;
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier2_threshold) {
-                    if (!forglory_soundPlayed[1]) {
+                    if (!this.forglory_soundPlayed[1]) {
                         playSound(SoundRegistry.TIER_2_BASS_EVENT, 1F, 1F);
-                        forglory_soundPlayed[1] = true;
+                        this.forglory_soundPlayed[1] = true;
                     }
                 } else {
-                    forglory_soundPlayed[1] = false;
+                    this.forglory_soundPlayed[1] = false;
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier3_threshold) {
-                    if (!forglory_soundPlayed[2]) {
+                    if (!this.forglory_soundPlayed[2]) {
                         playSound(SoundRegistry.TIER_3_STRONG_BASS_EVENT, 1F, 1F);
-                        forglory_soundPlayed[2] = true;
+                        this.forglory_soundPlayed[2] = true;
                     }
                 } else {
-                    forglory_soundPlayed[2] = false;
+                    this.forglory_soundPlayed[2] = false;
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier4_threshold) {
-                    if (!forglory_soundPlayed[3]) {
+                    if (!this.forglory_soundPlayed[3]) {
                         playSound(SoundRegistry.TIER_4_OVERCHARGED_EVENT, 1F, 1F);
-                        forglory_soundPlayed[3] = true;
+                        this.forglory_soundPlayed[3] = true;
                     }
                 } else {
-                    forglory_soundPlayed[3] = false;
+                    this.forglory_soundPlayed[3] = false;
                 }
             }
         }

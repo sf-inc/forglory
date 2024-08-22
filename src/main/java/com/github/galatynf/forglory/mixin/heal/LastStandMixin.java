@@ -27,11 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LastStandMixin extends Entity implements ILastStandMixin {
-
-    public LastStandMixin(EntityType<?> type, World world) {
-        super(type, world);
-    }
-
     @Shadow public abstract boolean isDead();
     @Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
     @Shadow public abstract boolean clearStatusEffects();
@@ -42,9 +37,12 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
 
     @Unique
     private boolean forglory_isInBerserkState = false;
-
     @Unique
     private int forglory_berserkTimer = ModConfig.get().featConfig.seconds_of_last_standing * 20;
+
+    public LastStandMixin(EntityType<?> type, World world) {
+        super(type, world);
+    }
 
     @Override
     public boolean forglory$isBerserk() {
