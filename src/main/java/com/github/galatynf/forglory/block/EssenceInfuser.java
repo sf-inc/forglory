@@ -1,6 +1,5 @@
 package com.github.galatynf.forglory.block;
 
-import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -53,25 +52,6 @@ public class EssenceInfuser extends Block {
                     ? ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION
                     : ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-    }
-
-    // TODO: Replace with datagen?
-    @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-        if (player.isCreative()) return state;
-
-        boolean isCharged = state.get(CHARGED);
-        boolean isInfinite = state.get(INFINITE);
-
-        if (isCharged) {
-            if (isInfinite) {
-                Utils.dropEssence(world, pos, 1, 3);
-            } else {
-                Utils.dropEssence(world, pos, 0, 1);
-            }
-        }
-        return state;
     }
 
     private static boolean isChargeItem(final ItemStack stack) {
