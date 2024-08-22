@@ -28,6 +28,9 @@
     ],
     "cardinal-components": [
       "com.github.galatynf.forglory.cardinal.MyComponents"
+    ],
+    "fabric-datagen": [
+      "com.github.galatynf.forglory.data.DataGenerator"
     ]
   },
   "mixins": [
