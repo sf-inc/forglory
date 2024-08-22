@@ -38,6 +38,7 @@ public class BlockRegistry {
 
     public static final Block wittyDirt = new WittyDirt(AbstractBlock.Settings.create()
             .mapColor(MapColor.DIRT_BROWN)
+            .requiresTool()
             .strength(0.7F)
             .sounds(BlockSoundGroup.GRAVEL)
             .luminance(state -> 1)
