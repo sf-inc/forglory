@@ -24,10 +24,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         this.addDrop(BlockRegistry.essenceInfuser,
                 LootTable.builder()
                         .pool(this.addSurvivesExplosionCondition(
-                                BlockRegistry.essenceInfuserItem,
+                                ItemRegistry.essenceInfuser,
                                 LootPool.builder()
                                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                                        .with(ItemEntry.builder(BlockRegistry.essenceInfuserItem))))
+                                        .with(ItemEntry.builder(ItemRegistry.essenceInfuser))))
                         // TODO: Make the number vary depending on block state if possible
                         .pool(this.addSurvivesExplosionCondition(
                                 ItemRegistry.essence,

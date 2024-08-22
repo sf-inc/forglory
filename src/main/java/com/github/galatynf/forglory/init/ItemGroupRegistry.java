@@ -71,6 +71,6 @@ public class ItemGroupRegistry {
                 entries.add(ItemRegistry.essence));
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries ->
-                entries.add(BlockRegistry.essenceInfuserItem));
+                entries.add(ItemRegistry.essenceInfuser));
     }
 }

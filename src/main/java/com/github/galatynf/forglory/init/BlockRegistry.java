@@ -8,8 +8,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -24,8 +22,6 @@ public class BlockRegistry {
             .strength(50.0F, 6.0F)
             .luminance(state -> 8)
             .sounds(BlockSoundGroup.LANTERN));
-    // TODO: Give item rarity
-    public static final Item essenceInfuserItem = new BlockItem(essenceInfuser, new Item.Settings());
 
     public static final QuickFireBlock quickFireBlock = new QuickFireBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.PURPLE)
@@ -46,8 +42,6 @@ public class BlockRegistry {
 
     public static void init() {
         Registry.register(Registries.BLOCK, Forglory.id("essence_infuser"), essenceInfuser);
-        Registry.register(Registries.ITEM, Forglory.id("essence_infuser"), essenceInfuserItem);
-
         Registry.register(Registries.BLOCK, Forglory.id("quick_fire"), quickFireBlock);
         Registry.register(Registries.BLOCK, Forglory.id("witty_dirt"), wittyDirt);
     }

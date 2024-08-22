@@ -14,6 +14,9 @@ public class ItemRegistry {
     private ItemRegistry() {
     }
 
+    // TODO: Give item rarity
+    public static final Item essenceInfuser = new BlockItem(BlockRegistry.essenceInfuser, new Item.Settings());
+
     public static final DebugItem debugItem = new DebugItem(new Item.Settings());
     public static final Item essence = new Item(new Item.Settings());
 
@@ -58,6 +61,8 @@ public class ItemRegistry {
     public static final PoweredGem stridersGraceGem = new PoweredGem(new Item.Settings(), Feats.STRIDERS_GRACE, mobilityGem);
 
     public static void init() {
+        Registry.register(Registries.ITEM, Forglory.id("essence_infuser"), essenceInfuser);
+
         Registry.register(Registries.ITEM, Forglory.id("debug_item"), debugItem);
         Registry.register(Registries.ITEM, Forglory.id("essence"), essence);
 
