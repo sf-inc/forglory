@@ -5,6 +5,6 @@ import net.minecraft.client.render.RenderLayer;
 
 public class BlockRenderRegistry {
     public static void initClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.quickFireBlock, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.QUICK_FIRE, RenderLayer.getCutout());
     }
 }

@@ -14,95 +14,95 @@ public class ItemRegistry {
     private ItemRegistry() {
     }
 
-    public static final Item essenceInfuser = new BlockItem(BlockRegistry.essenceInfuser, new Item.Settings());
+    public static final Item ESSENCE_INFUSER = new BlockItem(BlockRegistry.ESSENCE_INFUSER, new Item.Settings());
 
-    public static final DebugItem debugItem = new DebugItem(new Item.Settings());
-    public static final Item essence = new Item(new Item.Settings());
+    public static final DebugItem DEBUG_ITEM = new DebugItem(new Item.Settings());
+    public static final Item ESSENCE = new Item(new Item.Settings());
 
-    public static final AntiGem antiGemI = new AntiGem(new Item.Settings().maxDamage(1), Tier.TIER1);
-    public static final AntiGem antiGemII = new AntiGem(new Item.Settings().maxDamage(2), Tier.TIER2);
-    public static final AntiGem antiGemIII = new AntiGem(new Item.Settings().maxDamage(3), Tier.TIER3);
-    public static final AntiGem antiGemIV = new AntiGem(new Item.Settings().maxDamage(4), Tier.TIER4);
+    public static final AntiGem ANTI_GEM_I = new AntiGem(new Item.Settings().maxDamage(1), Tier.TIER1);
+    public static final AntiGem ANTI_GEM_II = new AntiGem(new Item.Settings().maxDamage(2), Tier.TIER2);
+    public static final AntiGem ANTI_GEM_III = new AntiGem(new Item.Settings().maxDamage(3), Tier.TIER3);
+    public static final AntiGem ANTI_GEM_IV = new AntiGem(new Item.Settings().maxDamage(4), Tier.TIER4);
 
-    public static final Item damageGem = new Item(new Item.Settings());
-    public static final PoweredGem smiteGem = new PoweredGem(new Item.Settings(), Feats.SMITE, damageGem);
-    public static final PoweredGem strengthGem = new PoweredGem(new Item.Settings(), Feats.STRENGTH, damageGem);
-    public static final PoweredGem fireTrailGem = new PoweredGem(new Item.Settings(), Feats.FIRE_TRAIL, damageGem);
-    public static final PoweredGem machineGunGem = new PoweredGem(new Item.Settings(), Feats.MACHINE_GUN, damageGem);
-    public static final PoweredGem damageSlowedGem = new PoweredGem(new Item.Settings(), Feats.DAMAGE_SLOWED, damageGem);
-    public static final PoweredGem superShieldGem = new PoweredGem(new Item.Settings(), Feats.SUPER_SHIELD, damageGem);
-    public static final PoweredGem fireworkerGem = new PoweredGem(new Item.Settings(), Feats.FIREWORKER, damageGem);
-    public static final PoweredGem fireZoneGem = new PoweredGem(new Item.Settings(), Feats.FIRE_ZONE, damageGem);
-    public static final PoweredGem instantKillGem = new PoweredGem(new Item.Settings(), Feats.INSTANT_KILL, damageGem);
+    public static final Item DAMAGE_GEM = new Item(new Item.Settings());
+    public static final PoweredGem SMITE_GEM = new PoweredGem(new Item.Settings(), Feats.SMITE, DAMAGE_GEM);
+    public static final PoweredGem STRENGTH_GEM = new PoweredGem(new Item.Settings(), Feats.STRENGTH, DAMAGE_GEM);
+    public static final PoweredGem FIRE_TRAIL_GEM = new PoweredGem(new Item.Settings(), Feats.FIRE_TRAIL, DAMAGE_GEM);
+    public static final PoweredGem MACHINE_GUN_GEM = new PoweredGem(new Item.Settings(), Feats.MACHINE_GUN, DAMAGE_GEM);
+    public static final PoweredGem DAMAGE_SLOWED_GEM = new PoweredGem(new Item.Settings(), Feats.DAMAGE_SLOWED, DAMAGE_GEM);
+    public static final PoweredGem SUPER_SHIELD_GEM = new PoweredGem(new Item.Settings(), Feats.SUPER_SHIELD, DAMAGE_GEM);
+    public static final PoweredGem FIREWORKER_GEM = new PoweredGem(new Item.Settings(), Feats.FIREWORKER, DAMAGE_GEM);
+    public static final PoweredGem FIRE_ZONE_GEM = new PoweredGem(new Item.Settings(), Feats.FIRE_ZONE, DAMAGE_GEM);
+    public static final PoweredGem INSTANT_KILL_GEM = new PoweredGem(new Item.Settings(), Feats.INSTANT_KILL, DAMAGE_GEM);
 
-    public static final Item healGem = new Item(new Item.Settings());
-    public static final PoweredGem resistanceGem = new PoweredGem(new Item.Settings(), Feats.RESISTANCE, healGem);
-    public static final PoweredGem healingFistGem = new PoweredGem(new Item.Settings(), Feats.HEALING_FIST, healGem);
-    public static final PoweredGem shieldResistanceGem = new PoweredGem(new Item.Settings(), Feats.SHIELD_RESISTANCE, healGem);
-    public static final PoweredGem healTrailGem = new PoweredGem(new Item.Settings(), Feats.HEAL_TRAIL, healGem);
-    public static final PoweredGem lastStandGem = new PoweredGem(new Item.Settings(), Feats.LAST_STAND, healGem);
+    public static final Item HEAL_GEM = new Item(new Item.Settings());
+    public static final PoweredGem RESISTANCE_GEM = new PoweredGem(new Item.Settings(), Feats.RESISTANCE, HEAL_GEM);
+    public static final PoweredGem HEALING_FIST_GEM = new PoweredGem(new Item.Settings(), Feats.HEALING_FIST, HEAL_GEM);
+    public static final PoweredGem SHIELD_RESISTANCE_GEM = new PoweredGem(new Item.Settings(), Feats.SHIELD_RESISTANCE, HEAL_GEM);
+    public static final PoweredGem HEAL_TRAIL_GEM = new PoweredGem(new Item.Settings(), Feats.HEAL_TRAIL, HEAL_GEM);
+    public static final PoweredGem LAST_STAND_GEM = new PoweredGem(new Item.Settings(), Feats.LAST_STAND, HEAL_GEM);
 
-    public static final Item miscGem = new Item(new Item.Settings());
-    public static final PoweredGem arrowComboGem = new PoweredGem(new Item.Settings(), Feats.ARROW_COMBO, miscGem);
-    public static final PoweredGem bloodlustGem = new PoweredGem(new Item.Settings(), Feats.BLOODLUST, miscGem);
-    public static final PoweredGem dogGem = new PoweredGem(new Item.Settings(), Feats.DOG, miscGem);
-    public static final PoweredGem knockbackFistGem = new PoweredGem(new Item.Settings(), Feats.KNOCKBACK_FIST, miscGem);
-    public static final PoweredGem mountainGem = new PoweredGem(new Item.Settings(), Feats.MOUNTAIN, miscGem);
-    public static final PoweredGem beesGem = new PoweredGem(new Item.Settings(), Feats.BEES, miscGem);
-    public static final PoweredGem invisibleGem = new PoweredGem(new Item.Settings(), Feats.INVISIBLE, miscGem);
-    public static final PoweredGem undeadArmyGem = new PoweredGem(new Item.Settings(), Feats.UNDEAD_ARMY, miscGem);
+    public static final Item MISC_GEM = new Item(new Item.Settings());
+    public static final PoweredGem ARROW_COMBO_GEM = new PoweredGem(new Item.Settings(), Feats.ARROW_COMBO, MISC_GEM);
+    public static final PoweredGem BLOODLUST_GEM = new PoweredGem(new Item.Settings(), Feats.BLOODLUST, MISC_GEM);
+    public static final PoweredGem DOG_GEM = new PoweredGem(new Item.Settings(), Feats.DOG, MISC_GEM);
+    public static final PoweredGem KNOCKBACK_FIST_GEM = new PoweredGem(new Item.Settings(), Feats.KNOCKBACK_FIST, MISC_GEM);
+    public static final PoweredGem MOUNTAIN_GEM = new PoweredGem(new Item.Settings(), Feats.MOUNTAIN, MISC_GEM);
+    public static final PoweredGem BEES_GEM = new PoweredGem(new Item.Settings(), Feats.BEES, MISC_GEM);
+    public static final PoweredGem INVISIBLE_GEM = new PoweredGem(new Item.Settings(), Feats.INVISIBLE, MISC_GEM);
+    public static final PoweredGem UNDEAD_ARMY_GEM = new PoweredGem(new Item.Settings(), Feats.UNDEAD_ARMY, MISC_GEM);
 
-    public static final Item mobilityGem = new Item(new Item.Settings());
-    public static final PoweredGem noHungerGem = new PoweredGem(new Item.Settings(), Feats.NO_HUNGER, mobilityGem);
-    public static final PoweredGem speedGem = new PoweredGem(new Item.Settings(), Feats.SPEED, mobilityGem);
-    public static final PoweredGem dashGem = new PoweredGem(new Item.Settings(), Feats.DASH, mobilityGem);
-    public static final PoweredGem jumpBoostGem = new PoweredGem(new Item.Settings(), Feats.JUMP_BOOST, mobilityGem);
-    public static final PoweredGem stridersGraceGem = new PoweredGem(new Item.Settings(), Feats.STRIDERS_GRACE, mobilityGem);
+    public static final Item MOBILITY_GEM = new Item(new Item.Settings());
+    public static final PoweredGem NO_HUNGER_GEM = new PoweredGem(new Item.Settings(), Feats.NO_HUNGER, MOBILITY_GEM);
+    public static final PoweredGem SPEED_GEM = new PoweredGem(new Item.Settings(), Feats.SPEED, MOBILITY_GEM);
+    public static final PoweredGem DASH_GEM = new PoweredGem(new Item.Settings(), Feats.DASH, MOBILITY_GEM);
+    public static final PoweredGem JUMP_BOOST_GEM = new PoweredGem(new Item.Settings(), Feats.JUMP_BOOST, MOBILITY_GEM);
+    public static final PoweredGem STRIDERS_GRACE_GEM = new PoweredGem(new Item.Settings(), Feats.STRIDERS_GRACE, MOBILITY_GEM);
 
     public static void init() {
-        Registry.register(Registries.ITEM, Forglory.id("essence_infuser"), essenceInfuser);
+        Registry.register(Registries.ITEM, Forglory.id("essence_infuser"), ESSENCE_INFUSER);
 
-        Registry.register(Registries.ITEM, Forglory.id("debug_item"), debugItem);
-        Registry.register(Registries.ITEM, Forglory.id("essence"), essence);
+        Registry.register(Registries.ITEM, Forglory.id("debug_item"), DEBUG_ITEM);
+        Registry.register(Registries.ITEM, Forglory.id("essence"), ESSENCE);
 
-        Registry.register(Registries.ITEM, Forglory.id("anti_gem1"), antiGemI);
-        Registry.register(Registries.ITEM, Forglory.id("anti_gem2"), antiGemII);
-        Registry.register(Registries.ITEM, Forglory.id("anti_gem3"), antiGemIII);
-        Registry.register(Registries.ITEM, Forglory.id("anti_gem4"), antiGemIV);
+        Registry.register(Registries.ITEM, Forglory.id("anti_gem1"), ANTI_GEM_I);
+        Registry.register(Registries.ITEM, Forglory.id("anti_gem2"), ANTI_GEM_II);
+        Registry.register(Registries.ITEM, Forglory.id("anti_gem3"), ANTI_GEM_III);
+        Registry.register(Registries.ITEM, Forglory.id("anti_gem4"), ANTI_GEM_IV);
 
-        Registry.register(Registries.ITEM, Forglory.id("damage_gem"), damageGem);
-        Registry.register(Registries.ITEM, Forglory.id("smite_gem"), smiteGem);
-        Registry.register(Registries.ITEM, Forglory.id("strength_gem"), strengthGem);
-        Registry.register(Registries.ITEM, Forglory.id("fire_trail_gem"), fireTrailGem);
-        Registry.register(Registries.ITEM, Forglory.id("machine_gun_gem"), machineGunGem);
-        Registry.register(Registries.ITEM, Forglory.id("damage_slowed_gem"), damageSlowedGem);
-        Registry.register(Registries.ITEM, Forglory.id("super_shield_gem"), superShieldGem);
-        Registry.register(Registries.ITEM, Forglory.id("fireworker_gem"), fireworkerGem);
-        Registry.register(Registries.ITEM, Forglory.id("fire_zone_gem"), fireZoneGem);
-        Registry.register(Registries.ITEM, Forglory.id("instant_kill_gem"), instantKillGem);
+        Registry.register(Registries.ITEM, Forglory.id("damage_gem"), DAMAGE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("smite_gem"), SMITE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("strength_gem"), STRENGTH_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("fire_trail_gem"), FIRE_TRAIL_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("machine_gun_gem"), MACHINE_GUN_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("damage_slowed_gem"), DAMAGE_SLOWED_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("super_shield_gem"), SUPER_SHIELD_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("fireworker_gem"), FIREWORKER_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("fire_zone_gem"), FIRE_ZONE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("instant_kill_gem"), INSTANT_KILL_GEM);
 
-        Registry.register(Registries.ITEM, Forglory.id("heal_gem"), healGem);
-        Registry.register(Registries.ITEM, Forglory.id("resistance_gem"), resistanceGem);
-        Registry.register(Registries.ITEM, Forglory.id("healing_fist_gem"), healingFistGem);
-        Registry.register(Registries.ITEM, Forglory.id("shield_resistance_gem"), shieldResistanceGem);
-        Registry.register(Registries.ITEM, Forglory.id("heal_trail_gem"), healTrailGem);
-        Registry.register(Registries.ITEM, Forglory.id("last_stand_gem"), lastStandGem);
+        Registry.register(Registries.ITEM, Forglory.id("heal_gem"), HEAL_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("resistance_gem"), RESISTANCE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("healing_fist_gem"), HEALING_FIST_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("shield_resistance_gem"), SHIELD_RESISTANCE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("heal_trail_gem"), HEAL_TRAIL_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("last_stand_gem"), LAST_STAND_GEM);
 
-        Registry.register(Registries.ITEM, Forglory.id("misc_gem"), miscGem);
-        Registry.register(Registries.ITEM, Forglory.id("arrow_combo_gem"), arrowComboGem);
-        Registry.register(Registries.ITEM, Forglory.id("bloodlust_gem"), bloodlustGem);
-        Registry.register(Registries.ITEM, Forglory.id("dog_gem"), dogGem);
-        Registry.register(Registries.ITEM, Forglory.id("knockback_fist_gem"), knockbackFistGem);
-        Registry.register(Registries.ITEM, Forglory.id("mountain_gem"), mountainGem);
-        Registry.register(Registries.ITEM, Forglory.id("bees_gem"), beesGem);
-        Registry.register(Registries.ITEM, Forglory.id("invisible_gem"), invisibleGem);
-        Registry.register(Registries.ITEM, Forglory.id("undead_army_gem"), undeadArmyGem);
+        Registry.register(Registries.ITEM, Forglory.id("misc_gem"), MISC_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("arrow_combo_gem"), ARROW_COMBO_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("bloodlust_gem"), BLOODLUST_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("dog_gem"), DOG_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("knockback_fist_gem"), KNOCKBACK_FIST_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("mountain_gem"), MOUNTAIN_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("bees_gem"), BEES_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("invisible_gem"), INVISIBLE_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("undead_army_gem"), UNDEAD_ARMY_GEM);
 
-        Registry.register(Registries.ITEM, Forglory.id("mobility_gem"), mobilityGem);
-        Registry.register(Registries.ITEM, Forglory.id("no_hunger_gem"), noHungerGem);
-        Registry.register(Registries.ITEM, Forglory.id("speed_gem"), speedGem);
-        Registry.register(Registries.ITEM, Forglory.id("dash_gem"), dashGem);
-        Registry.register(Registries.ITEM, Forglory.id("jump_boost_gem"), jumpBoostGem);
-        Registry.register(Registries.ITEM, Forglory.id("striders_grace_gem"), stridersGraceGem);
+        Registry.register(Registries.ITEM, Forglory.id("mobility_gem"), MOBILITY_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("no_hunger_gem"), NO_HUNGER_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("speed_gem"), SPEED_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("dash_gem"), DASH_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("jump_boost_gem"), JUMP_BOOST_GEM);
+        Registry.register(Registries.ITEM, Forglory.id("striders_grace_gem"), STRIDERS_GRACE_GEM);
     }
 }

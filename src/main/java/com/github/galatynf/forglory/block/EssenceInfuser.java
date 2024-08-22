@@ -55,7 +55,7 @@ public class EssenceInfuser extends Block {
     }
 
     private static boolean isChargeItem(final ItemStack stack) {
-        return stack.isOf(ItemRegistry.essence);
+        return stack.isOf(ItemRegistry.ESSENCE);
     }
 
     private static boolean canCharge(final BlockState state) {

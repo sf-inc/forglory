@@ -22,7 +22,7 @@ public class ForgloryClient implements ClientModInitializer {
         NetworkInit.initClient();
         EntityRendererRegistry.register(EntityRegistry.HERO,  HeroEntityRenderer::new);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.quickFireBlock, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.QUICK_FIRE, RenderLayer.getCutout());
 
         CottonHud.add(new AdrenalinBar(), 0, -3, 9, 34);
 

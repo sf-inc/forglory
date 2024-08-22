@@ -21,19 +21,19 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        this.addDrop(BlockRegistry.essenceInfuser,
+        this.addDrop(BlockRegistry.ESSENCE_INFUSER,
                 LootTable.builder()
                         .pool(this.addSurvivesExplosionCondition(
-                                ItemRegistry.essenceInfuser,
+                                ItemRegistry.ESSENCE_INFUSER,
                                 LootPool.builder()
                                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                                        .with(ItemEntry.builder(ItemRegistry.essenceInfuser))))
+                                        .with(ItemEntry.builder(ItemRegistry.ESSENCE_INFUSER))))
                         // TODO: Make the number vary depending on block state if possible
                         .pool(this.addSurvivesExplosionCondition(
-                                ItemRegistry.essence,
+                                ItemRegistry.ESSENCE,
                                 LootPool.builder()
                                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                                        .with(ItemEntry.builder(ItemRegistry.essence)
+                                        .with(ItemEntry.builder(ItemRegistry.ESSENCE)
                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 3.0F))))))
                 );
     }

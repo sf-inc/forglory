@@ -52,11 +52,11 @@ public class PoweredGem extends Item {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 
             } else if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
-                    && blockState.isOf(BlockRegistry.essenceInfuser)
+                    && blockState.isOf(BlockRegistry.ESSENCE_INFUSER)
                     && blockState.get(EssenceInfuser.CHARGED)) {
 
                 if (!blockState.get(EssenceInfuser.INFINITE)) {
-                    world.setBlockState(pos, ((EssenceInfuser) BlockRegistry.essenceInfuser).getState(false, false));
+                    world.setBlockState(pos, ((EssenceInfuser) BlockRegistry.ESSENCE_INFUSER).getState(false, false));
                 }
                 MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0F, 1.0F);

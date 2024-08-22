@@ -16,9 +16,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         this.getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(BlockRegistry.essenceInfuser);
+                .add(BlockRegistry.ESSENCE_INFUSER);
 
         this.getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
-                .add(BlockRegistry.wittyDirt);
+                .add(BlockRegistry.WITTY_DIRT);
     }
 }

@@ -16,14 +16,14 @@ public class BlockRegistry {
     private BlockRegistry() {
     }
 
-    public static final Block essenceInfuser = new EssenceInfuser(AbstractBlock.Settings.create()
+    public static final Block ESSENCE_INFUSER = new EssenceInfuser(AbstractBlock.Settings.create()
             .mapColor(MapColor.LIGHT_GRAY)
             .requiresTool()
             .strength(50.0F, 6.0F)
             .luminance(state -> 8)
             .sounds(BlockSoundGroup.LANTERN));
 
-    public static final QuickFireBlock quickFireBlock = new QuickFireBlock(AbstractBlock.Settings.create()
+    public static final QuickFireBlock QUICK_FIRE = new QuickFireBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.PURPLE)
             .replaceable()
             .noCollision()
@@ -32,7 +32,7 @@ public class BlockRegistry {
             .sounds(BlockSoundGroup.WOOL)
             .pistonBehavior(PistonBehavior.DESTROY));
 
-    public static final Block wittyDirt = new WittyDirt(AbstractBlock.Settings.create()
+    public static final Block WITTY_DIRT = new WittyDirt(AbstractBlock.Settings.create()
             .mapColor(MapColor.DIRT_BROWN)
             .requiresTool()
             .strength(0.7F)
@@ -41,8 +41,8 @@ public class BlockRegistry {
             .ticksRandomly());
 
     public static void init() {
-        Registry.register(Registries.BLOCK, Forglory.id("essence_infuser"), essenceInfuser);
-        Registry.register(Registries.BLOCK, Forglory.id("quick_fire"), quickFireBlock);
-        Registry.register(Registries.BLOCK, Forglory.id("witty_dirt"), wittyDirt);
+        Registry.register(Registries.BLOCK, Forglory.id("essence_infuser"), ESSENCE_INFUSER);
+        Registry.register(Registries.BLOCK, Forglory.id("quick_fire"), QUICK_FIRE);
+        Registry.register(Registries.BLOCK, Forglory.id("witty_dirt"), WITTY_DIRT);
     }
 }

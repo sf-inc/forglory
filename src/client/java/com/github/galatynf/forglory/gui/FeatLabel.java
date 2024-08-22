@@ -28,7 +28,7 @@ public class FeatLabel extends WDynamicLabel {
 
         BlockPos pos = playerEntity.getBlockPos().down();
         BlockState blockState = playerEntity.getWorld().getBlockState(pos);
-        if (!blockState.isOf(BlockRegistry.essenceInfuser)) return;
+        if (!blockState.isOf(BlockRegistry.ESSENCE_INFUSER)) return;
 
         x = (MinecraftClient.getInstance().getWindow().getScaledWidth() - this.width) / 2;
         this.text = () -> I18n.translate(MyComponents.FEATS.get(playerEntity).getFeat(this.tier).toTranslatableText());

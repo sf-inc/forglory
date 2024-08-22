@@ -76,24 +76,24 @@ public abstract class FireZoneMixin extends Entity {
         if (world.getBlockState(blockPos).isAir()
                 && !world.getBlockState(belowBlockPos).isAir()
                 && !world.getBlockState(belowBlockPos).getFluidState().isEmpty()
-                && !world.getBlockState(belowBlockPos).getBlock().equals(BlockRegistry.quickFireBlock)) {
+                && !world.getBlockState(belowBlockPos).getBlock().equals(BlockRegistry.QUICK_FIRE)) {
             world.setBlockState(blockPos,
-                    BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                    BlockRegistry.QUICK_FIRE.getDefaultState().with(QuickFireBlock.SHORT, true));
         } else {
             for (int i = 1; i < 3; i++) {
                 if (world.getBlockState(blockPos.down(i)).isAir()
                         && !world.getBlockState(belowBlockPos.down(i)).isAir()
                         && !world.getBlockState(belowBlockPos.down(i)).getFluidState().isEmpty()
-                        && !world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlockRegistry.quickFireBlock)) {
+                        && !world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlockRegistry.QUICK_FIRE)) {
                     world.setBlockState(blockPos.down(i),
-                            BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlockRegistry.QUICK_FIRE.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 } else if (world.getBlockState(blockPos.up(i)).isAir()
                         && !world.getBlockState(belowBlockPos.up(i)).isAir()
                         && !world.getBlockState(belowBlockPos.up(i)).getFluidState().isEmpty()
-                        && !world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlockRegistry.quickFireBlock)) {
+                        && !world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlockRegistry.QUICK_FIRE)) {
                     world.setBlockState(blockPos.up(i),
-                            BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlockRegistry.QUICK_FIRE.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 }
             }

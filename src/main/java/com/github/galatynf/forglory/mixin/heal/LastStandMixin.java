@@ -104,7 +104,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 1));
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 30, 3));
-                this.addStatusEffect(new StatusEffectInstance(StatusEffectRegistry.lifeStealStatusEffect, 30, 0));
+                this.addStatusEffect(new StatusEffectInstance(StatusEffectRegistry.LIFE_STEAL, 30, 0));
                 this.forglory_berserkTimer--;
                 if (this.forglory_berserkTimer == 0) {
                     this.forglory_berserkTimer = ModConfig.get().featConfig.seconds_of_last_standing * 20;

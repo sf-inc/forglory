@@ -11,7 +11,7 @@ public class StatusEffectRegistry {
     private StatusEffectRegistry() {
     }
 
-    public static final RegistryEntry<StatusEffect> lifeStealStatusEffect = register("effect.life_steal",
+    public static final RegistryEntry<StatusEffect> LIFE_STEAL = register("effect.life_steal",
             new LifeStealStatusEffect());
 
     public static void init() {

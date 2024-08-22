@@ -56,7 +56,7 @@ public class Utils {
 
     public static void dropEssence(final World world, final BlockPos blockPos, final int min, final int max) {
         ItemEntity itemEntity;
-        ItemStack loot = new ItemStack(ItemRegistry.essence);
+        ItemStack loot = new ItemStack(ItemRegistry.ESSENCE);
         loot.setCount(world.random.nextInt((max - min) + 1) + min);
         if (!loot.isEmpty()) {
             itemEntity = new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), loot);

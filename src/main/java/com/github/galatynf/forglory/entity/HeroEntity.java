@@ -226,9 +226,9 @@ public class HeroEntity extends ZombieEntity {
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
         if (!this.isFemale) {
-            return SoundRegistry.male_grunt;
+            return SoundRegistry.MALE_GRUNT;
         } else {
-            return SoundRegistry.female_grunt;
+            return SoundRegistry.FEMALE_GRUNT;
         }
     }
 
@@ -239,7 +239,7 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isFemale ? SoundRegistry.female_death : SoundRegistry.male_death;
+        return this.isFemale ? SoundRegistry.FEMALE_DEATH : SoundRegistry.MALE_DEATH;
     }
 
     public String getTexture() {
