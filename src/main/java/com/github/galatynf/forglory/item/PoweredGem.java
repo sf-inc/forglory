@@ -5,6 +5,7 @@ import com.github.galatynf.forglory.block.EssenceInfuser;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.init.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
@@ -15,16 +16,26 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Map;
 
 public class PoweredGem extends Item {
     private final Feats feat;
     private final Item gem;
 
+    private static final Map<Tier, Rarity> TIER_RARITY = Map.of(
+            Tier.TIER1, Rarity.COMMON,
+            Tier.TIER2, Rarity.UNCOMMON,
+            Tier.TIER3, Rarity.RARE,
+            Tier.TIER4, Rarity.EPIC
+    );
+
     public PoweredGem(Settings settings, Feats feat, Item gem) {
-        super(settings);
+        super(settings.rarity(TIER_RARITY.get(feat.tier)));
         this.feat = feat;
         this.gem = gem;
     }

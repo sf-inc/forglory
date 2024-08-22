@@ -14,7 +14,6 @@ public class ItemRegistry {
     private ItemRegistry() {
     }
 
-    // TODO: Give item rarity
     public static final Item essenceInfuser = new BlockItem(BlockRegistry.essenceInfuser, new Item.Settings());
 
     public static final DebugItem debugItem = new DebugItem(new Item.Settings());
