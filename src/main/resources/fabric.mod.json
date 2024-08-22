@@ -18,20 +18,24 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.github.galatynf.forglory.client.ForgloryClient"
+      "com.github.galatynf.forglory.ForgloryClient"
     ],
     "main": [
       "com.github.galatynf.forglory.Forglory"
     ],
     "modmenu": [
-      "com.github.galatynf.forglory.config.ModMenuIntegration"
+      "com.github.galatynf.forglory.compat.ModMenuIntegration"
     ],
     "cardinal-components": [
       "com.github.galatynf.forglory.cardinal.MyComponents"
     ]
   },
   "mixins": [
-    "forglory.mixins.json"
+    "forglory.mixins.json",
+    {
+      "config": "forglory.client.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=0.16.2",

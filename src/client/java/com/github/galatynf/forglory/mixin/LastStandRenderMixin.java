@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.mixin.heal;
+package com.github.galatynf.forglory.mixin;
 
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import net.minecraft.client.MinecraftClient;

@@ -4,12 +4,10 @@ import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.blocks.EssenceInfuser;
 import com.github.galatynf.forglory.blocks.QuickFireBlock;
 import com.github.galatynf.forglory.blocks.WittyDirt;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -44,10 +42,6 @@ public class BlocksInit {
             .sounds(BlockSoundGroup.GRAVEL)
             .luminance(state -> 1)
             .ticksRandomly());
-
-    public static void initClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(quickFireBlock, RenderLayer.getCutout());
-    }
 
     public static void init() {
         Registry.register(Registries.BLOCK, Forglory.id("essence_infuser"), essenceInfuser);

@@ -1,8 +1,7 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.github.galatynf.forglory.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AdrenalinMixin",
     "AdrenalinOtherMixin",
@@ -37,9 +36,6 @@
     "mobility.NoHungerMixin",
     "mobility.SpeedMixin",
     "mobility.StridersGraceMixin"
-  ],
-  "client": [
-    "heal.LastStandRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

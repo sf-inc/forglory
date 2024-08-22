@@ -1,13 +1,10 @@
-package com.github.galatynf.forglory.client;
+package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.entity.HeroEntityRenderer;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.gui.AdrenalinBar;
 import com.github.galatynf.forglory.gui.FeatLabel;
-import com.github.galatynf.forglory.init.BlocksInit;
-import com.github.galatynf.forglory.init.EntitiesInit;
-import com.github.galatynf.forglory.init.KeyInit;
-import com.github.galatynf.forglory.init.NetworkInit;
+import com.github.galatynf.forglory.init.*;
 import io.github.cottonmc.cotton.gui.client.CottonHud;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -20,7 +17,7 @@ import net.minecraft.client.render.RenderLayer;
 public class ForgloryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlocksInit.initClient();
+        BlockRenderRegistry.initClient();
         KeyInit.initClient();
         NetworkInit.initClient();
         EntityRendererRegistry.register(EntitiesInit.HERO,  HeroEntityRenderer::new);
