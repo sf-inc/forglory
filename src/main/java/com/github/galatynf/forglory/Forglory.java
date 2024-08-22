@@ -23,13 +23,13 @@ public class Forglory implements ModInitializer {
             Feats.initCooldowns();
         });
 
-        BlocksInit.init();
-        ItemsInit.init();
-        ItemGroupsInit.init();
+        BlockRegistry.init();
+        ItemRegistry.init();
+        ItemGroupRegistry.init();
         NetworkInit.init();
-        SoundsInit.init();
-        StatusEffectsInit.init();
-        EntitiesInit.init();
+        SoundRegistry.init();
+        StatusEffectRegistry.init();
+        EntityRegistry.init();
     }
 
     public static Identifier id(final String path) {

@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory;
 
 import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.BlockRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -31,7 +31,7 @@ public class NoMixinFeats {
             newBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
             BlockPos blockPosHead = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());
             if (playerEntity.getWorld().getBlockState(blockPosHead).isAir()) {
-                playerEntity.getWorld().setBlockState(newBlockPos, BlocksInit.wittyDirt.getDefaultState());
+                playerEntity.getWorld().setBlockState(newBlockPos, BlockRegistry.wittyDirt.getDefaultState());
             } else {
                 break;
             }
@@ -42,7 +42,7 @@ public class NoMixinFeats {
                 for (int i = 0; i < heightMax; i++) {
                     sideBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
                     sideBlockPos = sideBlockPos.offset(direction);
-                    playerEntity.getWorld().setBlockState(sideBlockPos, BlocksInit.wittyDirt.getDefaultState());
+                    playerEntity.getWorld().setBlockState(sideBlockPos, BlockRegistry.wittyDirt.getDefaultState());
                 }
             }
         }

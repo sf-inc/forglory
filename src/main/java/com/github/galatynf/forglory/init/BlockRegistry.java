@@ -1,9 +1,9 @@
 package com.github.galatynf.forglory.init;
 
 import com.github.galatynf.forglory.Forglory;
-import com.github.galatynf.forglory.blocks.EssenceInfuser;
-import com.github.galatynf.forglory.blocks.QuickFireBlock;
-import com.github.galatynf.forglory.blocks.WittyDirt;
+import com.github.galatynf.forglory.block.EssenceInfuser;
+import com.github.galatynf.forglory.block.QuickFireBlock;
+import com.github.galatynf.forglory.block.WittyDirt;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -14,8 +14,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 
-public class BlocksInit {
-    private BlocksInit() {
+public class BlockRegistry {
+    private BlockRegistry() {
     }
 
     public static final Block essenceInfuser = new EssenceInfuser(AbstractBlock.Settings.create()

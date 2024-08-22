@@ -18,11 +18,11 @@ public class ForgloryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderRegistry.initClient();
-        KeyInit.initClient();
+        KeyBindingRegistry.initClient();
         NetworkInit.initClient();
-        EntityRendererRegistry.register(EntitiesInit.HERO,  HeroEntityRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.HERO,  HeroEntityRenderer::new);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(BlocksInit.quickFireBlock, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.quickFireBlock, RenderLayer.getCutout());
 
         CottonHud.add(new AdrenalinBar(), 0, -3, 9, 34);
 

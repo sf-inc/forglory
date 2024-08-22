@@ -3,7 +3,7 @@ package com.github.galatynf.forglory.mixin.damage;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
-import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.BlockRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,13 +69,13 @@ public abstract class FireTrailMixin extends Entity implements IFireTrailMixin {
         if (world.getBlockState(blockPos).isAir()
                 && !world.getBlockState(belowBlockPos).isAir()
                 && !world.getBlockState(belowBlockPos).getFluidState().isEmpty()
-                && !world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
-            world.setBlockState(blockPos, BlocksInit.quickFireBlock.getDefaultState());
+                && !world.getBlockState(belowBlockPos).getBlock().equals(BlockRegistry.quickFireBlock)) {
+            world.setBlockState(blockPos, BlockRegistry.quickFireBlock.getDefaultState());
         } else if (world.getBlockState(blockPos.down()).isAir()
                 && !world.getBlockState(belowBlockPos.down()).isAir()
                 && !world.getBlockState(belowBlockPos.down()).getFluidState().isEmpty()
-                && !world.getBlockState(belowBlockPos.down()).getBlock().equals(BlocksInit.quickFireBlock)) {
-            world.setBlockState(blockPos.down(), BlocksInit.quickFireBlock.getDefaultState());
+                && !world.getBlockState(belowBlockPos.down()).getBlock().equals(BlockRegistry.quickFireBlock)) {
+            world.setBlockState(blockPos.down(), BlockRegistry.quickFireBlock.getDefaultState());
         }
     }
 }

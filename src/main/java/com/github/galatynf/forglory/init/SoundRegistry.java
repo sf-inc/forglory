@@ -6,8 +6,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
-public class SoundsInit {
-    private SoundsInit() {
+public class SoundRegistry {
+    private SoundRegistry() {
     }
 
     public static final Identifier TIER_1_EFFECT_ID = Forglory.id("tier_1_whoosh");

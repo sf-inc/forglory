@@ -3,14 +3,12 @@ package com.github.galatynf.forglory.mixin.misc;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,7 +38,7 @@ public abstract class KnockbackFistPlayerMixin extends LivingEntity implements I
         this.knockbackActivated = setter;
         if (setter && !this.getWorld().isClient()) {
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeIdentifier(SoundsInit.INCRE_ID);
+            buf.writeIdentifier(SoundRegistry.INCRE_ID);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
                 // FIXME: Replace with world sound
                 //NetworkInit.playSoundWide(SoundsInit.INCRE_ID, (ServerPlayerEntity) (Object) this, true);

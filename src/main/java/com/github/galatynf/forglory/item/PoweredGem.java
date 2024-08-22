@@ -1,11 +1,11 @@
-package com.github.galatynf.forglory.items;
+package com.github.galatynf.forglory.item;
 
 import com.github.galatynf.forglory.Utils;
-import com.github.galatynf.forglory.blocks.EssenceInfuser;
+import com.github.galatynf.forglory.block.EssenceInfuser;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,11 +41,11 @@ public class PoweredGem extends Item {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 
             } else if (MyComponents.ADRENALIN.get(user).getAdrenalin() == ConstantsConfig.MIN_AMOUNT
-                    && blockState.isOf(BlocksInit.essenceInfuser)
+                    && blockState.isOf(BlockRegistry.essenceInfuser)
                     && blockState.get(EssenceInfuser.CHARGED)) {
 
                 if (!blockState.get(EssenceInfuser.INFINITE)) {
-                    world.setBlockState(pos, ((EssenceInfuser) BlocksInit.essenceInfuser).getState(false, false));
+                    world.setBlockState(pos, ((EssenceInfuser) BlockRegistry.essenceInfuser).getState(false, false));
                 }
                 MyComponents.FEATS.get(user).addOrUpdateFeat(feat);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0F, 1.0F);

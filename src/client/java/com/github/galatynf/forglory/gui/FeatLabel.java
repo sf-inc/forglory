@@ -2,7 +2,7 @@ package com.github.galatynf.forglory.gui;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.BlockRegistry;
 import io.github.cottonmc.cotton.gui.widget.WDynamicLabel;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import net.minecraft.block.BlockState;
@@ -28,7 +28,7 @@ public class FeatLabel extends WDynamicLabel {
 
         BlockPos pos = playerEntity.getBlockPos().down();
         BlockState blockState = playerEntity.getWorld().getBlockState(pos);
-        if (!blockState.isOf(BlocksInit.essenceInfuser)) return;
+        if (!blockState.isOf(BlockRegistry.essenceInfuser)) return;
 
         x = (MinecraftClient.getInstance().getWindow().getScaledWidth() - this.width) / 2;
         this.text = () -> I18n.translate(MyComponents.FEATS.get(playerEntity).getFeat(this.tier).toTranslatableText());

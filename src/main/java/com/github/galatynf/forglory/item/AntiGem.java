@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.items;
+package com.github.galatynf.forglory.item;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;

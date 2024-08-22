@@ -3,15 +3,19 @@ package com.github.galatynf.forglory.init;
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import com.github.galatynf.forglory.items.AntiGem;
-import com.github.galatynf.forglory.items.PoweredGem;
-import net.minecraft.item.Item;
+import com.github.galatynf.forglory.item.AntiGem;
+import com.github.galatynf.forglory.item.DebugItem;
+import com.github.galatynf.forglory.item.PoweredGem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class GemsInit {
-    private GemsInit() {
+public class ItemRegistry {
+    private ItemRegistry() {
     }
+
+    public static final DebugItem debugItem = new DebugItem(new Item.Settings());
+    public static final Item essence = new Item(new Item.Settings());
 
     public static final AntiGem antiGemI = new AntiGem(new Item.Settings().maxDamage(1), Tier.TIER1);
     public static final AntiGem antiGemII = new AntiGem(new Item.Settings().maxDamage(2), Tier.TIER2);
@@ -54,6 +58,9 @@ public class GemsInit {
     public static final PoweredGem stridersGraceGem = new PoweredGem(new Item.Settings(), Feats.STRIDERS_GRACE, mobilityGem);
 
     public static void init() {
+        Registry.register(Registries.ITEM, Forglory.id("debug_item"), debugItem);
+        Registry.register(Registries.ITEM, Forglory.id("essence"), essence);
+
         Registry.register(Registries.ITEM, Forglory.id("anti_gem1"), antiGemI);
         Registry.register(Registries.ITEM, Forglory.id("anti_gem2"), antiGemII);
         Registry.register(Registries.ITEM, Forglory.id("anti_gem3"), antiGemIII);

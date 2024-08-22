@@ -3,7 +3,7 @@ package com.github.galatynf.forglory.mixin;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
-import com.github.galatynf.forglory.init.SoundsInit;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -109,7 +109,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
             if (ModConfig.get().guiSoundsConfig.enable_tier_jingles) {
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier1_threshold) {
                     if (!forglory_soundPlayed[0]) {
-                        playSound(SoundsInit.tier_1_whoosh_event, 1.2F, 1F);
+                        playSound(SoundRegistry.tier_1_whoosh_event, 1.2F, 1F);
                         forglory_soundPlayed[0] = true;
                     }
                 } else {
@@ -117,7 +117,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier2_threshold) {
                     if (!forglory_soundPlayed[1]) {
-                        playSound(SoundsInit.tier_2_bass_event, 1F, 1F);
+                        playSound(SoundRegistry.tier_2_bass_event, 1F, 1F);
                         forglory_soundPlayed[1] = true;
                     }
                 } else {
@@ -125,7 +125,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier3_threshold) {
                     if (!forglory_soundPlayed[2]) {
-                        playSound(SoundsInit.tier_3_strong_bass_event, 1F, 1F);
+                        playSound(SoundRegistry.tier_3_strong_bass_event, 1F, 1F);
                         forglory_soundPlayed[2] = true;
                     }
                 } else {
@@ -133,7 +133,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 }
                 if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.tier4_threshold) {
                     if (!forglory_soundPlayed[3]) {
-                        playSound(SoundsInit.tier_4_overcharged_event, 1F, 1F);
+                        playSound(SoundRegistry.tier_4_overcharged_event, 1F, 1F);
                         forglory_soundPlayed[3] = true;
                     }
                 } else {

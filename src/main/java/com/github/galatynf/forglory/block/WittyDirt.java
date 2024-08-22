@@ -1,4 +1,4 @@
-package com.github.galatynf.forglory.blocks;
+package com.github.galatynf.forglory.block;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;

@@ -3,7 +3,7 @@ package com.github.galatynf.forglory.entity;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
-import com.github.galatynf.forglory.init.SoundsInit;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -226,9 +226,9 @@ public class HeroEntity extends ZombieEntity {
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource_1) {
         if (!this.isFemale) {
-            return SoundsInit.male_grunt;
+            return SoundRegistry.male_grunt;
         } else {
-            return SoundsInit.female_grunt;
+            return SoundRegistry.female_grunt;
         }
     }
 
@@ -239,7 +239,7 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isFemale ? SoundsInit.female_death : SoundsInit.male_death;
+        return this.isFemale ? SoundRegistry.female_death : SoundRegistry.male_death;
     }
 
     public String getTexture() {

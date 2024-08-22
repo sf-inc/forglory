@@ -1,12 +1,12 @@
 package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Utils;
-import com.github.galatynf.forglory.blocks.QuickFireBlock;
+import com.github.galatynf.forglory.block.QuickFireBlock;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
-import com.github.galatynf.forglory.init.BlocksInit;
+import com.github.galatynf.forglory.init.BlockRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -76,24 +76,24 @@ public abstract class FireZoneMixin extends Entity {
         if (world.getBlockState(blockPos).isAir()
                 && !world.getBlockState(belowBlockPos).isAir()
                 && !world.getBlockState(belowBlockPos).getFluidState().isEmpty()
-                && !world.getBlockState(belowBlockPos).getBlock().equals(BlocksInit.quickFireBlock)) {
+                && !world.getBlockState(belowBlockPos).getBlock().equals(BlockRegistry.quickFireBlock)) {
             world.setBlockState(blockPos,
-                    BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                    BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
         } else {
             for (int i = 1; i < 3; i++) {
                 if (world.getBlockState(blockPos.down(i)).isAir()
                         && !world.getBlockState(belowBlockPos.down(i)).isAir()
                         && !world.getBlockState(belowBlockPos.down(i)).getFluidState().isEmpty()
-                        && !world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
+                        && !world.getBlockState(belowBlockPos.down(i)).getBlock().equals(BlockRegistry.quickFireBlock)) {
                     world.setBlockState(blockPos.down(i),
-                            BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 } else if (world.getBlockState(blockPos.up(i)).isAir()
                         && !world.getBlockState(belowBlockPos.up(i)).isAir()
                         && !world.getBlockState(belowBlockPos.up(i)).getFluidState().isEmpty()
-                        && !world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlocksInit.quickFireBlock)) {
+                        && !world.getBlockState(belowBlockPos.up(i)).getBlock().equals(BlockRegistry.quickFireBlock)) {
                     world.setBlockState(blockPos.up(i),
-                            BlocksInit.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
+                            BlockRegistry.quickFireBlock.getDefaultState().with(QuickFireBlock.SHORT, true));
                     break;
                 }
             }

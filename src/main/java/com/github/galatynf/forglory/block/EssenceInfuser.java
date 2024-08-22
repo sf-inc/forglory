@@ -1,7 +1,7 @@
-package com.github.galatynf.forglory.blocks;
+package com.github.galatynf.forglory.block;
 
 import com.github.galatynf.forglory.Utils;
-import com.github.galatynf.forglory.init.ItemsInit;
+import com.github.galatynf.forglory.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -75,7 +75,7 @@ public class EssenceInfuser extends Block {
     }
 
     private static boolean isChargeItem(final ItemStack stack) {
-        return stack.isOf(ItemsInit.essence);
+        return stack.isOf(ItemRegistry.essence);
     }
 
     private static boolean canCharge(final BlockState state) {

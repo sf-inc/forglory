@@ -6,16 +6,13 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.entity.HeroEntity;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
-import com.github.galatynf.forglory.init.EntitiesInit;
-import com.github.galatynf.forglory.init.NetworkInit;
-import com.github.galatynf.forglory.init.SoundsInit;
+import com.github.galatynf.forglory.init.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3i;
@@ -42,7 +39,7 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
             Vec3i offset;
             for (int i = 0; i < ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
                 offset = new Vec3i(this.random.nextBetween(-3, 3), 1, this.random.nextBetween(-3, 3));
-                HeroEntity theHero = EntitiesInit.HERO.spawn((ServerWorld) this.getWorld(), this.getBlockPos().add(offset), SpawnReason.MOB_SUMMONED);
+                HeroEntity theHero = EntityRegistry.HERO.spawn((ServerWorld) this.getWorld(), this.getBlockPos().add(offset), SpawnReason.MOB_SUMMONED);
                 if (theHero == null) {
                     System.err.println("Couldn't create hero from undead army Mixin");
                     return;

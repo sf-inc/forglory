@@ -9,8 +9,8 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class EntitiesInit {
-    private EntitiesInit() {
+public class EntityRegistry {
+    private EntityRegistry() {
     }
 
     public static final EntityType<HeroEntity> HERO = EntityType.Builder
