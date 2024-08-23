@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "forglory:knockback_fist_gem"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    {
+      "item": "minecraft:bell"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "forglory:undead_army_gem"
+  }
+}

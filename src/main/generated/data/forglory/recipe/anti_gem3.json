@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "q": {
+      "item": "minecraft:quartz"
+    },
+    "t": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    " q ",
+    "qtq",
+    " q "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forglory:anti_gem3"
+  }
+}
