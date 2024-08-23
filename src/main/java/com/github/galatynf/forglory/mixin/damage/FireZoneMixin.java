@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerEntity.class)
 public abstract class FireZoneMixin extends LivingEntity {
     @Unique
-    float forglory_fireRadius;
+    int forglory_distance = 0;
     @Unique
     private boolean forglory_firstTime_FZ = true;
 
@@ -38,21 +38,22 @@ public abstract class FireZoneMixin extends LivingEntity {
                 }
                 this.forglory_firstTime_FZ = false;
             }
-            this.forglory_fireRadius += (float) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
-            if (this.forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
+
+            if (this.getWorld().getTime() % ModConfig.get().featConfig.fireZoneConfig.speed != 0) return;
+
+            if (++this.forglory_distance >= ModConfig.get().featConfig.fireZoneConfig.range) {
                 this.playSound(SoundRegistry.FIRE_ZONE_PULSE);
-                this.forglory_fireRadius = this.forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
+                this.forglory_distance = this.forglory_distance % ModConfig.get().featConfig.fireZoneConfig.range;
             }
 
-            final int spawnFire = ModConfig.get().featConfig.fireZoneConfig.fire_rate * (int) this.forglory_fireRadius;
-            final double angle = (2 * Math.PI) / spawnFire;
             BlockPos blockPos;
+            for (int i = -this.forglory_distance; i <= this.forglory_distance; ++i) {
+                for (int j = -this.forglory_distance; j <= this.forglory_distance; ++j) {
+                    if (Math.abs(i) != this.forglory_distance && Math.abs(j) != this.forglory_distance) continue;
 
-            for (int i = 0; i < spawnFire; i++) {
-                blockPos = this.getBlockPos().add((int) (this.forglory_fireRadius * Math.cos(i * angle)),
-                        0,
-                        (int) (this.forglory_fireRadius * Math.sin(i * angle)));
-                NoMixinFeats.spawnQuickFire(this.getWorld(), blockPos, true);
+                    blockPos = this.getBlockPos().add(i, 0, j);
+                    NoMixinFeats.spawnQuickFire(this.getWorld(), blockPos, true);
+                }
             }
         }
         else {
