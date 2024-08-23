@@ -33,6 +33,13 @@ public class Utils {
         return false;
     }
 
+    public static boolean canSpawnQuickFire(final World world, final BlockPos fromPos) {
+        BlockPos toPos = fromPos.down();
+        return world.getBlockState(fromPos).isReplaceable()
+                && !world.getBlockState(toPos).isReplaceable()
+                && world.getBlockState(toPos).getFluidState().isEmpty();
+    }
+
     public static float adrenalinMultiplier(final PlayerEntity playerEntity, float amount) {
         if (amount < 0) return amount;
 
