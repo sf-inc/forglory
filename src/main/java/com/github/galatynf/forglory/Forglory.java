@@ -23,6 +23,7 @@ public class Forglory implements ModInitializer {
             Feats.initCooldowns();
         });
 
+        BiomeTagRegistry.init();
         BlockRegistry.init();
         ItemRegistry.init();
         ItemGroupRegistry.init();

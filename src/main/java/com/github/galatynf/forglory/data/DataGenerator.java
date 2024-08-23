@@ -7,6 +7,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
+        pack.addProvider(BiomeTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(RecipeProvider::new);
