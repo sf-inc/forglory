@@ -4,10 +4,7 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.SoundRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -24,8 +21,10 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -117,6 +116,14 @@ public class HeroEntity extends ZombieEntity {
         } else if (rand == 1) {
             this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.TORCH));
         }
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
+        this.setBaby(false);
+        return data;
     }
 
     @Override
@@ -238,12 +245,6 @@ public class HeroEntity extends ZombieEntity {
 
     public String getTexture() {
         return this.texture;
-    }
-
-    // TODO: Check if enough, I'd think it still allows spawning as baby
-    @Override
-    public boolean isBaby() {
-        return false;
     }
 
     @Override
