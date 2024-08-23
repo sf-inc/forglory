@@ -7,6 +7,7 @@ import com.github.galatynf.forglory.entity.HeroEntity;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.EntityRegistry;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,11 +15,9 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class SummonUndeadArmyMixin extends LivingEntity {
-    @Shadow
-    public abstract void playSound(SoundEvent sound, float volume, float pitch);
-
     protected SummonUndeadArmyMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -46,11 +42,9 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
                 }
                 MyComponents.SUMMONED.get(theHero).setPlayer(this.getUuid());
             }
-            // FIXME: Replace with world sound
-            //NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_SPAWN_ID, (ServerPlayerEntity) (Object) this, false);
+            this.playSound(SoundRegistry.UNDEAD_ARMY_SPAWN);
             if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.CENTURION) {
-                // FIXME: Replace with world sound
-                //NetworkInit.playSoundWide(SoundsInit.UNDEAD_ARMY_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
+                this.playSound(SoundRegistry.UNDEAD_ARMY_VOICE);
             }
             MyComponents.FEATS.get(this).setUniqueCooldown(Feats.UNDEAD_ARMY.tier);
         }

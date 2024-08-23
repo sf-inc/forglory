@@ -6,6 +6,7 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import com.github.galatynf.forglory.init.StatusEffectRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
@@ -16,7 +17,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -33,6 +36,7 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
     @Shadow public abstract float getHealth();
     @Shadow public abstract float getMaxHealth();
 
+    @Shadow public abstract void playSound(@Nullable SoundEvent sound);
     @Shadow public abstract void setHealth(float health);
 
     @Unique
@@ -70,11 +74,9 @@ public abstract class LastStandMixin extends Entity implements ILastStandMixin {
                         (ModConfig.get().adrenalinConfig.tier3_threshold + ModConfig.get().adrenalinConfig.tier4_threshold) / 2.f);
                 this.setHealth(0.5F);
                 this.clearStatusEffects();
-                // FIXME: Replace with world sound
-                //NetworkInit.playSoundWide(SoundsInit.LAST_STANDING_ID, (PlayerEntity) (Object) this, false);
+                this.playSound(SoundRegistry.LAST_STANDING);
                 if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.BERSERKER) {
-                    // FIXME: Replace with world sound
-                    //NetworkInit.playSoundWide(SoundsInit.LAST_STANDING_VOICE_ID, (PlayerEntity) (Object) this, true);
+                    this.playSound(SoundRegistry.LAST_STANDING_VOICE);
                 }
                 cir.setReturnValue(false);
             }

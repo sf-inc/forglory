@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -14,11 +15,9 @@ import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class MachineGunMixin extends LivingEntity implements IMachineGunMixin {
-    @Shadow
-    public abstract void playSound(SoundEvent sound, float volume, float pitch);
-
     @Unique
     private int forglory_machineGun;
     @Unique
@@ -53,11 +49,9 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
 
                 if (this.forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machine_gun_arrows, 2));
-                    // FIXME: Replace with world sound
-                    //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_ID, (ServerPlayerEntity) (Object) this, false);
+                    this.playSound(SoundRegistry.MACHINE_GUN);
                     if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
-                        // FIXME: Replace with world sound
-                        //NetworkInit.playSoundWide(SoundsInit.MACHINE_GUN_VOICE_ID, (ServerPlayerEntity) (Object) this, true);
+                        this.playSound(SoundRegistry.MACHINE_GUN_VOICE);
                     }
                 }
                 this.forglory_machineGun -= 1;

@@ -14,13 +14,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class NetworkInit {
-    private NetworkInit() {
-    }
-
-    public static final Identifier PLAY_SOUND_ID = Forglory.id("play_sound");
-
     public static final Identifier ACTIVATE_FEAT_PACKET_ID = Forglory.id("activate_feat");
     public static final Identifier BERSERK_PACKET_ID = Forglory.id("is_berserk");
+
+    private NetworkInit() {
+    }
 
     public static void initClient() {
         // FIXME: Make the keybind send a packet
@@ -40,77 +38,7 @@ public class NetworkInit {
             });
 
         });*/
-
-        // FIXME: Rework sound system to not use packets
-        /*ClientPlayNetworking.registerGlobalReceiver(NetworkInit.PLAY_SOUND_ID, (client, handler, buf, responseSender) -> {
-            Identifier id = buf.readIdentifier();
-            boolean isClassSound = buf.readBoolean();
-            float distance = buf.readFloat();
-            if(!isClassSound || ModConfig.get().guiSoundsConfig.enable_class_sounds) {
-                if (client.player != null) {
-                    client.player.playSound(Registry.SOUND_EVENT.get(id), (float) (1 / Math.sqrt(distance + 1)), 1);
-                }
-            }
-            client.execute(() -> {
-            });
-        });*/
     }
-
-    /*public static void playSoundWide(Identifier sound, ServerPlayerEntity player, boolean isClassSound) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(isClassSound);
-        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if (aPlayer.distanceTo(player) < 15) {
-                buffy.writeFloat(aPlayer.distanceTo(player));
-                ServerPlayNetworking.send(aPlayer, NetworkInit.PLAY_SOUND_ID, buffy);
-            }
-        }
-    }
-
-    public static void playSoundWide(Identifier sound, PlayerEntity player, boolean isClassSound) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(isClassSound);
-        for (ServerPlayerEntity aPlayer : PlayerLookup.tracking((ServerWorld) player.world, player.getBlockPos())) {
-            if (aPlayer.distanceTo(player) < 15) {
-                buffy.writeFloat(aPlayer.distanceTo(player));
-                ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
-            }
-        }
-    }
-
-    public static void playSound(Identifier sound, ServerPlayerEntity player) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(false);
-        buffy.writeFloat(1);
-        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
-    }
-
-    public static void playSound(Identifier sound, ServerPlayerEntity player, boolean isClassSound) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(isClassSound);
-        buffy.writeFloat(1);
-        ServerPlayNetworking.send(player, NetworkInit.PLAY_SOUND_ID, buffy);
-    }
-
-    public static void playSound(Identifier sound, PlayerEntity player) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(false);
-        buffy.writeFloat(1);
-        ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
-    }
-
-    public static void playSound(Identifier sound, PlayerEntity player, boolean isClassSound) {
-        PacketByteBuf buffy = PacketByteBufs.create();
-        buffy.writeIdentifier(sound);
-        buffy.writeBoolean(isClassSound);
-        buffy.writeFloat(1);
-        ServerPlayNetworking.send((ServerPlayerEntity) player, NetworkInit.PLAY_SOUND_ID, buffy);
-    }*/
 
     public static void init() {
         // FIXME: Handle the receive packet from the keybind

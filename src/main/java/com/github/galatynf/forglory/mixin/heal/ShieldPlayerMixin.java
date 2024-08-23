@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.imixin.IShieldMixin;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -50,8 +51,7 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
     public void counterattack(LivingEntity attacker, CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)) {
             if (this.forglory_lastBlocked != 0) {
-                // FIXME: Replace with world sound
-                //NetworkInit.playSoundWide(SoundsInit.SHIELD_FLIP_ID, (ServerPlayerEntity) (Object) this, false);
+                this.playSound(SoundRegistry.SHIELD_FLIP);
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
                 this.attack(attacker);
             }

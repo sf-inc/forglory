@@ -7,31 +7,27 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
 import com.github.galatynf.forglory.init.BlockRegistry;
-import net.minecraft.entity.Entity;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public abstract class FireZoneMixin extends Entity {
-    @Shadow
-    public abstract void playSound(SoundEvent sound, float volume, float pitch);
-
+public abstract class FireZoneMixin extends LivingEntity {
     @Unique
     float forglory_fireRadius;
     @Unique
     private boolean forglory_firstTime_FZ = true;
 
-    public FireZoneMixin(EntityType<?> type, World world) {
-        super(type, world);
+    protected FireZoneMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
@@ -39,15 +35,13 @@ public abstract class FireZoneMixin extends Entity {
         if (Utils.canUseFeat(this, Feats.FIRE_ZONE)) {
             if (this.forglory_firstTime_FZ) {
                 if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.PYROMANIAC) {
-                    // FIXME: Replace with world sound
-                    //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_VOICE_ID, (ServerPlayerEntity)(Object) this, true);
+                    this.playSound(SoundRegistry.FIRE_ZONE_VOICE);
                 }
                 this.forglory_firstTime_FZ = false;
             }
             this.forglory_fireRadius += (float) ModConfig.get().featConfig.fireZoneConfig.radius / (100 * ModConfig.get().featConfig.fireZoneConfig.fire_speed);
             if (this.forglory_fireRadius >= ModConfig.get().featConfig.fireZoneConfig.radius) {
-                // FIXME: Replace with world sound
-                //NetworkInit.playSoundWide(SoundsInit.FIRE_ZONE_PULSE_ID, (ServerPlayerEntity) (Object) this, false);
+                this.playSound(SoundRegistry.FIRE_ZONE_PULSE);
                 this.forglory_fireRadius = this.forglory_fireRadius % ModConfig.get().featConfig.fireZoneConfig.radius;
             }
 

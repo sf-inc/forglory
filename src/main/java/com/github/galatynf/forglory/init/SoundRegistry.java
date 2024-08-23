@@ -10,6 +10,7 @@ public class SoundRegistry {
     private SoundRegistry() {
     }
 
+    // TODO: Rework sound playing, as we can't hear feat sounds while tier ones are playing
     public static final Identifier TIER_1_EFFECT_ID = Forglory.id("tier_1_whoosh");
     public static final SoundEvent TIER_1_WHOOSH_EVENT = SoundEvent.of(TIER_1_EFFECT_ID);
 

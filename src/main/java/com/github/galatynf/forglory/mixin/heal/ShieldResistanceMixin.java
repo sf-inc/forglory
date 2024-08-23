@@ -4,6 +4,7 @@ import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,8 +14,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,6 +28,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ShieldResistanceMixin extends Entity {
     @Shadow public abstract boolean isBlocking();
     @Shadow public abstract Hand getActiveHand();
+
+    @Shadow public abstract void playSound(@Nullable SoundEvent sound);
 
     @Shadow protected ItemStack activeItemStack;
 
@@ -40,8 +45,7 @@ public abstract class ShieldResistanceMixin extends Entity {
             if (this.activeItemStack.isOf(Items.SHIELD)) {
                 this.activeItemStack.damage(10, (LivingEntity) (Object) this, LivingEntity.getSlotForHand(this.getActiveHand()));
             }
-            // FIXME: Replace with world sound
-            //NetworkInit.playSoundWide(SoundsInit.SHIELD_RES_HITS_ID, (PlayerEntity) (Object) this, false);
+            this.playSound(SoundRegistry.SHIELD_RES_HITS);
             cir.setReturnValue(true);
         }
     }
