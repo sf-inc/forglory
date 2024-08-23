@@ -16,7 +16,7 @@ public class KeyBindingRegistry {
             "category.forglory.keys"
     );
 
-    public static void initClient() {
+    public static void init() {
         KeyBindingHelper.registerKeyBinding(ACTIVATE_FEAT);
     }
 }
