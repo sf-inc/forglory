@@ -151,26 +151,20 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected void initAttributes() {
-        // TODO: Remove super call to avoid call reinforcement
-        super.initAttributes();
-        Float[] multipliers = {0.8f, 0.9f, 1f, 1.1f, 1.2f};
-        int i = 0;
-
-        List<Float> listMult = Arrays.asList(multipliers);
-
-        Collections.shuffle(listMult);
+        List<Float> multipliers = new ArrayList<>(List.of(0.8f, 0.9f, 1f, 1.1f, 1.2f));
+        Collections.shuffle(multipliers);
 
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)
-                .setBaseValue(25 * listMult.get(i++));
+                .setBaseValue(25 * multipliers.getFirst());
 
-        this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(1D * listMult.get(i++));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(1D * multipliers.get(1));
 
-        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3D * (listMult.get(i++)));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3D * (multipliers.get(2)));
 
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)
-                .setBaseValue(1.5 * listMult.get(i++));
+                .setBaseValue(1.5 * multipliers.get(3));
 
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue(1.1D * listMult.get(i));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue(1.1D * multipliers.get(4));
 
         this.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(2.0D);
     }
