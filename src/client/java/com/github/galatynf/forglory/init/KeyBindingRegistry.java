@@ -9,14 +9,14 @@ public class KeyBindingRegistry {
     private KeyBindingRegistry() {
     }
 
-    public static KeyBinding activateFeatKey;
+    public static final KeyBinding ACTIVATE_FEAT = new KeyBinding(
+            "key.forglory.activateFeatKey",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_LEFT_ALT,
+            "category.forglory.keys"
+    );
 
     public static void initClient() {
-        activateFeatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.forglory.activateFeatKey",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_LEFT_ALT,
-                "category.forglory.keys"
-        ));
+        KeyBindingHelper.registerKeyBinding(ACTIVATE_FEAT);
     }
 }

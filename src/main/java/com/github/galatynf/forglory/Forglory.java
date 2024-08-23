@@ -27,7 +27,7 @@ public class Forglory implements ModInitializer {
         BlockRegistry.init();
         ItemRegistry.init();
         ItemGroupRegistry.init();
-        NetworkInit.init();
+        NetworkRegistry.init();
         SoundRegistry.init();
         StatusEffectRegistry.init();
         EntityRegistry.init();

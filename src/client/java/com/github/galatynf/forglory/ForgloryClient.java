@@ -19,7 +19,7 @@ public class ForgloryClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderRegistry.initClient();
         KeyBindingRegistry.initClient();
-        NetworkInit.initClient();
+        ClientNetworkRegistry.init();
         EntityRendererRegistry.register(EntityRegistry.HERO,  HeroEntityRenderer::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.QUICK_FIRE, RenderLayer.getCutout());
