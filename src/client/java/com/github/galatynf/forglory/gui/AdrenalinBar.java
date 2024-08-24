@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AdrenalinBar extends WWidget {
+    private static final Identifier ADRENALIN_BAR_TEXTURE = Forglory.id("textures/gui/sprites/hud/adrenalin_bar.png");
 
     @Override
     public void paint(DrawContext context, int x, int y, int mouseX, int mouseY) {
@@ -43,7 +44,6 @@ public class AdrenalinBar extends WWidget {
         }
         float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold;
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
-        Identifier bar = Forglory.id("textures/overlay/adrenalin_bar.png");
 
         Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();
         Window window = MinecraftClient.getInstance().getWindow();
@@ -60,6 +60,6 @@ public class AdrenalinBar extends WWidget {
         if (heightAdrenalin > 0) {
             ScreenDrawing.coloredRect(context, x + xOffset + 1, y - height - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
         }
-        ScreenDrawing.texturedRect(context, x + xOffset, y - height, width, height, bar, -1);
+        ScreenDrawing.texturedRect(context, x + xOffset, y - height, width, height, ADRENALIN_BAR_TEXTURE, -1);
     }
 }
