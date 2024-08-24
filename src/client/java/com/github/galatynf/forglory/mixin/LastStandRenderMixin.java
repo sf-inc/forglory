@@ -1,8 +1,12 @@
 package com.github.galatynf.forglory.mixin;
 
+import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.imixin.ILastStandMixin;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,33 +17,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public abstract class LastStandRenderMixin {
+    @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
+
     @Shadow @Final private MinecraftClient client;
 
-    @Inject(method = "render", at = @At("HEAD"))
-    private void render(CallbackInfo info) {
-        assert client.player != null;
-        if (((ILastStandMixin) client.player).forglory$isBerserk()) {
-            this.renderBerserkOverlay();
-        }
-    }
-
     @Unique
-    private void renderBerserkOverlay() {
-        // FIXME: Check how to render overlay
-        /*RenderSystem.enableBlend();
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.defaultBlendFunc();
-        this.client.getTextureManager().bindTexture(Forglory.id("textures/overlay/last_stand.png"));
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(0.0D, this.scaledHeight, -90.0D).texture(0.0F, 1.0F).next();
-        bufferBuilder.vertex(this.scaledWidth, this.scaledHeight, -90.0D).texture(1.0F, 1.0F).next();
-        bufferBuilder.vertex(this.scaledWidth, 0.0D, -90.0D).texture(1.0F, 0.0F).next();
-        bufferBuilder.vertex(0.0D, 0.0D, -90.0D).texture(0.0F, 0.0F).next();
-        tessellator.draw();
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();*/
+    private static final Identifier LAST_STAND_OUTLINE = Forglory.id("textures/misc/last_stand.png");
+
+    @Inject(method = "renderMiscOverlays", at = @At("HEAD"))
+    private void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (this.client.player == null) return;
+
+        if (((ILastStandMixin) client.player).forglory$isBerserk()) {
+            this.renderOverlay(context, LAST_STAND_OUTLINE, 1.0f);
+        }
     }
 }
