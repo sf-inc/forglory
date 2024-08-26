@@ -1,7 +1,7 @@
 package com.github.galatynf.forglory.enumFeat;
 
 import com.github.galatynf.forglory.config.ConstantsConfig;
-import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.config.CooldownConfig;
 
 public enum Feats {
     NO_FEAT(Tier.TIER1),
@@ -38,11 +38,15 @@ public enum Feats {
     UNDEAD_ARMY(Tier.TIER4);
 
     public final Tier tier;
-    public int cooldown;
+    private int cooldown;
 
     Feats(final Tier tier) {
         this.tier = tier;
         this.cooldown = ConstantsConfig.NO_COOLDOWN;
+    }
+
+    public int getCooldown() {
+        return this.cooldown;
     }
 
     public String toTranslatableText() {
@@ -51,13 +55,13 @@ public enum Feats {
         return string;
     }
 
-    public static void initCooldowns() {
-        HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healingFist;
-        DASH.cooldown = ModConfig.get().cooldownConfig.dash;
-        KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockbackFist;
-        MACHINE_GUN.cooldown = ModConfig.get().cooldownConfig.machineGun;
-        MOUNTAIN.cooldown = ModConfig.get().cooldownConfig.mountain;
-        FIREWORKER.cooldown = ModConfig.get().cooldownConfig.fireworker;
-        INSTANT_KILL.cooldown = ModConfig.get().cooldownConfig.instantKill;
+    public static void init(final CooldownConfig cooldownConfig) {
+        HEALING_FIST.cooldown = cooldownConfig.healingFist;
+        DASH.cooldown = cooldownConfig.dash;
+        KNOCKBACK_FIST.cooldown = cooldownConfig.knockbackFist;
+        MACHINE_GUN.cooldown = cooldownConfig.machineGun;
+        MOUNTAIN.cooldown = cooldownConfig.mountain;
+        FIREWORKER.cooldown = cooldownConfig.fireworker;
+        INSTANT_KILL.cooldown = cooldownConfig.instantKill;
     }
 }

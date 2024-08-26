@@ -23,7 +23,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
         this.provider = playerEntity;
         for (Tier tier : Tier.values()) {
             this.forglory_feats.put(tier, Feats.NO_FEAT);
-            this.forglory_cooldowns.put(tier, Feats.NO_FEAT.cooldown);
+            this.forglory_cooldowns.put(tier, Feats.NO_FEAT.getCooldown());
         }
     }
 
@@ -88,7 +88,7 @@ public class PlayerFeatsComponent implements FeatsComponent, AutoSyncedComponent
     @Override
     public void resetCooldown(final Tier tier) {
         Feats feat = this.forglory_feats.get(tier);
-        this.forglory_cooldowns.put(tier, feat.cooldown);
+        this.forglory_cooldowns.put(tier, feat.getCooldown());
     }
 
     @Override
