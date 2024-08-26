@@ -17,7 +17,7 @@ public class ShieldEnemyMixin {
     private float moreDamageIfCountered(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SUPER_SHIELD)) {
             if (((IShieldMixin) source.getAttacker()).forglory$getBlockedTicks() != 0) {
-                amount += ModConfig.get().featConfig.superShieldConfig.damage_added_on_counterattack;
+                amount += ModConfig.get().featConfig.superShield.damageAddedOnCounterattack;
             }
         }
 

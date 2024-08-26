@@ -47,13 +47,13 @@ public class Utils {
         if (feat != null) {
             if (feat.equals(Feats.BLOODLUST) && playerEntity.getHealth() > 0) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER1.threshold) {
-                    float value = ModConfig.get().featConfig.bloodlust_multiplier;
+                    float value = ModConfig.get().featConfig.bloodlustMultiplier;
                     amount *= playerEntity.getMaxHealth() / (playerEntity.getHealth() * value) + 1 - (1 / value);
                 }
             }
         }
 
-        if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > ModConfig.get().adrenalinConfig.tier3_threshold) {
+        if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier3) {
             int maxArmor = Math.max(playerEntity.getArmor(), 20);
             float multiplier = 1 + (maxArmor - playerEntity.getArmor()) / (float) maxArmor;
             amount *= multiplier;

@@ -16,10 +16,10 @@ public class ArrowComboPlayerMixin implements IArrowComboMixin {
     @Override
     public void forglory$incrementCombo() {
         this.combo++;
-        if (this.combo > ModConfig.get().featConfig.combo_max) {
-            this.combo = ModConfig.get().featConfig.combo_max;
+        if (this.combo > ModConfig.get().featConfig.comboMax) {
+            this.combo = ModConfig.get().featConfig.comboMax;
         }
-        float amount = ModConfig.get().featConfig.combo_adrenalin_gain * this.combo;
+        float amount = ModConfig.get().featConfig.comboAdrenalinGain * this.combo;
         MyComponents.ADRENALIN.get(this).addAdrenalin(Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount));
     }
 

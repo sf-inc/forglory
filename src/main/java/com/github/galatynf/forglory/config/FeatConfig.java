@@ -9,81 +9,81 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 11, max = 25)
     @ConfigEntry.Gui.Tooltip()
-    public int smite_multiplier = 15;
+    public int smiteMultiplier = 15;
 
     @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
-    public int combo_max = 5;
+    public int comboMax = 5;
 
     @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
-    public int combo_adrenalin_gain = 7;
+    public int comboAdrenalinGain = 7;
 
     @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
     @ConfigEntry.Gui.Tooltip()
-    public int bloodlust_multiplier = 8;
+    public int bloodlustMultiplier = 8;
 
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
-    public int dash_intensity = 3;
+    public int dashIntensity = 3;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 50)
-    public int machine_gun_arrows = 15;
+    public int machineGunArrows = 15;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public MountainConfig mountainConfig = new MountainConfig();
+    public MountainConfig mountain = new MountainConfig();
 
     public static class MountainConfig {
         @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
         public int height = 5;
 
         @ConfigEntry.BoundedDiscrete(min = 3, max = 25)
-        public int max_distance = 10;
+        public int maxDistance = 10;
     }
 
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
-    public int striders_grace_speed = 3;
+    public int stridersGraceSpeed = 3;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public SuperShieldConfig superShieldConfig = new SuperShieldConfig();
+    public SuperShield superShield = new SuperShield();
 
-    public static class SuperShieldConfig {
+    public static class SuperShield {
         @ConfigEntry.BoundedDiscrete(min = 10, max = 60)
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public int ticks_before_attack = 15;
+        public int ticksBeforeAttack = 15;
 
         @ConfigEntry.BoundedDiscrete(min = 0, max = 10)
-        public int damage_added_on_counterattack = 6;
+        public int damageAddedOnCounterattack = 6;
     }
 
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
-    public int life_steal_max_amount = 3;
+    public int lifeStealMaxAmount = 3;
 
     @ConfigEntry.BoundedDiscrete(min = 4, max = 8)
-    public int fireworker_power = 6;
+    public int fireworkerPower = 6;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 30)
     public int secondsOfLastStanding = 15;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public HealTrailConfig healTrailConfig = new HealTrailConfig();
+    public HealTrail healTrail = new HealTrail();
 
-    public static class HealTrailConfig {
+    public static class HealTrail {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 3)
-        public int heal_trail_radius = 2;
+        public int healTrailRadius = 2;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
-        public int heal_trail_frequency = 20;
+        public int healTrailFrequency = 20;
 
         @ConfigEntry.BoundedDiscrete(max = 20)
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public int heal_trail_wait_time = 10;
+        public int healTrailWaitTime = 10;
     }
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FireZoneConfig fireZoneConfig = new FireZoneConfig();
+    public FireZone fireZone = new FireZone();
 
-    public static class FireZoneConfig {
+    public static class FireZone {
         @ConfigEntry.BoundedDiscrete(min = 3, max = 10)
         public int range = 5;
 
@@ -93,25 +93,25 @@ public class FeatConfig implements ConfigData {
     }
 
     @ConfigEntry.Gui.CollapsibleObject
-    public InstantKillConfig instantKillConfig = new InstantKillConfig();
+    public InstantKill instantKill = new InstantKill();
 
-    public static class InstantKillConfig {
+    public static class InstantKill {
         @ConfigEntry.BoundedDiscrete(min = 20, max = 100)
-        public int health_percentage = 35;
+        public int healthPercentage = 35;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 50)
-        public int max_damage = 30;
+        public int maxDamage = 30;
     }
 
     @ConfigEntry.Gui.CollapsibleObject
-    public UndeadArmyConfig undeadArmyConfig = new UndeadArmyConfig();
+    public UndeadArmy undeadArmy = new UndeadArmy();
 
-    public static class UndeadArmyConfig {
+    public static class UndeadArmy {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 40)
-        public int number_summoned = 5;
+        public int numberSummoned = 5;
 
         @ConfigEntry.BoundedDiscrete(min = 0, max = 20)
         @ConfigEntry.Gui.Tooltip()
-        public int heroes_OPness = 7;
+        public int heroesOPness = 7;
     }
 }

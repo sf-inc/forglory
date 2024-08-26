@@ -43,14 +43,14 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
         if(!MyComponents.FEATS.get(provider).hasAFeat()) {
             return;
         }
-        int threshold = ModConfig.get().adrenalinConfig.tier4_threshold;
+        int threshold = ModConfig.get().adrenalinConfig.threshold.tier4;
         if(this.forglory_adrenalin >= threshold && amount > 0) {
             return;
         }
         float prev_adrenalin = this.forglory_adrenalin;
         this.forglory_adrenalin += amount;
         if(prev_adrenalin >= threshold && this.forglory_adrenalin < threshold) {
-            this.forglory_adrenalin = (float)(threshold + ModConfig.get().adrenalinConfig.tier3_threshold)/2;
+            this.forglory_adrenalin = (threshold + ModConfig.get().adrenalinConfig.threshold.tier3) / 2.f;
             return;
         }
         if(prev_adrenalin < threshold && this.forglory_adrenalin >= threshold) {
@@ -61,8 +61,8 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
             return;
         }
 
-        if (this.forglory_adrenalin > ModConfig.get().adrenalinConfig.max_amount) {
-            this.forglory_adrenalin = ModConfig.get().adrenalinConfig.max_amount;
+        if (this.forglory_adrenalin > ModConfig.get().adrenalinConfig.maxAmount) {
+            this.forglory_adrenalin = ModConfig.get().adrenalinConfig.maxAmount;
         }
         if (this.forglory_adrenalin < ConstantsConfig.MIN_AMOUNT) {
             this.forglory_adrenalin = ConstantsConfig.MIN_AMOUNT;

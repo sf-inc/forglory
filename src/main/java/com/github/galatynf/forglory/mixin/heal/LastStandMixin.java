@@ -59,7 +59,7 @@ public abstract class LastStandMixin extends LivingEntityMixin implements ILastS
                 // TODO: Maybe add a timer before or after decreasing adrenalin to avoid
                 //       the berserk state lasting only one tick (and so the overlay)
                 MyComponents.ADRENALIN.get(this).setAdrenalin(
-                        (ModConfig.get().adrenalinConfig.tier3_threshold + ModConfig.get().adrenalinConfig.tier4_threshold) / 2.f);
+                        (ModConfig.get().adrenalinConfig.threshold.tier3 + ModConfig.get().adrenalinConfig.threshold.tier4) / 2.f);
                 this.setHealth(0.5f);
                 this.clearStatusEffects();
                 this.playSound(SoundRegistry.LAST_STANDING);
@@ -93,7 +93,7 @@ public abstract class LastStandMixin extends LivingEntityMixin implements ILastS
                 this.forglory_berserkTimer = ModConfig.get().featConfig.secondsOfLastStanding * 20;
                 this.forglory_isInBerserkState = false;
                 MyComponents.ADRENALIN.get(this).setAdrenalin(
-                        (ModConfig.get().adrenalinConfig.tier4_threshold - ModConfig.get().adrenalinConfig.tier3_threshold) / 2.f);
+                        (ModConfig.get().adrenalinConfig.threshold.tier4 - ModConfig.get().adrenalinConfig.threshold.tier3) / 2.f);
                 if (this.getHealth() != this.getMaxHealth()) {
                     //Dude, you ran away from the fight, that's not really brave
                     this.setHealth(1);

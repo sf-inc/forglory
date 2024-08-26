@@ -52,12 +52,12 @@ public enum Feats {
     }
 
     public static void initCooldowns() {
-        HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healing_fist_cooldown;
-        DASH.cooldown = ModConfig.get().cooldownConfig.dash_cooldown;
-        KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockback_fist_cooldown;
-        MACHINE_GUN.cooldown = ModConfig.get().cooldownConfig.machine_gun_cooldown;
-        MOUNTAIN.cooldown = ModConfig.get().cooldownConfig.mountain_cooldown;
-        FIREWORKER.cooldown = ModConfig.get().cooldownConfig.fireworker_cooldown;
-        INSTANT_KILL.cooldown = ModConfig.get().cooldownConfig.instant_kill_cooldown;
+        HEALING_FIST.cooldown = ModConfig.get().cooldownConfig.healingFist;
+        DASH.cooldown = ModConfig.get().cooldownConfig.dash;
+        KNOCKBACK_FIST.cooldown = ModConfig.get().cooldownConfig.knockbackFist;
+        MACHINE_GUN.cooldown = ModConfig.get().cooldownConfig.machineGun;
+        MOUNTAIN.cooldown = ModConfig.get().cooldownConfig.mountain;
+        FIREWORKER.cooldown = ModConfig.get().cooldownConfig.fireworker;
+        INSTANT_KILL.cooldown = ModConfig.get().cooldownConfig.instantKill;
     }
 }

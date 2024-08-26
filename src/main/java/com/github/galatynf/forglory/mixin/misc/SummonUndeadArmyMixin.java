@@ -33,7 +33,7 @@ public abstract class SummonUndeadArmyMixin extends LivingEntity {
     private void summonOneZombie(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.UNDEAD_ARMY)) {
             Vec3i offset;
-            for (int i = 0; i < ModConfig.get().featConfig.undeadArmyConfig.number_summoned; ++i) {
+            for (int i = 0; i < ModConfig.get().featConfig.undeadArmy.numberSummoned; ++i) {
                 offset = new Vec3i(this.random.nextBetween(-3, 3), 1, this.random.nextBetween(-3, 3));
                 HeroEntity theHero = EntityRegistry.HERO.spawn((ServerWorld) this.getWorld(), this.getBlockPos().add(offset), SpawnReason.MOB_SUMMONED);
                 if (theHero == null) {

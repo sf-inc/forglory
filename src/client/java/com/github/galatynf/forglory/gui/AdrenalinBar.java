@@ -22,16 +22,16 @@ public class AdrenalinBar extends WWidget {
         if (MinecraftClient.getInstance().player == null) return;
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
 
-        if((adrenalin < ModConfig.get().adrenalinConfig.tier1_threshold
-                && ModConfig.get().guiSoundsConfig.hide_adrenalin_bar)){
+        if((adrenalin < ModConfig.get().adrenalinConfig.threshold.tier1
+                && ModConfig.get().guiSoundsConfig.hideAdrenalinBar)){
             return;
         }
 
         int a = 255;
         int r, g;
-        if (adrenalin < ModConfig.get().adrenalinConfig.tier4_threshold) {
-            r = (int) ((adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold) * 255);
-            g = 255 - (int) ((adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold) * 255);
+        if (adrenalin < ModConfig.get().adrenalinConfig.threshold.tier4) {
+            r = (int) ((adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4) * 255);
+            g = 255 - (int) ((adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4) * 255);
         } else {
             r = 255;
             g = 0;
@@ -39,10 +39,10 @@ public class AdrenalinBar extends WWidget {
 
         int color = a << 24 | r << 16 | g << 8;
 
-        if (adrenalin > ModConfig.get().adrenalinConfig.tier4_threshold) {
-            adrenalin = ModConfig.get().adrenalinConfig.tier4_threshold;
+        if (adrenalin > ModConfig.get().adrenalinConfig.threshold.tier4) {
+            adrenalin = ModConfig.get().adrenalinConfig.threshold.tier4;
         }
-        float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.tier4_threshold;
+        float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4;
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
 
         Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();

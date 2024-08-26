@@ -41,12 +41,12 @@ public abstract class HealTrailMixin extends LivingEntity {
                 }
                 this.forglory_firstTime_HT = false;
             }
-            if (this.forglory_lastSpawned >= ModConfig.get().featConfig.healTrailConfig.heal_trail_frequency && this.isOnGround()) {
+            if (this.forglory_lastSpawned >= ModConfig.get().featConfig.healTrail.healTrailFrequency && this.isOnGround()) {
                 AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.getWorld(), this.getX(), this.getY(), this.getZ());
                 areaEffectCloudEntity.setOwner(this);
-                areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrailConfig.heal_trail_radius);
+                areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrail.healTrailRadius);
                 areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-                areaEffectCloudEntity.setWaitTime(ModConfig.get().featConfig.healTrailConfig.heal_trail_wait_time);
+                areaEffectCloudEntity.setWaitTime(ModConfig.get().featConfig.healTrail.healTrailWaitTime);
                 areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
                 areaEffectCloudEntity.setDuration(10);
                 areaEffectCloudEntity.setParticleType(ParticleTypes.HAPPY_VILLAGER);

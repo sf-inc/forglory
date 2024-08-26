@@ -16,9 +16,9 @@ public class NoMixinFeats {
 
     public static void dashFeat(final PlayerEntity playerEntity) {
         Vec3d velocity = playerEntity.getVelocity();
-        double x = velocity.x + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.sin((-playerEntity.getYaw() * Math.PI) / 180.0D));
-        double y = velocity.y + (((ModConfig.get().featConfig.dash_intensity + 2) / 6.0D) * Math.sin((-playerEntity.getPitch() * Math.PI) / 180.0D));
-        double z = velocity.z + (((ModConfig.get().featConfig.dash_intensity + 2) / 4.0D) * Math.cos((-playerEntity.getYaw() * Math.PI) / 180.0D));
+        double x = velocity.x + (((ModConfig.get().featConfig.dashIntensity + 2) / 4.0D) * Math.sin((-playerEntity.getYaw() * Math.PI) / 180.0D));
+        double y = velocity.y + (((ModConfig.get().featConfig.dashIntensity + 2) / 6.0D) * Math.sin((-playerEntity.getPitch() * Math.PI) / 180.0D));
+        double z = velocity.z + (((ModConfig.get().featConfig.dashIntensity + 2) / 4.0D) * Math.cos((-playerEntity.getYaw() * Math.PI) / 180.0D));
         playerEntity.setVelocity(x, y, z);
         playerEntity.velocityModified = true;
         playerEntity.playSound(SoundRegistry.DASH);
@@ -28,7 +28,7 @@ public class NoMixinFeats {
         BlockPos blockPos = playerEntity.getBlockPos();
         BlockPos newBlockPos = blockPos;
         BlockPos sideBlockPos;
-        int height = ModConfig.get().featConfig.mountainConfig.height;
+        int height = ModConfig.get().featConfig.mountain.height;
         for (int i = 0; i < height; ++i) {
             newBlockPos = new BlockPos(blockPos.getX(), blockPos.getY() + i, blockPos.getZ());
             BlockPos blockPosHead = new BlockPos(blockPos.getX(), blockPos.getY() + i + 2, blockPos.getZ());

@@ -43,12 +43,12 @@ public abstract class MachineGunMixin extends LivingEntity implements IMachineGu
     private void shootArrows(CallbackInfo ci) {
         if (this.forglory_machineGun > 0) {
             if (this.forglory_nextArrow == this.getWorld().getTime()
-                    || this.forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
+                    || this.forglory_machineGun == ModConfig.get().featConfig.machineGunArrows) {
 
                 int shootSpeed = 3;
 
-                if (this.forglory_machineGun == ModConfig.get().featConfig.machine_gun_arrows) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machine_gun_arrows, 2));
+                if (this.forglory_machineGun == ModConfig.get().featConfig.machineGunArrows) {
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machineGunArrows, 2));
                     this.playSound(SoundRegistry.MACHINE_GUN);
                     if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
                         this.playSound(SoundRegistry.MACHINE_GUN_VOICE);

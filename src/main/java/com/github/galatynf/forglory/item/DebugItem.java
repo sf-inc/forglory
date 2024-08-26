@@ -25,36 +25,36 @@ public class DebugItem extends Item {
 
     private float amountToAdd(final float adrenalin, final boolean toLoose) {
         float amount;
-        if (adrenalin < ModConfig.get().adrenalinConfig.tier1_threshold) {
+        if (adrenalin < ModConfig.get().adrenalinConfig.threshold.tier1) {
             if (toLoose) {
                 amount = -adrenalin;
             } else {
-                amount = (ModConfig.get().adrenalinConfig.tier2_threshold - ModConfig.get().adrenalinConfig.tier1_threshold) / 2.0F
-                        + ModConfig.get().adrenalinConfig.tier1_threshold;
+                amount = (ModConfig.get().adrenalinConfig.threshold.tier2 - ModConfig.get().adrenalinConfig.threshold.tier1) / 2.0F
+                        + ModConfig.get().adrenalinConfig.threshold.tier1;
                 amount -= adrenalin;
             }
-        } else if (adrenalin < ModConfig.get().adrenalinConfig.tier2_threshold) {
+        } else if (adrenalin < ModConfig.get().adrenalinConfig.threshold.tier2) {
             if (toLoose) {
-                amount = ModConfig.get().adrenalinConfig.tier1_threshold - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.threshold.tier1 - adrenalin;
             } else {
-                amount = (ModConfig.get().adrenalinConfig.tier3_threshold - ModConfig.get().adrenalinConfig.tier2_threshold) / 2.0F
-                        + ModConfig.get().adrenalinConfig.tier2_threshold;
+                amount = (ModConfig.get().adrenalinConfig.threshold.tier3 - ModConfig.get().adrenalinConfig.threshold.tier2) / 2.0F
+                        + ModConfig.get().adrenalinConfig.threshold.tier2;
                 amount -= adrenalin;
             }
-        } else if (adrenalin < ModConfig.get().adrenalinConfig.tier3_threshold) {
+        } else if (adrenalin < ModConfig.get().adrenalinConfig.threshold.tier3) {
             if (toLoose) {
-                amount = ModConfig.get().adrenalinConfig.tier2_threshold - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.threshold.tier2 - adrenalin;
             } else {
-                amount = (ModConfig.get().adrenalinConfig.tier4_threshold - ModConfig.get().adrenalinConfig.tier3_threshold) / 2.0F
-                        + ModConfig.get().adrenalinConfig.tier3_threshold;
+                amount = (ModConfig.get().adrenalinConfig.threshold.tier4 - ModConfig.get().adrenalinConfig.threshold.tier3) / 2.0F
+                        + ModConfig.get().adrenalinConfig.threshold.tier3;
                 amount -= adrenalin;
             }
         } else {
             if (toLoose) {
-                amount = ModConfig.get().adrenalinConfig.tier3_threshold - adrenalin;
+                amount = ModConfig.get().adrenalinConfig.threshold.tier3 - adrenalin;
             } else {
-                amount = (ModConfig.get().adrenalinConfig.max_amount - ModConfig.get().adrenalinConfig.tier4_threshold) / 2.0F
-                        + ModConfig.get().adrenalinConfig.tier4_threshold;
+                amount = (ModConfig.get().adrenalinConfig.maxAmount - ModConfig.get().adrenalinConfig.threshold.tier4) / 2.0F
+                        + ModConfig.get().adrenalinConfig.threshold.tier4;
                 amount -= adrenalin;
             }
         }

@@ -10,10 +10,12 @@ public enum Tier {
 
     public float threshold;
 
+    // TODO: Add a function to return in-between thresholds
+    // FIXME: Instead of init on join, just make a function returning the right config
     public static void initThresholds() {
-        TIER1.threshold = ModConfig.get().adrenalinConfig.tier1_threshold;
-        TIER2.threshold = ModConfig.get().adrenalinConfig.tier2_threshold;
-        TIER3.threshold = ModConfig.get().adrenalinConfig.tier3_threshold;
-        TIER4.threshold = ModConfig.get().adrenalinConfig.tier4_threshold;
+        TIER1.threshold = ModConfig.get().adrenalinConfig.threshold.tier1;
+        TIER2.threshold = ModConfig.get().adrenalinConfig.threshold.tier2;
+        TIER3.threshold = ModConfig.get().adrenalinConfig.threshold.tier3;
+        TIER4.threshold = ModConfig.get().adrenalinConfig.threshold.tier4;
     }
 }

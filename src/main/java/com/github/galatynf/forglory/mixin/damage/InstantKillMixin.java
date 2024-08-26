@@ -24,8 +24,8 @@ public abstract class InstantKillMixin {
             target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
     private float injectedAmount(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.INSTANT_KILL)) {
-            if (this.getHealth() <= Math.min((ModConfig.get().featConfig.instantKillConfig.health_percentage / 100.f) * this.getMaxHealth(),
-                    ModConfig.get().featConfig.instantKillConfig.max_damage)) {
+            if (this.getHealth() <= Math.min((ModConfig.get().featConfig.instantKill.healthPercentage / 100.f) * this.getMaxHealth(),
+                    ModConfig.get().featConfig.instantKill.maxDamage)) {
                 amount = this.getMaxHealth();
                 this.playSound(SoundRegistry.INSTANT_KILLED);
             }

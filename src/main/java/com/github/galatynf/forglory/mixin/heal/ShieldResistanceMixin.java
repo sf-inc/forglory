@@ -57,7 +57,7 @@ public abstract class ShieldResistanceMixin extends Entity {
                 && this.isBlocking()
                 && !source.isOf(DamageTypes.OUT_OF_WORLD)
                 && !source.isIn(DamageTypeTags.IS_DROWNING)) {
-            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damage_multiplier);
+            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damageMultiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(-adrenalinAmount);
         }
     }

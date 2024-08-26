@@ -60,10 +60,6 @@
 
   "text.autoconfig.forglory.title": "For Glory Configuration",
 
-  "text.autoconfig.forglory.category.general": "General Configs",
-  "text.autoconfig.forglory.option.generalConfig.struct_min_distance": "Distance min between structures (chunks)",
-  "text.autoconfig.forglory.option.generalConfig.struct_max_distance": "Distance max between structures (chunks)",
-
   "text.autoconfig.forglory.category.adrenalin": "Adrenalin Configs",
   "text.autoconfig.forglory.option.adrenalinConfig.tier1_threshold": "Tier 1 threshold",
   "text.autoconfig.forglory.option.adrenalinConfig.tier2_threshold": "Tier 2 threshold",
