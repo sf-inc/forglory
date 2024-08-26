@@ -6,6 +6,7 @@
     "AdrenalinMixin",
     "AdrenalinOtherMixin",
     "FeatsMixin",
+    "LivingEntityMixin",
     "damage.DamageToSlowedMixin",
     "damage.FireTrailMixin",
     "damage.FireworkerMixin",

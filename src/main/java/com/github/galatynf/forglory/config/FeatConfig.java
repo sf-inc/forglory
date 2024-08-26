@@ -63,7 +63,7 @@ public class FeatConfig implements ConfigData {
     public int fireworker_power = 6;
 
     @ConfigEntry.BoundedDiscrete(min = 5, max = 30)
-    public int seconds_of_last_standing = 15;
+    public int secondsOfLastStanding = 15;
 
     @ConfigEntry.Gui.CollapsibleObject
     public HealTrailConfig healTrailConfig = new HealTrailConfig();

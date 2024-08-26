@@ -10,6 +10,7 @@ import com.github.galatynf.forglory.imixin.IFireTrailMixin;
 import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import com.github.galatynf.forglory.network.ActivateFeatPayload;
+import com.github.galatynf.forglory.network.BerserkPayload;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,21 +24,9 @@ public class NetworkRegistry {
     private NetworkRegistry() {
     }
 
-    public static void initClient() {
-        // TODO: Check why we have a berserk packet
-        /*ClientPlayNetworking.registerGlobalReceiver(BERSERK_PACKET_ID, (client, handler, buf, responseSender) -> {
-            boolean setter = buf.readBoolean();
-            client.execute(() -> {
-                if (client.player != null) {
-                    ((ILastStandMixin) client.player).setBerserk(setter);
-                }
-            });
-
-        });*/
-    }
-
     public static void init() {
         PayloadTypeRegistry.playC2S().register(ActivateFeatPayload.ID, ActivateFeatPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(BerserkPayload.ID, BerserkPayload.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(ActivateFeatPayload.ID, (payload, context) -> context.server().execute(() -> {
             ServerPlayerEntity player = context.player();
