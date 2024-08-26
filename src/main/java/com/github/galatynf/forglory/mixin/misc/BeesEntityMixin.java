@@ -41,7 +41,7 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
         if (uuid != null) {
             PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
-                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.getThreshold()) {
                     this.kill();
                 } else if (this.getAngryAt() == null) {
                     double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);

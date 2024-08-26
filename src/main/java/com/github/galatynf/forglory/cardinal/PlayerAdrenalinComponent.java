@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.cardinal;
 import com.github.galatynf.forglory.config.ConstantsConfig;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.FeatsClass;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -43,14 +44,14 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
         if(!MyComponents.FEATS.get(provider).hasAFeat()) {
             return;
         }
-        int threshold = ModConfig.get().adrenalinConfig.threshold.tier4;
+        float threshold = Tier.TIER4.getThreshold();
         if(this.forglory_adrenalin >= threshold && amount > 0) {
             return;
         }
         float prev_adrenalin = this.forglory_adrenalin;
         this.forglory_adrenalin += amount;
         if(prev_adrenalin >= threshold && this.forglory_adrenalin < threshold) {
-            this.forglory_adrenalin = (threshold + ModConfig.get().adrenalinConfig.threshold.tier3) / 2.f;
+            this.forglory_adrenalin = (threshold + Tier.TIER3.getThreshold()) / 2.f;
             return;
         }
         if(prev_adrenalin < threshold && this.forglory_adrenalin >= threshold) {

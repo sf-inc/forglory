@@ -32,7 +32,7 @@ public class NetworkRegistry {
             ServerPlayerEntity player = context.player();
             Feats feat = MyComponents.FEATS.get(player).getFeat(Tier.TIER2);
             if (feat == null) return;
-            if (MyComponents.ADRENALIN.get(player).getAdrenalin() > Tier.TIER2.threshold &&
+            if (MyComponents.ADRENALIN.get(player).getAdrenalin() > Tier.TIER2.getThreshold() &&
                     MyComponents.FEATS.get(player).getCooldown(Tier.TIER2) == 0) {
 
                 if (feat.equals(Feats.DASH)) {

@@ -1,6 +1,6 @@
 package com.github.galatynf.forglory.enumFeat;
 
-import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.config.AdrenalinConfig;
 
 public enum Tier {
     TIER1,
@@ -8,14 +8,20 @@ public enum Tier {
     TIER3,
     TIER4;
 
-    public float threshold;
+    private float threshold = 0.f;
 
-    // TODO: Add a function to return in-between thresholds
-    // FIXME: Instead of init on join, just make a function returning the right config
-    public static void initThresholds() {
-        TIER1.threshold = ModConfig.get().adrenalinConfig.threshold.tier1;
-        TIER2.threshold = ModConfig.get().adrenalinConfig.threshold.tier2;
-        TIER3.threshold = ModConfig.get().adrenalinConfig.threshold.tier3;
-        TIER4.threshold = ModConfig.get().adrenalinConfig.threshold.tier4;
+    public float getThreshold() {
+        return this.threshold;
+    }
+
+    public static void init(final AdrenalinConfig adrenalinConfig) {
+        TIER1.threshold = adrenalinConfig.threshold.tier1;
+        TIER2.threshold = adrenalinConfig.threshold.tier2;
+        TIER3.threshold = adrenalinConfig.threshold.tier3;
+        TIER4.threshold = adrenalinConfig.threshold.tier4;
+    }
+
+    public static float getValueBetween(final Tier tier1, final Tier tier2) {
+        return (tier1.threshold + tier2.threshold) / 2.f;
     }
 }

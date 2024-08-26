@@ -183,7 +183,7 @@ public class HeroEntity extends ZombieEntity {
         if (uuid != null) {
             PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
-                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.UNDEAD_ARMY.tier.getThreshold()) {
                     this.kill();
                     MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.UNDEAD_ARMY.tier);
                 }

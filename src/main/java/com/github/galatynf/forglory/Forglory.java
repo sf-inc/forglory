@@ -9,6 +9,7 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 
 public class Forglory implements ModInitializer {
@@ -17,11 +18,14 @@ public class Forglory implements ModInitializer {
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
-
-        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> {
-            Tier.initThresholds();
-            Feats.initCooldowns();
+        AutoConfig.getConfigHolder(ModConfig.class).registerSaveListener((configHolder, config) -> {
+            Tier.init(config.adrenalinConfig);
+            return ActionResult.SUCCESS;
         });
+
+        Tier.init(ModConfig.get().adrenalinConfig);
+
+        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> Feats.initCooldowns());
 
         BiomeTagRegistry.init();
         BlockRegistry.init();

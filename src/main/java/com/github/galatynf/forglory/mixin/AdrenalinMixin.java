@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.mixin;
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.init.SoundRegistry;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityType;
@@ -45,8 +46,8 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void incrementWhenSprinting(CallbackInfo ci) {
-        int threshold = ModConfig.get().adrenalinConfig.threshold.tier2;
-        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10
+        float threshold = Tier.TIER2.getThreshold();
+        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + threshold /10
                 && this.isSprinting()) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprintGain / 10.F);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
@@ -55,8 +56,8 @@ public abstract class AdrenalinMixin extends LivingEntity {
 
     @Inject(method = "jump", at = @At("HEAD"))
     private void incrementWhenJumping(CallbackInfo ci) {
-        int threshold = ModConfig.get().adrenalinConfig.threshold.tier2;
-        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + (float)threshold/10) {
+        float threshold = Tier.TIER2.getThreshold();
+        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold + threshold /10) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.jumpGain);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
@@ -82,12 +83,12 @@ public abstract class AdrenalinMixin extends LivingEntity {
     @Inject(method = "eatFood", at = @At("HEAD"))
     private void incrementWhenEating(World world, ItemStack stack, FoodComponent foodComponent,
                                      CallbackInfoReturnable<ItemStack> cir) {
-        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.threshold.tier1
+        if (MyComponents.ADRENALIN.get(this).getAdrenalin() < Tier.TIER1.getThreshold()
                 && stack.isOf(Items.GOLDEN_APPLE)) {
-            MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.threshold.tier1);
-        } else if (MyComponents.ADRENALIN.get(this).getAdrenalin() < ModConfig.get().adrenalinConfig.threshold.tier3
+            MyComponents.ADRENALIN.get(this).setAdrenalin(Tier.TIER1.getThreshold());
+        } else if (MyComponents.ADRENALIN.get(this).getAdrenalin() < Tier.TIER3.getThreshold()
                 && stack.isOf(Items.ENCHANTED_GOLDEN_APPLE)) {
-            MyComponents.ADRENALIN.get(this).setAdrenalin(ModConfig.get().adrenalinConfig.threshold.tier3);
+            MyComponents.ADRENALIN.get(this).setAdrenalin(Tier.TIER3.getThreshold());
         }
     }
 
@@ -104,7 +105,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
     public void playSounds(CallbackInfo ci) {
         if (this.getWorld().isClient()) {
             if (ModConfig.get().guiSoundsConfig.enableTierJingles) {
-                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier1) {
+                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > Tier.TIER1.getThreshold()) {
                     if (!this.forglory_soundPlayed[0]) {
                         playSound(SoundRegistry.TIER_1_WHOOSH_EVENT, 1.2F, 1F);
                         this.forglory_soundPlayed[0] = true;
@@ -112,7 +113,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 } else {
                     this.forglory_soundPlayed[0] = false;
                 }
-                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier2) {
+                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > Tier.TIER2.getThreshold()) {
                     if (!this.forglory_soundPlayed[1]) {
                         playSound(SoundRegistry.TIER_2_BASS_EVENT, 1F, 1F);
                         this.forglory_soundPlayed[1] = true;
@@ -120,7 +121,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 } else {
                     this.forglory_soundPlayed[1] = false;
                 }
-                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier3) {
+                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > Tier.TIER3.getThreshold()) {
                     if (!this.forglory_soundPlayed[2]) {
                         playSound(SoundRegistry.TIER_3_STRONG_BASS_EVENT, 1F, 1F);
                         this.forglory_soundPlayed[2] = true;
@@ -128,7 +129,7 @@ public abstract class AdrenalinMixin extends LivingEntity {
                 } else {
                     this.forglory_soundPlayed[2] = false;
                 }
-                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier4) {
+                if (MyComponents.ADRENALIN.get(this).getAdrenalin() > Tier.TIER4.getThreshold()) {
                     if (!this.forglory_soundPlayed[3]) {
                         playSound(SoundRegistry.TIER_4_OVERCHARGED_EVENT, 1F, 1F);
                         this.forglory_soundPlayed[3] = true;

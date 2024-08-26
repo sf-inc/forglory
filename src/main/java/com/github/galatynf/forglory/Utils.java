@@ -24,7 +24,7 @@ public class Utils {
         if (playerFeat == null) return false;
 
         if (playerFeat.equals(feat)) {
-            if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > feat.tier.threshold
+            if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > feat.tier.getThreshold()
                     && MyComponents.FEATS.get(playerEntity).getCooldown(feat.tier) == 0) {
                 MyComponents.FEATS.get(playerEntity).resetCooldown(feat.tier);
                 return true;
@@ -46,14 +46,14 @@ public class Utils {
         Feats feat = MyComponents.FEATS.get(playerEntity).getFeat(Feats.BLOODLUST.tier);
         if (feat != null) {
             if (feat.equals(Feats.BLOODLUST) && playerEntity.getHealth() > 0) {
-                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER1.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER1.getThreshold()) {
                     float value = ModConfig.get().featConfig.bloodlustMultiplier;
                     amount *= playerEntity.getMaxHealth() / (playerEntity.getHealth() * value) + 1 - (1 / value);
                 }
             }
         }
 
-        if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > ModConfig.get().adrenalinConfig.threshold.tier3) {
+        if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER3.getThreshold()) {
             int maxArmor = Math.max(playerEntity.getArmor(), 20);
             float multiplier = 1 + (maxArmor - playerEntity.getArmor()) / (float) maxArmor;
             amount *= multiplier;

@@ -28,7 +28,7 @@ public abstract class DogMixin extends LivingEntity {
         if (uuid != null) {
             PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
             if (playerEntity != null) {
-                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.DOG.tier.threshold) {
+                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.DOG.tier.getThreshold()) {
                     this.setInvulnerable(false);
                     this.kill();
                     MyComponents.FEATS.get(playerEntity).resetCooldown(Feats.DOG.tier);

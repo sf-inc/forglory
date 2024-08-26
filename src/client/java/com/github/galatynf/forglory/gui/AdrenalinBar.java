@@ -3,6 +3,7 @@ package com.github.galatynf.forglory.gui;
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
+import com.github.galatynf.forglory.enumFeat.Tier;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
@@ -22,16 +23,16 @@ public class AdrenalinBar extends WWidget {
         if (MinecraftClient.getInstance().player == null) return;
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
 
-        if((adrenalin < ModConfig.get().adrenalinConfig.threshold.tier1
+        if ((adrenalin < Tier.TIER1.getThreshold()
                 && ModConfig.get().guiSoundsConfig.hideAdrenalinBar)){
             return;
         }
 
         int a = 255;
         int r, g;
-        if (adrenalin < ModConfig.get().adrenalinConfig.threshold.tier4) {
-            r = (int) ((adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4) * 255);
-            g = 255 - (int) ((adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4) * 255);
+        if (adrenalin < Tier.TIER4.getThreshold()) {
+            r = (int) ((adrenalin / Tier.TIER4.getThreshold()) * 255);
+            g = 255 - (int) ((adrenalin / Tier.TIER4.getThreshold()) * 255);
         } else {
             r = 255;
             g = 0;
@@ -39,10 +40,10 @@ public class AdrenalinBar extends WWidget {
 
         int color = a << 24 | r << 16 | g << 8;
 
-        if (adrenalin > ModConfig.get().adrenalinConfig.threshold.tier4) {
-            adrenalin = ModConfig.get().adrenalinConfig.threshold.tier4;
+        if (adrenalin > Tier.TIER4.getThreshold()) {
+            adrenalin = Tier.TIER4.getThreshold();
         }
-        float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.threshold.tier4;
+        float adrenalinPercentage = adrenalin / Tier.TIER4.getThreshold();
         int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
 
         Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();

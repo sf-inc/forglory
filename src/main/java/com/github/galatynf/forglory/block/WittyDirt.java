@@ -29,7 +29,7 @@ public class WittyDirt extends Block {
         boolean shouldRemove = true;
         for (ServerPlayerEntity player : players) {
             if (!MyComponents.FEATS.get(player).getFeat(Tier.TIER2).equals(Feats.MOUNTAIN)) continue;
-            if (MyComponents.ADRENALIN.get(player).getAdrenalin() < Tier.TIER2.threshold) continue;
+            if (MyComponents.ADRENALIN.get(player).getAdrenalin() < Tier.TIER2.getThreshold()) continue;
 
             shouldRemove = false;
             break;
