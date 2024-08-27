@@ -2,65 +2,29 @@ package com.github.galatynf.forglory.gui;
 
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.cardinal.MyComponents;
-import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Tier;
-import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.Window;
-import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AdrenalinBar extends WWidget {
-    private static final Identifier ADRENALIN_BAR_TEXTURE = Forglory.id("textures/gui/sprites/hud/adrenalin_bar.png");
+    private static final Identifier ADRENALIN_BAR_BG_TEXTURE = Forglory.id("hud/adrenalin_bar_bg");
+    private static final Identifier ADRENALIN_BAR_FG_TEXTURE = Forglory.id("hud/adrenalin_bar_fg");
 
     @Override
     public void paint(DrawContext context, int x, int y, int mouseX, int mouseY) {
         if (MinecraftClient.getInstance().player == null) return;
+
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
+        float adrenalinPercentage = Math.min(adrenalin / Tier.TIER4.getThreshold(), 1.f);
 
-        if ((adrenalin < Tier.TIER1.getThreshold()
-                && ModConfig.get().guiSoundsConfig.hideAdrenalinBar)){
-            return;
-        }
-
-        int a = 255;
-        int r, g;
-        if (adrenalin < Tier.TIER4.getThreshold()) {
-            r = (int) ((adrenalin / Tier.TIER4.getThreshold()) * 255);
-            g = 255 - (int) ((adrenalin / Tier.TIER4.getThreshold()) * 255);
-        } else {
-            r = 255;
-            g = 0;
-        }
-
-        int color = a << 24 | r << 16 | g << 8;
-
-        if (adrenalin > Tier.TIER4.getThreshold()) {
-            adrenalin = Tier.TIER4.getThreshold();
-        }
-        float adrenalinPercentage = adrenalin / Tier.TIER4.getThreshold();
-        int heightAdrenalin = (int) ((height - 2) * adrenalinPercentage);
-
-        Arm arm = MinecraftClient.getInstance().player.getMainArm().getOpposite();
-        Window window = MinecraftClient.getInstance().getWindow();
-        int hudWidth = window.getScaledWidth();
-        int xOffset;
-
-        if (arm == Arm.LEFT) {
-            xOffset = (hudWidth / 2) + 91;
-        } else {
-            xOffset = (hudWidth / 2) - 91 - width;
-        }
-        xOffset = (xOffset > (hudWidth / 2)) ? xOffset + 5 : xOffset - 5;
-
-        if (heightAdrenalin > 0) {
-            ScreenDrawing.coloredRect(context, x + xOffset + 1, y - height - 1 + (height - heightAdrenalin), width - 2, heightAdrenalin, color);
-        }
-        ScreenDrawing.texturedRect(context, x + xOffset, y - height, width, height, ADRENALIN_BAR_TEXTURE, -1);
+        int i = context.getScaledWindowWidth() / 2 - 91;
+        int l = context.getScaledWindowHeight() - 29;
+        context.drawGuiTexture(ADRENALIN_BAR_BG_TEXTURE, 182, 5, 0, 0, i, l, 182, 5);
+        context.drawGuiTexture(ADRENALIN_BAR_FG_TEXTURE, 182, 5, 0, 0, i, l, (int) Math.floor(182 * adrenalinPercentage), 5);
     }
 }
