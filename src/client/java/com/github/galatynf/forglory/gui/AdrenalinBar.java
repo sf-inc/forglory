@@ -2,7 +2,7 @@ package com.github.galatynf.forglory.gui;
 
 import com.github.galatynf.forglory.Forglory;
 import com.github.galatynf.forglory.cardinal.MyComponents;
-import com.github.galatynf.forglory.enumFeat.Tier;
+import com.github.galatynf.forglory.config.ModConfig;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,7 +20,7 @@ public class AdrenalinBar extends WWidget {
         if (MinecraftClient.getInstance().player == null) return;
 
         float adrenalin = MyComponents.ADRENALIN.get(MinecraftClient.getInstance().player).getAdrenalin();
-        float adrenalinPercentage = Math.min(adrenalin / Tier.TIER4.getThreshold(), 1.f);
+        float adrenalinPercentage = adrenalin / ModConfig.get().adrenalinConfig.maxAmount;
 
         int i = context.getScaledWindowWidth() / 2 - 91;
         int l = context.getScaledWindowHeight() - 29;
