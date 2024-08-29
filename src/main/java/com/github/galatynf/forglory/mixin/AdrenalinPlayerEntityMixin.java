@@ -64,8 +64,9 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
     @Inject(method = "handleFallDamage", at = @At("HEAD"))
     private void incrementWhenFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource,
                                          CallbackInfoReturnable<Boolean> cir) {
-        if (!this.isCreative()) {
-            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, fallDistance * ModConfig.get().adrenalinConfig.fallMultiplier);
+        if (!this.isCreative() && fallDistance > 2.f) {
+            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this,
+                    (fallDistance - 2.f) * ModConfig.get().adrenalinConfig.fallMultiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(Math.min(amount, 50));
         }
     }
