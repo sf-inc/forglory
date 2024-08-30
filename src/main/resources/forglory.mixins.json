@@ -3,8 +3,8 @@
   "package": "com.github.galatynf.forglory.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AdrenalinPlayerEntityMixin",
     "AdrenalinLivingEntityMixin",
+    "AdrenalinPlayerEntityMixin",
     "FeatsMixin",
     "LivingEntityMixin",
     "damage.DamageToSlowedMixin",
@@ -36,7 +36,8 @@
     "mobility.JumpBoostMixin",
     "mobility.NoHungerMixin",
     "mobility.SpeedMixin",
-    "mobility.StridersGraceMixin"
+    "mobility.StridersGraceLivingEntityMixin",
+    "mobility.StridersGracePlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

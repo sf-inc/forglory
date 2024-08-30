@@ -1,7 +1,6 @@
 package com.github.galatynf.forglory.mixin.mobility;
 
 import com.github.galatynf.forglory.Utils;
-import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,23 +14,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public abstract class StridersGraceMixin extends LivingEntity {
-    protected StridersGraceMixin(EntityType<? extends LivingEntity> entityType, World world) {
+public abstract class StridersGracePlayerEntityMixin extends LivingEntity {
+    protected StridersGracePlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void addStridersGraceEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 30, 0));
-            if (this.isInLava()) {
-                double x = (ModConfig.get().featConfig.stridersGraceSpeed / 4.0D) * Math.sin((-this.getYaw() * Math.PI) / 180.0D);
-                double y = (ModConfig.get().featConfig.stridersGraceSpeed / 6.0D) * Math.sin((-this.getPitch() * Math.PI) / 180.0D);
-                y = (0 < this.getPitch() && this.getPitch() < 20) ? 0.05 : y;
-                double z = (ModConfig.get().featConfig.stridersGraceSpeed / 4.0D) * Math.cos((-this.getYaw() * Math.PI) / 180.0D);
-                this.setVelocity(x, y, z);
-                this.velocityModified = true;
-            }
         }
     }
 }
