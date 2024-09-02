@@ -24,10 +24,10 @@ public abstract class InvisibleMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void addInvisibleEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.INVISIBLE)) {
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30, 0));
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30));
             this.fallDistance = 0;
             if (this.forglory_first_time) {
                 this.playSound(SoundRegistry.INVISIBLE);

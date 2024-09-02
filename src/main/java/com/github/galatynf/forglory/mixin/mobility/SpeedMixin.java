@@ -19,10 +19,10 @@ public abstract class SpeedMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void addSpeedEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.SPEED)) {
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 0));
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30));
         }
     }
 }

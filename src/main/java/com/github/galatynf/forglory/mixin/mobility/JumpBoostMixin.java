@@ -19,7 +19,7 @@ public abstract class JumpBoostMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void addJumpBoostEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.JUMP_BOOST)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 30, 4));

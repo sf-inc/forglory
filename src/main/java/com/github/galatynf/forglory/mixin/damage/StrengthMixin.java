@@ -22,7 +22,7 @@ public abstract class StrengthMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void addStrengthEffect(CallbackInfo ci) {
         if (Utils.canUseFeat(this, Feats.STRENGTH)) {
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30, 0));
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30));
         }
     }
 }
