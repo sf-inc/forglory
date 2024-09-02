@@ -128,18 +128,10 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected void initGoals() {
+        // TODO: Add a new follow goal for the summoner (needs a new type of goal)
+        // TODO: Rework target goals
         this.goalSelector.add(1, new PounceAtTargetGoal(this, 0.3F));
         this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0D, false));
-        /*
-        this.goalSelector.add(7, new FollowTargetGoal(this, PlayerEntity.class, 5, false, true, (livingEntity) -> {
-            UUID summonerID = MyComponents.SUMMONED.get(this).getPlayer();
-            if(summonerID != null) {
-                PlayerEntity summoner = world.getPlayerByUuid(summonerID);
-                return (livingEntity.equals(summoner) && distanceTo(summoner) > 15F);
-            }
-            return false;
-        }));
-        */
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
