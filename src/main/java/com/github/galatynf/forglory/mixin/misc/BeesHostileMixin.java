@@ -23,23 +23,24 @@ public abstract class BeesHostileMixin extends Entity {
         super(type, world);
     }
 
-    @Inject(at = @At("HEAD"), method = "onDeath")
-    private void transformIntoBee(DamageSource source, CallbackInfo ci) {
+    @Inject(method = "onDeath", at = @At("HEAD"))
+    private void turnIntoBee(DamageSource source, CallbackInfo ci) {
         LivingEntity thisEntity = (LivingEntity) (Object) this;
-        if (Utils.canUseFeat(source.getAttacker(), Feats.BEES)) {
+        Entity attacker = source.getAttacker();
+        if (Utils.canUseFeat(attacker, Feats.BEES)) {
             if (thisEntity instanceof HostileEntity) {
-                for (int i = 0; i < 3; i++) {
-                    BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.TRIGGERED);
+                for (int i = 0; i < 3; ++i) {
+                    BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.MOB_SUMMONED);
                     if (beeEntity != null) {
                         MyComponents.SUMMONED.get(beeEntity).setPlayer(source.getAttacker().getUuid());
                     }
                 }
             }
-        } else if (source.getAttacker() instanceof BeeEntity
-                && MyComponents.SUMMONED.get(source.getAttacker()).getPlayer() != null) {
-            BeeEntity beeEntity = EntityType.BEE.spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.TRIGGERED);
+        } else if (attacker instanceof BeeEntity
+                && MyComponents.SUMMONED.get(attacker).getPlayer() != null) {
+            BeeEntity beeEntity = (BeeEntity) attacker.getType().spawn((ServerWorld) this.getWorld(), this.getBlockPos().up(), SpawnReason.MOB_SUMMONED);
             if (beeEntity != null) {
-                MyComponents.SUMMONED.get(beeEntity).setPlayer(MyComponents.SUMMONED.get(source.getAttacker()).getPlayer());
+                MyComponents.SUMMONED.get(beeEntity).setPlayer(MyComponents.SUMMONED.get(attacker).getPlayer());
             }
         }
     }

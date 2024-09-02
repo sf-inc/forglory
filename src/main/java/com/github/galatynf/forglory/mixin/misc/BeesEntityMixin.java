@@ -2,6 +2,8 @@ package com.github.galatynf.forglory.mixin.misc;
 
 import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +22,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.UUID;
 
@@ -38,35 +39,36 @@ public abstract class BeesEntityMixin extends LivingEntity implements Angerable 
     @Inject(method = "tick", at = @At("HEAD"))
     private void findTarget(CallbackInfo ci) {
         UUID uuid = MyComponents.SUMMONED.get(this).getPlayer();
-        if (uuid != null) {
-            PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
-            if (playerEntity != null) {
-                if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.getThreshold()) {
-                    this.kill();
-                } else if (this.getAngryAt() == null) {
-                    double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
-                    LivingEntity targetEntity = this.getWorld().getClosestEntity(HostileEntity.class,
-                            TargetPredicate.DEFAULT.setBaseMaxDistance(distance),
-                            this,
-                            this.getX(),
-                            this.getEyeY(),
-                            this.getZ(),
-                            this.getBoundingBox().expand(distance, 4.0D, distance));
-                    if (targetEntity != null) {
-                        this.setAngryAt(targetEntity.getUuid());
-                        this.setTarget(targetEntity);
-                        this.setAngerTime(200);
-                    }
-                }
+        if (uuid == null) return;
+
+        PlayerEntity playerEntity = this.getWorld().getPlayerByUuid(uuid);
+        if (playerEntity == null) return;
+
+        if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() < Feats.BEES.tier.getThreshold()) {
+            this.kill();
+        } else if (this.getAngryAt() == null) {
+            double distance = this.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
+            LivingEntity targetEntity = this.getWorld().getClosestEntity(HostileEntity.class,
+                    TargetPredicate.DEFAULT.setBaseMaxDistance(distance),
+                    this,
+                    this.getX(),
+                    this.getEyeY(),
+                    this.getZ(),
+                    this.getBoundingBox().expand(distance, 4.0D, distance));
+            if (targetEntity != null) {
+                this.setAngryAt(targetEntity.getUuid());
+                this.setTarget(targetEntity);
+                this.setAngerTime(200);
             }
         }
     }
 
-    @Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", shift = At.Shift.AFTER))
-    private void changeStungEffect(Entity target, CallbackInfoReturnable<Boolean> cir) {
+    @WrapOperation(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z"))
+    private boolean changeStungEffect(LivingEntity instance, StatusEffectInstance effect, Entity source, Operation<Boolean> original) {
         if (MyComponents.SUMMONED.get(this).getPlayer() != null) {
-            ((LivingEntity) target).removeStatusEffect(StatusEffects.POISON);
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 250, 1));
+            StatusEffectInstance wither = new StatusEffectInstance(StatusEffects.WITHER, effect.getDuration(), 1);
+            return original.call(instance, wither, source);
         }
+        return original.call(instance, effect, source);
     }
 }
