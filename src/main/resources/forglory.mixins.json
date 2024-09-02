@@ -30,7 +30,6 @@
     "misc.DogMixin",
     "misc.InvisibleMixin",
     "misc.KnockbackFistMixin",
-    "misc.KnockbackFistPlayerMixin",
     "misc.SummonDogMixin",
     "misc.SummonUndeadArmyMixin",
     "mobility.JumpBoostMixin",

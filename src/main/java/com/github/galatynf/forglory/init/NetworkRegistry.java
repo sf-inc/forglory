@@ -7,7 +7,6 @@ import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.enumFeat.Tier;
 import com.github.galatynf.forglory.imixin.IFireTrailMixin;
-import com.github.galatynf.forglory.imixin.IKnockbackFistPlayerMixin;
 import com.github.galatynf.forglory.imixin.IMachineGunMixin;
 import com.github.galatynf.forglory.network.ActivateFeatPayload;
 import com.github.galatynf.forglory.network.BerserkPayload;
@@ -49,8 +48,6 @@ public class NetworkRegistry {
                 } else if (feat.equals(Feats.HEALING_FIST)) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffectRegistry.LIFE_STEAL, 100, 0));
                     player.playSound(SoundRegistry.VAMPIRISM);
-                } else if (feat.equals(Feats.KNOCKBACK_FIST)) {
-                    ((IKnockbackFistPlayerMixin) player).forglory$setKnockBack(true);
                 }
                 MyComponents.FEATS.get(player).resetCooldown(Tier.TIER2);
             }
