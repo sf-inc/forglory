@@ -5,6 +5,7 @@ import com.github.galatynf.forglory.cardinal.MyComponents;
 import com.github.galatynf.forglory.config.ModConfig;
 import com.github.galatynf.forglory.enumFeat.Feats;
 import com.github.galatynf.forglory.init.SoundRegistry;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -37,21 +38,25 @@ public abstract class ShieldResistanceMixin extends Entity {
         super(type, world);
     }
 
-    @Inject(method = "blockedByShield", at = @At("HEAD"), cancellable = true)
-    private void blockEverywhere(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (Utils.canUseFeat(this, Feats.SHIELD_RESISTANCE)
-                && this.isBlocking()
-                && !source.isOf(DamageTypes.OUT_OF_WORLD)) {
+    @ModifyReturnValue(method = "blockedByShield", at = @At("RETURN"))
+    private boolean blockEverywhere(boolean original, DamageSource source) {
+        if (this.isBlocking()
+                && Utils.canUseFeat(this, Feats.SHIELD_RESISTANCE)
+                // TODO: Add a damage type tag for bypasses shield resistance
+                && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             if (this.activeItemStack.isOf(Items.SHIELD)) {
-                this.activeItemStack.damage(10, (LivingEntity) (Object) this, LivingEntity.getSlotForHand(this.getActiveHand()));
+                this.activeItemStack.damage(ModConfig.get().featConfig.blockEverywhereShieldDamage,
+                        (LivingEntity) (Object) this, LivingEntity.getSlotForHand(this.getActiveHand()));
             }
             this.playSound(SoundRegistry.SHIELD_RES_HITS);
-            cir.setReturnValue(true);
+            return true;
         }
+        return original;
     }
 
+    // FIXME: What is that? Should not be needed, there shouldn't be increase when blocking
     //Serves to counteract the natural increase when damaged
-    @Inject(at = @At("HEAD"), method = "damage")
+    @Inject(method = "damage", at = @At("HEAD"))
     private void decreaseAdrenalinWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (Utils.canUseFeat(this, Feats.SHIELD_RESISTANCE)
                 && this.isBlocking()

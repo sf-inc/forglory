@@ -49,6 +49,9 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 1, max = 6)
     public int stridersGraceSpeed = 3;
 
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+    public int blockEverywhereShieldDamage = 5;
+
     @ConfigEntry.Gui.CollapsibleObject
     public SuperShield superShield = new SuperShield();
 
