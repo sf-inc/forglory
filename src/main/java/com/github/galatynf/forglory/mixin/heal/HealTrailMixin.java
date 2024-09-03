@@ -41,7 +41,9 @@ public abstract class HealTrailMixin extends LivingEntity {
                 }
                 this.forglory_firstTime_HT = false;
             }
-            if (this.forglory_lastSpawned >= ModConfig.get().featConfig.healTrail.healTrailFrequency && this.isOnGround()) {
+
+            if (this.forglory_lastSpawned >= ModConfig.get().featConfig.healTrail.healTrailFrequency
+                    && this.isOnGround()) {
                 AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(this.getWorld(), this.getX(), this.getY(), this.getZ());
                 areaEffectCloudEntity.setOwner(this);
                 areaEffectCloudEntity.setRadius(ModConfig.get().featConfig.healTrail.healTrailRadius);
