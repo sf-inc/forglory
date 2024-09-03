@@ -48,13 +48,12 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
     }
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
-    public void counterattack(LivingEntity attacker, CallbackInfo ci) {
-        if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)) {
-            if (this.forglory_lastBlocked != 0) {
-                this.playSound(SoundRegistry.SHIELD_FLIP);
-                this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
-                this.attack(attacker);
-            }
+    public void counterAttack(LivingEntity attacker, CallbackInfo ci) {
+        if (Utils.canUseFeat(this, Feats.SUPER_SHIELD)
+                && this.forglory_lastBlocked > 0) {
+            this.playSound(SoundRegistry.SHIELD_FLIP);
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 1));
+            this.attack(attacker);
         }
     }
 }

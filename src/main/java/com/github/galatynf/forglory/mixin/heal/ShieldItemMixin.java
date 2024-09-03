@@ -18,5 +18,4 @@ public class ShieldItemMixin {
     public void updateTickBlocked(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
         ((IShieldMixin) user).forglory$resetBlockedTicks();
     }
-
 }
