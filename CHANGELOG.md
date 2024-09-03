@@ -8,7 +8,15 @@ Currently, every **stable** mod version is available on **1.16.4** and **1.16.5*
 
 #### v1.0.2
 
+* Port to 1.21
+* The arrow combo resets after a max delay
+* Knockback fist increases knockback and is always active
+* Striders grace allows the same movement as in water
+* Fixed adrenalin increasing when jumping above tier 2 (using the fall distance)
 * Fixed quick fire spawning on liquids
+* Update adrenalin bar texture and location on hud
+* Add recipes advancements to learn recipes
+* Give powered gems rarity levels
 
 #### v1.0.1
 
