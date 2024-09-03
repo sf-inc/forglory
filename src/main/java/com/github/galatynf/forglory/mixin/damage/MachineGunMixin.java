@@ -26,50 +26,47 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerEntity.class)
 public abstract class MachineGunMixin extends LivingEntity implements IMachineGunMixin {
     @Unique
-    private int forglory_machineGun;
+    private int forglory_arrowCount = 0;
     @Unique
-    private long forglory_nextArrow;
+    private int forglory_delay = 0;
 
     protected MachineGunMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
-    public void forglory$setMachineGun(final int machineGun) {
-        this.forglory_machineGun = machineGun;
+    public void forglory$setMachineGunCount(final int machineGun) {
+        this.forglory_arrowCount = machineGun;
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(method = "tick", at = @At("HEAD"))
     private void shootArrows(CallbackInfo ci) {
-        if (this.forglory_machineGun > 0) {
-            if (this.forglory_nextArrow == this.getWorld().getTime()
-                    || this.forglory_machineGun == ModConfig.get().featConfig.machineGunArrows) {
-
-                int shootSpeed = 3;
-
-                if (this.forglory_machineGun == ModConfig.get().featConfig.machineGunArrows) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machineGunArrows, 2));
-                    this.playSound(SoundRegistry.MACHINE_GUN);
-                    if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
-                        this.playSound(SoundRegistry.MACHINE_GUN_VOICE);
-                    }
-                }
-                this.forglory_machineGun -= 1;
-                this.forglory_nextArrow = this.getWorld().getTime() + shootSpeed;
-
-                if (!this.getWorld().isClient()) {
-                    ArrowItem arrowItem = (ArrowItem) Items.ARROW;
-                    ItemStack arrowStack = new ItemStack(arrowItem);
-                    PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(this.getWorld(), arrowStack, this, new ItemStack(Items.BOW));
-                    persistentProjectileEntity.setVelocity(this, this.getPitch(), this.getYaw(),0.0F, 3.0F, 1.0F);
-                    persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
-
-                    this.getWorld().spawnEntity(persistentProjectileEntity);
-                }
-                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
-            }
-        } else {
-            this.forglory_machineGun = 0;
+        if (this.getWorld().isClient()
+                || this.forglory_arrowCount <= 0
+                || --this.forglory_delay > 0) {
+            return;
         }
+
+        int shootSpeed = 3;
+
+        if (this.forglory_arrowCount == ModConfig.get().featConfig.machineGunArrows) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, shootSpeed * ModConfig.get().featConfig.machineGunArrows, 2));
+            this.playSound(SoundRegistry.MACHINE_GUN);
+            if (MyComponents.FEATS.get(this).getForgloryClass() == FeatsClass.JUGGERNAUT) {
+                this.playSound(SoundRegistry.MACHINE_GUN_VOICE);
+            }
+        }
+
+        this.forglory_arrowCount--;
+        this.forglory_delay = shootSpeed;
+
+        ArrowItem arrowItem = (ArrowItem) Items.ARROW;
+        ItemStack arrowStack = new ItemStack(arrowItem);
+        PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(this.getWorld(), arrowStack, this, new ItemStack(Items.BOW));
+        persistentProjectileEntity.setVelocity(this, this.getPitch(), this.getYaw(),0.0F, 3.0F, 1.0F);
+        persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
+
+        this.getWorld().spawnEntity(persistentProjectileEntity);
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.5F);
     }
 }

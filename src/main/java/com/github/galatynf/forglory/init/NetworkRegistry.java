@@ -41,7 +41,7 @@ public class NetworkRegistry {
                     ((IFireTrailMixin) player).forglory$invertFireTrail();
 
                 } else if (feat.equals(Feats.MACHINE_GUN)) {
-                    ((IMachineGunMixin) player).forglory$setMachineGun(ModConfig.get().featConfig.machineGunArrows);
+                    ((IMachineGunMixin) player).forglory$setMachineGunCount(ModConfig.get().featConfig.machineGunArrows);
 
                 } else if (feat.equals(Feats.MOUNTAIN)) {
                     NoMixinFeats.mountainFeat(player);
