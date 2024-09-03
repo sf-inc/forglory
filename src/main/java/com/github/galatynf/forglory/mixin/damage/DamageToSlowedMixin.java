@@ -2,6 +2,8 @@ package com.github.galatynf.forglory.mixin.damage;
 
 import com.github.galatynf.forglory.Utils;
 import com.github.galatynf.forglory.enumFeat.Feats;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Objects;
 
@@ -28,16 +29,14 @@ public abstract class DamageToSlowedMixin extends Entity {
         super(type, world);
     }
 
-    @ModifyArg(method = "damage", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
-    private float injectedAmount(DamageSource source, float amount) {
-        if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)) {
-            if (this.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                float mult = Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F;
-                return (amount * (1 + Math.min(mult, 2)));
-            }
+    @WrapOperation(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"))
+    private void injectedAmount(LivingEntity instance, DamageSource source, float amount, Operation<Void> original) {
+        if (Utils.canUseFeat(source.getAttacker(), Feats.DAMAGE_SLOWED)
+                && this.hasStatusEffect(StatusEffects.SLOWNESS)) {
+            float mult = Objects.requireNonNull(this.getStatusEffect(StatusEffects.SLOWNESS)).getAmplifier() / 2.0F;
+            amount = amount * (1 + Math.min(mult, 2));
         }
 
-        return amount;
+        original.call(instance, source, amount);
     }
 }
