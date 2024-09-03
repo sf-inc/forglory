@@ -26,6 +26,16 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "forglory:essence_infuser",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "charged": "true",
+                "infinite": "true"
+              }
+            }
+          ],
           "functions": [
             {
               "add": false,
@@ -33,6 +43,42 @@
                 "type": "minecraft:uniform",
                 "max": 3.0,
                 "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "forglory:essence"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "forglory:essence_infuser",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "charged": "true",
+                "infinite": "false"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             }
