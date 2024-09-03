@@ -23,7 +23,7 @@
     "heal.ShieldItemMixin",
     "heal.ShieldPlayerMixin",
     "heal.ShieldResistanceMixin",
-    "misc.ArrowComboMixin",
+    "misc.ArrowComboProjectileMixin",
     "misc.ArrowComboPlayerMixin",
     "misc.BeesEntityMixin",
     "misc.BeesHostileMixin",

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ProjectileEntity.class)
-public abstract class ArrowComboMixin {
+public abstract class ArrowComboProjectileMixin {
     @Shadow @Nullable public abstract Entity getOwner();
 
     @Inject(method = "onBlockHit", at = @At("TAIL"))
@@ -27,10 +27,11 @@ public abstract class ArrowComboMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "onEntityHit")
+    @Inject(method = "onEntityHit", at = @At("HEAD"))
     private void incrementCombo(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity owner = this.getOwner();
-        if (Utils.canUseFeat(owner, Feats.ARROW_COMBO) && entityHitResult.getEntity() instanceof LivingEntity) {
+        if (Utils.canUseFeat(owner, Feats.ARROW_COMBO)
+                && entityHitResult.getEntity() instanceof LivingEntity) {
             ((IArrowComboMixin) owner).forglory$incrementCombo();
         }
     }

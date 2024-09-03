@@ -11,11 +11,17 @@ public class FeatConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip()
     public int smiteMultiplier = 15;
 
-    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
-    public int comboMax = 5;
+    @ConfigEntry.Gui.CollapsibleObject
+    public ArrowCombo arrowCombo = new ArrowCombo();
 
-    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
-    public int comboAdrenalinGain = 7;
+    public static class ArrowCombo {
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+        public int comboMax = 5;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+        public int adrenalinGain = 7;
+        @ConfigEntry.BoundedDiscrete(min = 20, max = 100)
+        public int maxDelay = 30;
+    }
 
     @ConfigEntry.BoundedDiscrete(min = 2, max = 16)
     @ConfigEntry.Gui.Tooltip()
