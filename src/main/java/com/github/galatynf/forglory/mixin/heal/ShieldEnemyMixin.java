@@ -17,7 +17,7 @@ public class ShieldEnemyMixin {
     private void moreDamageIfCountered(LivingEntity instance, DamageSource source, float amount, Operation<Void> original) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SUPER_SHIELD)
                 && ((IShieldMixin) source.getAttacker()).forglory$getBlockedTicks() > 0) {
-            amount += ModConfig.get().featConfig.superShield.damageAddedOnCounterattack;
+            amount += ModConfig.get().feats.superShield.damageAddedOnCounterattack;
         }
 
         original.call(instance, source, amount);

@@ -39,7 +39,7 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
         float threshold = Tier.TIER2.getThreshold() * 1.1f;
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold
                 && this.isSprinting()) {
-            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.sprintGain / 10.F);
+            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalin.sprintGain / 10.F);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
     }
@@ -48,7 +48,7 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
     private void incrementWhenJumping(CallbackInfo ci) {
         float threshold = Tier.TIER2.getThreshold() * 1.1f;
         if (MyComponents.ADRENALIN.get(this).getAdrenalin() < threshold) {
-            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalinConfig.jumpGain);
+            float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, ModConfig.get().adrenalin.jumpGain);
             MyComponents.ADRENALIN.get(this).addAdrenalin(amount);
         }
     }
@@ -56,7 +56,7 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
     @Inject(method = "damage", at = @At("HEAD"))
     private void incrementWhenAttacked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.getAttacker() instanceof LivingEntity && !this.isCreative()) {
-            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damageMultiplier);
+            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalin.damageMultiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(adrenalinAmount);
         }
     }
@@ -66,7 +66,7 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
                                          CallbackInfoReturnable<Boolean> cir) {
         if (!this.isCreative() && fallDistance > 2.f) {
             float amount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this,
-                    (fallDistance - 2.f) * ModConfig.get().adrenalinConfig.fallMultiplier);
+                    (fallDistance - 2.f) * ModConfig.get().adrenalin.fallMultiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(Math.min(amount, 50));
         }
     }
@@ -86,13 +86,13 @@ public abstract class AdrenalinPlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void loseAdrenalin(CallbackInfo ci) {
         MyComponents.ADRENALIN.get(this).addAdrenalin(this.isSneaking()
-                ? ModConfig.get().adrenalinConfig.quickLoss
-                : ModConfig.get().adrenalinConfig.naturalLoss);
+                ? ModConfig.get().adrenalin.quickLoss
+                : ModConfig.get().adrenalin.naturalLoss);
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void playSounds(CallbackInfo ci) {
-        if (!this.getWorld().isClient() || !ModConfig.get().guiSoundsConfig.enableTierJingles) return;
+        if (!this.getWorld().isClient() || !ModConfig.get().guiSounds.enableTierJingles) return;
 
         for (Tier tier : Tier.values()) {
             if (MyComponents.ADRENALIN.get(this).getAdrenalin() > tier.getThreshold()) {

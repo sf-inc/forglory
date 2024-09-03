@@ -51,7 +51,7 @@ public class Utils {
         if (feat != null) {
             if (feat.equals(Feats.BLOODLUST) && playerEntity.getHealth() > 0) {
                 if (MyComponents.ADRENALIN.get(playerEntity).getAdrenalin() > Tier.TIER1.getThreshold()) {
-                    float value = ModConfig.get().featConfig.bloodlustMultiplier;
+                    float value = ModConfig.get().feats.bloodlustMultiplier;
                     amount *= playerEntity.getMaxHealth() / (playerEntity.getHealth() * value) + 1 - (1 / value);
                 }
             }

@@ -39,11 +39,11 @@ public abstract class FireZoneMixin extends LivingEntity {
                 this.forglory_firstTime_FZ = false;
             }
 
-            if (this.getWorld().getTime() % ModConfig.get().featConfig.fireZone.speed != 0) return;
+            if (this.getWorld().getTime() % ModConfig.get().feats.fireZone.speed != 0) return;
 
-            if (++this.forglory_distance >= ModConfig.get().featConfig.fireZone.range) {
+            if (++this.forglory_distance >= ModConfig.get().feats.fireZone.range) {
                 this.playSound(SoundRegistry.FIRE_ZONE_PULSE);
-                this.forglory_distance = this.forglory_distance % ModConfig.get().featConfig.fireZone.range;
+                this.forglory_distance = this.forglory_distance % ModConfig.get().feats.fireZone.range;
             }
 
             BlockPos blockPos;

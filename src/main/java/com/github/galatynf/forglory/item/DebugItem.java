@@ -40,7 +40,7 @@ public class DebugItem extends Item {
         } else {
             return toLoose
                     ? Tier.getValueBetween(Tier.TIER2, Tier.TIER3)
-                    : ModConfig.get().adrenalinConfig.maxAmount;
+                    : ModConfig.get().adrenalin.maxAmount;
         }
     }
 }

@@ -50,7 +50,7 @@ public class HeroEntity extends ZombieEntity {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        int opness = ModConfig.get().featConfig.undeadArmy.heroesOPness;
+        int opness = ModConfig.get().feats.undeadArmy.heroesOPness;
         int rand = (int) (Math.random() * (7 + opness));
         switch (rand) {
             case 0:

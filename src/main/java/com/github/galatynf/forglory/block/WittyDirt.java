@@ -21,7 +21,7 @@ public class WittyDirt extends Block {
 
     @Override
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        int maxDistance = ModConfig.get().featConfig.mountain.maxDistance;
+        int maxDistance = ModConfig.get().feats.mountain.maxDistance;
         Vec3d centerPos = pos.toCenterPos();
         List<ServerPlayerEntity> players = world.getPlayers(
                 serverPlayerEntity -> serverPlayerEntity.getPos().isInRange(centerPos, maxDistance));

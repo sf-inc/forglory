@@ -29,7 +29,7 @@ public abstract class ArrowComboPlayerMixin extends LivingEntity implements IArr
     private void resetComboWhenTimeout(CallbackInfo ci) {
         if (!this.getWorld().isClient()
                 && this.combo > 0
-                && ++this.delay > ModConfig.get().featConfig.arrowCombo.maxDelay) {
+                && ++this.delay > ModConfig.get().feats.arrowCombo.maxDelay) {
             this.forglory$resetCombo();
         }
     }
@@ -38,10 +38,10 @@ public abstract class ArrowComboPlayerMixin extends LivingEntity implements IArr
     public void forglory$incrementCombo() {
         this.combo++;
         this.delay = 0;
-        if (this.combo > ModConfig.get().featConfig.arrowCombo.comboMax) {
-            this.combo = ModConfig.get().featConfig.arrowCombo.comboMax;
+        if (this.combo > ModConfig.get().feats.arrowCombo.comboMax) {
+            this.combo = ModConfig.get().feats.arrowCombo.comboMax;
         }
-        float amount = ModConfig.get().featConfig.arrowCombo.adrenalinGain * this.combo;
+        float amount = ModConfig.get().feats.arrowCombo.adrenalinGain * this.combo;
         MyComponents.ADRENALIN.get(this).addAdrenalin(Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount));
     }
 

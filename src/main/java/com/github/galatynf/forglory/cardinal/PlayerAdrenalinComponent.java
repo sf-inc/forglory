@@ -62,8 +62,8 @@ public class PlayerAdrenalinComponent implements AdrenalinComponent, AutoSyncedC
             return;
         }
 
-        if (this.forglory_adrenalin > ModConfig.get().adrenalinConfig.maxAmount) {
-            this.forglory_adrenalin = ModConfig.get().adrenalinConfig.maxAmount;
+        if (this.forglory_adrenalin > ModConfig.get().adrenalin.maxAmount) {
+            this.forglory_adrenalin = ModConfig.get().adrenalin.maxAmount;
         }
         if (this.forglory_adrenalin < ConstantsConfig.MIN_AMOUNT) {
             this.forglory_adrenalin = ConstantsConfig.MIN_AMOUNT;

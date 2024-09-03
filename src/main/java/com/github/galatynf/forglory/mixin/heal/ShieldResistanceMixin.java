@@ -45,7 +45,7 @@ public abstract class ShieldResistanceMixin extends Entity {
                 // TODO: Add a damage type tag for bypasses shield resistance
                 && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             if (this.activeItemStack.isOf(Items.SHIELD)) {
-                this.activeItemStack.damage(ModConfig.get().featConfig.blockEverywhereShieldDamage,
+                this.activeItemStack.damage(ModConfig.get().feats.blockEverywhereShieldDamage,
                         (LivingEntity) (Object) this, LivingEntity.getSlotForHand(this.getActiveHand()));
             }
             this.playSound(SoundRegistry.SHIELD_RES_HITS);
@@ -62,7 +62,7 @@ public abstract class ShieldResistanceMixin extends Entity {
                 && this.isBlocking()
                 && !source.isOf(DamageTypes.OUT_OF_WORLD)
                 && !source.isIn(DamageTypeTags.IS_DROWNING)) {
-            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalinConfig.damageMultiplier);
+            float adrenalinAmount = Utils.adrenalinMultiplier((PlayerEntity) (Object) this, amount * ModConfig.get().adrenalin.damageMultiplier);
             MyComponents.ADRENALIN.get(this).addAdrenalin(-adrenalinAmount);
         }
     }

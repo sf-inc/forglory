@@ -32,7 +32,7 @@ public abstract class ShieldPlayerMixin extends LivingEntity implements IShieldM
 
     @Override
     public void forglory$resetBlockedTicks() {
-        this.forglory_lastBlocked = ModConfig.get().featConfig.superShield.ticksBeforeAttack;
+        this.forglory_lastBlocked = ModConfig.get().feats.superShield.ticksBeforeAttack;
     }
 
     @Override

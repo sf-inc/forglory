@@ -47,7 +47,7 @@ public abstract class FireworkerMixin extends LivingEntity {
                 false,
                 false);
         ArrayList<FireworkExplosionComponent> explosionsList = new ArrayList<>();
-        for (int i = 0; i < ModConfig.get().featConfig.fireworkerPower; ++i) {
+        for (int i = 0; i < ModConfig.get().feats.fireworkerPower; ++i) {
             explosionsList.add(explosion);
         }
 

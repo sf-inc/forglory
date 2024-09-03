@@ -9,19 +9,19 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 public class ModConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Category("adrenalin")
     @ConfigEntry.Gui.TransitiveObject
-    public AdrenalinConfig adrenalinConfig = new AdrenalinConfig();
+    public AdrenalinConfig adrenalin = new AdrenalinConfig();
 
     @ConfigEntry.Category("feats")
     @ConfigEntry.Gui.TransitiveObject
-    public FeatConfig featConfig = new FeatConfig();
+    public FeatsConfig feats = new FeatsConfig();
 
     @ConfigEntry.Category("cooldowns")
     @ConfigEntry.Gui.TransitiveObject
-    public CooldownConfig cooldownConfig = new CooldownConfig();
+    public CooldownConfig cooldowns = new CooldownConfig();
 
     @ConfigEntry.Category("gui_sounds")
     @ConfigEntry.Gui.TransitiveObject
-    public GUISoundsConfig guiSoundsConfig = new GUISoundsConfig();
+    public GUISoundsConfig guiSounds = new GUISoundsConfig();
 
     public static ModConfig get() {
         return AutoConfig.getConfigHolder(ModConfig.class).getConfig();

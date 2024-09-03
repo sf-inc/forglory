@@ -45,7 +45,7 @@ public class AdrenalinBar extends WWidget {
             max = Tier.TIER1.getThreshold();
         } else if (minTier.equals(Tier.TIER4)) {
             min = minTier.getThreshold();
-            max = ModConfig.get().adrenalinConfig.maxAmount;
+            max = ModConfig.get().adrenalin.maxAmount;
         } else {
             min = minTier.getThreshold();
             max = Tier.values()[minTier.ordinal() + 1].getThreshold();

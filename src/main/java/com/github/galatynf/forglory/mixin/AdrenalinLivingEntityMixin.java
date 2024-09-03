@@ -16,7 +16,7 @@ public class AdrenalinLivingEntityMixin {
     @Inject(method = "damage", at = @At("HEAD"))
     private void incrementPlayerWhenAttacking(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.getAttacker() instanceof PlayerEntity player) {
-            float adrenalinAmount = Math.min(amount * ModConfig.get().adrenalinConfig.attackMultiplier, 25);
+            float adrenalinAmount = Math.min(amount * ModConfig.get().adrenalin.attackMultiplier, 25);
             adrenalinAmount = Utils.adrenalinMultiplier(player, adrenalinAmount);
             MyComponents.ADRENALIN.get(player).addAdrenalin(adrenalinAmount);
         }

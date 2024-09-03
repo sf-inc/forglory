@@ -25,8 +25,8 @@ public abstract class StridersGraceLivingEntityMixin extends Entity {
     @WrapOperation(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;multiply(DDD)Lnet/minecraft/util/math/Vec3d;", ordinal = 1))
     private Vec3d updateTravelOutOfLava(Vec3d instance, double x, double y, double z, Operation<Vec3d> original) {
         if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE, false)) {
-            double newX = x + 0.1 * ModConfig.get().featConfig.stridersGraceSpeed;
-            double newZ = z + 0.1 * ModConfig.get().featConfig.stridersGraceSpeed;
+            double newX = x + 0.1 * ModConfig.get().feats.stridersGraceSpeed;
+            double newZ = z + 0.1 * ModConfig.get().feats.stridersGraceSpeed;
             if (this.isSprinting()) {
                 newX += 0.1;
                 newZ += 0.1;
@@ -41,7 +41,7 @@ public abstract class StridersGraceLivingEntityMixin extends Entity {
     private void updateTravelInLava(LivingEntity instance, Vec3d vec3d, Operation<Void> original) {
         if (Utils.canUseFeat(this, Feats.STRIDERS_GRACE, false)) {
             boolean falling = this.getVelocity().y <= 0.0;
-            double multiplier = 0.5 + 0.1 * ModConfig.get().featConfig.stridersGraceSpeed;
+            double multiplier = 0.5 + 0.1 * ModConfig.get().feats.stridersGraceSpeed;
             if (this.isSprinting()) {
                 multiplier += 0.1;
             }

@@ -24,7 +24,7 @@ public abstract class SmiteMixin extends Entity {
     private float injectedAmount(DamageSource source, float amount) {
         if (Utils.canUseFeat(source.getAttacker(), Feats.SMITE)) {
             if (this.getType().isIn(EntityTypeTags.UNDEAD)) {
-                return (amount * (ModConfig.get().featConfig.smiteMultiplier / 10.F));
+                return (amount * (ModConfig.get().feats.smiteMultiplier / 10.F));
             }
         }
 

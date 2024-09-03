@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = "feats")
-public class FeatConfig implements ConfigData {
+public class FeatsConfig implements ConfigData {
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.BoundedDiscrete(min = 11, max = 25)
     @ConfigEntry.Gui.Tooltip()
@@ -79,14 +79,14 @@ public class FeatConfig implements ConfigData {
 
     public static class HealTrail {
         @ConfigEntry.BoundedDiscrete(min = 1, max = 3)
-        public int healTrailRadius = 2;
+        public int radius = 2;
 
         @ConfigEntry.BoundedDiscrete(min = 10, max = 100)
-        public int healTrailFrequency = 20;
+        public int frequency = 20;
 
         @ConfigEntry.BoundedDiscrete(max = 20)
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public int healTrailWaitTime = 10;
+        public int waitTime = 10;
     }
 
     @ConfigEntry.Gui.CollapsibleObject

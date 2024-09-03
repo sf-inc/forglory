@@ -31,7 +31,7 @@ public abstract class LastStandMixin extends LivingEntityMixin implements ILastS
     @Unique
     private boolean forglory_isInBerserkState = false;
     @Unique
-    private int forglory_berserkTimer = ModConfig.get().featConfig.secondsOfLastStanding * 20;
+    private int forglory_berserkTimer = ModConfig.get().feats.secondsOfLastStanding * 20;
 
     public LastStandMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -90,7 +90,7 @@ public abstract class LastStandMixin extends LivingEntityMixin implements ILastS
             this.addStatusEffect(new StatusEffectInstance(StatusEffectRegistry.LIFE_STEAL, 30, 0));
             this.forglory_berserkTimer--;
             if (this.forglory_berserkTimer == 0) {
-                this.forglory_berserkTimer = ModConfig.get().featConfig.secondsOfLastStanding * 20;
+                this.forglory_berserkTimer = ModConfig.get().feats.secondsOfLastStanding * 20;
                 this.forglory_isInBerserkState = false;
                 MyComponents.ADRENALIN.get(this).setAdrenalin(
                         (Tier.TIER4.getThreshold() - Tier.TIER3.getThreshold()) / 2.f);

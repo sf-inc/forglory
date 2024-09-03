@@ -18,13 +18,13 @@ public class Forglory implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
         AutoConfig.getConfigHolder(ModConfig.class).registerSaveListener((configHolder, config) -> {
-            Feats.init(config.cooldownConfig);
-            Tier.init(config.adrenalinConfig);
+            Feats.init(config.cooldowns);
+            Tier.init(config.adrenalin);
             return ActionResult.SUCCESS;
         });
 
-        Feats.init(ModConfig.get().cooldownConfig);
-        Tier.init(ModConfig.get().adrenalinConfig);
+        Feats.init(ModConfig.get().cooldowns);
+        Tier.init(ModConfig.get().adrenalin);
 
         BiomeTagRegistry.init();
         BlockRegistry.init();
